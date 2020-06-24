@@ -449,8 +449,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac446cca325dac4f834b1264c65d9f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedMat: {fileID: 2100000, guid: cd7d929febbd6f0468497c2bef742574, type: 2}
-  oldMat: {fileID: 0}
+  selectedMat: {fileID: 2100000, guid: 83a234d241aa8a74f867171a2fb18215, type: 2}
+  hoveredMat: {fileID: 2100000, guid: cd7d929febbd6f0468497c2bef742574, type: 2}
+  oldMat: {fileID: 2100000, guid: 06056b57d9f0c4642968949f8a236fd3, type: 2}
+  legalMove: {fileID: 2100000, guid: 4520658c2e7014141bf39ee0dbf909ae, type: 2}
+  unitPrefab: {fileID: 8653020172050730567, guid: 29ba187aa5b553346b1f29b43bdc980f,
+    type: 3}
 --- !u!4 &932975310
 Transform:
   m_ObjectHideFlags: 0
