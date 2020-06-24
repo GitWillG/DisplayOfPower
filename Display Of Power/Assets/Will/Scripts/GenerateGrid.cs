@@ -33,7 +33,8 @@ public class GenerateGrid : MonoBehaviour
                     xPos += xOffset;
                 }
 
-                Instantiate(hexPrefab, new Vector3(xPos, 0, z * zOffset), Quaternion.Euler(0, 90, 0));
+               GameObject hexOb = (GameObject)Instantiate(hexPrefab, new Vector3(xPos, 0, z * zOffset), Quaternion.Euler(0, 90, 0));
+                hexOb.name = "Hex " + x + " " + z; 
             }
         }
     }
