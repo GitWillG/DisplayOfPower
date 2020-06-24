@@ -559,7 +559,7 @@ GameObject:
   - component: {fileID: 1873872310}
   - component: {fileID: 1873872309}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,8 +577,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be83b55032f535f4999449736dc115a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 5
-  Depth: 5
+  Width: 20
+  Depth: 20
   hexPrefab: {fileID: 8720213916078620370, guid: b0153c8ed2dede348ab078ac15a05eae,
     type: 3}
   zOffset: 1.5

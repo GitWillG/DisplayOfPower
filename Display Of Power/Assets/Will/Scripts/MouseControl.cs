@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class MouseControl : MonoBehaviour
@@ -64,7 +65,7 @@ public class MouseControl : MonoBehaviour
                 clickedHex = false;
                 int movableRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().movementRange;
                 Debug.Log(movableRange);
-                checkRadius(selectedTarget.position, movableRange, oldMat);
+                checkRadius(selectedTarget.position, movableRange, oldMat, "Hex");
                 return;
             }
         }
@@ -86,19 +87,21 @@ public class MouseControl : MonoBehaviour
             {
                 int movableRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().movementRange;
                 Debug.Log(movableRange);
-                checkRadius(selectedTarget.position, movableRange, legalMove);
+                checkRadius(selectedTarget.position, movableRange, legalMove, "MovableHex");
             }
             ///////////////////////////
         }
 
     }
-    private void checkRadius(Vector3 center, float radius, Material changeMat)
+
+    private void checkRadius(Vector3 center, float radius, Material changeMat, string layerName)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(center, radius* 1.6f, 1<<8);
+        Collider[] hitColliders = Physics.OverlapSphere(center, radius* 1.5f, 1<<8);
         int i = 0;
         while (i < hitColliders.Length)
         {
             hitColliders[i].gameObject.GetComponent<Renderer>().material = changeMat;
+            //hitColliders[i].gameObject.layer = LayerMask.NameToLayer(layerName);
             Debug.Log(hitColliders[i].transform.name);
             //hitColliders[i].SendMessage("AddDamage");
             i++;
