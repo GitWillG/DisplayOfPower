@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class BestClickToMove : MonoBehaviour
 {
     NavMeshAgent agent;
-    BestSelectionScript selScr;
 
     // Start is called before the first frame update
     void Start()
@@ -17,8 +16,13 @@ public class BestClickToMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ClickMove();
+    }
+
+    public void ClickMove()
+    {
         //If Left click detected
-        if (Input.GetMouseButtonDown(1) && selScr.isSelected)
+        if (Input.GetMouseButtonDown(0))
         {
             //creating raycast to detect where mouse is clicked
             RaycastHit hit;
@@ -31,4 +35,5 @@ public class BestClickToMove : MonoBehaviour
             }
         }
     }
+
 }
