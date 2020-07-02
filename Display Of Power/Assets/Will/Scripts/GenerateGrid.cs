@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GenerateGrid : MonoBehaviour
 {
@@ -22,25 +23,57 @@ public class GenerateGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gridGeneration();
+    }
+
+    [ContextMenu("MyFunction")]
+    public void gridGeneration()
+    {
         //2 Dimension grid
         for (int x = 0; x < Width; x++)
         {
             for (int z = 0; z < Depth; z++)
             {
                 //change the default x positioning to fit the dimensions of the hex
-                float xPos = x *hexWidth;
+                float xPos = x * hexWidth;
 
                 //every odd row we offset the x position
-                if (z% 2 == 1)
+                if (z % 2 == 1)
                 {
                     xPos += xOffset;
                 }
                 //make a hex at the location and name it with its 2D dimensions
-               GameObject hexOb = (GameObject)Instantiate(hexPrefab, new Vector3(xPos, 0, z * zOffset), Quaternion.Euler(0, 90, 0));
-               hexOb.name = "Hex " + x + " " + z;
-               hexOb.transform.SetParent(this.gameObject.transform);
+                GameObject hexOb = (GameObject)Instantiate(hexPrefab, new Vector3(xPos, 0, z * zOffset), Quaternion.Euler(0, 90, 0));
+                hexOb.name = "Hex " + x + " " + z;
+                hexOb.transform.SetParent(this.gameObject.transform);
             }
         }
     }
+
+    public void gridGeneration(int gWidth, int gDepth)
+    {
+        Width = gWidth;
+        Depth = gDepth;
+        //2 Dimension grid
+        for (int x = 0; x < Width; x++)
+        {
+            for (int z = 0; z < Depth; z++)
+            {
+                //change the default x positioning to fit the dimensions of the hex
+                float xPos = x * hexWidth;
+
+                //every odd row we offset the x position
+                if (z % 2 == 1)
+                {
+                    xPos += xOffset;
+                }
+                //make a hex at the location and name it with its 2D dimensions
+                GameObject hexOb = (GameObject)Instantiate(hexPrefab, new Vector3(xPos, 0, z * zOffset), Quaternion.Euler(0, 90, 0));
+                hexOb.name = "Hex " + x + " " + z;
+                hexOb.transform.SetParent(this.gameObject.transform);
+            }
+        }
+    }
+
 
 }
