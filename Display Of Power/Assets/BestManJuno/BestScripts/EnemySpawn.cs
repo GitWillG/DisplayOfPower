@@ -10,6 +10,6 @@ public class EnemySpawn : MonoBehaviour
     [ContextMenu("Spawn Enemies")]
     public void SpawnEnemies()
     {
-        generateGrid.hexPrefab
+        // generateGrid.hexPrefab
     }
 }
