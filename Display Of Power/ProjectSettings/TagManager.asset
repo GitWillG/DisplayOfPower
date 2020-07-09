@@ -17,8 +17,8 @@ TagManager:
   - Units
   - MovableHex
   - EnemyUnits
-  - 
-  - 
+  - WorldMapObjects
+  - LevelObjects
   - 
   - 
   - 

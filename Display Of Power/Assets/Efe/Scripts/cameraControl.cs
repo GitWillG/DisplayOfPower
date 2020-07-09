@@ -23,28 +23,33 @@ namespace efe
     [Range(1, 100)]
     public float sensitivity = 2;
     
-    [SerializeField]
-    LayerMask WorldMapLayer;
-    [SerializeField]
-    LayerMask LevelLayer;
+    #region LayerMasks
+    // [SerializeField]
+    // LayerMask WorldMapLayer;
+    // [SerializeField]
+    // LayerMask LevelLayer;
 
-    static SortingLayer[] layersInProject;
+    // static SortingLayer[] layersInProject;
+    #endregion
 
+    #region Transition
     public float transition_treshold_FOV = 60; // the FOV number that will start the transition from 2 playfields
     bool transition_begins = false;
+    #endregion
 
         void Start()
         {   
             
-            WorldMapLayer = LayerMask.GetMask("WorldMapObject");
-            LevelLayer = LayerMask.GetMask("LevelObject");
+            #region Initilization
+            // WorldMapLayer = LayerMask.GetMask("WorldMapObject");
+            // LevelLayer = LayerMask.GetMask("LevelObject");
 
-            transition_treshold_FOV = 60;
-            minFov = 6;
-            maxFov = 200;
+             transition_treshold_FOV = 60;
+             minFov = 6;
+             maxFov = 200;
             mainCam = Camera.main;
-            mainCam.cullingMask = LevelLayer;
-            
+            // mainCam.cullingMask = LevelLayer;
+            #endregion
         }
        
 
@@ -66,7 +71,7 @@ namespace efe
             curFov = Mathf.Clamp(curFov, minFov, maxFov);
             mainCam.fieldOfView = curFov;
         
-            // startTransition();
+            startTransition();
         
         }
 
@@ -86,22 +91,24 @@ namespace efe
 
         void startTransition()
         {
-            float length_masks = layersInProject.Length;
+            // float length_masks = layersInProject.Length;
             
             checkTransition();
             if(transition_begins)
             {
                 
-                for(int i = 0; i < length_masks; i ++)
-                {
-                    mainCam.cullingMask = WorldMapLayer + 1<<i -1; // add all layers except level layer to camera's culling mask
-                }
+                // for(int i = 0; i < length_masks; i ++)
+                // {
+                //     mainCam.cullingMask = WorldMapLayer + 1<<i -1; // add all layers except level layer to camera's culling mask
+                // }
+
+                // mainCam.cullingMask = WorldMapLayer;
                 Debug.Log("We are in world map.");
                 
             }
             else{
-                mainCam.cullingMask = LevelLayer | 1<<3;
-                Debug.Log("We are in level.");
+                // mainCam.cullingMask = LevelLayer;
+                 Debug.Log("We are in level.");
             }
 
         }
