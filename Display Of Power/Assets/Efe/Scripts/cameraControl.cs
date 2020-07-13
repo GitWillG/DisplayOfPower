@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace efe
-{
-    
-    
+{    
     public class cameraControl : MonoBehaviour
     {
     
@@ -33,7 +31,7 @@ namespace efe
     #endregion
 
     #region Transition
-    public float transition_treshold_FOV = 60; // the FOV number that will start the transition from 2 playfields
+    public float transition_treshold_FOV; // the FOV number that will start the transition from 2 playfields
     bool transition_begins = false;
     #endregion
 
@@ -44,9 +42,9 @@ namespace efe
             // WorldMapLayer = LayerMask.GetMask("WorldMapObject");
             // LevelLayer = LayerMask.GetMask("LevelObject");
 
-             transition_treshold_FOV = 60;
-             minFov = 6;
-             maxFov = 200;
+            transition_treshold_FOV = 40;
+            minFov = 6;
+            maxFov = 200;
             mainCam = Camera.main;
             // mainCam.cullingMask = LevelLayer;
             #endregion
@@ -103,12 +101,12 @@ namespace efe
                 // }
 
                 // mainCam.cullingMask = WorldMapLayer;
-                Debug.Log("We are in world map.");
+                 Debug.Log("We are in world map.");
                 
             }
             else{
                 // mainCam.cullingMask = LevelLayer;
-                 Debug.Log("We are in level.");
+                  Debug.Log("We are in level.");
             }
 
         }
