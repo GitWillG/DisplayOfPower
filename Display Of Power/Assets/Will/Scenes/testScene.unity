@@ -453,6 +453,7 @@ MonoBehaviour:
   hoveredMat: {fileID: 2100000, guid: cd7d929febbd6f0468497c2bef742574, type: 2}
   oldMat: {fileID: 2100000, guid: 06056b57d9f0c4642968949f8a236fd3, type: 2}
   legalMove: {fileID: 2100000, guid: 4520658c2e7014141bf39ee0dbf909ae, type: 2}
+  grid: {fileID: 1873872308}
   unitPrefab: {fileID: 8653020172050730567, guid: 29ba187aa5b553346b1f29b43bdc980f,
     type: 3}
 --- !u!4 &932975310
@@ -647,6 +648,9 @@ MonoBehaviour:
   Depth: 20
   hexPrefab: {fileID: 8720213916078620370, guid: b0153c8ed2dede348ab078ac15a05eae,
     type: 3}
+  testLocation: {fileID: 0}
+  legalHex: []
+  testmat: {fileID: 0}
   zOffset: 1.5
   xOffset: 0.866
 --- !u!4 &1873872310

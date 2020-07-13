@@ -90,7 +90,7 @@ public class GenerateGrid : MonoBehaviour
     [ContextMenu("CheckRadius")]
     public void checkLegality(int radius, GameObject centerPoint, Material newMat)
     {
-
+        //math
 
         int testRadius = radius;
         float xNum = 0;
@@ -102,8 +102,6 @@ public class GenerateGrid : MonoBehaviour
             {
                 if (centerPoint == hexArray[x, z].gameObject)
                 {
-
-
 
                     xNum = x - (z - (z & 1)) / 2;
                     zNum = z;
