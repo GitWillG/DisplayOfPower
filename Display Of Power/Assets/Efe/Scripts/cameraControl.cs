@@ -11,15 +11,15 @@ namespace efe
 
 
     [Range(6, 200)]
-    public float minFov = 6;
+    public float minFov;
     [Range(6, 200)]
-    public float maxFov = 200;
+    public float maxFov;
     float curFov;
 
     Camera mainCam;
 
     [Range(1, 100)]
-    public float sensitivity = 2;
+    public float sensitivity;
     
     #region LayerMasks
     // [SerializeField]
@@ -46,6 +46,8 @@ namespace efe
             minFov = 6;
             maxFov = 200;
             mainCam = Camera.main;
+            mainCam.fieldOfView = 6;
+            sensitivity = 2;
             // mainCam.cullingMask = LevelLayer;
             #endregion
         }
