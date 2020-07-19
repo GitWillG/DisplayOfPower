@@ -15,6 +15,8 @@ public class MouseControl : MonoBehaviour
     //legal radius material
     public Material legalMove;
 
+    public GameObject grid;
+
 
     //Temporary
     public GameObject unitPrefab;
@@ -65,7 +67,8 @@ public class MouseControl : MonoBehaviour
                 clickedHex = false;
                 int movableRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().movementRange;
                 Debug.Log(movableRange);
-                checkRadius(selectedTarget.position, movableRange, oldMat, "Hex");
+                //checkRadius(selectedTarget.position, movableRange, oldMat, "Hex");
+                grid.GetComponent<GenerateGrid>().removeCheck(oldMat);
                 return;
             }
         }
@@ -87,7 +90,8 @@ public class MouseControl : MonoBehaviour
             {
                 int movableRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().movementRange;
                 Debug.Log(movableRange);
-                checkRadius(selectedTarget.position, movableRange, legalMove, "MovableHex");
+                grid.GetComponent<GenerateGrid>().checkLegality(movableRange, selectedTarget.gameObject, selectedMat);
+                //checkRadius(selectedTarget.position, movableRange, legalMove, "MovableHex");
             }
             ///////////////////////////
         }

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Swordsman
   faction: death
-  movementRange: 7
+  movementRange: 3

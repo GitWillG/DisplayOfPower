@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,6 +12,14 @@ public class GenerateGrid : MonoBehaviour
     public int Depth;
 
     public GameObject hexPrefab;
+
+    ///////////////////////testing
+    //public Material newmat;
+    public GameObject testLocation;
+    private GameObject[,] hexArray;
+    public List<GameObject> legalHex;
+    public Material testmat;
+    //////////
 
     //actual dimensions of our prefab for refference
     private float hexWidth = 1.732f;
@@ -26,9 +35,10 @@ public class GenerateGrid : MonoBehaviour
         gridGeneration();
     }
 
-    [ContextMenu("MyFunction")]
+    [ContextMenu("Generate Grid")]
     public void gridGeneration()
     {
+        hexArray = new GameObject[Width, Depth];
         //2 Dimension grid
         for (int x = 0; x < Width; x++)
         {
@@ -46,6 +56,8 @@ public class GenerateGrid : MonoBehaviour
                 GameObject hexOb = (GameObject)Instantiate(hexPrefab, new Vector3(xPos, 0, z * zOffset), Quaternion.Euler(0, 90, 0));
                 hexOb.name = "Hex " + x + " " + z;
                 hexOb.transform.SetParent(this.gameObject.transform);
+                hexArray[x, z] = hexOb.gameObject;
+                Debug.Log(hexArray[x, z].gameObject);
             }
         }
     }
@@ -75,5 +87,59 @@ public class GenerateGrid : MonoBehaviour
         }
     }
 
+    [ContextMenu("CheckRadius")]
+    public void checkLegality(int radius, GameObject centerPoint, Material newMat)
+    {
+        //math
 
+        int testRadius = radius;
+        float xNum = 0;
+        float zNum = 0;
+
+        for (int x = 0; x < Width; x++)
+        {
+            for (int z = 0; z < Depth; z++)
+            {
+                if (centerPoint == hexArray[x, z].gameObject)
+                {
+
+                    xNum = x - (z - (z & 1)) / 2;
+                    zNum = z;
+
+
+                }
+            }
+        }
+
+        for (int a = 0; a < Width; a++)
+        {
+            for (int b = 0; b < Depth; b++)
+            {
+                float newx = a - (b - (b & 1)) / 2;
+                float newz = b;
+                float distance = Mathf.Max(Mathf.Abs(xNum - newx) + Mathf.Abs(xNum + zNum - newx - newz) + Mathf.Abs(zNum - newz));
+                if (distance <= testRadius * 2)
+                {
+                    legalHex.Add(hexArray[a, b]);
+                }
+                Debug.Log(distance);
+
+            }
+        }
+
+        //Debug.Log(legalHex);
+        for (int i = 0; i < legalHex.Count; i++)
+        {
+            legalHex[i].gameObject.GetComponent<Renderer>().material = newMat;
+        }
+    }
+    public void removeCheck(Material newMat)
+    {
+        for (int i = 0; i < legalHex.Count; i++)
+        {
+            legalHex[i].gameObject.GetComponent<Renderer>().material = newMat;
+        }
+        legalHex.Clear();
+
+    }
 }
