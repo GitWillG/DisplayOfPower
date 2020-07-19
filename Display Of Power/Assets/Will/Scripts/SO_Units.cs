@@ -7,6 +7,6 @@ public class SO_Units : ScriptableObject
 {
     public string name;
     public string faction;
-
+    public int attackRange;
     public int movementRange;
 }
