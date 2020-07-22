@@ -130,7 +130,15 @@ public class GenerateGrid : MonoBehaviour
         //Debug.Log(legalHex);
         for (int i = 0; i < legalHex.Count; i++)
         {
-            legalHex[i].gameObject.GetComponent<Renderer>().material = newMat;
+            if (legalHex[i] != centerPoint)
+            {
+                legalHex[i].gameObject.GetComponent<Renderer>().material = newMat;
+                legalHex[i].gameObject.layer = 10;
+            }
+            else
+            {
+                legalHex[i].gameObject.layer = 10;
+            }
         }
     }
     public void removeCheck(Material newMat)
@@ -138,6 +146,8 @@ public class GenerateGrid : MonoBehaviour
         for (int i = 0; i < legalHex.Count; i++)
         {
             legalHex[i].gameObject.GetComponent<Renderer>().material = newMat;
+
+            legalHex[i].gameObject.layer = 8;
         }
         legalHex.Clear();
 
