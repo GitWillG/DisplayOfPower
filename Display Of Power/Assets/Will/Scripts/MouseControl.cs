@@ -130,31 +130,38 @@ public class MouseControl : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && hoveredTarget != null && clickedHex == false)
         {
             selectionRenderer.material = selectedMat;
-            
 
-            ////////////////////////////
-            //temporary testing measure, this allows us to easilly add units to the battlefield at run time for testing purposes
-            if (hoveredTarget.childCount == 0)
+            if (clickedHex == false)
             {
-                //when you click ka hex, we instantiate a unit at that location, name it, and child it to that hex. 
-                GameObject newUnit = (GameObject)Instantiate(unitPrefab, new Vector3(hoveredTarget.transform.position.x, 0.8f, hoveredTarget.transform.position.z), Quaternion.identity);
-                newUnit.name = unitPrefab.name;
-                newUnit.transform.SetParent(hoveredTarget.transform);
+
+
+                ////////////////////////////
+                //temporary testing measure, this allows us to easilly add units to the battlefield at run time for testing purposes
+                if (hoveredTarget.childCount == 0)
+                {
+                    //when you click ka hex, we instantiate a unit at that location, name it, and child it to that hex. 
+                    GameObject newUnit = (GameObject)Instantiate(unitPrefab, new Vector3(hoveredTarget.transform.position.x, 0.8f, hoveredTarget.transform.position.z), Quaternion.identity);
+                    newUnit.name = unitPrefab.name;
+                    newUnit.transform.SetParent(hoveredTarget.transform);
+                }
+                ///////////////////////////
+
+
+                else
+                {
+                    //save the hovered target as a selected one
+                    selectedTarget = hoveredTarget;
+                    clickedHex = true;
+                    //swap the mask to our legal hex layer for raycasting
+                    currentMask = 1 << 10;
+                    //swap to the appropriate range
+                    swapRange();
+                    //run the range detection script
+                    grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);
+                }
             }
-            ///////////////////////////
-            else
-            {
-                //save the hovered target as a selected one
-                selectedTarget = hoveredTarget;
-                clickedHex = true;
-                //swap the mask to our legal hex layer for raycasting
-                currentMask = 1 << 10;
-                //swap to the appropriate range
-                swapRange();
-                //run the range detection script
-                grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);
-            }
-  
+
+
         }
     }
 

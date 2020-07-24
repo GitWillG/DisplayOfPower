@@ -87,6 +87,12 @@ public class GenerateGrid : MonoBehaviour
         }
     }
 
+
+
+
+
+
+
     [ContextMenu("CheckRadius")]
     public void checkLegality(int radius, GameObject centerPoint, Material newMat)
     {
