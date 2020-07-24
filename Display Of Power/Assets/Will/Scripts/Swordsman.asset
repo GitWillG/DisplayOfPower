@@ -15,4 +15,4 @@ MonoBehaviour:
   name: Swordsman
   faction: death
   attackRange: 2
-  movementRange: 3
+  movementRange: 4

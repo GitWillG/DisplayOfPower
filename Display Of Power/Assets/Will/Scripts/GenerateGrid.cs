@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 public class GenerateGrid : MonoBehaviour
@@ -57,7 +58,7 @@ public class GenerateGrid : MonoBehaviour
                 hexOb.name = "Hex " + x + " " + z;
                 hexOb.transform.SetParent(this.gameObject.transform);
                 hexArray[x, z] = hexOb.gameObject;
-                Debug.Log(hexArray[x, z].gameObject);
+                //Debug.Log(hexArray[x, z].gameObject);
             }
         }
     }
@@ -97,7 +98,7 @@ public class GenerateGrid : MonoBehaviour
     public void checkLegality(int radius, GameObject centerPoint, Material newMat)
     {
         //math
-
+        //Debug.Log("test");
         int testRadius = radius;
         float xNum = 0;
         float zNum = 0;
@@ -128,7 +129,6 @@ public class GenerateGrid : MonoBehaviour
                 {
                     legalHex.Add(hexArray[a, b]);
                 }
-                Debug.Log(distance);
 
             }
         }

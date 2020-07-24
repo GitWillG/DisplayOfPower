@@ -39,6 +39,7 @@ public class EnemySpawn : MonoBehaviour
         {
             GameObject newEnemy = (GameObject)Instantiate(enemyPrefab, new Vector3(hexSpawn.transform.position.x, 0.8f, hexSpawn.transform.position.z), Quaternion.identity);
             newEnemy.transform.SetParent(hexSpawn.transform);
+            newEnemy.layer = 9;
         }
     }
 

@@ -5,19 +5,21 @@ using UnityEngine.AI;
 
 public class BestClickToMove : MonoBehaviour
 {
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
     public NavMeshSurface surface;
 
     Renderer unitCol;
     public Material selectedMaterial;
 
+    public Vector3 location;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        //agent = GetComponent<NavMeshAgent>();
 
-        surface.BuildNavMesh();
+        //surface.BuildNavMesh();
     }
 
     // Update is called once per frame
@@ -29,7 +31,7 @@ public class BestClickToMove : MonoBehaviour
     public void ClickMove(GameObject unit, GameObject targetHex)
     {
         ////If Left click detected
-        //if (Input.GetMouseButtonDown(0))
+        //if (Input.GetMouseButtonUp(0))
         //{
         //    //creating raycast to detect where mouse is clicked
         //    RaycastHit hit;
@@ -40,22 +42,29 @@ public class BestClickToMove : MonoBehaviour
         //        //destination on the nav mesh is the location of where the raycast hit
         //        agent.destination = hit.point;
         //    }
+
         //}
+        unit.GetComponent<NavMeshAgent>().enabled = true;
+        agent = unit.GetComponent<NavMeshAgent>();
+        //location = targetHex.transform.position;
+        agent.destination = new Vector3(targetHex.transform.position.x, unit.transform.position.y, targetHex.transform.position.z);
+        unit.transform.SetParent(targetHex.transform);
 
-        unitCol = unit.GetComponent<Renderer>();
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (unitCol.material == selectedMaterial)
-            {
-                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 8))
-                {
+        //unitCol = unit.GetComponent<Renderer>();
 
-                }
-            }
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    if (unitCol.material == selectedMaterial)
+        //    {
+        //        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //        RaycastHit hit;
+        //        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 8))
+        //        {
+
+        //        }
+        //    }
+        //}
     }
 
 }
