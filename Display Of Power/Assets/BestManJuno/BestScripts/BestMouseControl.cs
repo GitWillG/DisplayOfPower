@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BestMouseControl : MonoBehaviour
 {
@@ -15,7 +16,10 @@ public class BestMouseControl : MonoBehaviour
     //legal radius material
     public Material legalMove;
 
-    BestClickToMove moveScript;
+    public GameObject grid;
+
+    NavMeshAgent agent;
+
 
     //Temporary
     public GameObject unitPrefab;
@@ -27,11 +31,14 @@ public class BestMouseControl : MonoBehaviour
     {
         //nothing is selected at the start
         clickedHex = false;
+
+        agent = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
     {
-        moveScript.ClickMove();
+
+
 
         //whenever there is no hovered target or cicked hex reset the last selected hex to its original material
         if (selectedTarget != null && clickedHex == false)
@@ -47,7 +54,7 @@ public class BestMouseControl : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 8))
         {
-           //save the selection and get its renderer
+            //save the selection and get its renderer
             var selection = hit.transform;
             selectionRenderer = selection.GetComponent<Renderer>();
             //if we have not clicked a hex and the hovered object has a renderer we change the material to a hovered material, and declare it our selected target
@@ -65,7 +72,8 @@ public class BestMouseControl : MonoBehaviour
                 clickedHex = false;
                 int movableRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().movementRange;
                 Debug.Log(movableRange);
-                checkRadius(selectedTarget.position, movableRange, oldMat, "Hex");
+                //checkRadius(selectedTarget.position, movableRange, oldMat, "Hex");
+                grid.GetComponent<GenerateGrid>().removeCheck(oldMat);
                 return;
             }
         }
@@ -87,7 +95,8 @@ public class BestMouseControl : MonoBehaviour
             {
                 int movableRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().movementRange;
                 Debug.Log(movableRange);
-                checkRadius(selectedTarget.position, movableRange, legalMove, "MovableHex");
+                grid.GetComponent<GenerateGrid>().checkLegality(movableRange, selectedTarget.gameObject, selectedMat);
+                //checkRadius(selectedTarget.position, movableRange, legalMove, "MovableHex");
             }
             ///////////////////////////
         }
@@ -96,7 +105,7 @@ public class BestMouseControl : MonoBehaviour
 
     private void checkRadius(Vector3 center, float radius, Material changeMat, string layerName)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(center, radius* 1.5f, 1<<8);
+        Collider[] hitColliders = Physics.OverlapSphere(center, radius * 1.5f, 1 << 8);
         int i = 0;
         while (i < hitColliders.Length)
         {
@@ -105,6 +114,23 @@ public class BestMouseControl : MonoBehaviour
             Debug.Log(hitColliders[i].transform.name);
             //hitColliders[i].SendMessage("AddDamage");
             i++;
+        }
+    }
+
+    public void ClickMove()
+    {
+        //If Left click detected
+        if (Input.GetMouseButtonDown(0))
+        {
+            //creating raycast to detect where mouse is clicked
+            RaycastHit hit;
+
+            //creates a raycast from the camera to the location of the mouse
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+            {
+                //destination on the nav mesh is the location of where the raycast hit
+                agent.destination = hit.point;
+            }
         }
     }
 }
