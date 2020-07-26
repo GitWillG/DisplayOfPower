@@ -10,6 +10,8 @@ namespace efe
     // 2 playfields are world map and levels.
 
 
+    public GameObject gameManager;
+
     [Range(6, 200)]
     public float minFov;
     [Range(6, 200)]
@@ -32,7 +34,22 @@ namespace efe
 
     #region Transition
     public float transition_treshold_FOV; // the FOV number that will start the transition from 2 playfields
-    bool transition_begins = false;
+    public bool transition_begins = false;
+    #endregion
+
+
+    #region  Tracking
+    GameObject player;
+    gameManager gm;
+
+
+    [Header("Tracking Parameters")]
+    [Range(-100, 100)]
+    public float varZ;
+    [Range(-100, 100)]
+    public float varY;
+    [Range(-100, 100)]
+    public float varX;
     #endregion
 
         void Start()
@@ -41,10 +58,17 @@ namespace efe
             #region Initilization
             // WorldMapLayer = LayerMask.GetMask("WorldMapObject");
             // LevelLayer = LayerMask.GetMask("LevelObject");
+            gm = gameManager.GetComponent<gameManager>();
+
+            varZ = 44;
+            varX = 70;
+            varY = 100;
 
             transition_treshold_FOV = 40;
+
             minFov = 6;
             maxFov = 200;
+
             mainCam = Camera.main;
             mainCam.fieldOfView = 6;
             sensitivity = 2;
@@ -52,6 +76,8 @@ namespace efe
             #endregion
         }
        
+
+ 
 
         // Update is called once per frame
         void Update()
@@ -72,6 +98,11 @@ namespace efe
             mainCam.fieldOfView = curFov;
         
             startTransition();
+
+            // Tracking 
+            player = gm.curAvatar;
+            mainCam.transform.position = new Vector3(player.transform.position.x - varX, player.transform.position.y + varY, 
+            player.transform.position.z - varZ);
         
         }
 

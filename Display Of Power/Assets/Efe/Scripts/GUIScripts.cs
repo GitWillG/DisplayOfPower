@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace efe{
     public class GUIScripts : MonoBehaviour
     {
+
+
         // Start is called before the first frame update
         void Start()
         {
