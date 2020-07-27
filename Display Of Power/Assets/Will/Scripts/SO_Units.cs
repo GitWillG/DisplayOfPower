@@ -6,7 +6,10 @@ using UnityEngine;
 public class SO_Units : ScriptableObject
 {
     public string name;
+    public int life;
+    public int damage;
     public string faction;
     public int attackRange;
     public int movementRange;
+    public int totalActions;
 }

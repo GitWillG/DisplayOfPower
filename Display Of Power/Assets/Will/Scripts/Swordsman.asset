@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Swordsman
   m_EditorClassIdentifier: 
   name: Swordsman
+  life: 100
+  damage: 20
   faction: death
   attackRange: 2
   movementRange: 4
