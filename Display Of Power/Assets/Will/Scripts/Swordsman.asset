@@ -18,3 +18,4 @@ MonoBehaviour:
   faction: death
   attackRange: 2
   movementRange: 4
+  totalActions: 0

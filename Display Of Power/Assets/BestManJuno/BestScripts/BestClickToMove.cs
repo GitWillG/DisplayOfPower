@@ -75,6 +75,7 @@ public class BestClickToMove : MonoBehaviour
         targetHex.GetComponentInChildren<prefabUnits>().Life -= unit.GetComponent<prefabUnits>().Damage;
 
 
+        targetHex.GetComponentInChildren<prefabUnits>().statObject.life -= unit.GetComponent<prefabUnits>().Damage;
 
     }
 

@@ -159,6 +159,8 @@ public class MouseControl : MonoBehaviour
                 else if (clickedHex == true)
                 {
                     //movement
+
+
                     if (hoveredTarget != null && Input.GetMouseButtonUp(0) && isMove && hoveredTarget.childCount <=0)
                     {
                         selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = true;
