@@ -204,7 +204,7 @@ MonoBehaviour:
     showEyeDropper: 1
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.25642848, g: 0.24056605, b: 0.9622642, a: 1}
+    m_Value: {r: 1, g: 0.9831054, b: 0.4198113, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
@@ -227,26 +227,26 @@ MonoBehaviour:
     min: 0
   baseHeight:
     m_OverrideState: 1
-    m_Value: 8.41
+    m_Value: -219.09
   maximumHeight:
     m_OverrideState: 0
     m_Value: 105.7
   albedo:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.8447248, g: 0.8584906, b: 0.63576895, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 228.2
+    m_Value: 27.64
     min: 1
   enableVolumetricFog:
     m_OverrideState: 1
     m_Value: 1
   anisotropy:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -0.48
     min: -1
     max: 1
   globalLightProbeDimmer:
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8bcdf71d7fafa419fca1ed162f5fc9, type: 3}
   m_Name: ColorAdjustments
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   postExposure:
     m_OverrideState: 1
@@ -290,7 +290,7 @@ MonoBehaviour:
     max: 100
   colorFilter:
     m_OverrideState: 1
-    m_Value: {r: 0.33882165, g: 0.8867924, b: 0.76789385, a: 1}
+    m_Value: {r: 0.9245283, g: 0.8437528, b: 0.5276789, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
@@ -323,21 +323,21 @@ MonoBehaviour:
     m_Value: 2
   threshold:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 3.22
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 1
     min: 0
     max: 1
   scatter:
     m_OverrideState: 1
-    m_Value: 0.7
+    m_Value: 0.654
     min: 0
     max: 1
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.9811321, g: 0.36561054, b: 0.36561054, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -453,7 +453,7 @@ MonoBehaviour:
     m_Value: 0
   exposure:
     m_OverrideState: 1
-    m_Value: 1.1
+    m_Value: 0.2
   multiplier:
     m_OverrideState: 0
     m_Value: 1

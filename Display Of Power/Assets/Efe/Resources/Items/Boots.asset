@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20f725eca6631746bcbcbfda87d3764, type: 3}
   m_Name: Boots
   m_EditorClassIdentifier: 
-  itemMesh: {fileID: 8546181242787204517, guid: 9736d9016dc21fe47ba8fefe23daa512,
+  itemMesh: {fileID: 4372712675435238125, guid: 0f88eef4578c650449bae3a0301e610a,
     type: 3}
   itemName: Boots
-  itemCost: 0
-  itemWeight: 0
+  itemValue: 0
   itemDamage: 0
   curType: 1

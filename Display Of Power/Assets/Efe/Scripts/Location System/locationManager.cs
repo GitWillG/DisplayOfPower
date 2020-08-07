@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using efe;
 
-public class locationManager : MonoBehaviour
-{
-    public List<locationData> locations;
-    gameManager gm;
-
-    void Start()
+namespace efe{
+    public class locationManager : MonoBehaviour
     {
-        gm = GetComponent<gameManager>();
-    }
+        public List<locationData> locations;
+        gameManager gm;
 
-    public void enterLocation()
-    {
-        gm.levelAvatar.transform.position = gm.curLocation.GetComponent<locationData>().locationEntry.transform.position;
-        gm.changeState("Level");
-        Debug.Log(gm.curLocation.GetComponent<locationData>().locationName);
+        void Start()
+        {
+            gm = GetComponent<gameManager>();
+        }
 
+        public void enterLocation()
+        {
+            gm.levelAvatar.transform.position = gm.curLocation.GetComponent<locationData>().locationEntry.transform.position;
+            gm.changeState("Level");
+            Debug.Log(gm.curLocation.GetComponent<locationData>().locationName);
+
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using TMPro;
-
+// needs to be called "using efe;"
 namespace efe
 {
     public class mouseControls : MonoBehaviour

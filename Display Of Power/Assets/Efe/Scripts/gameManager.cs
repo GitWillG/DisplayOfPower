@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+// needs to be called "using efe;"
 namespace efe
 {
     public class gameManager : MonoBehaviour

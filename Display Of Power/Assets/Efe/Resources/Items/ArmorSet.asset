@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20f725eca6631746bcbcbfda87d3764, type: 3}
   m_Name: ArmorSet
   m_EditorClassIdentifier: 
-  itemMesh: {fileID: 8546181242787204517, guid: d099ac19c754eca479157af512d6d7b1,
+  itemMesh: {fileID: 5451535527048193240, guid: 02cccadda768f3644ac389334976b906,
     type: 3}
   itemName: ArmorSet
-  itemCost: 0
-  itemWeight: 0
+  itemValue: 0
   itemDamage: 0
   curType: 2

@@ -1362,6 +1362,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curGUIopen: {fileID: 0}
+  questName_gui: {fileID: 0}
+  questXP_gui: {fileID: 0}
+  questGold_gui: {fileID: 0}
+  questDesc_gui: {fileID: 0}
 --- !u!1 &5059669148955006908
 GameObject:
   m_ObjectHideFlags: 0
