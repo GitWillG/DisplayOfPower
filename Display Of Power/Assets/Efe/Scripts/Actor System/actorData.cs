@@ -5,15 +5,15 @@ using UnityEngine;
 public class actorData : MonoBehaviour
 {
     public string actorName;
-    public List<questItem> availableQuests;
-
+    public List<questItem> actorQuests;
     public bool peaceful; // false = unit
+    
 
-    public GameObject targetObjective;
-    public int targetAmount;
 
-    // 20 bandits
-
-    public float xp;
-    public int gold;
+    [ContextMenu("Sync Editor")]
+    public void syncEditor()
+    {
+        this.gameObject.name = actorName;
+        // Object reference = Resources.FindObjectsOfTypeAll
+    }
 }

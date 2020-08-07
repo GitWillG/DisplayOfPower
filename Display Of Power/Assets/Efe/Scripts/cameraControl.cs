@@ -12,9 +12,9 @@ namespace efe
 
     public GameObject gameManager;
 
-    [Range(6, 200)]
+    [Range(6, 60)]
     public float minFov;
-    [Range(6, 200)]
+    [Range(6, 60)]
     public float maxFov;
     float curFov;
 
@@ -32,10 +32,10 @@ namespace efe
     // static SortingLayer[] layersInProject;
     #endregion
 
-    #region Transition
-    public float transition_treshold_FOV; // the FOV number that will start the transition from 2 playfields
-    public bool transition_begins = false;
-    #endregion
+    // #region Transition
+    // public float transition_treshold_FOV; // the FOV number that will start the transition from 2 playfields
+    // public bool transition_begins = false;
+    // #endregion
 
 
     #region  Tracking
@@ -50,6 +50,9 @@ namespace efe
     public float varY;
     [Range(-100, 100)]
     public float varX;
+
+    public static float[] worldMapCamera_param = {16, 18, 11}; // x, y, z
+    public static float[] levelMapCamera_param = {6, 8, 4}; // x, y, z
     #endregion
 
         void Start()
@@ -60,18 +63,21 @@ namespace efe
             // LevelLayer = LayerMask.GetMask("LevelObject");
             gm = gameManager.GetComponent<gameManager>();
 
-            varZ = 44;
-            varX = 70;
-            varY = 100;
+            // Default is level
+            varX = levelMapCamera_param[0];
+            varY = levelMapCamera_param[1];
+            varZ = levelMapCamera_param[2];
 
-            transition_treshold_FOV = 40;
+            // transition_treshold_FOV = 40;
 
             minFov = 6;
-            maxFov = 200;
+            maxFov = 60;
 
             mainCam = Camera.main;
             mainCam.fieldOfView = 6;
             sensitivity = 2;
+
+            player = gm.curAvatar;
             // mainCam.cullingMask = LevelLayer;
             #endregion
         }
@@ -96,53 +102,54 @@ namespace efe
 
             curFov = Mathf.Clamp(curFov, minFov, maxFov);
             mainCam.fieldOfView = curFov;
-        
-            startTransition();
 
+            trackPlayer();
+        
+        }
+
+        public void trackPlayer()
+        {
             // Tracking 
             player = gm.curAvatar;
             mainCam.transform.position = new Vector3(player.transform.position.x - varX, player.transform.position.y + varY, 
             player.transform.position.z - varZ);
-        
         }
-
-        
-        bool checkTransition()
-        {
+        // bool checkTransition()
+        // {
             
-            if(curFov > transition_treshold_FOV)
-            {
-                return transition_begins = true;
-            }
-            else
-            {
-                return transition_begins = false;
-            }
-        }
+        //     if(curFov > transition_treshold_FOV)
+        //     {
+        //         return transition_begins = true;
+        //     }
+        //     else
+        //     {
+        //         return transition_begins = false;
+        //     }
+        // }
 
-        void startTransition()
-        {
-            // float length_masks = layersInProject.Length;
+        // void startTransition()
+        // {
+        //     // float length_masks = layersInProject.Length;
             
-            checkTransition();
-            if(transition_begins)
-            {
+        //     checkTransition();
+        //     if(transition_begins)
+        //     {
                 
-                // for(int i = 0; i < length_masks; i ++)
-                // {
-                //     mainCam.cullingMask = WorldMapLayer + 1<<i -1; // add all layers except level layer to camera's culling mask
-                // }
+        //         // for(int i = 0; i < length_masks; i ++)
+        //         // {
+        //         //     mainCam.cullingMask = WorldMapLayer + 1<<i -1; // add all layers except level layer to camera's culling mask
+        //         // }
 
-                // mainCam.cullingMask = WorldMapLayer;
-                 Debug.Log("We are in world map.");
+        //         // mainCam.cullingMask = WorldMapLayer;
+        //          Debug.Log("We are in world map.");
                 
-            }
-            else{
-                // mainCam.cullingMask = LevelLayer;
-                  Debug.Log("We are in level.");
-            }
+        //     }
+        //     else{
+        //         // mainCam.cullingMask = LevelLayer;
+        //           Debug.Log("We are in level.");
+        //     }
 
-        }
+        // }
     }
 
 }
