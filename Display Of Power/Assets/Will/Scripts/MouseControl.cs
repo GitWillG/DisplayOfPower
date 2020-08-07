@@ -113,17 +113,8 @@ public class MouseControl : MonoBehaviour
             if (selection == selectedTarget && Input.GetMouseButtonUp(0) && clickedHex == true)
             {
 
-                //reset the selected hex
-                selectionRenderer.material = oldMat;
-                //nothing is selected anymore
-                clickedHex = false;
-                //revert all the highlighted hexes to their original colors
-                grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
-                //null the selected hex
-                selectedTarget = null;
-                //go back to raycasting on our default hex layer
-                currentMask = 1 << 8;
-                return;
+                    removeRangeInd();
+                    return;
             }
         }
 
@@ -167,6 +158,9 @@ public class MouseControl : MonoBehaviour
                 }
                 else if (clickedHex == true)
                 {
+                    //movement
+
+
                     if (hoveredTarget != null && Input.GetMouseButtonUp(0) && isMove && hoveredTarget.childCount <=0)
                     {
                         selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = true;
@@ -177,7 +171,18 @@ public class MouseControl : MonoBehaviour
                         return;
                         //grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);
                     }
+
+                    //attack
+
+
+                    else if (!isMove && hoveredTarget !=null &&Input.GetMouseButtonUp(0) && hoveredTarget.childCount > 0)
+                    {
+                        this.gameObject.GetComponent<BestClickToMove>().ClickAttack(selectedTarget.GetChild(0).gameObject, hoveredTarget.gameObject);
+                        //selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actions -= 1;
+                        return;
+                    }
                 }
+               
 
 
             }
@@ -190,16 +195,18 @@ public class MouseControl : MonoBehaviour
                 selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = false;
                 selectedTarget.GetChild(0).transform.position = new Vector3(selectedTarget.transform.position.x, 0.8f, selectedTarget.transform.position.z);
                 grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
-                //reset the selected hex
-                selectionRenderer.material = oldMat;
-                //nothing is selected anymore
-                clickedHex = false;
-                //revert all the highlighted hexes to their original colors
-                grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
-                //null the selected hex
-                selectedTarget = null;
-                //go back to raycasting on our default hex layer
-                currentMask = 1 << 8;
+                ////reset the selected hex
+                //selectionRenderer.material = oldMat;
+                ////nothing is selected anymore
+                //clickedHex = false;
+                ////revert all the highlighted hexes to their original colors
+                //grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
+                ////null the selected hex
+                //selectedTarget = null;
+                ////go back to raycasting on our default hex layer
+                //currentMask = 1 << 8;
+                removeRangeInd();
+                
                 isMoving = false;
             }
         }
@@ -213,13 +220,27 @@ public class MouseControl : MonoBehaviour
         //if move, use move range, otherwise use the attack range
         if (isMove)
         {
-            detectRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().movementRange;
+            detectRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().MovementRange;
         }
         else
         {
-            detectRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().attackRange;
+            detectRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().AttackRange;
         }
 
+    }
+
+    private void removeRangeInd()
+    {
+        //reset the selected hex
+        selectionRenderer.material = oldMat;
+        //nothing is selected anymore
+        clickedHex = false;
+        //revert all the highlighted hexes to their original colors
+        grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
+        //null the selected hex
+        selectedTarget = null;
+        //go back to raycasting on our default hex layer
+        currentMask = 1 << 8;
     }
 
 

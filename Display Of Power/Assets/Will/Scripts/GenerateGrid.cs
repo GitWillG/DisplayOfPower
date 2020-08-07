@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -17,9 +18,10 @@ public class GenerateGrid : MonoBehaviour
     ///////////////////////testing
     //public Material newmat;
     public GameObject testLocation;
-    private GameObject[,] hexArray;
+    public GameObject[,] hexArray;
     public List<GameObject> legalHex;
     public Material testmat;
+    public List<GameObject> postObCheck;
     //////////
 
     //actual dimensions of our prefab for refference
@@ -102,6 +104,8 @@ public class GenerateGrid : MonoBehaviour
         int testRadius = radius;
         float xNum = 0;
         float zNum = 0;
+        int centerX =0;
+        int centerZ = 0;
 
         for (int x = 0; x < Width; x++)
         {
@@ -109,6 +113,8 @@ public class GenerateGrid : MonoBehaviour
             {
                 if (centerPoint == hexArray[x, z].gameObject)
                 {
+                    centerX = x;
+                    centerZ = z;
 
                     xNum = x - (z - (z & 1)) / 2;
                     zNum = z;
@@ -132,6 +138,38 @@ public class GenerateGrid : MonoBehaviour
 
             }
         }
+        //postObCheck = new List<GameObject>();
+        //postObCheck.Add(centerPoint);
+        //testRadius = 2;
+
+
+        //for (int P = 1; P < radius; P++)
+        //{
+        //    foreach (GameObject hex in postObCheck.ToList())
+        //    {
+        //        for (int Q = 0; Q < 6; Q++)
+        //        {
+        //            if ()
+        //        }
+        //    }
+
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //Debug.Log(legalHex);
         for (int i = 0; i < legalHex.Count; i++)

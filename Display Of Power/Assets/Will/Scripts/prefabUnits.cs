@@ -5,15 +5,21 @@ using UnityEngine;
 public class prefabUnits : MonoBehaviour
 {
     public SO_Units statObject;
-    public int movementRange;
-    public string name;
-    public int attackRange;
+    public int MovementRange;
+    public string Name;
+    public int Damage;
+    public int AttackRange;
+    public int TotalActions;
+    public int Life;
     // Start is called before the first frame update
     void Start()
     {
-        movementRange = statObject.movementRange;
-        name = statObject.name;
-        attackRange = statObject.attackRange;
+        MovementRange = statObject.movementRange;
+        Name = statObject.name;
+        AttackRange = statObject.attackRange;
+        Life = statObject.life;
+        Damage = statObject.damage;
+        TotalActions = statObject.totalActions;
     }
 
 }

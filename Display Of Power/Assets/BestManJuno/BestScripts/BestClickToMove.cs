@@ -45,9 +45,11 @@ public class BestClickToMove : MonoBehaviour
 
         //}
         unit.GetComponent<NavMeshAgent>().enabled = true;
+
         agent = unit.GetComponent<NavMeshAgent>();
-        //location = targetHex.transform.position;
+
         agent.destination = new Vector3(targetHex.transform.position.x, unit.transform.position.y, targetHex.transform.position.z);
+
         unit.transform.SetParent(targetHex.transform);
 
 
@@ -65,6 +67,16 @@ public class BestClickToMove : MonoBehaviour
         //        }
         //    }
         //}
+    }
+    public void ClickAttack(GameObject unit, GameObject targetHex)
+    {
+
+        //subtract life from targetted unit equal to "damage" of selected unit
+        targetHex.GetComponentInChildren<prefabUnits>().Life -= unit.GetComponent<prefabUnits>().Damage;
+
+
+        targetHex.GetComponentInChildren<prefabUnits>().statObject.life -= unit.GetComponent<prefabUnits>().Damage;
+
     }
 
 }
