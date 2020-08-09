@@ -9,6 +9,7 @@ TagManager:
   - NPC
   - GM
   - Location
+  - Flora
   layers:
   - Default
   - TransparentFX

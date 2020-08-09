@@ -16,6 +16,10 @@ namespace efe
         actorData actorData;
         locationData locData;
         public questItem curQuest;
+
+        bool isMoving = false;
+        float curSpeed;
+        Vector3 targetMovePosition;
         // Start is called before the first frame update
         void Start()
         {
@@ -52,12 +56,39 @@ namespace efe
                     interactObject(hit.transform.gameObject);
                 }
             }
+
+            processPlayerMovement();
         }
 
         public void movePlayer(NavMeshAgent objectSource, Vector3 targetPoint)
         {
             objectSource.SetDestination(targetPoint);
+            targetMovePosition = targetPoint;
+            isMoving = true;
             Debug.Log("Character moving.");
+        }
+
+        void processPlayerMovement()
+        {
+            if(isMoving == true)
+            {
+                float distance = Vector3.Distance(playerToControl.transform.position, targetMovePosition);
+                if(distance >= 0)
+                {
+                    curSpeed = 1;
+                    curSpeed = Mathf.Clamp(curSpeed, 0, 1);
+                    curAnimator.SetFloat("Speed", curSpeed);
+                    Debug.Log("Processing");
+                    if(distance == 0)
+                    {
+                        curSpeed = 0;
+                        isMoving = false;
+                        curAnimator.ResetTrigger("Speed");
+                        Debug.Log("Reached.");
+                    }
+                }
+
+            }
         }
 
         public void interactObject(GameObject targetObject)
