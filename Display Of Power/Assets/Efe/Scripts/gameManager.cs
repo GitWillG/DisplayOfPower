@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+// needs to be called "using efe;"
 namespace efe
 {
     public class gameManager : MonoBehaviour
@@ -14,21 +14,18 @@ namespace efe
         public GameObject worldAvatar;
         public GameObject levelAvatar;
         public GameObject levelLight;
-        public GameObject worldMapLight;
         public GameObject curAvatar;
-        public GameObject curLight;
         public playfields curPlayfield;
         gameStates curGameState;
         bool onWorld = false;
-
         // TODO - causes stack overflow investigate
         // bool onWorld{get {return onWorld; } set{onWorld = false;}}
         cameraControl cc;
         public enum playfields {onWorld, onLevel, onMenu}
         public enum gameStates {inBattle, freeroam}
         #endregion
-
-
+        public GameObject lastSelectedTarget;
+        public GameObject curLocation;
         // Start is called before the first frame update
         void Start()
         {
@@ -46,17 +43,22 @@ namespace efe
         {
             if(Input.GetKeyDown(KeyCode.M))
             {
-                changeState("World");
+                if(curPlayfield == playfields.onLevel)
+                {
+                    changeState("World");
+                }
+                else if(curPlayfield == playfields.onWorld)
+                {
+                    changeState("Level");
+                }
             }
         }
 
 
         void initializeState()
         {
-            curPlayfield = playfields.onLevel;
             curGameState = gameStates.freeroam;
-            curAvatar = levelAvatar;
-            Debug.Log(curAvatar + " " + curPlayfield);
+            changeState("Level");
         }
 
         public void changeState(string inputString)
@@ -69,7 +71,7 @@ namespace efe
             }
             else
             {
-                onWorld = cc.transition_begins;
+                // onWorld = cc.transition_begins;
                 if(inputString == stateStrings[0]) // World input in script
                 {  
                     if(curPlayfield == playfields.onWorld) // If you are in world, no need to run the script
@@ -78,9 +80,17 @@ namespace efe
                         return;
                     }
                     else{
-                    curPlayfield = playfields.onLevel;
-                    curAvatar = levelAvatar;
-                    Debug.Log("Changed state to level.");
+                
+                    curPlayfield = playfields.onWorld;
+                    curAvatar = worldAvatar;
+                    Debug.Log("Changed state to world.");
+                    
+
+                    cc.varX = cameraControl.worldMapCamera_param[0];
+                    cc.varY = cameraControl.worldMapCamera_param[1];
+                    cc.varZ = cameraControl.worldMapCamera_param[2];
+                    cc.trackPlayer();
+                    
                     }   
                 }
                 if(inputString == stateStrings[1]) // Level input in script
@@ -91,9 +101,15 @@ namespace efe
                         return;
                     }
                     else{
-                    curPlayfield = playfields.onWorld;
-                    curAvatar = worldAvatar;
-                    Debug.Log("Changed state to world.");
+                    curPlayfield = playfields.onLevel;
+                    curAvatar = levelAvatar;
+                    Debug.Log("Changed state to level.");
+                   
+
+                    cc.varX = cameraControl.levelMapCamera_param[0];
+                    cc.varY = cameraControl.levelMapCamera_param[1];
+                    cc.varZ = cameraControl.levelMapCamera_param[2];
+                    cc.trackPlayer();
                     }
                 }
             }
