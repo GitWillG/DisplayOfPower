@@ -268,6 +268,8 @@ public class MouseControl : MonoBehaviour
             swapRange();
             grid.GetComponent<GenerateGrid>().removeCheck(defaultMat); 
             grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
+
+
             if (isMove)
             {
                 grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, legalMove);
