@@ -152,7 +152,16 @@ public class MouseControl : MonoBehaviour
                         //swap to the appropriate range
                         swapRange();
                         //run the range detection script
-                        grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);
+                        if (isMove)
+                        {
+                            grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, legalMove);
+
+                        }
+                        else
+                        {
+
+                            grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, legalMove);
+                        }
                     }
                     return;
                 }
@@ -195,6 +204,7 @@ public class MouseControl : MonoBehaviour
                 selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = false;
                 selectedTarget.GetChild(0).transform.position = new Vector3(selectedTarget.transform.position.x, 0.8f, selectedTarget.transform.position.z);
                 grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
+                grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
                 ////reset the selected hex
                 //selectionRenderer.material = oldMat;
                 ////nothing is selected anymore
@@ -237,6 +247,7 @@ public class MouseControl : MonoBehaviour
         clickedHex = false;
         //revert all the highlighted hexes to their original colors
         grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
+        grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
         //null the selected hex
         selectedTarget = null;
         //go back to raycasting on our default hex layer
@@ -255,8 +266,18 @@ public class MouseControl : MonoBehaviour
         if (selectedTarget != null)
         {
             swapRange();
-            grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
-            grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);
+            grid.GetComponent<GenerateGrid>().removeCheck(defaultMat); 
+            grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
+            if (isMove)
+            {
+                grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, legalMove);
+
+            }
+            else
+            {
+                grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, legalMove);
+
+            }
 
         }
         //reset and rehighlight appropriate hexes
