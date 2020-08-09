@@ -13,7 +13,10 @@ public class GenerateGrid : MonoBehaviour
     //number of tilels along z axis of grid
     public int Depth;
 
+    public List<GameObject> innerList;
+    public List<List<GameObject>> movementRadius;
     public GameObject hexPrefab;
+    List<GameObject> tempList;
 
     ///////////////////////testing
     //public Material newmat;
@@ -60,7 +63,6 @@ public class GenerateGrid : MonoBehaviour
                 hexOb.name = "Hex " + x + " " + z;
                 hexOb.transform.SetParent(this.gameObject.transform);
                 hexArray[x, z] = hexOb.gameObject;
-                //Debug.Log(hexArray[x, z].gameObject);
             }
         }
     }
@@ -96,15 +98,67 @@ public class GenerateGrid : MonoBehaviour
 
 
 
-    [ContextMenu("CheckRadius")]
-    public void checkLegality(int radius, GameObject centerPoint, Material newMat)
+    //[ContextMenu("CheckRadius")]
+    //This is takes a point and Checks each surrounding hex to see if a unit is on them, each hex that does not have a unit, and hasn't already been checked is added to a list
+    //That list is then moved to a different layer and re-coloured
+    public void checkMoveLegality(int radius, GameObject centerPoint, Material newMat)
     {
-        //math
-        //Debug.Log("test");
+       
+        movementRadius = new List<List<GameObject>>();
+        innerList.Add(centerPoint);
+        movementRadius.Add(innerList);
+        tempList = new List<GameObject>();
+        List<GameObject> rowVal;
+        tempList.Add(centerPoint);
+        
+        for (int k = 1; k < radius + 1; k++)
+        {
+            rowVal = new List<GameObject>();
+            rowVal.Clear();
+            for (int j =0; j<movementRadius[k-1].Count; j++)
+            {
+
+                Collider[] closeHexes = Physics.OverlapSphere(movementRadius[k-1][j].transform.position, 1f, 1<<8);
+                foreach (var currentHex in closeHexes)
+                {
+                    if (!tempList.Contains((currentHex.gameObject)) && currentHex.transform.childCount <1)
+                    {
+                        rowVal.Add(((currentHex.gameObject)));
+                        tempList.Add((currentHex.gameObject));
+                    }
+                }
+
+            }
+            movementRadius.Add(rowVal);
+     
+        }
+
+        for (int i = 0; i < tempList.Count; i++)
+        {
+            if (tempList[i] != centerPoint)
+            {
+                tempList[i].gameObject.GetComponent<Renderer>().material = newMat;
+                tempList[i].gameObject.layer = 10;
+            }
+            else
+            {
+                tempList[i].gameObject.layer = 10;
+            }
+        }
+        innerList.Clear();
+        movementRadius.Clear();
+            
+    }
+
+    //This converts our 2x2 grid into a grid using axial co-ordinates
+    //it then calculates the radius in this axial grid, and checks for hexes in that radius and adds them to a list
+    //That list is then moved to a new layer and re-coloured
+    public void checkAttackLegality(int radius, GameObject centerPoint, Material newMat)
+    { 
         int testRadius = radius;
         float xNum = 0;
         float zNum = 0;
-        int centerX =0;
+        int centerX = 0;
         int centerZ = 0;
 
         for (int x = 0; x < Width; x++)
@@ -138,40 +192,7 @@ public class GenerateGrid : MonoBehaviour
 
             }
         }
-        //postObCheck = new List<GameObject>();
-        //postObCheck.Add(centerPoint);
-        //testRadius = 2;
 
-
-        //for (int P = 1; P < radius; P++)
-        //{
-        //    foreach (GameObject hex in postObCheck.ToList())
-        //    {
-        //        for (int Q = 0; Q < 6; Q++)
-        //        {
-        //            if ()
-        //        }
-        //    }
-
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Debug.Log(legalHex);
         for (int i = 0; i < legalHex.Count; i++)
         {
             if (legalHex[i] != centerPoint)
@@ -184,7 +205,9 @@ public class GenerateGrid : MonoBehaviour
                 legalHex[i].gameObject.layer = 10;
             }
         }
+
     }
+    //This takes the list of attack hexes and reverts them to their original layer then clears the list
     public void removeCheck(Material newMat)
     {
         for (int i = 0; i < legalHex.Count; i++)
@@ -194,6 +217,18 @@ public class GenerateGrid : MonoBehaviour
             legalHex[i].gameObject.layer = 8;
         }
         legalHex.Clear();
+
+    }
+    //This takes the list of movement hexes and reverts them to their original layer then clears the list
+    public void removeMoveCheck(Material newMat)
+    {
+        for (int i = 0; i < tempList.Count; i++)
+        {
+            tempList[i].gameObject.GetComponent<Renderer>().material = newMat;
+
+            tempList[i].gameObject.layer = 8;
+        }
+        tempList.Clear();
 
     }
 }

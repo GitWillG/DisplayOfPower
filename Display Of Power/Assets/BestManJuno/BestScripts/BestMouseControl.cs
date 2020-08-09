@@ -95,7 +95,7 @@ public class BestMouseControl : MonoBehaviour
             {
                 int movableRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().MovementRange;
                 Debug.Log(movableRange);
-                grid.GetComponent<GenerateGrid>().checkLegality(movableRange, selectedTarget.gameObject, selectedMat);
+                //grid.GetComponent<GenerateGrid>().checkLegality(movableRange, selectedTarget.gameObject, selectedMat);
                 //checkRadius(selectedTarget.position, movableRange, legalMove, "MovableHex");
             }
             ///////////////////////////
