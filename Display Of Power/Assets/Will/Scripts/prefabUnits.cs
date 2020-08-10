@@ -6,7 +6,7 @@ public class prefabUnits : MonoBehaviour
 {
     public SO_Units statObject;
     public int MovementRange;
-    public string Name;
+    public string POName;
     public int Damage;
     public int AttackRange;
     public int TotalActions;
@@ -15,7 +15,7 @@ public class prefabUnits : MonoBehaviour
     void Start()
     {
         MovementRange = statObject.movementRange;
-        Name = statObject.name;
+        POName = statObject.SOname;
         AttackRange = statObject.attackRange;
         Life = statObject.life;
         Damage = statObject.damage;

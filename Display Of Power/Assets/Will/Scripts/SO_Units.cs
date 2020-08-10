@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="New Unit", menuName ="Unit")]
 public class SO_Units : ScriptableObject
 {
-    public string name;
+    public string SOname;
     public int life;
     public int damage;
     public string faction;
