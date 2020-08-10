@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: EnemyUnit
   m_EditorClassIdentifier: 
   name: EnemyMan
+  life: 100
+  damage: 5
   faction: NotAnEnemy
-  movementRange: 7
+  attackRange: 2
+  movementRange: 4
+  totalActions: 0

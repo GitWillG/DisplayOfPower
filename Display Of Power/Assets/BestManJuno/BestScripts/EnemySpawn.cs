@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class EnemySpawn : MonoBehaviour
 {
@@ -13,7 +15,9 @@ public class EnemySpawn : MonoBehaviour
     //the selected hex to be spawned at
     public GameObject hexSpawn;
     //number of enemies to be spawned
-    public int numOfEnemies;
+    int numOfEnemies;
+
+    public TMP_InputField numOfBads;
 
     //function that calls a single enemy unit to be spawned at a given hex
     [ContextMenu("Spawn Enemy")]
@@ -49,6 +53,8 @@ public class EnemySpawn : MonoBehaviour
     [ContextMenu("Spawn Multiple Enemies")]
     public void SpawnEnemies(/*int numOfEnemies*/)
     {
+        numOfEnemies = int.Parse(numOfBads.text);
+
         for (int i = 0; i < numOfEnemies; i++)
         {
             SpawnEnemy();
