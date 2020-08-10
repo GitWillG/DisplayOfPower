@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using efe;
 
 // needs to be called "using efe;"
@@ -16,8 +17,12 @@ namespace efe{
         public GameObject[] locationArray;
         public int curIndex;
         public int actorEntryPoint;
+
+        NavMeshAgent agent;
         void Start()
         {
+            agent = GetComponent<NavMeshAgent>();
+
             locationArray = GameObject.FindGameObjectsWithTag("Location");
             if(actorLocation == locationList.waterCity)
             {
@@ -28,6 +33,11 @@ namespace efe{
 
             }
             // Debug.Log(this.name + " will spawn in " + actorEntryPoint + " " + actorLocation.locationName);
+
+            if(peaceful)
+            {
+                agent.speed = 1;
+            }
         }
 
         [ContextMenu("Sync Editor")]

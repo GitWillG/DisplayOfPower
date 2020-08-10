@@ -26,7 +26,10 @@ public class terrainManager : MonoBehaviour
             Vector3 position = new Vector3(tree.position.x, tree.position.y, tree.position.z);
             Debug.Log(tree);
 
-            Instantiate(treeModel, position, Quaternion.identity);
+            // if(treeModel != null)
+            // {
+                Instantiate(treeModel, position, Quaternion.identity);
+            // }
             // tree.
             }
 

@@ -17,9 +17,13 @@ namespace efe
         locationData locData;
         public questItem curQuest;
 
-        bool isMoving = false;
         float curSpeed;
         Vector3 targetMovePosition;
+
+        bool moving = false;
+        float initialRunSpeed = 1;
+        bool controllerSent = false;
+        public GameObject moveParticle;
         // Start is called before the first frame update
         void Start()
         {
@@ -64,30 +68,39 @@ namespace efe
         {
             objectSource.SetDestination(targetPoint);
             targetMovePosition = targetPoint;
-            isMoving = true;
-            Debug.Log("Character moving.");
+
+            float speed = Vector3.Distance(playerToControl.transform.position, targetMovePosition);
+            initialRunSpeed = speed;
+            controllerSent = false;
+
+            GameObject vfx = Instantiate(moveParticle, targetMovePosition, Quaternion.identity);
+            Destroy(vfx, 1);
+            Debug.Log("Ordered to move.");
         }
 
         void processPlayerMovement()
         {
-            if(isMoving == true)
-            {
-                float distance = Vector3.Distance(playerToControl.transform.position, targetMovePosition);
-                if(distance >= 0)
+            float distance = Vector3.Distance(playerToControl.transform.position, targetMovePosition);
+            Debug.Log(distance);
+            if(distance > 2)
+            {   
+                if(!controllerSent)
                 {
-                    curSpeed = 1;
-                    curSpeed = Mathf.Clamp(curSpeed, 0, 1);
-                    curAnimator.SetFloat("Speed", curSpeed);
-                    Debug.Log("Processing");
-                    if(distance == 0)
-                    {
-                        curSpeed = 0;
-                        isMoving = false;
-                        curAnimator.ResetTrigger("Speed");
-                        Debug.Log("Reached.");
-                    }
+                    curAnimator.SetFloat("Speed", initialRunSpeed);
+                    controllerSent = true;
+                }
+                else if(controllerSent == true)
+                {
+                    initialRunSpeed--;
+                    curAnimator.SetFloat("Speed", initialRunSpeed);
                 }
 
+                Debug.Log("Moving");
+                    if(distance < 2)
+                    {   
+                        curAnimator.ResetTrigger("Speed");
+                        Debug.Log("Reached");
+                    }
             }
         }
 

@@ -119,9 +119,12 @@ namespace efe
         public void trackPlayer()
         {
             // Tracking 
-            player = gm.curAvatar;
-            mainCam.transform.position = new Vector3(player.transform.position.x - varX, player.transform.position.y + varY, 
-            player.transform.position.z - varZ);
+            // if(gm.curAvatar != null)
+            // {
+                player = gm.curAvatar;
+                mainCam.transform.position = new Vector3(player.transform.position.x - varX, player.transform.position.y + varY, 
+                player.transform.position.z - varZ);
+            // }
         }
 
         // Detects any object between camera and player
