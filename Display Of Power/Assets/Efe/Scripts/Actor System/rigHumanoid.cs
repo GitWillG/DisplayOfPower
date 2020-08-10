@@ -43,8 +43,19 @@ public class rigHumanoid : MonoBehaviour
 
     [ContextMenu("Update the gear")]
     // Start is called before the first frame update
-    void Start()
-    {   
+    // void Start()
+    // {   
+        
+    // }
+
+    // // Update is called once per frame
+    // void Update()
+    // {
+        
+    // }
+
+    public void initializeGear()
+    {
         if(curBoots != null)
         {
             GameObject spawned = Instantiate(curBoots.itemMesh, l_boots_bone.transform.position, Quaternion.identity);
@@ -62,6 +73,12 @@ public class rigHumanoid : MonoBehaviour
         if(curArmorSet != null)
         {
             GameObject spawned = Instantiate(curArmorSet.itemMesh, armor_set_bone.transform.position, Quaternion.identity);
+
+            spawned.transform.position = new Vector3(
+                armor_set_bone.transform.position.x, 
+                armor_set_bone.transform.position.y - armor_set_bone.transform.position.y, 
+                armor_set_bone.transform.position.z);
+
             spawned.transform.parent = armor_set_bone.transform;
             parentedObjects.Add(spawned);
         }
@@ -72,12 +89,6 @@ public class rigHumanoid : MonoBehaviour
             parentedObjects.Add(spawned);
         }
         Debug.Log("Initiliazed NPC gear.");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void mirrorItemToBone(itemSO item)

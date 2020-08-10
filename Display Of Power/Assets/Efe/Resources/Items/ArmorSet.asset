@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20f725eca6631746bcbcbfda87d3764, type: 3}
   m_Name: ArmorSet
   m_EditorClassIdentifier: 
-  itemMesh: {fileID: 5451535527048193240, guid: 02cccadda768f3644ac389334976b906,
+  itemMesh: {fileID: 1181514255571874376, guid: 3b15e996f9be4a84a904e25f7084b260,
     type: 3}
   itemName: ArmorSet
   itemValue: 0
