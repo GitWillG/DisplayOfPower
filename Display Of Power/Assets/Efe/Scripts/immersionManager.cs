@@ -9,7 +9,6 @@ public class immersionManager : MonoBehaviour
     public GameObject NPCObject;
     actorData data;
     gameManager gm;
-
     GameObject curPlayer;
 
     public float distance_NPC_labels;
@@ -18,7 +17,10 @@ public class immersionManager : MonoBehaviour
 
     public List<GameObject> labelsActive;
 
-    public GameObject selectedMaterial;
+    public Material selectedMaterialVFX;
+
+    Material[] selected_object_materials;
+    public GameObject questAvailableMark;
 
     void Start()
     {
@@ -45,12 +47,18 @@ public class immersionManager : MonoBehaviour
                     float distance = Vector3.Distance(curPlayer.transform.position, NPC.transform.position);
                     if(distance < distance_NPC_labels)
                     {
-                        Vector3 spawnPosition = new Vector3(NPC.transform.position.x, Y_base_label_pos, NPC.transform.position.z);
-                        GameObject newLabel = Instantiate(NPCObject, spawnPosition, Quaternion.identity);
-                        labelsActive.Add(newLabel);
-                        Debug.Log("Labels open. " + newLabel.name);
+                        if(data.responsibleLabelText == null)
+                        {
+                            Vector3 spawnPosition = new Vector3(NPC.transform.position.x, Y_base_label_pos, NPC.transform.position.z);
+                            GameObject newLabel = Instantiate(NPCObject, spawnPosition, Quaternion.identity);
+                            labelsActive.Add(newLabel);
+                            
+                            Debug.Log("Labels open. " + newLabel.name);
 
-                        newLabel.GetComponent<TextMesh>().text = data.actorName;
+                            newLabel.GetComponent<TextMesh>().text = data.actorName;
+                            data.responsibleLabelText = newLabel;
+                            newLabel.transform.parent = NPC.transform;
+                        }
                     }
                 }
             }
@@ -65,5 +73,12 @@ public class immersionManager : MonoBehaviour
 
             }
         }
+    }
+
+    public void highlighObject(GameObject target)
+    {
+        selected_object_materials = target.GetComponent<Renderer>().materials;
+        
+        
     }
 }

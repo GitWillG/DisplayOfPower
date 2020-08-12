@@ -14,29 +14,23 @@ public class rigHumanoid : MonoBehaviour
     // Left bones are used as reference to mirror to right bones. So model thinking about left hand/foot bones.
     // Items that will be mirrored to right will have its scale reversed and parented to the bone accordingly.
 
+    public GameObject overhead_reference;
     public GameObject l_glove_bone;
     public GameObject r_glove_bone;
     public GameObject helmet_bone;
     public GameObject armor_set_bone;
     public GameObject l_boots_bone;
     public GameObject r_boots_bone;
-
     public GameObject cape_bone;
     public GameObject left_hand_item_placement_bone;
     public GameObject right_hand_item_placement_bone;
-
     public itemSO curGlove;
     public itemSO curHelmet;
-
     public itemSO curArmorSet;
-
     public itemSO curBoots;
-
     public List<GameObject> bones;
-
     [SerializeField]
     List<GameObject> parentedObjects;
-
     bool mirrorContinue = false;
     string[] mirrorType = {"Boots will be mirrored.", "Gloves will be mirrored.", "Nothing will be mirrored. "};
     string curMirrorType;

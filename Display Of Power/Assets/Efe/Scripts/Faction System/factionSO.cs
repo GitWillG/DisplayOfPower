@@ -16,6 +16,7 @@ namespace efe
     public List<factionSO> neutral; 
     public List<int> temp_relations;
     public List<factionSO> temp_factions;
+    public itemSO[] inventory;
 
     }
 }

@@ -10,6 +10,6 @@ namespace efe{
     {
         public Color lightColor;
         public float strength;
-        public float[] snowCity_parameters = {};
+        public float[] light_parameters = {};
     }
 }

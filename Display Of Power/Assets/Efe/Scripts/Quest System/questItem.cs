@@ -23,5 +23,11 @@ namespace efe
         public enum rewardType {diplomacy, xp, unit, heroes, relics, pointsInterest, currency, stats, lore}
         public rewardType curReward;
 
+        public dialogSO[] brief_dialogs; // shown when quest was introduced to player by a giver npc
+        public dialogSO[] wip_dialogs; // shown when player talks to a giver npc about a quest still work in progress
+        public dialogSO[] end_dialogs; // shown when player is done giving a quest
+        public dialogSO[] fail_dialogs; // shown when player talks to a giver npc but failed a quest
+        public dialogSO[] succeed_dialogs; // shown when player talks to a giver npc and giving in a succeeded quest
+
     }
 }

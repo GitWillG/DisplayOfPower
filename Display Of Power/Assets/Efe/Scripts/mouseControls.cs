@@ -15,6 +15,7 @@ namespace efe
         GUIManager guim;
         actorData actorData;
         locationData locData;
+        immersionManager im;
         public questItem curQuest;
 
         float curSpeed;
@@ -29,6 +30,8 @@ namespace efe
         {
             gm = GetComponent<gameManager>();
             guim = GetComponent<GUIManager>();
+            im = GetComponent<immersionManager>();
+            
 
             playerToControl = gm.curAvatar;
 
@@ -62,7 +65,25 @@ namespace efe
             }
 
             processPlayerMovement();
+            detectHover();
         }
+
+        void detectHover()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit, 1000))
+            {
+                Debug.Log(hit.transform.gameObject.name);
+                if(hit.transform.gameObject.tag == "NPC")
+                {
+                    gm.curHoveredObject = hit.transform.gameObject;
+                    im.highlighObject(gm.curHoveredObject);
+                }
+            }
+        }
+
+
 
         public void movePlayer(NavMeshAgent objectSource, Vector3 targetPoint)
         {

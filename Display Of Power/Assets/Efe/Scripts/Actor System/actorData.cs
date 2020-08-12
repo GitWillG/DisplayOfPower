@@ -10,6 +10,8 @@ namespace efe{
     {
         public string actorName;
         public List<questItem> actorQuests;
+        public dialogSO defaultDialog;
+        public bool hasQuest;
         public bool walkAround;
         public bool peaceful; // false = unit
         public enum locationList {waterCity, Pahro}
@@ -17,11 +19,24 @@ namespace efe{
         public GameObject[] locationArray;
         public int curIndex;
         public int actorEntryPoint;
-
+        public GameObject responsibleLabelText;
         NavMeshAgent agent;
+        immersionManager im;
+        GameObject gm;
+
+        rigHumanoid rig;
         void Start()
         {
             agent = GetComponent<NavMeshAgent>();
+            gm = GameObject.FindGameObjectWithTag("GM");
+            im = gm.GetComponent<immersionManager>();
+            rig = GetComponent<rigHumanoid>();
+
+            if(actorQuests.Count > 0)
+            {
+                GameObject mark = Instantiate(im.questAvailableMark, rig.overhead_reference.transform.position, Quaternion.identity);
+                mark.transform.parent = rig.overhead_reference.transform;
+            }
 
             locationArray = GameObject.FindGameObjectsWithTag("Location");
             if(actorLocation == locationList.waterCity)

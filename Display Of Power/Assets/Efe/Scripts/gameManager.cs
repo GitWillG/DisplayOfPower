@@ -26,6 +26,7 @@ namespace efe
         #endregion
         public GameObject lastSelectedTarget;
         public GameObject curLocation;
+        public GameObject curHoveredObject;
 
         public static factionSO curFactionInEffect;
         public static GameObject curGUI;

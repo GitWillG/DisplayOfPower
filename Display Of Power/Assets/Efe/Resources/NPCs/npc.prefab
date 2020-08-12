@@ -760,9 +760,11 @@ GameObject:
   - component: {fileID: 919132148619600023}
   - component: {fileID: 3805228078017992854}
   - component: {fileID: 919132148619600024}
+  - component: {fileID: 1207662291}
+  - component: {fileID: 225167807785371209}
   m_Layer: 0
   m_Name: npc
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -795,6 +797,7 @@ Transform:
   - {fileID: 766992724580848501}
   - {fileID: 3567105767454875639}
   - {fileID: 8042031907481817236}
+  - {fileID: 7264828358589371363}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -104.226006, z: 0}
@@ -841,14 +844,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78945eb1aaca36f40a89bcc09f08a66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actorName: 
-  actorQuests: []
+  actorName: NPC
+  actorQuests:
+  - {fileID: 11400000, guid: f5afa11fe98cd654c831e24d792b5e8b, type: 2}
+  hasQuest: 0
   walkAround: 1
   peaceful: 1
   actorLocation: 0
   locationArray: []
   curIndex: 0
   actorEntryPoint: 0
+  responsibleLabelText: {fileID: 0}
 --- !u!195 &919132148619600024
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -868,9 +874,50 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: -0.01
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &1207662291
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863947349140452884}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.3035488, z: 1}
+  m_Center: {x: 0, y: 0.65177417, z: 0}
+--- !u!114 &225167807785371209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863947349140452884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16e830bcb24359b45bf37c6fcdd539a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overhead_reference: {fileID: 5911976625359968780}
+  l_glove_bone: {fileID: 0}
+  r_glove_bone: {fileID: 0}
+  helmet_bone: {fileID: 0}
+  armor_set_bone: {fileID: 0}
+  l_boots_bone: {fileID: 0}
+  r_boots_bone: {fileID: 0}
+  cape_bone: {fileID: 0}
+  left_hand_item_placement_bone: {fileID: 0}
+  right_hand_item_placement_bone: {fileID: 0}
+  curGlove: {fileID: 0}
+  curHelmet: {fileID: 0}
+  curArmorSet: {fileID: 0}
+  curBoots: {fileID: 0}
+  bones: []
+  parentedObjects: []
 --- !u!1 &1880951516788806991
 GameObject:
   m_ObjectHideFlags: 0
@@ -3647,6 +3694,36 @@ Transform:
   m_Father: {fileID: 1967629050823022323}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5911976625359968780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7264828358589371363}
+  m_Layer: 0
+  m_Name: overheadRef
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7264828358589371363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5911976625359968780}
+  m_LocalRotation: {x: -0, y: 0.68016344, z: -0, w: 0.73306054}
+  m_LocalPosition: {x: 0, y: 1.924, z: 0}
+  m_LocalScale: {x: 0.9999999, y: 1, z: 0.9999999}
+  m_Children: []
+  m_Father: {fileID: 1339190394708847790}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 85.713005, z: 0}
 --- !u!1 &5912958276112727929
 GameObject:
   m_ObjectHideFlags: 0

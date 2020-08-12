@@ -7,7 +7,7 @@ public class lightManager : MonoBehaviour
 {
 
     public lightSO[] listLightPresets;
-    public lightSO curLightPreset;
+    lightSO curLightPreset;
 
     Light curLight;
 
@@ -15,6 +15,9 @@ public class lightManager : MonoBehaviour
     {
         curLightPreset = listLightPresets[0];
         curLight = GetComponent<Light>();
+
+        // curLight.intensity = curLightPreset.strength;
+        // curLight.color = curLightPreset.lightColor;
     }
     // Start is called before the first frame update
 

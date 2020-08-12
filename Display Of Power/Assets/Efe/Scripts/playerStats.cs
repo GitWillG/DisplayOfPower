@@ -9,5 +9,11 @@ namespace efe{
     {
         [SerializeField]
         public static List<questItem> questsInProgress;
+
+        public float playerGold;
+        public factionSO playerFaction;
+        public float curXP_avatar;
+        public float xpRequiredForNextLevel_avatar;
+        
     }
 }
