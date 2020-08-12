@@ -10,7 +10,7 @@ namespace efe
 
         #region State Change System
         // const string transition_Key = "M";
-        string[] stateStrings = {"World", "Level"};
+        string[] stateStrings = {"World", "Level", "HUD"};
         public GameObject worldAvatar;
         public GameObject levelAvatar;
         public GameObject levelLight;
@@ -26,6 +26,9 @@ namespace efe
         #endregion
         public GameObject lastSelectedTarget;
         public GameObject curLocation;
+
+        public static factionSO curFactionInEffect;
+        public static GameObject curGUI;
         // Start is called before the first frame update
         void Start()
         {
@@ -84,7 +87,7 @@ namespace efe
                     curPlayfield = playfields.onWorld;
                     curAvatar = worldAvatar;
                     Debug.Log("Changed state to world.");
-                    
+                    Time.timeScale = 1;
 
                     cc.varX = cameraControl.worldMapCamera_param[0];
                     cc.varY = cameraControl.worldMapCamera_param[1];
@@ -104,6 +107,7 @@ namespace efe
                     curPlayfield = playfields.onLevel;
                     curAvatar = levelAvatar;
                     Debug.Log("Changed state to level.");
+                    Time.timeScale = 1;
                    
 
                     cc.varX = cameraControl.levelMapCamera_param[0];
@@ -111,6 +115,20 @@ namespace efe
                     cc.varZ = cameraControl.levelMapCamera_param[2];
                     cc.trackPlayer();
                     }
+                }
+                if(inputString == stateStrings[2]) // HUD input in script
+                {  
+                    if(curPlayfield == playfields.onMenu) // If you are in HUD, no need to run the script
+                    {
+                        Debug.Log("You cannot change the state to HUD when you are in HUD already.");
+                        return;
+                    }
+                    else{
+                    curPlayfield = playfields.onMenu;
+                    Debug.Log("Changed state to HUD.");
+                    Time.timeScale = 0;
+                                        
+                    }   
                 }
             }
         }

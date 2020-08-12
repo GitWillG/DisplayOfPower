@@ -10,17 +10,12 @@ namespace efe
     [CreateAssetMenu(menuName = "Factions/Create a new faction")]
     public class factionSO : ScriptableObject
     {
-    public List<diplomacy> allies;
-    public List<diplomacy> enemies;
-    public List<diplomacy> neutral; 
-    public class diplomacy : factionSO
-    {
-        public factionSO targetFaction;
-        public int currentStanding;
-        public void setDiplomacy(factionSO target, int amount)
-        {
-            currentStanding += amount;
-        }
-    }
+    public string factionName;
+    public List<factionSO> allies;
+    public List<factionSO> enemies;
+    public List<factionSO> neutral; 
+    public List<int> temp_relations;
+    public List<factionSO> temp_factions;
+
     }
 }

@@ -75,13 +75,13 @@ namespace efe
 
             GameObject vfx = Instantiate(moveParticle, targetMovePosition, Quaternion.identity);
             Destroy(vfx, 1);
-            Debug.Log("Ordered to move.");
+            // Debug.Log("Ordered to move.");
         }
 
         void processPlayerMovement()
         {
             float distance = Vector3.Distance(playerToControl.transform.position, targetMovePosition);
-            Debug.Log(distance);
+            // Debug.Log(distance);
             if(distance > 2)
             {   
                 if(!controllerSent)
@@ -95,11 +95,11 @@ namespace efe
                     curAnimator.SetFloat("Speed", initialRunSpeed);
                 }
 
-                Debug.Log("Moving");
+                // Debug.Log("Moving");
                     if(distance < 2)
                     {   
                         curAnimator.ResetTrigger("Speed");
-                        Debug.Log("Reached");
+                        // Debug.Log("Reached");
                     }
             }
         }
@@ -127,7 +127,7 @@ namespace efe
                 if(locData.peaceful == true)
                 {
                     gm.curLocation = targetObject;
-                    GameObject newScreen = Instantiate(guim.locationMap_GUI, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
+                    GameObject newScreen = Instantiate(guim.partyEntrance_GUI, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
                     Debug.Log("Clicked on a peaceful location.");
                 }
             }

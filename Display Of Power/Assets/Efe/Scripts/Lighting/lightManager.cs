@@ -10,6 +10,12 @@ public class lightManager : MonoBehaviour
     public lightSO curLightPreset;
 
     Light curLight;
+
+    void Start()
+    {
+        curLightPreset = listLightPresets[0];
+        curLight = GetComponent<Light>();
+    }
     // Start is called before the first frame update
 
     void Update()

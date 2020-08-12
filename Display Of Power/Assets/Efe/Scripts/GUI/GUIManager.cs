@@ -10,6 +10,8 @@ public class GUIManager : MonoBehaviour
     public GameObject dialogScreen;
     public GameObject locationMap_GUI;
     public GameObject questTaken_GUI;
+
+    public GameObject partyEntrance_GUI;
     // Start is called before the first frame update
     void Start()
     {

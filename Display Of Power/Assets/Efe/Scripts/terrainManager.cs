@@ -19,23 +19,23 @@ public class terrainManager : MonoBehaviour
         float y = data.size.y;
         terrainTrees = masterTerrain.terrainData.treeInstances;
        
-        foreach(TreeInstance tree in terrainTrees)
-        {
-            for(int i = 0; i < terrainTrees.Length; i++)
-            {
-            Vector3 position = new Vector3(tree.position.x, tree.position.y, tree.position.z);
-            Debug.Log(tree);
+    //     foreach(TreeInstance tree in terrainTrees)
+    //     {
+    //         for(int i = 0; i < terrainTrees.Length; i++)
+    //         {
+    //         Vector3 position = new Vector3(tree.position.x, tree.position.y, tree.position.z);
+    //         // Debug.Log(tree);
 
-            // if(treeModel != null)
-            // {
-                Instantiate(treeModel, position, Quaternion.identity);
-            // }
-            // tree.
-            }
+    //         // if(treeModel != null)
+    //         // {
+    //             // Instantiate(treeModel, position, Quaternion.identity);
+    //         // }
+    //         // tree.
+    //         }
 
 
             
-       }
+    //    }
     }
 
     // Update is called once per frame

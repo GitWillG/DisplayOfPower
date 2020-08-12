@@ -9,19 +9,27 @@ namespace efe{
     public class menuScripts : MonoBehaviour
     {
         [SerializeField]
-        GameObject curGUIopen;
         GameObject gm;
         questManager qm;
-
+        gameManager gm_ref;
         locationManager lm;
         public GameObject questName_gui;
         public GameObject questXP_gui;
         public GameObject questGold_gui;
         public GameObject questDesc_gui;
+
+        // Diplomacy Screen
+        public TextMeshProUGUI faction_name_1;
+        public TextMeshProUGUI faction_name_2;
+
+        public GameObject curOfferList;
+        public GameObject curDemandList;
+
         
         void Start()
         {
             gm = GameObject.FindGameObjectWithTag("GM");
+            gm_ref = gm.GetComponent<gameManager>();
             qm = gm.GetComponent<questManager>();
             lm = gm.GetComponent<locationManager>();
         }
@@ -40,15 +48,31 @@ namespace efe{
         public void openGUI(GameObject GUI)
         {
             Instantiate(GUI, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
-            curGUIopen = GUI;
+            gameManager.curGUI = GUI;
+            gm_ref.changeState("HUD");
             Debug.Log(GUI.name + " opened.");
         }
 
         public void closeGUI(GameObject GUI)
         {
             Destroy(GUI);
+            Time.timeScale = 1;
+            // gm_ref.changeState("Level");
             Debug.Log(GUI.name + " closed.");
         }
+
+
+        public void linkGUItoScript(GameObject btnContainer)
+        {
+            diplomacy_container diplomacyRef = btnContainer.GetComponent<diplomacy_container>();
+            gameManager.curFactionInEffect = diplomacyRef.linkedFaction;
+        }
+
+        public void addOffer(GameObject targetOffer)
+        {
+            targetOffer.transform.parent = curOfferList.transform;
+        }
+
 
     }
 }

@@ -11,6 +11,7 @@ TagManager:
   - Location
   - Flora
   - npcSpawn
+  - Tower
   layers:
   - Default
   - TransparentFX
