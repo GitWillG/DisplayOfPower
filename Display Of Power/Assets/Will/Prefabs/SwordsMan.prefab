@@ -109,9 +109,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statObject: {fileID: 11400000, guid: 7f100d9b54b1f4241ad03cd7ba716afc, type: 2}
-  movementRange: 0
-  name: sa
-  attackRange: 0
+  Life: 0
+  MovementRange: 0
+  POName: 
+  Damage: 0
+  AttackRange: 0
+  TotalActions: 0
+  actionsRemaining: 0
+  isTurn: 0
 --- !u!54 &-4036223504025609374
 Rigidbody:
   m_ObjectHideFlags: 0

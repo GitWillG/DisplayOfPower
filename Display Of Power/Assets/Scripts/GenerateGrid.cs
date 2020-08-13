@@ -28,6 +28,7 @@ public class GenerateGrid : MonoBehaviour
     //////////
 
     public EnemySpawn enemySpawn;
+    public MouseControl mouseControl;
 
     //actual dimensions of our prefab for refference
     private float hexWidth = 1.732f;
@@ -37,6 +38,12 @@ public class GenerateGrid : MonoBehaviour
     public float zOffset = 1.5f;
     //xOffset is half of the Width
     public float xOffset = 0.866f;
+
+    //initial list to add all units on field
+    List<GameObject> unitsOnField = new List<GameObject>();
+    //New list for turn order that will include all units on field
+    List<GameObject> turnOrder = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -258,8 +265,6 @@ public class GenerateGrid : MonoBehaviour
     [ContextMenu("Create Turn Order")]
     public void CreateTurnOrder()
     {
-        List<GameObject> unitsOnField = new List<GameObject>();
-
         ///Array of all hexes in game exists in EnemySpawn.cs
         ///run through the existing array of hexes and 
         ///adds all game object that are children to the 
@@ -272,21 +277,38 @@ public class GenerateGrid : MonoBehaviour
             }     
         }
 
+        //print all units on field
         for (int i = 0; i < unitsOnField.Count; i++)
         {
             Debug.Log(unitsOnField[i]);
         }
 
-        //New list for turn order
-        List<GameObject> turnOrder = new List<GameObject>();
-
         //using previous function to randomize list
         turnOrder = RandomizeList(unitsOnField);
 
+        //print the turn order
         for(int i = 0; i < turnOrder.Count; i++)
         {
-            Debug.Log("Turn order" + turnOrder[i]);
+            Debug.Log("Turn order: " + (i+1) + " " + turnOrder[i]);
         }
     }
 
+    [ContextMenu("Start Order")]
+    public void InitiateOrder()
+    {
+        int x = 0;
+
+        turnOrder[x].GetComponent<prefabUnits>().isTurn = true;
+        if (turnOrder[x].GetComponent<prefabUnits>().isTurn == true)
+        {
+            mouseControl.selectHex(turnOrder[x].transform.parent.gameObject);
+        }
+
+        if (turnOrder[x].GetComponent<prefabUnits>().actionsRemaining == 0)
+        {
+            turnOrder[x].GetComponent<prefabUnits>().isTurn = false;
+            x = x++;
+            turnOrder[x].GetComponent<prefabUnits>().isTurn = true;
+        }
+    }
 }

@@ -288,7 +288,7 @@ public class MouseControl : MonoBehaviour
             else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0)
             {
                 this.gameObject.GetComponent<BestClickToMove>().ClickAttack(selectedTarget.GetChild(0).gameObject, transformSelected.gameObject);
-                //selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actions -= 1;
+                selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
                 return;
             }
         }
