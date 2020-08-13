@@ -27,6 +27,8 @@ public class GenerateGrid : MonoBehaviour
     public List<GameObject> postObCheck;
     //////////
 
+    public EnemySpawn enemySpawn;
+
     //actual dimensions of our prefab for refference
     private float hexWidth = 1.732f;
     private float hexDepth = 2f;
@@ -39,6 +41,9 @@ public class GenerateGrid : MonoBehaviour
     void Start()
     {
         gridGeneration();
+
+        enemySpawn.SpawnEnemies(5, enemySpawn.allyPrefab);
+        enemySpawn.SpawnEnemies(5, enemySpawn.enemyPrefab);
     }
 
     [ContextMenu("Generate Grid")]
