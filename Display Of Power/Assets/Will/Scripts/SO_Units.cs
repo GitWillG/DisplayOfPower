@@ -12,4 +12,5 @@ public class SO_Units : ScriptableObject
     public int attackRange;
     public int movementRange;
     public int totalActions;
+    public int actionsRemaining;
 }
