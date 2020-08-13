@@ -12,6 +12,7 @@ public class prefabUnits : MonoBehaviour
     public int AttackRange;
     public int TotalActions;
     public int actionsRemaining;
+    public bool isTurn;
     // Start is called before the first frame update
     void Start()
     {

@@ -236,4 +236,57 @@ public class GenerateGrid : MonoBehaviour
         tempList.Clear();
 
     }
+
+    //Function to randomize turn order
+    //TESTING MEASURE FOR PROTOTYPE
+    public List<GameObject> RandomizeList(List<GameObject> inputList)
+    {
+        int rand = 0;
+        List<GameObject> returnList = new List<GameObject>();
+        //while the first list has contents it runs this code
+        while (inputList.Count > 0)
+        {
+            //Randomly take contents from first list then adds to second list 
+            //also removes from first list to meet while loop conditions
+            rand = UnityEngine.Random.Range(0, inputList.Count);
+            returnList.Add(inputList[rand]);
+            inputList.Remove(inputList[rand]);
+        }
+        return returnList;
+    }
+
+    [ContextMenu("Create Turn Order")]
+    public void CreateTurnOrder()
+    {
+        List<GameObject> unitsOnField = new List<GameObject>();
+
+        ///Array of all hexes in game exists in EnemySpawn.cs
+        ///run through the existing array of hexes and 
+        ///adds all game object that are children to the 
+        ///list units on field
+        for (int i = 0; i < enemySpawn.hex.Length; i++)
+        {
+            if (enemySpawn.hex[i].transform.childCount > 0)
+            {
+                unitsOnField.Add(enemySpawn.hex[i].transform.GetChild(0).gameObject);
+            }     
+        }
+
+        for (int i = 0; i < unitsOnField.Count; i++)
+        {
+            Debug.Log(unitsOnField[i]);
+        }
+
+        //New list for turn order
+        List<GameObject> turnOrder = new List<GameObject>();
+
+        //using previous function to randomize list
+        turnOrder = RandomizeList(unitsOnField);
+
+        for(int i = 0; i < turnOrder.Count; i++)
+        {
+            Debug.Log("Turn order" + turnOrder[i]);
+        }
+    }
+
 }
