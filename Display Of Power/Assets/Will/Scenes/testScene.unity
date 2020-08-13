@@ -1014,6 +1014,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1673452185491022354, guid: 7d05192683003a542b1b39a3adca87a8,
+        type: 3}
+      propertyPath: m_BlockingObjects
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1673452185491022357, guid: 7d05192683003a542b1b39a3adca87a8,
         type: 3}
       propertyPath: m_Name
@@ -1306,6 +1311,7 @@ MonoBehaviour:
   legalHex: []
   testmat: {fileID: 2100000, guid: 4824d653c2c633c46b9a1b9fc4fc990c, type: 2}
   postObCheck: []
+  enemySpawn: {fileID: 1873872311}
   zOffset: 1.5
   xOffset: 0.866
 --- !u!4 &1873872310
@@ -1338,6 +1344,8 @@ MonoBehaviour:
     type: 3}
   hex: []
   hexSpawn: {fileID: 0}
+  allyPrefab: {fileID: 8653020172050730567, guid: 29ba187aa5b553346b1f29b43bdc980f,
+    type: 3}
   numOfBads: {fileID: 433260419}
 --- !u!1001 &1973918493
 PrefabInstance:
