@@ -23,7 +23,6 @@ namespace efe{
         NavMeshAgent agent;
         immersionManager im;
         GameObject gm;
-
         rigHumanoid rig;
         void Start()
         {
