@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707ccf7d21a0d2c4e913a8a0b7b0e4e1, type: 3}
   m_Name: Swordsman
   m_EditorClassIdentifier: 
-  name: Swordsman
+  SOname: 
   life: 100
   damage: 20
   faction: death
   attackRange: 2
   movementRange: 4
-  totalActions: 0
+  totalActions: 2
+  actionsRemaining: 2

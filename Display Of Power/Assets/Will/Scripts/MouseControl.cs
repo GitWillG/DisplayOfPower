@@ -123,77 +123,9 @@ public class MouseControl : MonoBehaviour
             //if you click, while hovering a selected hex, and you have not already clicked a hex, change that object to the selected color and Declare that a hex has been clicked
             if (Input.GetMouseButtonUp(0) && hoveredTarget != null)
             {
-                selectionRenderer.material = selectedMat;
-                if (clickedHex == false)
-                {
 
-
-                    ////////////////////////////
-                    //temporary testing measure, this allows us to easilly add units to the battlefield at run time for testing purposes
-                    if (hoveredTarget.childCount == 0)
-                    {
-                        //when you click ka hex, we instantiate a unit at that location, name it, and child it to that hex. 
-                        GameObject newUnit = (GameObject)Instantiate(unitPrefab, new Vector3(hoveredTarget.transform.position.x, 0.8f, hoveredTarget.transform.position.z), Quaternion.identity);
-                        newUnit.name = unitPrefab.name;
-                        newUnit.transform.SetParent(hoveredTarget.transform);
-                        newUnit.GetComponent<NavMeshAgent>().enabled = false;
-
-                    }
-                    ///////////////////////////
-
-
-                    else
-                    {
-                        //save the hovered target as a selected one
-                        selectedTarget = hoveredTarget;
-                        clickedHex = true;
-                        //swap the mask to our legal hex layer for raycasting
-                        currentMask = 1 << 10;
-                        //swap to the appropriate range
-                        swapRange();
-                        //run the range detection script
-                        if (isMove)
-                        {
-                            grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, legalMove);
-
-                        }
-                        else
-                        {
-
-                            grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, legalMove);
-                        }
-                    }
-                    return;
-                }
-                else if (clickedHex == true)
-                {
-                    //movement
-
-
-                    if (hoveredTarget != null && Input.GetMouseButtonUp(0) && isMove && hoveredTarget.childCount <=0)
-                    {
-                        selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = true;
-                        isMoving = true;
-                        this.gameObject.GetComponent<BestClickToMove>().ClickMove(selectedTarget.GetChild(0).gameObject, hoveredTarget.gameObject);
-                        selectedTarget = hoveredTarget;
-
-                        return;
-                        //grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);
-                    }
-
-                    //attack
-
-
-                    else if (!isMove && hoveredTarget !=null &&Input.GetMouseButtonUp(0) && hoveredTarget.childCount > 0)
-                    {
-                        this.gameObject.GetComponent<BestClickToMove>().ClickAttack(selectedTarget.GetChild(0).gameObject, hoveredTarget.gameObject);
-                        //selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actions -= 1;
-                        return;
-                    }
-                }
+                selectHex(hoveredTarget.gameObject);
                
-
-
             }
 
         }
@@ -286,5 +218,83 @@ public class MouseControl : MonoBehaviour
     }
 
 
+
+
+    public void selectHex(GameObject hexSelected)
+    {
+        Transform transformSelected = hexSelected.transform;
+
+        selectionRenderer.material = selectedMat;
+        if (clickedHex == false)
+        {
+
+
+            ////////////////////////////
+            //temporary testing measure, this allows us to easilly add units to the battlefield at run time for testing purposes
+            if (transformSelected.childCount == 0)
+            {
+                //when you click ka hex, we instantiate a unit at that location, name it, and child it to that hex. 
+                GameObject newUnit = (GameObject)Instantiate(unitPrefab, new Vector3(transformSelected.transform.position.x, 0.8f, transformSelected.transform.position.z), Quaternion.identity);
+                newUnit.name = unitPrefab.name;
+                newUnit.transform.SetParent(transformSelected.transform);
+                newUnit.GetComponent<NavMeshAgent>().enabled = false;
+
+            }
+            ///////////////////////////
+
+
+            else
+            {
+                //save the hovered target as a selected one
+                selectedTarget = transformSelected;
+                clickedHex = true;
+                //swap the mask to our legal hex layer for raycasting
+                currentMask = 1 << 10;
+                //swap to the appropriate range
+                swapRange();
+                //run the range detection script
+                if (isMove)
+                {
+                    grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, legalMove);
+
+                }
+                else
+                {
+
+                    grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, legalMove);
+                }
+            }
+            return;
+        }
+        else if (clickedHex == true)
+        {
+            //movement
+
+
+            if (transformSelected != null && Input.GetMouseButtonUp(0) && isMove && transformSelected.childCount <= 0)
+            {
+                selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = true;
+                isMoving = true;
+                this.gameObject.GetComponent<BestClickToMove>().ClickMove(selectedTarget.GetChild(0).gameObject, transformSelected.gameObject);
+                selectedTarget = transformSelected;
+
+                return;
+                //grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);
+            }
+
+            //attack
+
+
+            else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0)
+            {
+                this.gameObject.GetComponent<BestClickToMove>().ClickAttack(selectedTarget.GetChild(0).gameObject, transformSelected.gameObject);
+                selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
+                return;
+            }
+        }
+
+
+
+    }
 }
 

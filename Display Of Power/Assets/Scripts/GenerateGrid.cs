@@ -27,6 +27,9 @@ public class GenerateGrid : MonoBehaviour
     public List<GameObject> postObCheck;
     //////////
 
+    public EnemySpawn enemySpawn;
+    public MouseControl mouseControl;
+
     //actual dimensions of our prefab for refference
     private float hexWidth = 1.732f;
     private float hexDepth = 2f;
@@ -35,10 +38,19 @@ public class GenerateGrid : MonoBehaviour
     public float zOffset = 1.5f;
     //xOffset is half of the Width
     public float xOffset = 0.866f;
+
+    //initial list to add all units on field
+    List<GameObject> unitsOnField = new List<GameObject>();
+    //New list for turn order that will include all units on field
+    List<GameObject> turnOrder = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
         gridGeneration();
+
+        enemySpawn.SpawnEnemies(5, enemySpawn.allyPrefab);
+        enemySpawn.SpawnEnemies(5, enemySpawn.enemyPrefab);
     }
 
     [ContextMenu("Generate Grid")]
@@ -230,5 +242,73 @@ public class GenerateGrid : MonoBehaviour
         }
         tempList.Clear();
 
+    }
+
+    //Function to randomize turn order
+    //TESTING MEASURE FOR PROTOTYPE
+    public List<GameObject> RandomizeList(List<GameObject> inputList)
+    {
+        int rand = 0;
+        List<GameObject> returnList = new List<GameObject>();
+        //while the first list has contents it runs this code
+        while (inputList.Count > 0)
+        {
+            //Randomly take contents from first list then adds to second list 
+            //also removes from first list to meet while loop conditions
+            rand = UnityEngine.Random.Range(0, inputList.Count);
+            returnList.Add(inputList[rand]);
+            inputList.Remove(inputList[rand]);
+        }
+        return returnList;
+    }
+
+    [ContextMenu("Create Turn Order")]
+    public void CreateTurnOrder()
+    {
+        ///Array of all hexes in game exists in EnemySpawn.cs
+        ///run through the existing array of hexes and 
+        ///adds all game object that are children to the 
+        ///list units on field
+        for (int i = 0; i < enemySpawn.hex.Length; i++)
+        {
+            if (enemySpawn.hex[i].transform.childCount > 0)
+            {
+                unitsOnField.Add(enemySpawn.hex[i].transform.GetChild(0).gameObject);
+            }     
+        }
+
+        //print all units on field
+        for (int i = 0; i < unitsOnField.Count; i++)
+        {
+            Debug.Log(unitsOnField[i]);
+        }
+
+        //using previous function to randomize list
+        turnOrder = RandomizeList(unitsOnField);
+
+        //print the turn order
+        for(int i = 0; i < turnOrder.Count; i++)
+        {
+            Debug.Log("Turn order: " + (i+1) + " " + turnOrder[i]);
+        }
+    }
+
+    [ContextMenu("Start Order")]
+    public void InitiateOrder()
+    {
+        int x = 0;
+
+        turnOrder[x].GetComponent<prefabUnits>().isTurn = true;
+        if (turnOrder[x].GetComponent<prefabUnits>().isTurn == true)
+        {
+            mouseControl.selectHex(turnOrder[x].transform.parent.gameObject);
+        }
+
+        if (turnOrder[x].GetComponent<prefabUnits>().actionsRemaining == 0)
+        {
+            turnOrder[x].GetComponent<prefabUnits>().isTurn = false;
+            x = x++;
+            turnOrder[x].GetComponent<prefabUnits>().isTurn = true;
+        }
     }
 }
