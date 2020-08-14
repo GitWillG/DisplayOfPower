@@ -277,6 +277,7 @@ public class MouseControl : MonoBehaviour
                 isMoving = true;
                 this.gameObject.GetComponent<BestClickToMove>().ClickMove(selectedTarget.GetChild(0).gameObject, transformSelected.gameObject);
                 selectedTarget = transformSelected;
+                selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
 
                 return;
                 //grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);

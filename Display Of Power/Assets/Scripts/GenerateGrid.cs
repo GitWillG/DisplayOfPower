@@ -293,22 +293,23 @@ public class GenerateGrid : MonoBehaviour
         }
     }
 
-    [ContextMenu("Start Order")]
-    public void InitiateOrder()
-    {
-        int x = 0;
+    public int k = 0;
 
-        turnOrder[x].GetComponent<prefabUnits>().isTurn = true;
-        if (turnOrder[x].GetComponent<prefabUnits>().isTurn == true)
+    [ContextMenu("Start Next Turn")]
+    public void NextTurn()
+    {
+
+        turnOrder[k].GetComponent<prefabUnits>().isTurn = true;
+        if (turnOrder[k].GetComponent<prefabUnits>().isTurn == true)
         {
-            mouseControl.selectHex(turnOrder[x].transform.parent.gameObject);
+            mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
         }
 
-        if (turnOrder[x].GetComponent<prefabUnits>().actionsRemaining == 0)
+        if (turnOrder[k].GetComponent<prefabUnits>().actionsRemaining <= 0)
         {
-            turnOrder[x].GetComponent<prefabUnits>().isTurn = false;
-            x = x++;
-            turnOrder[x].GetComponent<prefabUnits>().isTurn = true;
+            turnOrder[k].GetComponent<prefabUnits>().isTurn = false;
+            k = k+1;
+            print(k);
         }
     }
 }
