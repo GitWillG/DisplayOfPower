@@ -12,11 +12,14 @@ public class GenerateGrid : MonoBehaviour
     public int Width;
     //number of tilels along z axis of grid
     public int Depth;
-
+    public CubeUnit cubeclass;
     public List<GameObject> innerList;
     public List<List<GameObject>> movementRadius;
     public GameObject hexPrefab;
     List<GameObject> tempList;
+    List<GameObject> parent;
+    public List<GameObject> path;
+    List<CubeUnit> possibleCubes;
 
     ///////////////////////testing
     //public Material newmat;
@@ -42,7 +45,7 @@ public class GenerateGrid : MonoBehaviour
     //initial list to add all units on field
     List<GameObject> unitsOnField = new List<GameObject>();
     //New list for turn order that will include all units on field
-    List<GameObject> turnOrder = new List<GameObject>();
+    public List<GameObject> turnOrder = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -122,6 +125,8 @@ public class GenerateGrid : MonoBehaviour
         tempList = new List<GameObject>();
         List<GameObject> rowVal;
         tempList.Add(centerPoint);
+        parent = new List<GameObject>();
+        parent.Add(centerPoint);
         
         for (int k = 1; k < radius + 1; k++)
         {
@@ -133,24 +138,43 @@ public class GenerateGrid : MonoBehaviour
                 Collider[] closeHexes = Physics.OverlapSphere(movementRadius[k-1][j].transform.position, 1f, 1<<8);
                 foreach (var currentHex in closeHexes)
                 {
-                    if (!tempList.Contains((currentHex.gameObject)) && currentHex.transform.childCount <1)
+                    if (!tempList.Contains(currentHex.gameObject) && currentHex.transform.childCount <1)
                     {
-                        rowVal.Add(((currentHex.gameObject)));
+                        rowVal.Add(currentHex.gameObject);
                         tempList.Add((currentHex.gameObject));
+                        parent.Add(movementRadius[k - 1][j]);
                     }
                 }
 
             }
             movementRadius.Add(rowVal);
-     
+
         }
+        //for (int a = 0; a < Width; a++)
+        //{
+        //    for (int b = 0; b < Depth; b++)
+        //    {
+        //        if (tempList.Contains(hexArray[a, b]))
+        //        {
+        //            float tempx = a - (b - (b & 1)) / 2;
+        //            float tempy = -a - b;
+        //            float tempz = b;
+        //            CubeUnit tempCube = new CubeUnit(tempx, tempy, tempz);
+
+        //            possibleCubes.Add(tempCube);
+        //        }
+
+        //    }
+        //}
+
 
         for (int i = 0; i < tempList.Count; i++)
         {
             if (tempList[i] != centerPoint)
             {
                 tempList[i].gameObject.GetComponent<Renderer>().material = newMat;
-                tempList[i].gameObject.layer = 10;
+                tempList[i].gameObject.layer = 10;                
+
             }
             else
             {
@@ -241,6 +265,7 @@ public class GenerateGrid : MonoBehaviour
             tempList[i].gameObject.layer = 8;
         }
         tempList.Clear();
+        //possibleCubes.Clear();
 
     }
 
@@ -312,4 +337,98 @@ public class GenerateGrid : MonoBehaviour
             print(k);
         }
     }
+
+    public void choosePath(GameObject start, GameObject end)
+    {
+        path = new List<GameObject>();
+        GameObject checkNext;
+        //bool[] visited = new bool[tempList.Count];
+
+
+        //GameObject[] prev = new GameObject[tempList.Count];
+
+
+        //movementRadius = new List<List<GameObject>>();
+        //innerList.Add(start);
+        //movementRadius.Add(innerList);
+
+
+        //List<GameObject> checkQ = new List<GameObject>();
+        //List<GameObject> wasVisited = new List<GameObject>();
+
+        //checkQ.Add(start);
+        //while (checkQ.Count > 0)
+        //{
+        //    if (checkQ[0].gameObject == end.gameObject)
+        //    {
+
+        //    }
+        //    else
+        //    {
+        //        Collider[] closeHexes = Physics.OverlapSphere(checkQ[0].transform.position, 1f, 1 << 10);
+        //        foreach (var currentHex in closeHexes)
+        //        {
+        //            if (!wasVisited.Contains((currentHex.gameObject)) && currentHex.transform.childCount < 1)
+        //            {
+        //                checkQ.Add(currentHex.gameObject);
+        //                prev[currentHex] = checkQ[0].gameObject;
+        //            }
+        //        }
+        //    }
+        //}
+        path.Clear();
+        path.Add(end);
+        checkNext = end;
+        while (checkNext != start)
+        {
+            int indexCheck = tempList.IndexOf(checkNext);
+            checkNext = parent[indexCheck];
+            path.Add(checkNext);
+            //Debug.Log(checkNext);
+
+        }
+        //Debug.Log(start + " " + end);
+        path.Reverse();
+
+
+
+
+
+
+
+
+
+
+        //CubeUnit tempStartCube;
+        //CubeUnit tempEndCube;
+        //if (possibleCubes != null)
+        //{
+        //    for (int a = 0; a < Width; a++)
+        //    {
+        //        for (int b = 0; b < Depth; b++)
+        //        {
+        //            if (start == hexArray[a, b])
+        //            {
+        //                float tempx = a - (b - (b & 1)) / 2;
+        //                float tempy = -a - b;
+        //                float tempz = b;
+        //                tempStartCube = new CubeUnit(tempx, tempy, tempz);
+
+        //            }
+        //            else if (end == hexArray[a, b])
+        //            {
+        //                float tempx = a - (b - (b & 1)) / 2;
+        //                float tempy = -a - b;
+        //                float tempz = b;
+        //                tempEndCube = new CubeUnit(tempx, tempy, tempz);
+        //            }
+
+
+        //        }
+        //    }
+
+        //}
+    }
+
+
 }

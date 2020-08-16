@@ -19,6 +19,7 @@ public class MouseControl : MonoBehaviour
     public Material legalMove;
     //original hexs material
     public Material defaultMat;
+    public GenerateGrid GridOb;
 
 
     public GameObject selectionManager;
@@ -57,66 +58,73 @@ public class MouseControl : MonoBehaviour
 
     private void Update()
     {
-        if (isMoving == false) { 
+        if (isMoving == false) 
+        { 
 
 
       
         //whenever there is no hovered target or cicked hex reset the last selected hex to its original material
-        if (hoveredTarget != null )
-        {
+            if (hoveredTarget != null )
+            {
             //if youve clicked a hex we use the selection colors, otherwise we use our default hex colors
-            if(clickedHex == true)
-            {
-                oldMat = legalMove;
-            }
-            else
-            {
-                oldMat = defaultMat;
-            }
+                if(clickedHex == true)
+                {
+                    oldMat = legalMove;
+                }
+                else
+                {
+                    oldMat = defaultMat;
+                }
 
             //get the rennderer of the last hovered targed
-            selectionRenderer = hoveredTarget.GetComponent<Renderer>();
+                selectionRenderer = hoveredTarget.GetComponent<Renderer>();
             //reset it
-            selectionRenderer.material = oldMat;
+                selectionRenderer.material = oldMat;
             //null the old target
-            hoveredTarget = null;
+                hoveredTarget = null;
 
-        }
+            }
 
         //after you've reset the hexes to their original color, if a hex is selected keep it colored as such
-        if (selectedTarget != null)
-        {
-            selectedTarget.gameObject.GetComponent<Renderer>().material = selectedMat;
-        }
+            if (selectedTarget != null)
+            {
+                selectedTarget.gameObject.GetComponent<Renderer>().material = selectedMat;
+            }
 
 
 
 
         //Ray cast from the mouse to find objects
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, currentMask))
-        {
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, currentMask))
+            {
            //save the selection and get its renderer
-            var selection = hit.transform;
-            selectionRenderer = selection.GetComponent<Renderer>();
+                var selection = hit.transform;
+                selectionRenderer = selection.GetComponent<Renderer>();
 
             //if we have not clicked a hex and the hovered object has a renderer we change the material to a hovered material, and declare it our selected target
-            if (selectionRenderer != null )
-            {
-                oldMat = selectionRenderer.material;
-                selectionRenderer.material = hoveredMat;
-                hoveredTarget = selection;
-            }
+                if (selectionRenderer != null )
+                {
+                    oldMat = selectionRenderer.material;
+                    selectionRenderer.material = hoveredMat;
+                    hoveredTarget = selection;
+
+                    if (selectedTarget != null && isMove)
+                    {
+                        GridOb.choosePath(selectedTarget.gameObject, hoveredTarget.gameObject);
+                    }
+
+                }
 
             //otherwise if you have selected a target, and you click on that object, we will revert it to its original material and reset the clicked Bool
-            if (selection == selectedTarget && Input.GetMouseButtonUp(0) && clickedHex == true)
-            {
+                if (selection == selectedTarget && Input.GetMouseButtonUp(0) && clickedHex == true)
+                {
 
                     removeRangeInd();
                     return;
+                }
             }
-        }
 
 
 
@@ -131,26 +139,7 @@ public class MouseControl : MonoBehaviour
         }
         else
         {
-            if (selectedTarget.GetChild(0).transform.position.x >= selectedTarget.transform.position.x -0.2 && selectedTarget.GetChild(0).transform.position.x <= selectedTarget.transform.position.x + 0.2 && selectedTarget.GetChild(0).transform.position.z >= selectedTarget.transform.position.z - 0.2 && selectedTarget.GetChild(0).transform.position.z <= selectedTarget.transform.position.z + 0.2)
-            {
-                selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = false;
-                selectedTarget.GetChild(0).transform.position = new Vector3(selectedTarget.transform.position.x, 0.8f, selectedTarget.transform.position.z);
-                grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
-                grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
-                ////reset the selected hex
-                //selectionRenderer.material = oldMat;
-                ////nothing is selected anymore
-                //clickedHex = false;
-                ////revert all the highlighted hexes to their original colors
-                //grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
-                ////null the selected hex
-                //selectedTarget = null;
-                ////go back to raycasting on our default hex layer
-                //currentMask = 1 << 8;
-                removeRangeInd();
-                
-                isMoving = false;
-            }
+            finishMovement();
         }
     }
 
@@ -218,12 +207,37 @@ public class MouseControl : MonoBehaviour
     }
 
 
+    public void finishMovement()
+    {
+        if (selectedTarget.GetChild(0).transform.position.x >= selectedTarget.transform.position.x - 0.2 && selectedTarget.GetChild(0).transform.position.x <= selectedTarget.transform.position.x + 0.2 && selectedTarget.GetChild(0).transform.position.z >= selectedTarget.transform.position.z - 0.2 && selectedTarget.GetChild(0).transform.position.z <= selectedTarget.transform.position.z + 0.2)
+        {
+            selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = false;
+            selectedTarget.GetChild(0).transform.position = new Vector3(selectedTarget.transform.position.x, 0.8f, selectedTarget.transform.position.z);
+            grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
+            grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
+            ////reset the selected hex
+            //selectionRenderer.material = oldMat;
+            ////nothing is selected anymore
+            //clickedHex = false;
+            ////revert all the highlighted hexes to their original colors
+            //grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
+            ////null the selected hex
+            //selectedTarget = null;
+            ////go back to raycasting on our default hex layer
+            //currentMask = 1 << 8;
+            removeRangeInd();
 
+            isMoving = false;
+        }
+    }
 
     public void selectHex(GameObject hexSelected)
     {
         Transform transformSelected = hexSelected.transform;
-
+        //Debug.Log("test");
+        //Debug.Log(transformSelected);
+        //Debug.Log(selectedTarget);
+  
         selectionRenderer.material = selectedMat;
         if (clickedHex == false)
         {
@@ -269,16 +283,17 @@ public class MouseControl : MonoBehaviour
         else if (clickedHex == true)
         {
             //movement
+            GameObject currentChar = selectedTarget.transform.GetChild(0).gameObject;
 
-
-            if (transformSelected != null && Input.GetMouseButtonUp(0) && isMove && transformSelected.childCount <= 0)
+            if (transformSelected != null && Input.GetMouseButtonUp(0) && isMove && transformSelected.childCount <= 0 && currentChar.GetComponent<prefabUnits>().actionsRemaining >0)
             {
-                selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = true;
-                isMoving = true;
-                this.gameObject.GetComponent<BestClickToMove>().ClickMove(selectedTarget.GetChild(0).gameObject, transformSelected.gameObject);
-                selectedTarget = transformSelected;
-                selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
+                if (selectedTarget != null)
+                {
+                    GridOb.choosePath(selectedTarget.gameObject, hoveredTarget.gameObject);
 
+                }
+                StartCoroutine(movementRoutine());
+                selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
                 return;
                 //grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);
             }
@@ -286,15 +301,55 @@ public class MouseControl : MonoBehaviour
             //attack
 
 
-            else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0)
+            else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && currentChar.GetComponent<prefabUnits>().actionsRemaining > 0)
             {
                 this.gameObject.GetComponent<BestClickToMove>().ClickAttack(selectedTarget.GetChild(0).gameObject, transformSelected.gameObject);
                 selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
+                if (transformSelected.GetChild(0).gameObject.GetComponent<prefabUnits>().Life <= 0)
+                {
+                    killUnit(transformSelected.GetChild(0).gameObject);
+                }
                 return;
             }
         }
 
 
+
+    }
+    public void killUnit(GameObject deadUnit)
+    {
+        GridOb.turnOrder.Remove(deadUnit);
+        Destroy(deadUnit);
+
+    }
+    IEnumerator movementRoutine()
+    {
+        for (int i = 1; i < GridOb.path.Count; i++)
+        {
+            selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = true;
+            isMoving = true;
+            this.gameObject.GetComponent<BestClickToMove>().ClickMove(selectedTarget.GetChild(0).gameObject, GridOb.path[i]);
+            selectedTarget = GridOb.path[i].transform;
+            yield return new WaitForSeconds(0.9f);
+            if (isMoving == true)
+            {
+                finishMovement();
+                if (i+1 < GridOb.path.Count)
+                {
+                    selectedTarget = GridOb.path[i].transform;
+                }
+            }
+            else
+            {
+                if (i + 1 < GridOb.path.Count)
+                {
+                    yield return new WaitForSeconds(0.1f);
+                    selectedTarget = GridOb.path[i].transform;
+                }
+            }
+
+
+        }
 
     }
 }
