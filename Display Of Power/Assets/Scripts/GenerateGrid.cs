@@ -180,6 +180,7 @@ public class GenerateGrid : MonoBehaviour
     //That list is then moved to a new layer and re-coloured
     public void checkAttackLegality(int radius, GameObject centerPoint, Material newMat)
     { 
+        Debug.Log("test");
         int testRadius = radius;
         float xNum = 0;
         float zNum = 0;
@@ -294,7 +295,7 @@ public class GenerateGrid : MonoBehaviour
         //print all units on field
         for (int i = 0; i < unitsOnField.Count; i++)
         {
-            //Debug.Log(unitsOnField[i]);
+            Debug.Log(unitsOnField[i]);
         }
 
         //using previous function to randomize list
