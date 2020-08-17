@@ -16,7 +16,7 @@ public class GenerateGrid : MonoBehaviour
     public List<GameObject> innerList;
     public List<List<GameObject>> movementRadius;
     public GameObject hexPrefab;
-    List<GameObject> tempList;
+    public List<GameObject> tempList;
     List<GameObject> parent;
     public List<GameObject> path;
     List<CubeUnit> possibleCubes;
@@ -29,6 +29,9 @@ public class GenerateGrid : MonoBehaviour
     public Material testmat;
     public List<GameObject> postObCheck;
     //////////
+
+    public List<GameObject> enemyList;
+    public List<GameObject> allyList;
 
     public EnemySpawn enemySpawn;
     public MouseControl mouseControl;
@@ -50,10 +53,12 @@ public class GenerateGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemyList = new List<GameObject>();
+        allyList = new List<GameObject>();
         gridGeneration();
 
-        enemySpawn.SpawnEnemies(5, enemySpawn.allyPrefab);
-        enemySpawn.SpawnEnemies(5, enemySpawn.enemyPrefab);
+        enemySpawn.SpawnEnemies(5, enemySpawn.allyPrefab, allyList);
+        enemySpawn.SpawnEnemies(5, enemySpawn.enemyPrefab, enemyList);
     }
 
     [ContextMenu("Generate Grid")]
@@ -150,22 +155,7 @@ public class GenerateGrid : MonoBehaviour
             movementRadius.Add(rowVal);
 
         }
-        //for (int a = 0; a < Width; a++)
-        //{
-        //    for (int b = 0; b < Depth; b++)
-        //    {
-        //        if (tempList.Contains(hexArray[a, b]))
-        //        {
-        //            float tempx = a - (b - (b & 1)) / 2;
-        //            float tempy = -a - b;
-        //            float tempz = b;
-        //            CubeUnit tempCube = new CubeUnit(tempx, tempy, tempz);
 
-        //            possibleCubes.Add(tempCube);
-        //        }
-
-        //    }
-        //}
 
 
         for (int i = 0; i < tempList.Count; i++)
@@ -323,18 +313,18 @@ public class GenerateGrid : MonoBehaviour
     [ContextMenu("Start Next Turn")]
     public void NextTurn()
     {
-
+        mouseControl.hoveredTarget = turnOrder[k].transform.parent;
         turnOrder[k].GetComponent<prefabUnits>().isTurn = true;
         if (turnOrder[k].GetComponent<prefabUnits>().isTurn == true)
         {
             mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
         }
 
-        if (turnOrder[k].GetComponent<prefabUnits>().actionsRemaining <= 0)
+        if (turnOrder[k].GetComponent<prefabUnits>().actionsRemaining == 0)
         {
             turnOrder[k].GetComponent<prefabUnits>().isTurn = false;
             k = k+1;
-            print(k);
+            print("next turn is" + k);
         }
     }
 
@@ -342,40 +332,7 @@ public class GenerateGrid : MonoBehaviour
     {
         path = new List<GameObject>();
         GameObject checkNext;
-        //bool[] visited = new bool[tempList.Count];
-
-
-        //GameObject[] prev = new GameObject[tempList.Count];
-
-
-        //movementRadius = new List<List<GameObject>>();
-        //innerList.Add(start);
-        //movementRadius.Add(innerList);
-
-
-        //List<GameObject> checkQ = new List<GameObject>();
-        //List<GameObject> wasVisited = new List<GameObject>();
-
-        //checkQ.Add(start);
-        //while (checkQ.Count > 0)
-        //{
-        //    if (checkQ[0].gameObject == end.gameObject)
-        //    {
-
-        //    }
-        //    else
-        //    {
-        //        Collider[] closeHexes = Physics.OverlapSphere(checkQ[0].transform.position, 1f, 1 << 10);
-        //        foreach (var currentHex in closeHexes)
-        //        {
-        //            if (!wasVisited.Contains((currentHex.gameObject)) && currentHex.transform.childCount < 1)
-        //            {
-        //                checkQ.Add(currentHex.gameObject);
-        //                prev[currentHex] = checkQ[0].gameObject;
-        //            }
-        //        }
-        //    }
-        //}
+    
         path.Clear();
         path.Add(end);
         checkNext = end;
@@ -384,50 +341,11 @@ public class GenerateGrid : MonoBehaviour
             int indexCheck = tempList.IndexOf(checkNext);
             checkNext = parent[indexCheck];
             path.Add(checkNext);
-            //Debug.Log(checkNext);
 
         }
-        //Debug.Log(start + " " + end);
         path.Reverse();
 
 
-
-
-
-
-
-
-
-
-        //CubeUnit tempStartCube;
-        //CubeUnit tempEndCube;
-        //if (possibleCubes != null)
-        //{
-        //    for (int a = 0; a < Width; a++)
-        //    {
-        //        for (int b = 0; b < Depth; b++)
-        //        {
-        //            if (start == hexArray[a, b])
-        //            {
-        //                float tempx = a - (b - (b & 1)) / 2;
-        //                float tempy = -a - b;
-        //                float tempz = b;
-        //                tempStartCube = new CubeUnit(tempx, tempy, tempz);
-
-        //            }
-        //            else if (end == hexArray[a, b])
-        //            {
-        //                float tempx = a - (b - (b & 1)) / 2;
-        //                float tempy = -a - b;
-        //                float tempz = b;
-        //                tempEndCube = new CubeUnit(tempx, tempy, tempz);
-        //            }
-
-
-        //        }
-        //    }
-
-        //}
     }
 
 

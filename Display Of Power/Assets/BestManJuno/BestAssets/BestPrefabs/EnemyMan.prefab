@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7081638180542038968}
   - component: {fileID: 4026913333458461213}
   - component: {fileID: 6723108988620180386}
+  - component: {fileID: 5929341402133313204}
   - component: {fileID: -6705602548068337300}
   - component: {fileID: 4263396580987206677}
   m_Layer: 11
@@ -117,6 +118,19 @@ MonoBehaviour:
   TotalActions: 0
   actionsRemaining: 0
   isTurn: 0
+--- !u!114 &5929341402133313204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8653020172050730567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb262fd824d3ba429fe3174315834b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridOb: {fileID: 0}
 --- !u!54 &-6705602548068337300
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class EnemySpawn : MonoBehaviour
     public GameObject hexSpawn;
     //number of enemies to be spawned
     int numOfEnemies;
-
+    GameObject newEnemy;
     public GameObject allyPrefab;
 
     public TMP_InputField numOfBads;
@@ -69,7 +69,7 @@ public class EnemySpawn : MonoBehaviour
         //if there is no object on the selected hex, spawn an enemy if need be
         if(hexSpawn.transform.childCount < 1)
         {
-            GameObject newEnemy = (GameObject)Instantiate(unitToSpawn, new Vector3(hexSpawn.transform.position.x, 0.8f, hexSpawn.transform.position.z), Quaternion.identity);
+            newEnemy = (GameObject)Instantiate(unitToSpawn, new Vector3(hexSpawn.transform.position.x, 0.8f, hexSpawn.transform.position.z), Quaternion.identity);
             newEnemy.transform.SetParent(hexSpawn.transform);
             newEnemy.layer = 9;
         }
@@ -94,6 +94,14 @@ public class EnemySpawn : MonoBehaviour
         for (int i = 0; i < numOfUnits; i++)
         {
             SpawnEnemy(unitToSpawn);
+        }
+    }
+    public void SpawnEnemies(int numOfUnits, GameObject unitToSpawn, List<GameObject> populateList)
+    {
+        for (int i = 0; i < numOfUnits; i++)
+        {
+            SpawnEnemy(unitToSpawn);
+            populateList.Add(newEnemy);
         }
     }
 }

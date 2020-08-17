@@ -46,7 +46,7 @@ public class MouseControl : MonoBehaviour
     //have you selected a hex for the purpose of checking the appropriate radius of its child?
     public bool clickedHex;
     //The renderer of any given selection
-    private Renderer selectionRenderer;
+     Renderer selectionRenderer;
 
 
 
@@ -237,8 +237,11 @@ public class MouseControl : MonoBehaviour
         //Debug.Log("test");
         //Debug.Log(transformSelected);
         //Debug.Log(selectedTarget);
-  
-        selectionRenderer.material = selectedMat;
+        if (hoveredMat == false)
+        {
+            selectionRenderer.material = selectedMat;
+
+        }
         if (clickedHex == false)
         {
 
@@ -292,7 +295,7 @@ public class MouseControl : MonoBehaviour
                     GridOb.choosePath(selectedTarget.gameObject, hoveredTarget.gameObject);
 
                 }
-                StartCoroutine(movementRoutine());
+                runMovement();
                 selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
                 return;
                 //grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);
@@ -322,6 +325,12 @@ public class MouseControl : MonoBehaviour
         Destroy(deadUnit);
 
     }
+
+    public void runMovement()
+    {
+        StartCoroutine(movementRoutine());
+    }
+
     IEnumerator movementRoutine()
     {
         for (int i = 1; i < GridOb.path.Count; i++)
