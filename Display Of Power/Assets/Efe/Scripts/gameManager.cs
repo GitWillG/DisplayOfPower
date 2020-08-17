@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using efe;
 
 // needs to be called "using efe;"
 namespace efe
