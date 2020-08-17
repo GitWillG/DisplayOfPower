@@ -20,6 +20,7 @@ public class MouseControl : MonoBehaviour
     //original hexs material
     public Material defaultMat;
     public GenerateGrid GridOb;
+    public bool doneMoving;
 
 
     public GameObject selectionManager;
@@ -54,6 +55,7 @@ public class MouseControl : MonoBehaviour
     {
         //nothing is selected at the start
         clickedHex = false;
+        doneMoving = true;
     }
 
     private void Update()
@@ -110,10 +112,10 @@ public class MouseControl : MonoBehaviour
                     selectionRenderer.material = hoveredMat;
                     hoveredTarget = selection;
 
-                    if (selectedTarget != null && isMove)
-                    {
-                        GridOb.choosePath(selectedTarget.gameObject, hoveredTarget.gameObject);
-                    }
+                    //if (selectedTarget != null && isMove && hoveredTarget != null)
+                    //{
+                    //    GridOb.choosePath(selectedTarget.gameObject, hoveredTarget.gameObject);
+                    //}
 
                 }
 
@@ -146,7 +148,7 @@ public class MouseControl : MonoBehaviour
 
 
     //Switch the selected range to the appropriate range
-    private void swapRange()
+    public void swapRange()
     {
         //if move, use move range, otherwise use the attack range
         if (isMove)
@@ -242,6 +244,7 @@ public class MouseControl : MonoBehaviour
             selectionRenderer.material = selectedMat;
 
         }
+
         if (clickedHex == false)
         {
 
@@ -290,7 +293,7 @@ public class MouseControl : MonoBehaviour
 
             if (transformSelected != null && Input.GetMouseButtonUp(0) && isMove && transformSelected.childCount <= 0 && currentChar.GetComponent<prefabUnits>().actionsRemaining >0)
             {
-                if (selectedTarget != null)
+                if (selectedTarget != null )
                 {
                     GridOb.choosePath(selectedTarget.gameObject, hoveredTarget.gameObject);
 
@@ -330,6 +333,11 @@ public class MouseControl : MonoBehaviour
     {
         StartCoroutine(movementRoutine());
     }
+    public void runMovement(GameObject start, GameObject end)
+    {
+        GridOb.choosePath(start, end);
+        StartCoroutine(movementRoutine());
+    }
 
     IEnumerator movementRoutine()
     {
@@ -343,22 +351,17 @@ public class MouseControl : MonoBehaviour
             if (isMoving == true)
             {
                 finishMovement();
-                if (i+1 < GridOb.path.Count)
-                {
-                    selectedTarget = GridOb.path[i].transform;
-                }
-            }
-            else
-            {
-                if (i + 1 < GridOb.path.Count)
-                {
-                    yield return new WaitForSeconds(0.1f);
-                    selectedTarget = GridOb.path[i].transform;
-                }
+                
             }
 
+            if (i + 1 < GridOb.path.Count)
+            {
+                selectedTarget = GridOb.path[i].transform;
+            }
+            
 
         }
+        doneMoving = true;
 
     }
 }
