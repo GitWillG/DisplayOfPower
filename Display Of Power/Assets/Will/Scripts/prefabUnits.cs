@@ -7,6 +7,7 @@ public class prefabUnits : MonoBehaviour
     public SO_Units statObject;
     public int Life;
     public int MovementRange;
+    public string Factions;
     public string POName;
     public int Damage;
     public int AttackRange;
@@ -16,6 +17,7 @@ public class prefabUnits : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Factions = statObject.faction;
         MovementRange = statObject.movementRange;
         POName = statObject.SOname;
         AttackRange = statObject.attackRange;
