@@ -15,7 +15,7 @@ MonoBehaviour:
   SOname: 
   life: 100
   damage: 20
-  faction: death
+  faction: Ally
   attackRange: 2
   movementRange: 4
   totalActions: 2

@@ -67,11 +67,11 @@ public class BestMouseControl : MonoBehaviour
             //otherwise if you have selected a target, and you click on that object, we will revert it to its original material and reset the clicked Bool
             else if (selection == selectedTarget && Input.GetMouseButtonUp(0))
             {
-                Debug.Log(selection);
+                //Debug.Log(selection);
                 selectionRenderer.material = oldMat;
                 clickedHex = false;
                 int movableRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().MovementRange;
-                Debug.Log(movableRange);
+                //Debug.Log(movableRange);
                 //checkRadius(selectedTarget.position, movableRange, oldMat, "Hex");
                 grid.GetComponent<GenerateGrid>().removeCheck(oldMat);
                 return;
@@ -111,7 +111,7 @@ public class BestMouseControl : MonoBehaviour
         {
             hitColliders[i].gameObject.GetComponent<Renderer>().material = changeMat;
             //hitColliders[i].gameObject.layer = LayerMask.NameToLayer(layerName);
-            Debug.Log(hitColliders[i].transform.name);
+            //Debug.Log(hitColliders[i].transform.name);
             //hitColliders[i].SendMessage("AddDamage");
             i++;
         }
