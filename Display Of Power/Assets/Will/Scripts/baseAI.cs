@@ -8,6 +8,7 @@ public class baseAI : MonoBehaviour
     public GenerateGrid gridOb;
     public MouseControl mouseController;
     public GameObject target;
+    public BestClickToMove clickActions;
     public prefabUnits self;
     public GameObject hexTarget;
     // Start is called before the first frame update
@@ -17,6 +18,7 @@ public class baseAI : MonoBehaviour
         self.isTurn = false;
         gridOb = GameObject.Find("grid").GetComponent<GenerateGrid>();
         mouseController = GameObject.Find("selectionManager").GetComponent<MouseControl>();
+        clickActions = GameObject.Find("selectionManager").GetComponent<BestClickToMove>();
     }
 
     // Update is called once per frame
@@ -24,24 +26,45 @@ public class baseAI : MonoBehaviour
     {
         if (self.isTurn)
         {
-            mouseController.selectedTarget = this.transform.parent;
             if (target == null)
             {
                 findClosest();
             }
-            //if (!mouseController.isMoving)
-            //{
-            //    if (self.actionsRemaining > 0)
-            //    {
-            //        Debug.Log(self.actionsRemaining);
-            //        closeDistance();
-            //    }
-            //}
-            //else
-            //{
-            //    //mouseController.finishMovement();
-            //}
-            closeDistance();
+            if (mouseController.doneMoving)
+            {
+                
+                if (self.actionsRemaining > 0)
+                {
+
+                    mouseController.moveAttackSwap();
+                    for (int i = 0; i< gridOb.legalHex.Count; i++)
+                    {
+                        if (gridOb.legalHex[i].transform.childCount > 0)
+                        {
+                            if (gridOb.legalHex[i].transform.GetChild(0).GetComponent<prefabUnits>().Factions == "Ally")
+                            {
+                                clickActions.ClickAttack(self.gameObject, gridOb.legalHex[i]);
+                                self.actionsRemaining -= 1;
+                                if (gridOb.legalHex[i].transform.GetChild(0).gameObject.GetComponent<prefabUnits>().Life <= 0)
+                                {
+                                    mouseController.killUnit(gridOb.legalHex[i].transform.GetChild(0).gameObject);
+                                    Debug.Log("Dealt 5 damage to" + gridOb.legalHex[i].transform.GetChild(0).gameObject);
+                                    return;
+                                }
+                            }
+                        }
+
+                    }
+                    mouseController.moveAttackSwap();
+
+                    mouseController.selectHex(this.transform.parent.gameObject);
+                    mouseController.doneMoving = false;
+                    //mouseController.selectedTarget = this.transform.parent;
+                    //Debug.Log(self.actionsRemaining);
+                    closeDistance();
+            }
+        }
+
         }
         
     }
@@ -60,23 +83,28 @@ public class baseAI : MonoBehaviour
     }
     private void closeDistance()
     {
+        //mouseController.selectedTarget = this.transform.parent;
+        //mouseController.swapRange();
         List<float> moveDistCheck = new List<float>();
-        gridOb.checkMoveLegality(self.MovementRange, this.transform.parent.gameObject, mouseController.legalMove);
+        moveDistCheck.Clear();
+        //gridOb.checkMoveLegality(self.MovementRange, this.transform.parent.gameObject, mouseController.legalMove);
         mouseController.currentMask = 1 << 10;
 
-        //for (int j = 0; j < gridOb.tempList.Count; j++)
-        //{
-        //    moveDistCheck.Add(Vector3.Distance(target.transform.parent.position, gridOb.tempList[j].transform.position));
-        //    float minVal = moveDistCheck.Min();
-        //    int index = moveDistCheck.IndexOf(minVal);
-        //    hexTarget = gridOb.tempList[index].transform.gameObject;
+        for (int j = 0; j < gridOb.tempList.Count; j++)
+        {
+            moveDistCheck.Add(Vector3.Distance(target.transform.parent.position, gridOb.tempList[j].transform.position));
+            float minVal = moveDistCheck.Min();
+            int index = moveDistCheck.IndexOf(minVal);
+            hexTarget = gridOb.tempList[index].transform.gameObject;
 
-        //}
+        }
+        mouseController.runMovement(this.transform.parent.gameObject, hexTarget);
         //Debug.Log("create path");
         //gridOb.choosePath(this.transform.parent.gameObject, hexTarget);
         //Debug.Log("move");
         //mouseController.runMovement();
-        //mouseController.selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
-        //return;
+        self.actionsRemaining -= 1;
+        return;
     }
+
 }

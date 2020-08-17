@@ -123,7 +123,6 @@ public class GenerateGrid : MonoBehaviour
     //That list is then moved to a different layer and re-coloured
     public void checkMoveLegality(int radius, GameObject centerPoint, Material newMat)
     {
-       
         movementRadius = new List<List<GameObject>>();
         innerList.Add(centerPoint);
         movementRadius.Add(innerList);
@@ -295,7 +294,7 @@ public class GenerateGrid : MonoBehaviour
         //print all units on field
         for (int i = 0; i < unitsOnField.Count; i++)
         {
-            Debug.Log(unitsOnField[i]);
+            //Debug.Log(unitsOnField[i]);
         }
 
         //using previous function to randomize list
@@ -304,7 +303,7 @@ public class GenerateGrid : MonoBehaviour
         //print the turn order
         for(int i = 0; i < turnOrder.Count; i++)
         {
-            Debug.Log("Turn order: " + (i+1) + " " + turnOrder[i]);
+            //Debug.Log("Turn order: " + (i+1) + " " + turnOrder[i]);
         }
     }
 
@@ -313,6 +312,20 @@ public class GenerateGrid : MonoBehaviour
     [ContextMenu("Start Next Turn")]
     public void NextTurn()
     {
+        if (turnOrder[k].GetComponent<prefabUnits>().actionsRemaining == 0)
+        {
+            turnOrder[k].GetComponent<prefabUnits>().isTurn = false;
+            if (k+1 <= turnOrder.Count)
+            {
+                k = k + 1;
+            }
+            else
+            {
+                k = 0;
+            }
+            //print("next turn is" + k);
+
+        }
         mouseControl.hoveredTarget = turnOrder[k].transform.parent;
         turnOrder[k].GetComponent<prefabUnits>().isTurn = true;
         if (turnOrder[k].GetComponent<prefabUnits>().isTurn == true)
@@ -320,12 +333,7 @@ public class GenerateGrid : MonoBehaviour
             mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
         }
 
-        if (turnOrder[k].GetComponent<prefabUnits>().actionsRemaining == 0)
-        {
-            turnOrder[k].GetComponent<prefabUnits>().isTurn = false;
-            k = k+1;
-            print("next turn is" + k);
-        }
+      
     }
 
     public void choosePath(GameObject start, GameObject end)

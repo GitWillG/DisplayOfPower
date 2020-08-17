@@ -1049,6 +1049,36 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8779973179549027982, guid: 7d05192683003a542b1b39a3adca87a8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1873872309}
+    - target: {fileID: 8779973179549027982, guid: 7d05192683003a542b1b39a3adca87a8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CreateTurnOrder
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779973179549027982, guid: 7d05192683003a542b1b39a3adca87a8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 9195132573401901677, guid: 7d05192683003a542b1b39a3adca87a8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1873872309}
+    - target: {fileID: 9195132573401901677, guid: 7d05192683003a542b1b39a3adca87a8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NextTurn
+      objectReference: {fileID: 0}
+    - target: {fileID: 9195132573401901677, guid: 7d05192683003a542b1b39a3adca87a8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d05192683003a542b1b39a3adca87a8, type: 3}
 --- !u!1 &932975308
@@ -1308,14 +1338,19 @@ MonoBehaviour:
   innerList: []
   hexPrefab: {fileID: 8720213916078620370, guid: b0153c8ed2dede348ab078ac15a05eae,
     type: 3}
+  tempList: []
+  path: []
   testLocation: {fileID: 0}
   legalHex: []
   testmat: {fileID: 2100000, guid: 4824d653c2c633c46b9a1b9fc4fc990c, type: 2}
   postObCheck: []
+  enemyList: []
+  allyList: []
   enemySpawn: {fileID: 1873872311}
-  mouseControl: {fileID: 0}
+  mouseControl: {fileID: 932975309}
   zOffset: 1.5
   xOffset: 0.866
+  turnOrder: []
   k: 0
 --- !u!4 &1873872310
 Transform:
