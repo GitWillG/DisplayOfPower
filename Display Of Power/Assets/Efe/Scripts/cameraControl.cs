@@ -79,7 +79,7 @@ namespace efe
             maxFov = 60;
 
             mainCam = Camera.main;
-            mainCam.fieldOfView = 6;
+            mainCam.fieldOfView = 26;
 
             // NOT USED YET
             // sensitivity = 2;

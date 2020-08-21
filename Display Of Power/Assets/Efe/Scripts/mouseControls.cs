@@ -68,8 +68,16 @@ namespace efe // efe library
                 }
                 if(Input.GetMouseButtonDown(1)) // right click
                 {
+                    float distance = Vector3.Distance(playerToControl.transform.position, hit.transform.position);
+                    if(distance < 3)
+                    {
                     // Script responsible for interacting with any object in game - actors, items, props, locations...etc
-                    interactObject(hit.transform.gameObject);
+                        interactObject(hit.transform.gameObject);
+                    }
+                    else
+                    {
+                        movePlayer(curAgent, hit.point);
+                    }
                 }
                 
                 // hover below
