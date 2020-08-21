@@ -83,7 +83,7 @@ public class timeManager : MonoBehaviour
         {
             curHour++;
             curHour = Mathf.Clamp(curHour, 0, 24);
-            // hourText.text = curHour.ToString();
+            hourText.text = curHour.ToString();
             counter1SEC = 0;
 
             if (curHour == 24)
@@ -91,7 +91,7 @@ public class timeManager : MonoBehaviour
                     counter30DAY++;
                     curDay++;
                     curDay = Mathf.Clamp(curDay, 0, 30);
-                    // dayText.text = curDay.ToString();
+                    dayText.text = curDay.ToString();
                     curHour = 0;
 
                         if(counter30DAY == 30)

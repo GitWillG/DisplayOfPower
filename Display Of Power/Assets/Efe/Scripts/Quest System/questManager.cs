@@ -19,7 +19,7 @@ namespace efe{
         public List<questItem> startedQuests;
         public List<questItem> availableQuests;
         public List<questItem> succeededQuests;
-        public List<questItem> endedQuests;
+        public List<questItem> completedQuests;
         // Start is called before the first frame update
         void Start()
         {   
@@ -46,7 +46,11 @@ namespace efe{
             Destroy(tempGUI, 3);
 
         }
-        public void succeedQuest(questItem quest){}
-        public void endQuest(questItem quest){}
+        public void succeedQuest(questItem quest){
+            succeededQuests.Add(quest);
+        }
+        public void endQuest(questItem quest){
+            completedQuests.Add(quest);
+        }
     }
 }

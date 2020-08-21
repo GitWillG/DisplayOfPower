@@ -74,7 +74,6 @@ namespace efe
             varZ = levelMapCamera_param[2];
 
             // transition_treshold_FOV = 40;
-
             minFov = 6;
             maxFov = 60;
 
@@ -83,7 +82,6 @@ namespace efe
 
             // NOT USED YET
             // sensitivity = 2;
-
             player = gm.curAvatar;
             // mainCam.cullingMask = LevelLayer;
             #endregion

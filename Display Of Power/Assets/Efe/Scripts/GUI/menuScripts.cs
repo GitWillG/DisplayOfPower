@@ -45,6 +45,26 @@ namespace efe{
             playerStats.questsInProgress.Add(qm.questInQuestion);
         }
 
+        public void endQuest()
+        {
+            qm.endQuest(qm.questInQuestion);
+        }
+
+        public void succeedQuest()
+        {
+            qm.succeedQuest(qm.questInQuestion);
+        }
+
+        public void cancelQuest()
+        {
+            qm.succeedQuest(qm.questInQuestion);
+        }
+
+        public void failQuest()
+        {
+            qm.succeedQuest(qm.questInQuestion);
+        }
+
         public void openGUI(GameObject GUI)
         {
             Instantiate(GUI, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);

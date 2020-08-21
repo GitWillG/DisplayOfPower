@@ -9,6 +9,8 @@ namespace efe{
     public class actorData : MonoBehaviour
     {
         public string actorName;
+        public bool randomizeName;
+        public factionSO ownerFaction;
         public List<questItem> actorQuests;
         public dialogSO defaultDialog;
         public bool hasQuest;
@@ -20,6 +22,8 @@ namespace efe{
         public int curIndex;
         public int actorEntryPoint;
         public GameObject responsibleLabelText;
+        public enum types {hero, commander, civilian, unit}
+        public types actorType;
         NavMeshAgent agent;
         immersionManager im;
         GameObject gm;
