@@ -356,5 +356,13 @@ public class GenerateGrid : MonoBehaviour
 
     }
 
+    public void EndTurn()
+    {
+        if (turnOrder[k].GetComponent<prefabUnits>().isTurn)
+        {
+            turnOrder[k].GetComponent<prefabUnits>().actionsRemaining = 0;
+            //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
+        }
+    }
 
 }
