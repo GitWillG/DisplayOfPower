@@ -819,6 +819,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1673452184193102824, guid: 7d05192683003a542b1b39a3adca87a8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1673452184812883691, guid: 7d05192683003a542b1b39a3adca87a8,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1024,6 +1029,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1673452185491022357, guid: 7d05192683003a542b1b39a3adca87a8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1673452185500074302, guid: 7d05192683003a542b1b39a3adca87a8,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -1047,6 +1057,11 @@ PrefabInstance:
     - target: {fileID: 1673452185500074302, guid: 7d05192683003a542b1b39a3adca87a8,
         type: 3}
       propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758628293817474712, guid: 7d05192683003a542b1b39a3adca87a8,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8779973179549027982, guid: 7d05192683003a542b1b39a3adca87a8,
@@ -1117,6 +1132,7 @@ MonoBehaviour:
   legalMove: {fileID: 2100000, guid: be5d1ecc5f2b94e4ab48345982af0409, type: 2}
   defaultMat: {fileID: 2100000, guid: 4824d653c2c633c46b9a1b9fc4fc990c, type: 2}
   GridOb: {fileID: 1873872309}
+  doneMoving: 0
   selectionManager: {fileID: 932975308}
   detectRange: 0
   grid: {fileID: 1873872308}
