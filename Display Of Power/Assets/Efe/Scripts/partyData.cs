@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using efe;
 
-namespace efe{
+namespace efe {
+
     public class partyData : MonoBehaviour
     {
+        
         public List<actorData> partyMembers;
         public string partyName;
 
@@ -13,8 +15,10 @@ namespace efe{
         public void addPartyMember(partyData targetParty, actorData targetUnit, int amount)
         {
             if(amount == 0)
-            {return;}
-
+            {
+                return;
+            }
+            
             for(int i = 0; i < amount; i++)
             {
                 targetParty.partyMembers.Add(targetUnit);
