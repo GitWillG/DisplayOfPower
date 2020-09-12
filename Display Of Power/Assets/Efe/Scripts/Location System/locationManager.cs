@@ -17,7 +17,7 @@ namespace efe{
         public void enterLocation()
         {
             gm.levelAvatar.transform.position = gm.curLocation.GetComponent<locationData>().locationEntry.transform.position;
-            gm.changeState("Level");
+            gm.changeField("Level");
             Debug.Log(gm.curLocation.GetComponent<locationData>().locationName);
 
         }

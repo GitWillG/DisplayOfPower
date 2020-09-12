@@ -44,13 +44,18 @@ namespace efe{
             startedQuests.Add(quest);
             GameObject tempGUI = Instantiate(guim.questTaken_GUI, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
             Destroy(tempGUI, 3);
-
         }
         public void succeedQuest(questItem quest){
             succeededQuests.Add(quest);
+            Debug.Log(quest.name + " succeeded.");
+
+            startedQuests.Remove(quest);
         }
         public void endQuest(questItem quest){
             completedQuests.Add(quest);
+            Debug.Log(quest.name + " ended.");
+
+            succeededQuests.Remove(quest);
         }
     }
 }

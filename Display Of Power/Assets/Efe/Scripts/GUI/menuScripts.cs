@@ -69,7 +69,7 @@ namespace efe{
         {
             Instantiate(GUI, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
             gameManager.curGUI = GUI;
-            gm_ref.changeState("HUD");
+            gm_ref.changeField("HUD");
             Debug.Log(GUI.name + " opened.");
         }
 

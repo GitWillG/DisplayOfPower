@@ -50,11 +50,11 @@ namespace efe
             {
                 if(curPlayfield == playfields.onLevel)
                 {
-                    changeState("World");
+                    changeField("World");
                 }
                 else if(curPlayfield == playfields.onWorld)
                 {
-                    changeState("Level");
+                    changeField("Level");
                 }
             }
         }
@@ -63,10 +63,10 @@ namespace efe
         void initializeState()
         {
             curGameState = gameStates.freeroam;
-            changeState("Level");
+            changeField("Level");
         }
 
-        public void changeState(string inputString)
+        public void changeField(string inputString)
         {
 
             if(inputString == null || curGameState == gameStates.inBattle)

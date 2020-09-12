@@ -17,12 +17,13 @@ namespace efe
         public questType curType;
         public enum status {availale, started, succeeded, ended}
         public float questGold;
-        public int questXp;
+        public float questXP;
+        public enum questGoalType{ kill, gather, collect}
+        public questGoalType curQuestGoalType;
         public GameObject[] targetObject;
-        public GameObject targetAmount;
+        public int targetAmount;
         public enum rewardType {diplomacy, xp, unit, heroes, relics, pointsInterest, currency, stats, lore}
         public rewardType curReward;
-
         public dialogSO[] brief_dialogs; // shown when quest was introduced to player by a giver npc
         public dialogSO[] wip_dialogs; // shown when player talks to a giver npc about a quest still work in progress
         public dialogSO[] end_dialogs; // shown when player is done giving a quest

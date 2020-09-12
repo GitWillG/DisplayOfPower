@@ -57,48 +57,51 @@ namespace efe // efe library
                 curAnimator = playerToControl.GetComponent<Animator>();
             }
 
-            // Cast
-            if(Physics.Raycast(ray, out hit, 1000))
-            {
-                // Instead of casting it twice, conditions can be put inside a single ray
-                if (Input.GetMouseButtonDown(0)) // left click
+            // if(guim.HUD.Contains(Event.current.mousePosition))
+            // {
+                // Cast
+                if(Physics.Raycast(ray, out hit, 1000))
                 {
-                    // Script responsible of sending agent to vector3
-                    movePlayer(curAgent, hit.point);
-                }
-                if(Input.GetMouseButtonDown(1)) // right click
-                {
-                    float distance = Vector3.Distance(playerToControl.transform.position, hit.transform.position);
-                    if(distance < 3)
+                    // Instead of casting it twice, conditions can be put inside a single ray
+                    if (Input.GetMouseButtonDown(0)) // left click
                     {
-                    // Script responsible for interacting with any object in game - actors, items, props, locations...etc
-                        interactObject(hit.transform.gameObject);
-                    }
-                    else
-                    {
+                        // Script responsible of sending agent to vector3
                         movePlayer(curAgent, hit.point);
                     }
+                    
+                    if(Input.GetMouseButtonDown(1)) // right click
+                    {
+                        float distance = Vector3.Distance(playerToControl.transform.position, hit.transform.position);
+                        if(distance < 3)
+                        {
+                        // Script responsible for interacting with any object in game - actors, items, props, locations...etc
+                            interactObject(hit.transform.gameObject);
+                        }
+                        else
+                        {
+                            movePlayer(curAgent, hit.point);
+                        }
+                    }
+                    
+                    // hover below
+                    Debug.Log(hit.transform.gameObject.name);
+                    // Ray is still casted, but no condition is needed as it is cast all the time
+                    // TODO - Optimization, use coroutine or invoke to cast it less
+                    // Now it is casted 24 times every second
+                    // Hover over NPCs
+                    if(hit.transform.gameObject.tag == "NPC")
+                    {
+                        // Store
+                        gm.curHoveredObject = hit.transform.gameObject;
+                        // Enable edge outline
+                        im.highlighObject(gm.curHoveredObject);
+                    }
                 }
-                
-                // hover below
-                Debug.Log(hit.transform.gameObject.name);
-                // Ray is still casted, but no condition is needed as it is cast all the time
-                // TODO - Optimization, use coroutine or invoke to cast it less
-                // Now it is casted 24 times every second
-                // Hover over NPCs
-                if(hit.transform.gameObject.tag == "NPC")
-                {
-                    // Store
-                    gm.curHoveredObject = hit.transform.gameObject;
-                    // Enable edge outline
-                    im.highlighObject(gm.curHoveredObject);
-                }
-            }
 
-            // Script responsible of syncing blend trees and navmesh agents
-            processPlayerMovement();
+                // Script responsible of syncing blend trees and navmesh agents
+                processPlayerMovement();
+            // }
         }
-
 
         // called from update above with raycast on mouse position
         public void movePlayer(NavMeshAgent objectSource, Vector3 targetPoint)
@@ -157,7 +160,7 @@ namespace efe // efe library
                     newScreen.GetComponent<menuScripts>().questName_gui.GetComponent<TextMeshProUGUI>().text = curQuest.questName;
                     newScreen.GetComponent<menuScripts>().questDesc_gui.GetComponent<TextMeshProUGUI>().text = curQuest.questDesc;
                     newScreen.GetComponent<menuScripts>().questGold_gui.GetComponent<TextMeshProUGUI>().text = curQuest.questGold.ToString();
-                    newScreen.GetComponent<menuScripts>().questXP_gui.GetComponent<TextMeshProUGUI>().text = curQuest.questXp.ToString();
+                    newScreen.GetComponent<menuScripts>().questXP_gui.GetComponent<TextMeshProUGUI>().text = curQuest.questXP.ToString();
                 }
             }
             // World map locations

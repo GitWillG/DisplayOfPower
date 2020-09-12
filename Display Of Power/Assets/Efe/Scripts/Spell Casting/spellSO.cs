@@ -1,7 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using efe;
 
+
+namespace efe {
+
+[CreateAssetMenu(menuName = "Spells/Create new...")]
 public class spellSO : ScriptableObject
 {
     public string spellName;
@@ -13,4 +18,5 @@ public class spellSO : ScriptableObject
     public Animator particleAnimator;
 
     
+}
 }

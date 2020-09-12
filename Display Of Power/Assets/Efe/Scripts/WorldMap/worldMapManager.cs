@@ -41,5 +41,10 @@ namespace efe{
                 }
             }
         }
+
+        public void generateBattleLocation(locationData location)
+        {
+            
+        }
     }
 }

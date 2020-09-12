@@ -12,6 +12,7 @@ TagManager:
   - Flora
   - npcSpawn
   - Tower
+  - BattleEncounter
   layers:
   - Default
   - TransparentFX

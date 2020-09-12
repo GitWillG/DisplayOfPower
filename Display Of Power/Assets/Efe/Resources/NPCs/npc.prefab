@@ -845,8 +845,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorName: NPC
-  actorQuests:
-  - {fileID: 11400000, guid: f5afa11fe98cd654c831e24d792b5e8b, type: 2}
+  randomizeName: 0
+  ownerFaction: {fileID: 0}
+  actorQuests: []
+  defaultDialog: {fileID: 0}
   hasQuest: 0
   walkAround: 1
   peaceful: 1
@@ -855,6 +857,7 @@ MonoBehaviour:
   curIndex: 0
   actorEntryPoint: 0
   responsibleLabelText: {fileID: 0}
+  actorType: 0
 --- !u!195 &919132148619600024
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -864,7 +867,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1863947349140452884}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.71
+  m_Radius: 0.1
   m_Speed: 5
   m_Acceleration: 10
   avoidancePriority: 1
