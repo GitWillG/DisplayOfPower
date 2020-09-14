@@ -13,6 +13,8 @@ TagManager:
   - npcSpawn
   - Tower
   - BattleEncounter
+  - Projectile
+  - Sun
   layers:
   - Default
   - TransparentFX

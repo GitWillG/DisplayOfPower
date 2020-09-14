@@ -84,7 +84,7 @@ namespace efe // efe library
                     }
                     
                     // hover below
-                    Debug.Log(hit.transform.gameObject.name);
+                    // Debug.Log(hit.transform.gameObject.name);
                     // Ray is still casted, but no condition is needed as it is cast all the time
                     // TODO - Optimization, use coroutine or invoke to cast it less
                     // Now it is casted 24 times every second

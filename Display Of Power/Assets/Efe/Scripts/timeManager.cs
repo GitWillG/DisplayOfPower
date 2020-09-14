@@ -38,7 +38,7 @@ public class timeManager : MonoBehaviour
     [Tooltip("How fast time moves. Default is 1.")]
     public float timeSpeed = 1f;
 
-    public Light sun;
+    Light sun;
     [Range(0, 5f)]
     private float rateIntensityChange = 0;
    
@@ -62,6 +62,8 @@ public class timeManager : MonoBehaviour
     void Start()
     {
 
+        // sun = FindObjectOfType(typeof(Light)) as Light;
+        sun = GameObject.FindGameObjectWithTag("Sun").GetComponent<Light>();
         sun.intensity = 0.65f;
 
 

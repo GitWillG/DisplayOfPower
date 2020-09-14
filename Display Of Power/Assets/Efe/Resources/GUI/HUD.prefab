@@ -1005,7 +1005,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2219138540318945292}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &4275232582916351530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2993,7 +2993,6 @@ MonoBehaviour:
   curMonth: 0
   curYear: 0
   timeSpeed: 1
-  sun: {fileID: 0}
   dawnColors:
     SkyColor: {r: 0, g: 0, b: 0, a: 0}
     EquatorColor: {r: 0, g: 0, b: 0, a: 0}

@@ -37,10 +37,10 @@ public class rigHumanoid : MonoBehaviour
 
     [ContextMenu("Update the gear")]
     // Start is called before the first frame update
-    // void Start()
-    // {   
-        
-    // }
+    void Start()
+    {   
+        initializeGear();
+    }
 
     // // Update is called once per frame
     // void Update()
@@ -82,7 +82,7 @@ public class rigHumanoid : MonoBehaviour
             spawned.transform.parent = helmet_bone.transform;
             parentedObjects.Add(spawned);
         }
-        Debug.Log("Initiliazed NPC gear.");
+        // Debug.Log("Initiliazed NPC gear.");
     }
 
     void mirrorItemToBone(itemSO item)
@@ -107,7 +107,7 @@ public class rigHumanoid : MonoBehaviour
 
             if(mirrorContinue)
             {
-                Debug.Log(curMirrorType);
+                // Debug.Log(curMirrorType);
                 if(curMirrorType == mirrorType[0]) // boots
                 {
                     GameObject spawned = Instantiate(item.itemMesh, r_boots_bone.transform.position, Quaternion.identity);
@@ -136,7 +136,7 @@ public class rigHumanoid : MonoBehaviour
             if(parentedObject != null)
             {
                 DestroyImmediate(parentedObject);
-                Debug.Log("All rig placements are reset.");
+                // Debug.Log("All rig placements are reset.");
                 goingToClear = true;
             }
         }

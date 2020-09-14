@@ -8,14 +8,110 @@ namespace efe {
 
 [CreateAssetMenu(menuName = "Spells/Create new...")]
 public class spellSO : ScriptableObject
-{
-    public string spellName;
-    public ParticleSystem startParticle;
-    public ParticleSystem trailParticle;
-    public ParticleSystem finishParticle;
-    public GameObject particleBase;
-    public float particleSpeed;
-    public Animator particleAnimator;
+{   
+
+
+    public enum targetHandling { area, single, line, self, 
+        closestAlly, closestEnemy }
+
+    public enum skillShape { sphere, cube} // DONE
+    // public enum types { passive, activeInstant, activeToMouse } // TODO
+    public enum nature { earth, ice, fire, arcane, air, life, death, water }
+    public enum castAnimationTypes { type_1, type_2, type_3 } // DONE
+    public enum spawnPosition
+    {
+        head, rhand, lhand, chest,
+        casterForward, casterBackward, casterRight, casterLeft
+    }
+    
+    public enum effectTypes
+    {
+        additive, substractive
+    }
+
+    public enum visualType
+    {
+        material, color
+    }
+
+    public int spellID; // DONE
+
+    [Header("Base Design")]
+    [Space(10)]
+    public string spellName; // DONE
+    public int effectAmount; // damage for fireball, heal amount for heal
+    public effectTypes effectType;
+    // public int manaCost; // TODO
+    public float cooldown; // DONE
+    public float castingDuration; // DONE
+    public float delayPostCast; // DONE
+    public float spellMoveSpeed; // DONE
+
+
+    // GUI
+    public Sprite icon;
+
+    // Skill tree 
+    [Header("Skill Aesthetics")]
+    [Space(10)]
+    public nature SkillNature;
+    public skillShape shape; // DONE
+    public visualType visualizationMethod;
+    public Color baseColor; // DONE
+    public Material baseMaterial;
+    public float sizeMultiplier; // DONE
+    public ParticleSystem skillAura; // DONE
+
+    // Trigger type
+    [Header("Trigger Parameters")]
+    [Space(10)]
+    // public types SkillType; // TODO
+
+    // Skill target system
+    [Header("Target Parameters")]
+    [Space(10)]
+    public targetHandling SkillTargetHandling;
+
+    // Animation the caster rigged gameobject will play
+    [Header("Animation Info")]
+    [Space(10)]
+    public castAnimationTypes SkillCasterAnimation;
+    public bool playEndAnimation;
+    public castAnimationTypes SkillEndAnimation;
+
+    // Where should this skill spawn?
+    [Header("Spawn & Pyshics Parameters")]
+    [Space(10)]
+    // public spawnPosition particleSpawnBone; // TODO
+    public int heightFromGroundLevel; // DONE
+    // public int fallSpeed; // TODO
+    public int spawnAmount; // DONE
+
+    [Header("Particle Parameters")]
+    [Space(10)]
+    // The particle that will spawn on caster
+    public ParticleSystem casterParticle;
+    // public bool trailWaitForCaster; // TODO
+    // The particle that will move to target
+    public ParticleSystem targetParticle;
+    // public bool returnTrailAfterEnd;
+
+
+    // Screen Effects
+
+    // Camera Effects
+
+    // Environmental Effects
+
+    [Header("Extras")]
+    public bool resizeCasterUponCast;
+    public bool resizeCasterUponEnd;
+    public int resizeAmount;
+    // public bool enableOutlineOnStart;
+    // public bool enableOutlineOnEnd;
+    // public Color outlineColor;
+
+
 
     
 }
