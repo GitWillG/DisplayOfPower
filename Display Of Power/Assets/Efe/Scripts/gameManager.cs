@@ -12,11 +12,16 @@ namespace efe
         #region State Change System
         // const string transition_Key = "M";
         string[] stateStrings = {"World", "Level", "HUD"};
+        [Header("Avatars")]
         public GameObject worldAvatar;
         public GameObject levelAvatar;
         public GameObject levelLight;
         public GameObject curAvatar;
         public playfields curPlayfield;
+
+        [Header("Object Holders")]
+        public GameObject _levelcategory;
+        public GameObject _worldcategory;
         gameStates curGameState;
         bool onWorld = false;
         // TODO - causes stack overflow investigate
@@ -28,7 +33,6 @@ namespace efe
         public GameObject lastSelectedTarget;
         public GameObject curLocation;
         public GameObject curHoveredObject;
-
         public static factionSO curFactionInEffect;
         public static GameObject curGUI;
         // Start is called before the first frame update
@@ -91,6 +95,8 @@ namespace efe
                     Debug.Log("Changed state to world.");
                     Time.timeScale = 1;
 
+                    _levelcategory.SetActive(false);
+
                     cc.varX = cameraControl.worldMapCamera_param[0];
                     cc.varY = cameraControl.worldMapCamera_param[1];
                     cc.varZ = cameraControl.worldMapCamera_param[2];
@@ -110,7 +116,8 @@ namespace efe
                     curAvatar = levelAvatar;
                     Debug.Log("Changed state to level.");
                     Time.timeScale = 1;
-                   
+
+                   _worldcategory.SetActive(false);
 
                     cc.varX = cameraControl.levelMapCamera_param[0];
                     cc.varY = cameraControl.levelMapCamera_param[1];

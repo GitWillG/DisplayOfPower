@@ -13,6 +13,8 @@ public class GUIManager : MonoBehaviour
     public GameObject questLog_GUI;
     public GameObject factionPage_GUI;
     public GameObject partyEntrance_GUI;
+    public GameObject inventory_GUI;
+    public bool isHUDopen = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,23 @@ public class GUIManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F))
         {
             Instantiate(factionPage_GUI, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
+        }
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            Instantiate(inventory_GUI, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
+        }
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            if(isHUDopen)
+            {
+                HUD.SetActive(false);
+                isHUDopen = false;
+            }
+            else
+            {
+                HUD.SetActive(true);
+                isHUDopen = true;
+            }
         }
     }
 

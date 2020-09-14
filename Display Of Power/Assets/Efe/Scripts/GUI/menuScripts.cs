@@ -25,6 +25,9 @@ namespace efe{
         public GameObject curOfferList;
         public GameObject curDemandList;
 
+        [Header("Skillbar")]
+        public Image[] _skillslots;
+
         
         void Start()
         {
@@ -93,6 +96,11 @@ namespace efe{
             targetOffer.transform.parent = curOfferList.transform;
         }
 
+
+        public void syncPlayer()
+        {
+            // foreach(Image)
+        }
 
     }
 }

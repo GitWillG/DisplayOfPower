@@ -8,17 +8,28 @@ using efe;
 namespace efe{
     public class actorData : MonoBehaviour
     {
+        [Header("Base stats")]
         public string actorName;
+        public float actorGold;
+        public float actorXP;
+        public float actorXPRequired;
+        public float actionPoint;
+        public float maxActionPoint;
+        public float baseDamage;
+        public itemSO[] relic;
         public bool randomizeName;
         public factionSO ownerFaction;
-        public List<questItem> actorQuests;
         public dialogSO defaultDialog;
+
+        [Header("Quests")]
+        public List<questItem> actorQuests;
         public bool hasQuest;
         public bool walkAround;
         public bool peaceful; // false = unit
+        [Header("Location")]
+        public GameObject[] locationArray;
         public enum locationList {waterCity, Pahro}
         public locationList actorLocation;
-        public GameObject[] locationArray;
         public int curIndex;
         public int actorEntryPoint;
         public GameObject responsibleLabelText;
@@ -28,6 +39,7 @@ namespace efe{
         immersionManager im;
         GameObject gm;
         rigHumanoid rig;
+        public spellSO[] spells;
         void Start()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -64,5 +76,6 @@ namespace efe{
             this.gameObject.name = actorName;
             // Object reference = Resources.FindObjectsOfTypeAll
         }
+
     }
 }

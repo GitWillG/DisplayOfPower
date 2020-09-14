@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a488d22c1496284a8ea28aedee4bed7, type: 3}
+  m_Name: Heal
+  m_EditorClassIdentifier: 
+  spellID: 1728
+  spellName: Fireball
+  effectAmount: 1
+  effectType: 0
+  cooldown: 1
+  castingDuration: 1
+  delayPostCast: 1
+  spellMoveSpeed: 1
+  icon: {fileID: 0}
+  SkillNature: 2
+  shape: 0
+  visualizationMethod: 1
+  baseColor: {r: 0.9944883, g: 1, b: 0.10849059, a: 0}
+  baseMaterial: {fileID: 0}
+  sizeMultiplier: 1
+  skillAura: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
+    type: 3}
+  SkillTargetHandling: 0
+  SkillCasterAnimation: 1
+  playEndAnimation: 0
+  SkillEndAnimation: 0
+  heightFromGroundLevel: 1
+  spawnAmount: 0
+  casterParticle: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
+    type: 3}
+  targetParticle: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
+    type: 3}
+  resizeCasterUponCast: 0
+  resizeCasterUponEnd: 0
+  resizeAmount: 1

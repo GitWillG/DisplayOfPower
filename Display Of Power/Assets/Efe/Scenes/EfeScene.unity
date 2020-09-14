@@ -230,107 +230,6 @@ Transform:
   m_Father: {fileID: 1905703909}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &121775748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 2
-  exposure:
-    m_OverrideState: 0
-    m_Value: 2.39
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 10
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxColor:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0, z: 0}
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  hdriSky:
-    m_OverrideState: 0
-    m_Value: {fileID: 8900000, guid: 66e51860485ae4048a30f7e029e65af7, type: 3}
-  enableBackplate:
-    m_OverrideState: 0
-    m_Value: 0
-  backplateType:
-    m_OverrideState: 0
-    m_Value: 0
-  groundLevel:
-    m_OverrideState: 0
-    m_Value: 0
-  scale:
-    m_OverrideState: 0
-    m_Value: {x: 32, y: 32}
-  projectionDistance:
-    m_OverrideState: 0
-    m_Value: 16
-    min: 0.0000001
-  plateRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexRotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  plateTexOffset:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0}
-  blendAmount:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 100
-  shadowTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  pointLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  dirLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
-  rectLightShadow:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!1 &154502804
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +285,8 @@ MonoBehaviour:
   levelLight: {fileID: 1473295046}
   curAvatar: {fileID: 1925841805}
   curPlayfield: 0
+  _levelcategory: {fileID: 1905703908}
+  _worldcategory: {fileID: 1559064350}
   lastSelectedTarget: {fileID: 0}
   curLocation: {fileID: 0}
   curHoveredObject: {fileID: 0}
@@ -414,6 +315,9 @@ MonoBehaviour:
     type: 3}
   partyEntrance_GUI: {fileID: 7348554095917932019, guid: afc5bba1feb116644b17b092f44040ca,
     type: 3}
+  inventory_GUI: {fileID: 7348554095917932019, guid: 51a01804a6bc4ec4aac036405953d850,
+    type: 3}
+  isHUDopen: 1
 --- !u!114 &154502808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -632,7 +536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: aed2bca7c4a4b1249b41a8ea09bb7e66, type: 2}
   m_StaticLightingSkyUniqueID: 1
-  m_SkySettings: {fileID: 121775748}
+  m_SkySettings: {fileID: 1570523111}
   m_SkySettingsFromProfile: {fileID: 8922707403301924864, guid: aed2bca7c4a4b1249b41a8ea09bb7e66,
     type: 2}
 --- !u!4 &319120474
@@ -2742,6 +2646,107 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1570523111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 2
+  exposure:
+    m_OverrideState: 0
+    m_Value: 2.39
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 10
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxColor:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  hdriSky:
+    m_OverrideState: 0
+    m_Value: {fileID: 8900000, guid: 66e51860485ae4048a30f7e029e65af7, type: 3}
+  enableBackplate:
+    m_OverrideState: 0
+    m_Value: 0
+  backplateType:
+    m_OverrideState: 0
+    m_Value: 0
+  groundLevel:
+    m_OverrideState: 0
+    m_Value: 0
+  scale:
+    m_OverrideState: 0
+    m_Value: {x: 32, y: 32}
+  projectionDistance:
+    m_OverrideState: 0
+    m_Value: 16
+    min: 0.0000001
+  plateRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexRotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  plateTexOffset:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0}
+  blendAmount:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 100
+  shadowTint:
+    m_OverrideState: 0
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  pointLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  dirLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
+  rectLightShadow:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!1 &1579566784
 GameObject:
   m_ObjectHideFlags: 0
@@ -4367,9 +4372,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1975882364169899088, guid: ab532dc069bc3ea45b425fc3a1c010ba,
         type: 3}
+      propertyPath: spells.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975882364169899088, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
       propertyPath: actorName
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1975882364169899088, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
+      propertyPath: spells.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ecadc4ff9f04734aa590baf285df19d,
+        type: 2}
+    - target: {fileID: 1975882364169899088, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
+      propertyPath: spells.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 127b518b08de14647831a7da2b6a59aa,
+        type: 2}
+    - target: {fileID: 1975882364169899088, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
+      propertyPath: spells.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b1f48f95abf31b40bc8303f1e26d450,
+        type: 2}
+    - target: {fileID: 1975882364169899088, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
+      propertyPath: spells.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: cc79de48410ecf94dafc805d17433e15,
+        type: 2}
     - target: {fileID: 7203512116763499361, guid: ab532dc069bc3ea45b425fc3a1c010ba,
         type: 3}
       propertyPath: m_LocalPosition.x
