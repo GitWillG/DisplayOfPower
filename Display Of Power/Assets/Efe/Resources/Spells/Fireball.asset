@@ -15,7 +15,7 @@ MonoBehaviour:
   spellID: 1728
   spellName: Fireball
   effectAmount: 1
-  effectType: 0
+  effectType: 1
   cooldown: 1
   castingDuration: 1
   delayPostCast: 1

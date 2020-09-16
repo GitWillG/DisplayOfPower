@@ -30,7 +30,7 @@ MonoBehaviour:
   skillAura: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
     type: 3}
   SkillTargetHandling: 0
-  SkillCasterAnimation: 1
+  SkillCasterAnimation: 0
   playEndAnimation: 0
   SkillEndAnimation: 0
   heightFromGroundLevel: 1

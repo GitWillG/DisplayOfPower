@@ -3968,11 +3968,11 @@ NavMeshAgent:
   m_GameObject: {fileID: 7544607679668896219}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 50
-  m_Acceleration: 500
-  avoidancePriority: 50
-  m_AngularSpeed: 320
+  m_Radius: 0.1
+  m_Speed: 5
+  m_Acceleration: 10
+  avoidancePriority: 1
+  m_AngularSpeed: 900
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -4040,13 +4040,7 @@ MonoBehaviour:
   curArmorSet: {fileID: 11400000, guid: f7df306383ac996429bdffb8c3f35468, type: 2}
   curBoots: {fileID: 11400000, guid: 1455d15e293c4964faaa11c2eee49da8, type: 2}
   bones: []
-  parentedObjects:
-  - {fileID: 3541681147535471053}
-  - {fileID: 641455341289516166}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 6012890528306445974}
-  - {fileID: 9055920545196228721}
+  parentedObjects: []
 --- !u!114 &1975882364169899088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4059,16 +4053,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78945eb1aaca36f40a89bcc09f08a66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actorName: 
+  actorName: Player
+  actorGold: 0
+  actorXP: 0
+  actorXPRequired: 0
+  actionPoint: 0
+  maxActionPoint: 0
+  baseDamage: 0
+  relic: []
+  randomizeName: 0
+  ownerFaction: {fileID: 0}
+  defaultDialog: {fileID: 0}
   actorQuests: []
   hasQuest: 0
   walkAround: 0
   peaceful: 0
-  actorLocation: 0
   locationArray: []
+  actorLocation: 0
   curIndex: 0
   actorEntryPoint: 0
   responsibleLabelText: {fileID: 0}
+  actorType: 0
+  spells:
+  - {fileID: 11400000, guid: 2ecadc4ff9f04734aa590baf285df19d, type: 2}
+  - {fileID: 11400000, guid: 127b518b08de14647831a7da2b6a59aa, type: 2}
+  - {fileID: 11400000, guid: 5b1f48f95abf31b40bc8303f1e26d450, type: 2}
+  - {fileID: 11400000, guid: cc79de48410ecf94dafc805d17433e15, type: 2}
 --- !u!1 &7646218944573625855
 GameObject:
   m_ObjectHideFlags: 0
