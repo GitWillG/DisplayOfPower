@@ -845,19 +845,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorName: NPC
+  actorGold: 0
+  actorXP: 0
+  actorXPRequired: 0
+  actionPoint: 0
+  maxActionPoint: 0
+  baseDamage: 0
+  relic: []
   randomizeName: 0
   ownerFaction: {fileID: 0}
-  actorQuests: []
   defaultDialog: {fileID: 0}
+  actorQuests: []
   hasQuest: 0
   walkAround: 1
   peaceful: 1
-  actorLocation: 0
   locationArray: []
+  actorLocation: 0
   curIndex: 0
   actorEntryPoint: 0
   responsibleLabelText: {fileID: 0}
   actorType: 0
+  spells: []
 --- !u!195 &919132148619600024
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1066,7 +1074,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -981239780133533289, guid: 9f5bc4b45fe14a046814da53661bb660, type: 3}
+  - {fileID: 2100000, guid: 4da43658093da6347b2a82126f9b8b66, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

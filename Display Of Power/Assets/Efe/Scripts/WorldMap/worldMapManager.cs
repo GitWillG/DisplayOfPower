@@ -12,7 +12,8 @@ namespace efe{
         public GameObject gmObj;
         gameManager gm;
         GameObject avatar;
-
+        public GameObject baseLocationTemplate;
+        public GameObject[] locationSpawnPoints;
         // Start is called before the first frame update
         void Start()
         {
@@ -42,7 +43,7 @@ namespace efe{
             }
         }
 
-        public void generateBattleLocation(locationData location)
+        public void generateLocation(locationData location)
         {
             
         }

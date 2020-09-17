@@ -15,6 +15,7 @@ TagManager:
   - BattleEncounter
   - Projectile
   - Sun
+  - HUD
   layers:
   - Default
   - TransparentFX

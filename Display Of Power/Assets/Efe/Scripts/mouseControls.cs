@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using TMPro;
+using UnityEngine.EventSystems;
 using efe; // Access to library, namespaces need to be referenced like this
 
 // This script governs every mechanic related to mouse and its links to the game. 
@@ -57,13 +58,16 @@ namespace efe // efe library
                 curAnimator = playerToControl.GetComponent<Animator>();
             }
 
-            // if(guim.HUD.Contains(Event.current.mousePosition))
-            // {
+ 
+            // Debug.Log(EventSystem.current.IsPointerOverGameObject());
+
                 // Cast
                 if(Physics.Raycast(ray, out hit, 1000))
                 {
                     // Instead of casting it twice, conditions can be put inside a single ray
-                    if (Input.GetMouseButtonDown(0)) // left click
+                    // Prevent all mouse controls that affects 3d scene if mouse is on a GUI element
+                        
+                    if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject()) // left click
                     {
                         // Script responsible of sending agent to vector3
                         movePlayer(curAgent, hit.point);
@@ -100,7 +104,7 @@ namespace efe // efe library
 
                 // Script responsible of syncing blend trees and navmesh agents
                 processPlayerMovement();
-            // }
+            
         }
 
         // called from update above with raycast on mouse position

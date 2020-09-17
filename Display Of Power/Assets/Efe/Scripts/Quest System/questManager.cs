@@ -44,6 +44,7 @@ namespace efe{
             startedQuests.Add(quest);
             GameObject tempGUI = Instantiate(guim.questTaken_GUI, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
             Destroy(tempGUI, 3);
+
         }
         public void succeedQuest(questItem quest){
             succeededQuests.Add(quest);
@@ -56,6 +57,14 @@ namespace efe{
             Debug.Log(quest.name + " ended.");
 
             succeededQuests.Remove(quest);
+        }
+
+        public void processQuest(questItem quest)
+        {
+            if(quest.curQuestGoalType == questItem.questGoalType.kill)
+            {
+                
+            }
         }
     }
 }

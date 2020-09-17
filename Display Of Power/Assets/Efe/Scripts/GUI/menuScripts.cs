@@ -22,6 +22,8 @@ namespace efe{
         public TextMeshProUGUI faction_name_1;
         public TextMeshProUGUI faction_name_2;
 
+        public TextMeshProUGUI[] logTexts;
+
         public GameObject curOfferList;
         public GameObject curDemandList;
 

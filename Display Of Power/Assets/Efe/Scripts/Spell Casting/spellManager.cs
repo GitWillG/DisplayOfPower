@@ -11,11 +11,14 @@ public class spellManager : MonoBehaviour
     public spellSO _spellDEMO;
     public Material _baseMaterial;
 
+    factionManager fm;
+
     GameObject projectile;
     // Start is called before the first frame update
     void Start()
     {   
         StartCoroutine(castSpell(sourceReference, targetReference, _spellDEMO));
+        fm = GetComponent<factionManager>();
     }
 
     // Update is called once per frame
@@ -35,6 +38,16 @@ public class spellManager : MonoBehaviour
                     Destroy(projectile);
                     projData.target.GetComponent<Animator>().SetTrigger("Die");
                     Debug.Log("Projectile destroyed.");
+
+                    factionSO sourceFaction = projData.source.GetComponent<actorData>().ownerFaction;
+                    factionSO targetFaction = projData.target.GetComponent<actorData>().ownerFaction;
+                    if(sourceFaction == null && targetFaction == null)
+                    {
+                        return;
+                    }
+
+                    fm.changeDiplomacyByReference(sourceFaction, targetFaction, -15);
+                    // fm.changeDiplomacyByString("Fire Water Fearless", 2);
                     break;
                 }
                 else
@@ -62,7 +75,7 @@ public class spellManager : MonoBehaviour
         Animator sourceAnimator = source.GetComponent<Animator>();
         Animator targetAnimator = target.GetComponent<Animator>();
         
-        yield return new WaitForSeconds(spellData.cooldown + spellData.castingDuration + spellData.delayPostCast);
+        yield return new WaitForSeconds(1);
 
         // Caster
         if(spellData.SkillCasterAnimation == spellSO.castAnimationTypes.type_1)

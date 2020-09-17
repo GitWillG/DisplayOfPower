@@ -12,9 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca24c47b3829a1448b7795f98e65f68, type: 3}
   m_Name: cityAdventurers
   m_EditorClassIdentifier: 
+  factionID: 0
   factionName: City of Adventurers
   allies: []
   enemies: []
   neutral: []
-  temp_relations: 
-  temp_factions: []
+  temp_relations: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  temp_factions:
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 0d165aa1e5d7d854d99f044cff3045d0, type: 2}
+  - {fileID: 11400000, guid: 5035873945e22c64eb87b7df30f2f7c7, type: 2}
+  - {fileID: 11400000, guid: 7cb5101d7d965ef41922719e8d11feac, type: 2}
+  - {fileID: 11400000, guid: 8eb274c6fd1ae7a459c9cdd186a02def, type: 2}
+  - {fileID: 11400000, guid: 9d2c7c9e1cd36e04e8d872123fb4a318, type: 2}
+  - {fileID: 11400000, guid: 32a0b663426aa534cb3942d640211f13, type: 2}
+  inventory: []

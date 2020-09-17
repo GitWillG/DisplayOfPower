@@ -51,6 +51,7 @@ namespace efe{
             {
                 GameObject mark = Instantiate(im.questAvailableMark, rig.overhead_reference.transform.position, Quaternion.identity);
                 mark.transform.parent = rig.overhead_reference.transform;
+                hasQuest = true;
             }
 
             locationArray = GameObject.FindGameObjectsWithTag("Location");
