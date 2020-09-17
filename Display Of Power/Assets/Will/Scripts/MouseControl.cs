@@ -160,6 +160,8 @@ public class MouseControl : MonoBehaviour
             detectRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().AttackRange;
         }
 
+        
+
     }
 
     private void removeRangeInd()

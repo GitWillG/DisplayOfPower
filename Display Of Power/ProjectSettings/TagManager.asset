@@ -16,6 +16,8 @@ TagManager:
   - Projectile
   - Sun
   - HUD
+  - MapIcon
+  - SpawnPointWorld
   layers:
   - Default
   - TransparentFX

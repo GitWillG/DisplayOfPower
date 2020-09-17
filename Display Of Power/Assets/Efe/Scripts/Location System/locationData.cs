@@ -12,9 +12,9 @@ namespace efe{
         public actorData[] NPCsLocation;
         public bool peaceful;
         public factionSO ownerFaction;
-
         public enum type{generated, manual}
         public type curLocType;
+        public bool isBattleOnly;
 
     }
 }

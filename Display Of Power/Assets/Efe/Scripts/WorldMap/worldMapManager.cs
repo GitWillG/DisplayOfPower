@@ -43,9 +43,19 @@ namespace efe{
             }
         }
 
-        public void generateLocation(locationData location)
+        public void generateLocation(bool isBattle)
         {
-            
+            foreach(GameObject temp in locationSpawnPoints)
+            {
+                GameObject newSpawn = Instantiate(baseLocationTemplate, temp.transform.position, Quaternion.identity);
+                locationData data = newSpawn.GetComponent<locationData>();
+                if(isBattle)
+                {
+                    data.isBattleOnly = true;
+                }
+            }
         }
+
+
     }
 }

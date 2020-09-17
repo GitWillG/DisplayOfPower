@@ -95,7 +95,7 @@ namespace efe
                     Debug.Log("Changed state to world.");
                     Time.timeScale = 1;
 
-                    _levelcategory.SetActive(false);
+                    // _levelcategory.SetActive(false);
 
                     cc.varX = cameraControl.worldMapCamera_param[0];
                     cc.varY = cameraControl.worldMapCamera_param[1];
@@ -117,7 +117,7 @@ namespace efe
                     Debug.Log("Changed state to level.");
                     Time.timeScale = 1;
 
-                   _worldcategory.SetActive(false);
+                //    _worldcategory.SetActive(false);
 
                     cc.varX = cameraControl.levelMapCamera_param[0];
                     cc.varY = cameraControl.levelMapCamera_param[1];
