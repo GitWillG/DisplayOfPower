@@ -103,7 +103,7 @@ public class immersionManager : MonoBehaviour
     // Called from mouseControls
     public void highlighObject(GameObject target)
     {
-        selected_object_materials = target.GetComponent<Renderer>().materials;
+        // selected_object_materials = target.GetComponent<Renderer>().materials;
         
         
     }

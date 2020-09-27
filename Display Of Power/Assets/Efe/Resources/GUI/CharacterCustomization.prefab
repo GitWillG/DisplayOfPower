@@ -45,7 +45,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4678634300296266497}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SkinColorSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 4678634300493391885}
   - component: {fileID: 4678634300493391884}
   - component: {fileID: 4678634300493391887}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CreationCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,9 +816,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4678634301735836486}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CharacterCustomization
-  m_TagString: Untagged
+  m_TagString: GUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

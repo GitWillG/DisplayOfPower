@@ -57,7 +57,7 @@ namespace efe
 
     // Reposition camera for different playfields
     public static float[] worldMapCamera_param = {16, 18, 11}; // x, y, z
-    public static float[] levelMapCamera_param = {6, 8, 4}; // x, y, z
+    public static float[] levelMapCamera_param = {7, 8, 5}; // x, y, z
     #endregion
 
         void Start()

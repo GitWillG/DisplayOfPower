@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using will;
+
+namespace will{
 
 public class baseAI : MonoBehaviour
 {
@@ -107,4 +110,5 @@ public class baseAI : MonoBehaviour
         return;
     }
 
+}
 }

@@ -37,7 +37,7 @@ public class spellManager : MonoBehaviour
                 {
                     Destroy(projectile);
                     projData.target.GetComponent<Animator>().SetTrigger("Die");
-                    Debug.Log("Projectile destroyed.");
+                    // Debug.Log("Projectile destroyed.");
 
                     factionSO sourceFaction = projData.source.GetComponent<actorData>().ownerFaction;
                     factionSO targetFaction = projData.target.GetComponent<actorData>().ownerFaction;
@@ -57,7 +57,7 @@ public class spellManager : MonoBehaviour
                     projData.target.transform.position,
                     projData.referenceSpell.spellMoveSpeed * Time.deltaTime
                     );
-                    Debug.Log(projectile.name + " moving to " + projData.target.name);
+                    // Debug.Log(projectile.name + " moving to " + projData.target.name);
                 }
                 
             }
@@ -124,7 +124,7 @@ public class spellManager : MonoBehaviour
             projData.referenceSpell = spellData;
             // Adjust size
             projectile.transform.localScale = new Vector3(1, 1, 1);
-            projectile.transform.localScale *= spellData.sizeMultiplier;
+            projectile.transform.localScale *= spellData.sizeMultiplier /4;
             // Editor usage
             projectile.name = "Projectile from " + spellData.spellName + " " + spellData.spellID;
             // Spawn aura and attach
@@ -135,7 +135,7 @@ public class spellManager : MonoBehaviour
             //Recolor
             projectile.GetComponent<Renderer>().material.color = spellData.baseColor;
             // Debug
-            Debug.Log("Spell casted.");
+            // Debug.Log("Spell casted.");
         }
         
     }

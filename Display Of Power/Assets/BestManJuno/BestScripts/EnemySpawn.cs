@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using will;
 
 public class EnemySpawn : MonoBehaviour
 {
-
+    public GenerateGrid grid;
     //Prefab is set through editor
     public GameObject enemyPrefab;
 
@@ -18,6 +19,11 @@ public class EnemySpawn : MonoBehaviour
     int numOfEnemies;
     GameObject newEnemy;
     public GameObject allyPrefab;
+
+
+    /// <summary>
+    GameObject[] targetHexes;
+    /// </summary>
 
     public TMP_InputField numOfBads;
 
@@ -42,8 +48,9 @@ public class EnemySpawn : MonoBehaviour
         //if there is no object on the selected hex, spawn an enemy if need be
         if (hexSpawn.transform.childCount < 1)
         {
-            GameObject newEnemy = (GameObject)Instantiate(enemyPrefab, new Vector3(hexSpawn.transform.position.x, 0.8f, hexSpawn.transform.position.z), Quaternion.identity);
+            GameObject newEnemy = (GameObject)Instantiate(enemyPrefab, new Vector3(hexSpawn.transform.position.x, hexSpawn.transform.position.y + 0.5f, hexSpawn.transform.position.z), Quaternion.identity);
             newEnemy.transform.SetParent(hexSpawn.transform);
+            newEnemy.transform.localPosition = new Vector3(hexSpawn.transform.position.x, 18f, hexSpawn.transform.position.z);
             newEnemy.layer = 9;
         }
     }
@@ -88,6 +95,55 @@ public class EnemySpawn : MonoBehaviour
             SpawnEnemy(enemyPrefab);
         }
     }
+
+    public void SpawnSpecificLocation(GameObject unitToSpawn, List<GameObject> spawnGrid, string location)
+    {
+        hex = new GameObject[transform.childCount];
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            hex[i] = transform.GetChild(i).gameObject;
+        }
+
+        //assigns all hexes to the array 'hex' and indexes them 
+        //NOTE SHOULD BE CALLED IN START FUNCTION 
+        //ONLY ASSIGNED IN FUCNTION FOR TESTING MEASURES
+        targetHexes = new GameObject[40];
+        targetHexes = spawnGrid.ToArray();
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    hex[i] = transform.GetChild(i).gameObject;
+        //}
+
+        //grabs a random index from the hex array and stores it as an int
+        int hexChoice = Random.Range(0, targetHexes.Length);
+
+        //gets the randomly slected index and assigns the gameobject on the index to be the spawn point
+        hexSpawn = targetHexes[hexChoice].gameObject;
+
+        //if there is no object on the selected hex, spawn an enemy if need be
+        if (hexSpawn.transform.childCount < 1)
+        {
+            newEnemy = (GameObject)Instantiate(unitToSpawn, new Vector3(hexSpawn.transform.position.x, hexSpawn.transform.position.y + 0.5f, hexSpawn.transform.position.z), Quaternion.identity);
+            newEnemy.transform.SetParent(hexSpawn.transform);
+            newEnemy.layer = 9;
+        }
+        if (location == "ally"){
+            grid.allyList.Add(newEnemy);
+        }      
+        else if (location == "enemy"){
+            grid.enemyList.Add(newEnemy);
+        }
+
+    }
+
+    // public void SpawnSpecificLocation(int numOfUnits, GameObject unitToSpawn, List<GameObject> spawnGrid)
+    // {
+    //     for (int i = 0; i < numOfUnits; i++)
+    //     {
+    //         SpawnSpecificLocation(unitToSpawn, spawnGrid);
+    //     }
+    // }
+
 
     public void SpawnEnemies(int numOfUnits, GameObject unitToSpawn)
     {

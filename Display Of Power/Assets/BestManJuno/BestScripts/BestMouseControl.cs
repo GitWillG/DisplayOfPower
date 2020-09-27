@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.AI;
+using will;
+
+namespace will{
 
 public class BestMouseControl : MonoBehaviour
 {
@@ -135,3 +138,4 @@ public class BestMouseControl : MonoBehaviour
     }
 }
 
+}

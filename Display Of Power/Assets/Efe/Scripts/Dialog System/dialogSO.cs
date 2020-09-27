@@ -4,10 +4,11 @@ using UnityEngine;
 using efe;
 
 namespace efe{
-    public class dialogSO : MonoBehaviour
+    [CreateAssetMenu(menuName = "Dialogs/Create a new dialog file")]
+    public class dialogSO : ScriptableObject
     {
         public string title;
-        public string text;
+        public string dialogText;
         public AudioSource voiceClip;
         public dialogSO linkedDialog;
         public bool hasLink;

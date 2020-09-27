@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 2737490911494549164}
   m_Layer: 5
   m_Name: Stats
-  m_TagString: Untagged
+  m_TagString: GUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -756,7 +756,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27029818bf05e8a409b5aa7bc67d92ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 0}
+  qm: {fileID: 0}
+  npcName: {fileID: 0}
+  npcDialog: {fileID: 0}
   questName_gui: {fileID: 0}
   questXP_gui: {fileID: 0}
   questGold_gui: {fileID: 0}
@@ -765,6 +767,7 @@ MonoBehaviour:
   faction_name_2: {fileID: 0}
   curOfferList: {fileID: 0}
   curDemandList: {fileID: 0}
+  logTexts: []
   _skillslots:
   - {fileID: 0}
   - {fileID: 0}
@@ -773,6 +776,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  webCharParent: {fileID: 0}
+  webCharacterIcon: {fileID: 0}
+  npcIconBase: {fileID: 0}
+  iconParent: {fileID: 0}
 --- !u!114 &2737490911494549164
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,7 +6,9 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
+using efe;
 
+namespace will{
 public class MouseControl : MonoBehaviour
 {
     //Selected hex material
@@ -216,7 +218,7 @@ public class MouseControl : MonoBehaviour
         if (selectedTarget.GetChild(0).transform.position.x >= selectedTarget.transform.position.x - 0.2 && selectedTarget.GetChild(0).transform.position.x <= selectedTarget.transform.position.x + 0.2 && selectedTarget.GetChild(0).transform.position.z >= selectedTarget.transform.position.z - 0.2 && selectedTarget.GetChild(0).transform.position.z <= selectedTarget.transform.position.z + 0.2)
         {
             selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = false;
-            selectedTarget.GetChild(0).transform.position = new Vector3(selectedTarget.transform.position.x, 0.8f, selectedTarget.transform.position.z);
+            selectedTarget.GetChild(0).transform.position = new Vector3(selectedTarget.transform.position.x, selectedTarget.transform.position.y + 0.5f, selectedTarget.transform.position.z);
             grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
             grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
             ////reset the selected hex
@@ -368,3 +370,4 @@ public class MouseControl : MonoBehaviour
     }
 }
 
+}

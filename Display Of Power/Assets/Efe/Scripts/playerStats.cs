@@ -8,7 +8,7 @@ namespace efe {
     public class playerStats : MonoBehaviour
     {
         public string playerName;
-        public static List<questItem> questsInProgress;
+        public List<questItem> questsInProgress;
         public float playerGold;
         public factionSO playerFaction;
         public float avatarXP;

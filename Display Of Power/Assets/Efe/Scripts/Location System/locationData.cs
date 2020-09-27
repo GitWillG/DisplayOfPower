@@ -10,11 +10,12 @@ namespace efe{
         public string locationName;
         public GameObject locationEntry;
         public actorData[] NPCsLocation;
-        public bool peaceful;
         public factionSO ownerFaction;
         public enum type{generated, manual}
         public type curLocType;
         public bool isBattleOnly;
+        public bool peaceful;
+        public GameObject levelReference;
 
     }
 }

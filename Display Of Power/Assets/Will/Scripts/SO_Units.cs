@@ -13,4 +13,6 @@ public class SO_Units : ScriptableObject
     public int movementRange;
     public int totalActions;
     public int actionsRemaining;
+    public GameObject prefabObj;
+    public GameObject menuItem;
 }

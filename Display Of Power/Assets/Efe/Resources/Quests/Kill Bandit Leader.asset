@@ -12,8 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a9d03be65fe73a48a46a532b5a5de7d, type: 3}
   m_Name: Kill Bandit Leader
   m_EditorClassIdentifier: 
+  questID: 4332
   questName: Kill Bandit Leader
-  questDesc: 
+  questDesc: Bandit lord causes trouble in northern lands.
   curType: 0
-  gold: 0
-  xp: 0
+  questGold: 150
+  questXP: 300
+  curQuestGoalType: 0
+  targetObject: []
+  targetAmount: 0
+  curReward: 0
+  brief_dialogs: []
+  wip_dialogs: []
+  end_dialogs: []
+  fail_dialogs: []
+  succeed_dialogs: []

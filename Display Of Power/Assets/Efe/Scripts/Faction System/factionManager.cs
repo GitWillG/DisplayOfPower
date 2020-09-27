@@ -165,7 +165,7 @@ namespace efe
                 curValue -= value;
             }
             
-            Debug.Log("Relationship between " + factionReference_1.factionName + " and " + factionReference_2.factionName + " is " + curValue);
+            // Debug.Log("Relationship between " + factionReference_1.factionName + " and " + factionReference_2.factionName + " is " + curValue);
             factionRelations[targetIndex] = curValue;
             
         }

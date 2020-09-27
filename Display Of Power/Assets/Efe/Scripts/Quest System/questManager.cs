@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using efe;
+using TMPro;
 
 // needs to be called "using efe;"
 namespace efe{
@@ -10,12 +11,14 @@ namespace efe{
 
         questItem curQuest_storyline;
         // Script reference to mouse controls
-        mouseControls mc;
+        [SerializeField]
+        mouseControls_freeroam mc;
         // Script reference to gameManager
-        GameObject gm;
+        gameManager gm;
         // Script reference to GUI manager
         GUIManager guim;
-        public questItem questInQuestion;
+        worldMapManager wm;
+        playerStats ps;
         public List<questItem> startedQuests;
         public List<questItem> availableQuests;
         public List<questItem> succeededQuests;
@@ -24,26 +27,37 @@ namespace efe{
         void Start()
         {   
             // Does a search once to find the GM object
-            gm = GameObject.FindGameObjectWithTag("GM");
-            mc = gm.GetComponent<mouseControls>();
+            gm = GameObject.FindGameObjectWithTag("GM").GetComponent<gameManager>();
+            mc = gm.GetComponent<mouseControls_freeroam>();
             guim = gm.GetComponent<GUIManager>();
+            ps = gm.GetComponent<playerStats>();
 
-            // Current quest that NPC is talking about
-            questInQuestion = mc.curQuest;
+            wm = GameObject.FindGameObjectWithTag("WM").GetComponent<worldMapManager>();
+
+
             
         }
 
         // Update is called once per frame
         void Update()
         {
+
         }
 
-        public void startQuest(questItem quest)
+        public void startQuest(questItem quest, GameObject giver)
         {
+            // Debug
             Debug.Log(quest.name + " added.");
+            // Add to the started quest list
             startedQuests.Add(quest);
+            // Update player quest list general
+            ps.questsInProgress.Add(quest);
+            // Change the world based on quest parameters
+            processQuest(quest);
+            // Show to player what happened
             GameObject tempGUI = Instantiate(guim.questTaken_GUI, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
-            Destroy(tempGUI, 3);
+            tempGUI.transform.Find("Background").transform.Find("QuestName").GetComponent<TextMeshProUGUI>().text = quest.questName;
+            Destroy(tempGUI, 2);
 
         }
         public void succeedQuest(questItem quest){
@@ -63,7 +77,7 @@ namespace efe{
         {
             if(quest.curQuestGoalType == questItem.questGoalType.kill)
             {
-                
+                wm.generateLocation(true);
             }
         }
     }

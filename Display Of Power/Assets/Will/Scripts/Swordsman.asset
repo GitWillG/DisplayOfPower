@@ -16,7 +16,11 @@ MonoBehaviour:
   life: 100
   damage: 20
   faction: Ally
-  attackRange: 2
-  movementRange: 4
+  attackRange: 1
+  movementRange: 5
   totalActions: 2
   actionsRemaining: 2
+  prefabObj: {fileID: 8653020172050730567, guid: 29ba187aa5b553346b1f29b43bdc980f,
+    type: 3}
+  menuItem: {fileID: 4942720250838737121, guid: 9b6c36b8437ec06499bc199c61aae90f,
+    type: 3}

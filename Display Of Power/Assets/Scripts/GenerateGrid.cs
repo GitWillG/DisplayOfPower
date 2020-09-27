@@ -4,7 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
+using will;
+using efe;
+
+namespace will{
 
 public class GenerateGrid : MonoBehaviour
 {
@@ -29,41 +34,74 @@ public class GenerateGrid : MonoBehaviour
     public Material testmat;
     public List<GameObject> postObCheck;
     //////////
-
     public List<GameObject> enemyList;
     public List<GameObject> allyList;
-
     public EnemySpawn enemySpawn;
     public MouseControl mouseControl;
-
     //actual dimensions of our prefab for refference
     private float hexWidth = 1.732f;
     private float hexDepth = 2f;
-
     //zOffset is 0.75 * depth of the hex
     public float zOffset = 1.5f;
     //xOffset is half of the Width
     public float xOffset = 0.866f;
-
     //initial list to add all units on field
     List<GameObject> unitsOnField = new List<GameObject>();
     //New list for turn order that will include all units on field
     public List<GameObject> turnOrder = new List<GameObject>();
-
+    /// new stuff
+    public List<GameObject> allySpawnHexes;
+    public List<GameObject> enemySpawnHexes;
+    int hexesSpawned;
+    public List<SO_Units> charPrefabList;
+    //enemies/allies can spawn in the last/first hexes
+    public int constrainSpawn;
+    /// new stuff
     // Start is called before the first frame update
     void Start()
-    {
+    {   ///
+        allySpawnHexes = new List<GameObject>();
+        enemySpawnHexes = new List<GameObject>();
+        hexesSpawned = 0;
+        //charPrefabList = new List<GameObject>();
+        //charPrefabList.Add()
+        ///
         enemyList = new List<GameObject>();
         allyList = new List<GameObject>();
         gridGeneration();
 
-        enemySpawn.SpawnEnemies(5, enemySpawn.allyPrefab, allyList);
-        enemySpawn.SpawnEnemies(5, enemySpawn.enemyPrefab, enemyList);
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
+        
+
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
+
+
+        //enemySpawn.SpawnEnemies(5, enemySpawn.allyPrefab, allyList);
+        //enemySpawn.SpawnEnemies(5, enemySpawn.enemyPrefab, enemyList);
+    }
+    private void Update()
+    {
+        
+        // if (allyList.Count <= 0)
+        // {
+        //     Debug.Log("you lose");
+        // }
+        // else if (enemyList.Count <= 0)
+        // {
+        //     Debug.Log("you win");
+        // }
     }
 
     [ContextMenu("Generate Grid")]
     public void gridGeneration()
     {
+        hexesSpawned = 0;
         hexArray = new GameObject[Width, Depth];
         //2 Dimension grid
         for (int x = 0; x < Width; x++)
@@ -80,15 +118,28 @@ public class GenerateGrid : MonoBehaviour
                 }
                 //make a hex at the location and name it with its 2D dimensions
                 GameObject hexOb = (GameObject)Instantiate(hexPrefab, new Vector3(xPos, 0, z * zOffset), Quaternion.Euler(0, 90, 0));
-                hexOb.name = "Hex " + x + " " + z;
+                hexOb.name = "Hex " + x + " " + z;  
                 hexOb.transform.SetParent(this.gameObject.transform);
+                hexOb.transform.localPosition = new Vector3(xPos, 0, z * zOffset);
                 hexArray[x, z] = hexOb.gameObject;
+
+                hexesSpawned++; 
+                if (hexesSpawned <= constrainSpawn)
+                {
+                    allySpawnHexes.Add(hexOb);
+                }
+                else if (hexesSpawned > (400 - constrainSpawn))
+                {
+                    enemySpawnHexes.Add(hexOb);
+                }
+
             }
         }
     }
 
     public void gridGeneration(int gWidth, int gDepth)
     {
+        hexesSpawned = 0;
         Width = gWidth;
         Depth = gDepth;
         //2 Dimension grid
@@ -107,7 +158,16 @@ public class GenerateGrid : MonoBehaviour
                 //make a hex at the location and name it with its 2D dimensions
                 GameObject hexOb = (GameObject)Instantiate(hexPrefab, new Vector3(xPos, 0, z * zOffset), Quaternion.Euler(0, 90, 0));
                 hexOb.name = "Hex " + x + " " + z;
-                hexOb.transform.SetParent(this.gameObject.transform);
+                hexOb.transform.SetParent(this.gameObject.transform); 
+                
+                if (hexesSpawned < 40)
+                {
+                    allySpawnHexes.Add(hexOb);
+                }
+                else if (hexesSpawned > ((gWidth * gDepth) - constrainSpawn))
+                {
+                    enemySpawnHexes.Add(hexOb);
+                }
             }
         }
     }
@@ -294,7 +354,7 @@ public class GenerateGrid : MonoBehaviour
         //print all units on field
         for (int i = 0; i < unitsOnField.Count; i++)
         {
-            //Debug.Log(unitsOnField[i]);
+            Debug.Log(unitsOnField[i]);
         }
 
         //using previous function to randomize list
@@ -303,7 +363,7 @@ public class GenerateGrid : MonoBehaviour
         //print the turn order
         for(int i = 0; i < turnOrder.Count; i++)
         {
-            //Debug.Log("Turn order: " + (i+1) + " " + turnOrder[i]);
+            Debug.Log("Turn order: " + (i+1) + " " + turnOrder[i]);
         }
     }
 
@@ -365,4 +425,5 @@ public class GenerateGrid : MonoBehaviour
         }
     }
 
+}
 }

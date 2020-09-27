@@ -18,6 +18,10 @@ TagManager:
   - HUD
   - MapIcon
   - SpawnPointWorld
+  - WM
+  - QM
+  - CharacterWebGUI
+  - GUI
   layers:
   - Default
   - TransparentFX

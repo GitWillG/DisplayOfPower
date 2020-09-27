@@ -306,7 +306,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8391807799088173754}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: QuestPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 7188135226237617793}
   m_Layer: 5
   m_Name: dialogScreen
-  m_TagString: Untagged
+  m_TagString: GUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -758,7 +758,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27029818bf05e8a409b5aa7bc67d92ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 0}
+  qm: {fileID: 0}
+  npcName: {fileID: 4691901309841166831}
+  npcDialog: {fileID: 7412667220380098812}
   questName_gui: {fileID: 8739111534751151955}
   questXP_gui: {fileID: 5468615926057863454}
   questGold_gui: {fileID: 1916824020023902035}
@@ -767,6 +769,12 @@ MonoBehaviour:
   faction_name_2: {fileID: 0}
   curOfferList: {fileID: 0}
   curDemandList: {fileID: 0}
+  logTexts: []
+  _skillslots: []
+  webCharParent: {fileID: 0}
+  webCharacterIcon: {fileID: 0}
+  npcIconBase: {fileID: 0}
+  iconParent: {fileID: 0}
 --- !u!1 &4691901309841166831
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,7 +787,7 @@ GameObject:
   - component: {fileID: 4691901309841166826}
   - component: {fileID: 4691901309841166825}
   m_Layer: 5
-  m_Name: Header
+  m_Name: NPCName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1767,7 +1775,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7057972020853818161}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NormalDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1809,7 +1817,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3511418054230113654
 RectTransform:
   m_ObjectHideFlags: 0

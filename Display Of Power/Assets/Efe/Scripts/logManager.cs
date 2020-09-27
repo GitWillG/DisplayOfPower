@@ -12,7 +12,10 @@ public class logManager : MonoBehaviour
     void Start()
     {
         HUD = GameObject.FindGameObjectWithTag("HUD");
-        scriptsMenu = HUD.GetComponent<menuScripts>();
+        if(HUD != null)
+        {
+            scriptsMenu = HUD.GetComponent<menuScripts>();
+        }
     }
 
     // Update is called once per frame

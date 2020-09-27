@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using will;
+
+namespace will{
 
 public class BattleUI : MonoBehaviour
 {
@@ -31,4 +34,5 @@ public class BattleUI : MonoBehaviour
         stats.text = "Faction" + prefUnits.Factions + "\n" + "Health" + prefUnits.Life + "\n" + "Strength" + prefUnits.Damage + "\n" + "Attack Range" + prefUnits.AttackRange + "\n" + "Movement Range" + prefUnits.MovementRange + "\n" + "Moves Remaining" + prefUnits.actionsRemaining;
     }
 
+}
 }

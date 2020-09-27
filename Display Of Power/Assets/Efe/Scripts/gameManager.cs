@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using efe;
+using will;
 
 // needs to be called "using efe;"
 namespace efe
@@ -11,6 +12,8 @@ namespace efe
 
         #region State Change System
         // const string transition_Key = "M";
+        GUIManager guim;
+        gameManager gm;
         string[] stateStrings = {"World", "Level", "HUD"};
         [Header("Avatars")]
         public GameObject worldAvatar;
@@ -22,7 +25,7 @@ namespace efe
         [Header("Object Holders")]
         public GameObject _levelcategory;
         public GameObject _worldcategory;
-        gameStates curGameState;
+        public gameStates curGameState;
         bool onWorld = false;
         // TODO - causes stack overflow investigate
         // bool onWorld{get {return onWorld; } set{onWorld = false;}}
@@ -35,10 +38,17 @@ namespace efe
         public GameObject curHoveredObject;
         public static factionSO curFactionInEffect;
         public static GameObject curGUI;
+        public GameObject curInteractedNPC;
+        public List<GameObject> openGUIs;
+        public GameObject selectionManager;
+        mouseControls_freeroam mc;
+        BestClickToMove bctm;
+        preSelection preS;
         // Start is called before the first frame update
         void Start()
         {
             cc = Camera.main.GetComponent<cameraControl>();
+            guim = GetComponent<GUIManager>();
             // levelAvatar = GameObject.FindGameObjectWithTag("LevelAvatar");
             // worldAvatar = GameObject.FindGameObjectWithTag("WorldAvatar");
 
@@ -68,6 +78,23 @@ namespace efe
         {
             curGameState = gameStates.freeroam;
             changeField("Level");
+        }
+
+        public void changeState(string targetString)
+        {
+            if(targetString == "Battle")
+            {
+                curGameState = gameStates.inBattle;
+                guim.HUD.SetActive(false);
+            }
+            else if(targetString == "Free")
+            {
+                curGameState = gameStates.freeroam;
+                guim.HUD.SetActive(true);
+            }
+            
+            
+            
         }
 
         public void changeField(string inputString)
