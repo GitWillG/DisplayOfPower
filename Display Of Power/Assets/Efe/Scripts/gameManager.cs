@@ -29,7 +29,7 @@ namespace efe
         bool onWorld = false;
         // TODO - causes stack overflow investigate
         // bool onWorld{get {return onWorld; } set{onWorld = false;}}
-        cameraControl cc;
+        cameraControl_freeroam cc;
         public enum playfields {onWorld, onLevel, onMenu}
         public enum gameStates {inBattle, freeroam}
         #endregion
@@ -47,7 +47,7 @@ namespace efe
         // Start is called before the first frame update
         void Start()
         {
-            cc = Camera.main.GetComponent<cameraControl>();
+            cc = Camera.main.GetComponent<cameraControl_freeroam>();
             guim = GetComponent<GUIManager>();
             // levelAvatar = GameObject.FindGameObjectWithTag("LevelAvatar");
             // worldAvatar = GameObject.FindGameObjectWithTag("WorldAvatar");
@@ -124,9 +124,9 @@ namespace efe
 
                     // _levelcategory.SetActive(false);
 
-                    cc.varX = cameraControl.worldMapCamera_param[0];
-                    cc.varY = cameraControl.worldMapCamera_param[1];
-                    cc.varZ = cameraControl.worldMapCamera_param[2];
+                    cc.varX = cameraControl_freeroam.worldMapCamera_param[0];
+                    cc.varY = cameraControl_freeroam.worldMapCamera_param[1];
+                    cc.varZ = cameraControl_freeroam.worldMapCamera_param[2];
                     cc.trackPlayer();
                     
                     }   
@@ -146,9 +146,9 @@ namespace efe
 
                 //    _worldcategory.SetActive(false);
 
-                    cc.varX = cameraControl.levelMapCamera_param[0];
-                    cc.varY = cameraControl.levelMapCamera_param[1];
-                    cc.varZ = cameraControl.levelMapCamera_param[2];
+                    cc.varX = cameraControl_freeroam.levelMapCamera_param[0];
+                    cc.varY = cameraControl_freeroam.levelMapCamera_param[1];
+                    cc.varZ = cameraControl_freeroam.levelMapCamera_param[2];
                     cc.trackPlayer();
                     }
                 }

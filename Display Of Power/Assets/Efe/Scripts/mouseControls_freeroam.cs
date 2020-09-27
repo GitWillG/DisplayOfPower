@@ -16,14 +16,23 @@ namespace efe // efe library
 {
     public class mouseControls_freeroam : MonoBehaviour
     {
+        // Find the game manager by its tag on start for reference
         gameManager gm;
+        // Reference to current avatar player is controlling - world avatar or level avatar
         GameObject playerToControl;
+        // Reference to animator of the current avatar player is controlling
         Animator curAnimator;
+        // Reference to navmeshagent of the current avatar player is controlling
         NavMeshAgent curAgent;
+        // Reference to gui manager - where everything related to guis are stored - part of gameManager object
         GUIManager guim;
+        // Reference to actorData script that can be found on every NPC in the game
         actorData actorData;
+        // Reference to location data script that can be found on every location in the game (world icons)
         locationData locData;
+        // Reference to immersion manager - part of gameManager object
         immersionManager im;
+        // Current quest that NPC is offering
         public questItem curQuest;
         public GameObject moveParticle; // Particle that will spawn on mouse click if player agent is suppposed to move somewhere
         // Start is called before the first frame update
@@ -45,7 +54,7 @@ namespace efe // efe library
         {
             if(gm.curGameState == gameManager.gameStates.freeroam)
             {
-                Debug.Log("Freeroam enabled");
+                // Debug.Log("Freeroam enabled");
                 // Stored ray
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 // Result of the ray
@@ -60,7 +69,7 @@ namespace efe // efe library
                 }
 
 
-                
+                // Prevent raycasting if mouse clicked on a GUI
                 // Debug.Log(EventSystem.current.IsPointerOverGameObject());
                 if(!EventSystem.current.IsPointerOverGameObject())
                 {

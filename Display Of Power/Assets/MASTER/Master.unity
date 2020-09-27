@@ -344,6 +344,28 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1725589143}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &535938243 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8679319203201420233, guid: 51ea987a75acee14ba51759d174f6ef6,
+    type: 3}
+  m_PrefabInstance: {fileID: 432903929989857332}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &535938245
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535938243}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25500003, y: 0.721, z: 1.6550001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.089, y: 0.67800003, z: -1.3210001}
+  m_TimeToStationary: 0.5
 --- !u!1 &554424217 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4559980342808880683, guid: ba6224f07650263459bca13afd02a2de,
@@ -1916,7 +1938,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 51ea987a75acee14ba51759d174f6ef6, type: 3}
 --- !u!1001 &432903930000108811
 PrefabInstance:
@@ -5061,6 +5084,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 432903930382009315}
     m_Modifications:
+    - target: {fileID: -8721654393312664903, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8721654393312664903, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 900
+      objectReference: {fileID: 0}
+    - target: {fileID: -8721654393312664903, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8721654393312664903, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
+      propertyPath: m_AutoRepath
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8721654393312664903, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8721654393312664903, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8721654393312664903, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8721654393312664903, guid: ab532dc069bc3ea45b425fc3a1c010ba,
+        type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7203512116763499361, guid: ab532dc069bc3ea45b425fc3a1c010ba,
         type: 3}
       propertyPath: m_LocalPosition.x
