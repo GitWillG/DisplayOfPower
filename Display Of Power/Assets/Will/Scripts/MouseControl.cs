@@ -2,17 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using TMPro;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
-using efe;
 
-namespace will{
 public class MouseControl : MonoBehaviour
 {
     //Selected hex material
     public Material selectedMat;
+    public TextMeshProUGUI lifeBox;
+    public TextMeshProUGUI unitBox;
+    public TextMeshProUGUI attackBox;
     //hovered hex material
     public Material hoveredMat;
     //the last appropriate material, changes when we move between highlighting legal moves and not
@@ -137,6 +139,7 @@ public class MouseControl : MonoBehaviour
             {
 
                 selectHex(hoveredTarget.gameObject);
+
                
             }
 
@@ -178,7 +181,10 @@ public class MouseControl : MonoBehaviour
         //null the selected hex
         selectedTarget = null;
         //go back to raycasting on our default hex layer
-        currentMask = 1 << 8;
+        currentMask = 1 << 8; 
+        lifeBox.text = "";
+        attackBox.text = "";
+        unitBox.text = "";
     }
 
 
@@ -218,7 +224,7 @@ public class MouseControl : MonoBehaviour
         if (selectedTarget.GetChild(0).transform.position.x >= selectedTarget.transform.position.x - 0.2 && selectedTarget.GetChild(0).transform.position.x <= selectedTarget.transform.position.x + 0.2 && selectedTarget.GetChild(0).transform.position.z >= selectedTarget.transform.position.z - 0.2 && selectedTarget.GetChild(0).transform.position.z <= selectedTarget.transform.position.z + 0.2)
         {
             selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = false;
-            selectedTarget.GetChild(0).transform.position = new Vector3(selectedTarget.transform.position.x, selectedTarget.transform.position.y + 0.5f, selectedTarget.transform.position.z);
+            selectedTarget.GetChild(0).transform.position = new Vector3(selectedTarget.transform.position.x, selectedTarget.transform.position.y +0.8f, selectedTarget.transform.position.z);
             grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
             grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
             ////reset the selected hex
@@ -271,6 +277,9 @@ public class MouseControl : MonoBehaviour
             {
                 //save the hovered target as a selected one
                 selectedTarget = transformSelected;
+                lifeBox.text = selectedTarget.GetComponentInChildren<prefabUnits>().Life.ToString();
+                attackBox.text = selectedTarget.GetComponentInChildren<prefabUnits>().Damage.ToString();
+                unitBox.text = selectedTarget.GetComponentInChildren<prefabUnits>().name.ToString();
                 clickedHex = true;
                 //swap the mask to our legal hex layer for raycasting
                 currentMask = 1 << 10;
@@ -304,9 +313,12 @@ public class MouseControl : MonoBehaviour
                 }
                 runMovement();
                 selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
+
                 return;
-                //grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);
+                //grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);   
             }
+
+         
 
             //attack
 
@@ -328,6 +340,8 @@ public class MouseControl : MonoBehaviour
     }
     public void killUnit(GameObject deadUnit)
     {
+        GridOb.allyList.Remove(deadUnit);
+        GridOb.enemyList.Remove(deadUnit);
         GridOb.turnOrder.Remove(deadUnit);
         Destroy(deadUnit);
 
@@ -370,4 +384,3 @@ public class MouseControl : MonoBehaviour
     }
 }
 
-}

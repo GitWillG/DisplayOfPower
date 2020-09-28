@@ -10,9 +10,10 @@ public class battleManager : MonoBehaviour
 {
     public GameObject battleCam;
     public GameObject freeCam;
-    
+    public GameObject heroSelect;
 
-    public GameObject selectManager;
+
+        public GameObject selectManager;
     public GameObject battleHud;
     GameObject[] battleEncounters;
     preSelection preSelect;
@@ -39,9 +40,10 @@ public class battleManager : MonoBehaviour
                 float distance = Vector3.Distance(gm.curAvatar.transform.position, temp.transform.position);
                 if(distance < 3)
                 {
-                    // msc.grid.transform.position = temp.transform.position;
-                    startBattle();
-                    Debug.Log("Battle starts " + temp.name + " " + msc.grid.name);
+                        // msc.grid.transform.position = temp.transform.position;
+                        startBattle();
+
+                        Debug.Log("Battle starts " + temp.name + " " + msc.grid.name);
                     // temp.transform.position = transform.position;
                     Destroy(temp);
                 }
@@ -51,19 +53,21 @@ public class battleManager : MonoBehaviour
 
     public void startBattle()
     {
+        heroSelect.SetActive(false);
         gm.curAvatar.SetActive(false);  
         // battleCam.SetActive(true);
         battleCam.gameObject.SetActive(true);
         battleCam.tag = "MainCamera";
         
         freeCam.tag = "Untagged";
-        selectManager.SetActive(true);  
-        battleHud.SetActive(true);
+        freeCam.gameObject.SetActive(false);
 
 
-        preSelect.makeGrid();
+            selectManager.SetActive(true);
+            preSelect.makeGrid();
+            battleHud.SetActive(true);
+            gm.changeState("Battle");
 
-        gm.changeState("Battle");
-    }
+        }
 }
 }
