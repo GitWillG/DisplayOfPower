@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using efe;
 
+namespace efe{
+
 public class sceneManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -16,4 +18,5 @@ public class sceneManager : MonoBehaviour
     {
         
     }
+}
 }
