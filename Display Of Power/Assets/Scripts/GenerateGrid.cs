@@ -425,6 +425,9 @@ public class GenerateGrid : MonoBehaviour
         turnOrder[k].GetComponent<prefabUnits>().isTurn = true;
         if (turnOrder[k].GetComponent<prefabUnits>().isTurn == true)
         {
+
+            mouseControl.clickedHex = false;
+            //mouseControl.selectedTarget = turnOrder[k].transform;
             mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
         }
 

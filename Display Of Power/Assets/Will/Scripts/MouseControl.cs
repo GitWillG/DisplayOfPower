@@ -171,6 +171,7 @@ public class MouseControl : MonoBehaviour
 
     private void removeRangeInd()
     {
+        selectionRenderer = selectedTarget.GetComponent<Renderer>();
         //reset the selected hex
         selectionRenderer.material = oldMat;
         //nothing is selected anymore
@@ -277,10 +278,10 @@ public class MouseControl : MonoBehaviour
             {
                 //save the hovered target as a selected one
                 selectedTarget = transformSelected;
+                clickedHex = true;
                 lifeBox.text = selectedTarget.GetComponentInChildren<prefabUnits>().Life.ToString();
                 attackBox.text = selectedTarget.GetComponentInChildren<prefabUnits>().Damage.ToString();
                 unitBox.text = selectedTarget.GetComponentInChildren<prefabUnits>().name.ToString();
-                clickedHex = true;
                 //swap the mask to our legal hex layer for raycasting
                 currentMask = 1 << 10;
                 //swap to the appropriate range
