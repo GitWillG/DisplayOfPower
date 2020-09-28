@@ -6,6 +6,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
+using will;
+using efe;
+
+namespace will{
 
 public class GenerateGrid : MonoBehaviour
 {
@@ -21,7 +25,7 @@ public class GenerateGrid : MonoBehaviour
     List<GameObject> parent;
     public List<GameObject> path;
     List<CubeUnit> possibleCubes;
-    public int k = 0;
+
     ///////////////////////testing
     //public Material newmat;
     public GameObject testLocation;
@@ -30,43 +34,29 @@ public class GenerateGrid : MonoBehaviour
     public Material testmat;
     public List<GameObject> postObCheck;
     //////////
-
     public List<GameObject> enemyList;
     public List<GameObject> allyList;
-
     public EnemySpawn enemySpawn;
     public MouseControl mouseControl;
-
     //actual dimensions of our prefab for refference
     private float hexWidth = 1.732f;
     private float hexDepth = 2f;
-    public bool hasStarted = false;
-
     //zOffset is 0.75 * depth of the hex
     public float zOffset = 1.5f;
     //xOffset is half of the Width
     public float xOffset = 0.866f;
-
     //initial list to add all units on field
     List<GameObject> unitsOnField = new List<GameObject>();
     //New list for turn order that will include all units on field
-    public List<GameObject> turnOrder =  new List<GameObject>(); 
-
-
+    public List<GameObject> turnOrder = new List<GameObject>();
     /// new stuff
     public List<GameObject> allySpawnHexes;
     public List<GameObject> enemySpawnHexes;
     int hexesSpawned;
     public List<SO_Units> charPrefabList;
-
     //enemies/allies can spawn in the last/first hexes
     public int constrainSpawn;
-
     /// new stuff
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {   ///
@@ -79,41 +69,33 @@ public class GenerateGrid : MonoBehaviour
         enemyList = new List<GameObject>();
         allyList = new List<GameObject>();
         gridGeneration();
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
 
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
+        
 
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
 
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
-        hasStarted = true;
-     
 
         //enemySpawn.SpawnEnemies(5, enemySpawn.allyPrefab, allyList);
         //enemySpawn.SpawnEnemies(5, enemySpawn.enemyPrefab, enemyList);
     }
     private void Update()
     {
-        if (hasStarted)
-        {
-
-            if (allyList.Count <= 0)
-            {
-                Debug.Log("you lose");
-                hasStarted = false;
-            }
-            else if (enemyList.Count <= 0)
-            {
-                Debug.Log("you win");
-                hasStarted = false;
-            }
-  
-        }
-
+        
+        // if (allyList.Count <= 0)
+        // {
+        //     Debug.Log("you lose");
+        // }
+        // else if (enemyList.Count <= 0)
+        // {
+        //     Debug.Log("you win");
+        // }
     }
 
     [ContextMenu("Generate Grid")]
@@ -136,13 +118,13 @@ public class GenerateGrid : MonoBehaviour
                 }
                 //make a hex at the location and name it with its 2D dimensions
                 GameObject hexOb = (GameObject)Instantiate(hexPrefab, new Vector3(xPos, 0, z * zOffset), Quaternion.Euler(0, 90, 0));
-                hexOb.name = "Hex " + x + " " + z;
+                hexOb.name = "Hex " + x + " " + z;  
                 hexOb.transform.SetParent(this.gameObject.transform);
                 hexOb.transform.localPosition = new Vector3(xPos, 0, z * zOffset);
                 hexArray[x, z] = hexOb.gameObject;
 
-
-                hexesSpawned++; if (hexesSpawned <= constrainSpawn)
+                hexesSpawned++; 
+                if (hexesSpawned <= constrainSpawn)
                 {
                     allySpawnHexes.Add(hexOb);
                 }
@@ -363,7 +345,6 @@ public class GenerateGrid : MonoBehaviour
         ///list units on field
         for (int i = 0; i < enemySpawn.hex.Length; i++)
         {
-            
             if (enemySpawn.hex[i].transform.childCount > 0)
             {
                 unitsOnField.Add(enemySpawn.hex[i].transform.GetChild(0).gameObject);
@@ -373,7 +354,7 @@ public class GenerateGrid : MonoBehaviour
         //print all units on field
         for (int i = 0; i < unitsOnField.Count; i++)
         {
-            //Debug.Log(unitsOnField[i]);
+            Debug.Log(unitsOnField[i]);
         }
 
         //using previous function to randomize list
@@ -382,35 +363,19 @@ public class GenerateGrid : MonoBehaviour
         //print the turn order
         for(int i = 0; i < turnOrder.Count; i++)
         {
-            //Debug.Log("Turn order: " + (i+1) + " " + turnOrder[i]);
+            Debug.Log("Turn order: " + (i+1) + " " + turnOrder[i]);
         }
-        Debug.Log(turnOrder.Count);
     }
 
-    
-
+    public int k = 0;
 
     [ContextMenu("Start Next Turn")]
     public void NextTurn()
     {
-
-        //foreach (GameObject turnorder in turnOrder)
-        //{
-        //    if (turnorder == null)
-        //    {
-        //        turnOrder.Remove(turnorder);
-        //    }
-        //}
-        Debug.Log(turnOrder.Count);
-        if (k >= turnOrder.Count - 1)
-        {
-            k = 0;
-        }
         if (turnOrder[k].GetComponent<prefabUnits>().actionsRemaining == 0)
         {
-            turnOrder[k].GetComponent<prefabUnits>().actionsRemaining = turnOrder[k].GetComponent<prefabUnits>().TotalActions;
             turnOrder[k].GetComponent<prefabUnits>().isTurn = false;
-            if (k < turnOrder.Count -1)
+            if (k+1 <= turnOrder.Count)
             {
                 k = k + 1;
             }
@@ -460,4 +425,5 @@ public class GenerateGrid : MonoBehaviour
         }
     }
 
+}
 }

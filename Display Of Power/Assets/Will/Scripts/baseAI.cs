@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using will;
+
+namespace will{
 
 public class baseAI : MonoBehaviour
 {
@@ -37,33 +40,25 @@ public class baseAI : MonoBehaviour
                 {
 
                     mouseController.moveAttackSwap();
-                    Debug.Log("checkattack");
                     for (int i = 0; i< gridOb.legalHex.Count; i++)
                     {
-                        
-                        if (gridOb.legalHex[i].transform.childCount > 0 && gridOb.legalHex[i].transform.GetChild(0).GetComponent<prefabUnits>().Factions == "Ally")
+                        if (gridOb.legalHex[i].transform.childCount > 0)
                         {
-                            //Debug.Log("checkattack");
-                            
-                            
-                                
+                            if (gridOb.legalHex[i].transform.GetChild(0).GetComponent<prefabUnits>().Factions == "Ally")
+                            {
                                 clickActions.ClickAttack(self.gameObject, gridOb.legalHex[i]);
                                 self.actionsRemaining -= 1;
-                                Debug.Log("Dealt 5 damage to" + gridOb.legalHex[i].transform.GetChild(0).gameObject);
                                 if (gridOb.legalHex[i].transform.GetChild(0).gameObject.GetComponent<prefabUnits>().Life <= 0)
                                 {
                                     mouseController.killUnit(gridOb.legalHex[i].transform.GetChild(0).gameObject);
-
+                                    Debug.Log("Dealt 5 damage to" + gridOb.legalHex[i].transform.GetChild(0).gameObject);
+                                    return;
                                 }
-                                mouseController.moveAttackSwap();
-                                return;
-                            
+                            }
                         }
-
 
                     }
                     mouseController.moveAttackSwap();
-                    Debug.Log("check move");
 
                     mouseController.selectHex(this.transform.parent.gameObject);
                     mouseController.doneMoving = false;
@@ -115,4 +110,5 @@ public class baseAI : MonoBehaviour
         return;
     }
 
+}
 }

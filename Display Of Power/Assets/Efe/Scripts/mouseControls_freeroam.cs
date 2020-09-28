@@ -182,7 +182,8 @@ namespace efe // efe library
                         newScreen.GetComponent<menuScripts>().questDesc_gui.GetComponent<TextMeshProUGUI>().text = curQuest.questDesc;
                         newScreen.GetComponent<menuScripts>().questGold_gui.GetComponent<TextMeshProUGUI>().text = curQuest.questGold.ToString();
                         newScreen.GetComponent<menuScripts>().questXP_gui.GetComponent<TextMeshProUGUI>().text = curQuest.questXP.ToString();
-                        //newScreen.GetComponent<menuScripts>().npcDialog.GetComponent<TextMeshProUGUI>().text = actorData.defaultDialog.dialogText;
+                        newScreen.GetComponent<menuScripts>().npcDialog.GetComponent<TextMeshProUGUI>().text = 
+                        actorData.defaultDialog.dialogText;
                         newScreen.GetComponent<menuScripts>().npcName.GetComponent<TextMeshProUGUI>().text = actorData.actorName;                    
                     }
                 }
