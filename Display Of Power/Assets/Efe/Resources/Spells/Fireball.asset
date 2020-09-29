@@ -20,7 +20,7 @@ MonoBehaviour:
   castingDuration: 1
   delayPostCast: 1
   spellMoveSpeed: 1
-  icon: {fileID: 0}
+  spellIcon: {fileID: 21300000, guid: 9cce51e4f4707ce4db155b9cdcc3517e, type: 3}
   SkillNature: 2
   shape: 0
   visualizationMethod: 1

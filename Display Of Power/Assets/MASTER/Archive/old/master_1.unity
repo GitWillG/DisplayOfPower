@@ -3552,7 +3552,7 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
-  m_Intensity: 10
+  m_Intensity: 10000
   m_EnableSpotReflector: 0
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -3654,7 +3654,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.97619706, g: 1, b: 0.7688679, a: 1}
-  m_Intensity: 10
+  m_Intensity: 10000
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -6341,6 +6341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac446cca325dac4f834b1264c65d9f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ev_system: {fileID: 0}
   selectedMat: {fileID: 2100000, guid: 841054a8294e9e54db7e6ced5699d4c7, type: 2}
   lifeBox: {fileID: 401484561}
   unitBox: {fileID: 219319871}
@@ -8304,9 +8305,7 @@ MonoBehaviour:
   tempList: []
   path: []
   k: 0
-  testLocation: {fileID: 0}
   legalHex: []
-  testmat: {fileID: 2100000, guid: 4824d653c2c633c46b9a1b9fc4fc990c, type: 2}
   postObCheck: []
   enemyList: []
   allyList: []
@@ -9124,6 +9123,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 60dec9c017d95644db6ed414e2ac126d, type: 2}
   - {fileID: 11400000, guid: 881380414f81dda45bd9087a83ff313e, type: 2}
   constrainSpawn: 100
+  generated_grids: []
 --- !u!1 &7683539900091893493
 GameObject:
   m_ObjectHideFlags: 0

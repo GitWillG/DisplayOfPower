@@ -22,6 +22,8 @@ TagManager:
   - QM
   - CharacterWebGUI
   - GUI
+  - SM
+  - RadiusPreview
   layers:
   - Default
   - TransparentFX

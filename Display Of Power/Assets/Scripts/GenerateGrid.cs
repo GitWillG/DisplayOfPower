@@ -195,12 +195,6 @@ public class GenerateGrid : MonoBehaviour
         }
     }
 
-
-
-
-
-
-
     //[ContextMenu("CheckRadius")]
     //This is takes a point and Checks each surrounding hex to see if a unit is on them, each hex that does not have a unit, and hasn't already been checked is added to a list
     //That list is then moved to a different layer and re-coloured

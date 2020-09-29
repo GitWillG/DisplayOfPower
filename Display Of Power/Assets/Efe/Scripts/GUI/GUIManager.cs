@@ -20,79 +20,92 @@ public class GUIManager : MonoBehaviour
     public GameObject escapeMenu;
     gameManager gm;
     GameObject HUDReference;
-    
+
+    public Image[] skill_slots;
+    MouseControl mc;
     
     // Start is called before the first frame update
     void Start()
     {
-        HUDReference = Instantiate(HUD, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
-        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<gameManager>();
-        isHUDopen = true;
+        // HUDReference = Instantiate(HUD, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
+        // gm = GameObject.FindGameObjectWithTag("GM").GetComponent<gameManager>();
+        // isHUDopen = true;
+        mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
+
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(mc.selectedTarget != null)
         {
-            openGUI(questLog_GUI);
-        }
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            openGUI(factionPage_GUI);
-        }
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            openGUI(inventory_GUI);
-        }
-        if(Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            if(isHUDopen)
+            foreach(Image temp in skill_slots)
             {
-                HUDReference.SetActive(false);
-                isHUDopen = false;
-            }
-            else
-            {
-                HUDReference.SetActive(true);
-                isHUDopen = true;
+                actorData selectedData = mc.selectedTarget.GetChild(0).GetComponent<actorData>();
+                temp.sprite = selectedData.spells[0].spellIcon;
+                Debug.Log(selectedData + " " + temp.sprite.name);
             }
         }
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            openGUI(characterWeb);
-        }
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            GameObject[] GUIs = GameObject.FindGameObjectsWithTag("GUI");
-            if(GUIs == null)
-            {
-                // open escape menu
-                openGUI(escapeMenu);
+        // if(Input.GetKeyDown(KeyCode.Q))
+        // {
+        //     openGUI(questLog_GUI);
+        // }
+        // if(Input.GetKeyDown(KeyCode.F))
+        // {
+        //     openGUI(factionPage_GUI);
+        // }
+        // if(Input.GetKeyDown(KeyCode.I))
+        // {
+        //     openGUI(inventory_GUI);
+        // }
+        // if(Input.GetKeyDown(KeyCode.LeftControl))
+        // {
+        //     if(isHUDopen)
+        //     {
+        //         HUDReference.SetActive(false);
+        //         isHUDopen = false;
+        //     }
+        //     else
+        //     {
+        //         HUDReference.SetActive(true);
+        //         isHUDopen = true;
+        //     }
+        // }
+        // if(Input.GetKeyDown(KeyCode.L))
+        // {
+        //     openGUI(characterWeb);
+        // }
+        // if(Input.GetKeyDown(KeyCode.Escape))
+        // {
+        //     GameObject[] GUIs = GameObject.FindGameObjectsWithTag("GUI");
+        //     if(GUIs == null)
+        //     {
+        //         // open escape menu
+        //         openGUI(escapeMenu);
                 
-            }
-            else
-            {
-                foreach(GameObject temp in GUIs)
-                {
-                    temp.SetActive(false);
-                }
-            }
-        }
+        //     }
+        //     else
+        //     {
+        //         foreach(GameObject temp in GUIs)
+        //         {
+        //             temp.SetActive(false);
+        //         }
+        //     }
+        // }
     }
 
-    public void openGUI(GameObject GUI)
-    {
-        Instantiate(GUI, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
-        gameManager.curGUI = GUI;
-        gm.changeField("HUD");
-        Debug.Log(GUI.name + " opened.");
-    }
-    public void closeGUI(GameObject GUI)
-    {
-        Destroy(GUI);
-        Time.timeScale = 1;
-        // gm_ref.changeState("Level");
-        // Debug.Log(GUI.name + " closed.");
-    }
+    // public void openGUI(GameObject GUI)
+    // {
+    //     Instantiate(GUI, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
+    //     gameManager.curGUI = GUI;
+    //     gm.changeField("HUD");
+    //     Debug.Log(GUI.name + " opened.");
+    // }
+    // public void closeGUI(GameObject GUI)
+    // {
+    //     Destroy(GUI);
+    //     Time.timeScale = 1;
+    //     // gm_ref.changeState("Level");
+    //     // Debug.Log(GUI.name + " closed.");
+    // }
 
 }

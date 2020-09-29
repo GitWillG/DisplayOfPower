@@ -49,7 +49,7 @@ public class spellSO : ScriptableObject
 
 
     // GUI
-    public Sprite icon;
+    public Sprite spellIcon;
 
     // Skill tree 
     [Header("Skill Aesthetics")]
