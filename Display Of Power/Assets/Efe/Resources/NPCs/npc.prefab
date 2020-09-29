@@ -757,11 +757,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1339190394708847790}
   - component: {fileID: -7101084222858290287}
-  - component: {fileID: 919132148619600023}
   - component: {fileID: 3805228078017992854}
   - component: {fileID: 919132148619600024}
   - component: {fileID: 1207662291}
-  - component: {fileID: 225167807785371209}
+  - component: {fileID: 8669675296627683148}
   m_Layer: 0
   m_Name: npc
   m_TagString: NPC
@@ -820,18 +819,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &919132148619600023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863947349140452884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c1a709e933d4dc4bb29ab7a8c284756, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3805228078017992854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -901,7 +888,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2.3035488, z: 1}
   m_Center: {x: 0, y: 0.65177417, z: 0}
---- !u!114 &225167807785371209
+--- !u!114 &8669675296627683148
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -910,25 +897,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1863947349140452884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16e830bcb24359b45bf37c6fcdd539a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 512306979fb9ad04b9d5fbe1935f549d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overhead_reference: {fileID: 5911976625359968780}
-  l_glove_bone: {fileID: 0}
-  r_glove_bone: {fileID: 0}
-  helmet_bone: {fileID: 0}
-  armor_set_bone: {fileID: 0}
-  l_boots_bone: {fileID: 0}
-  r_boots_bone: {fileID: 0}
-  cape_bone: {fileID: 0}
-  left_hand_item_placement_bone: {fileID: 0}
-  right_hand_item_placement_bone: {fileID: 0}
-  curGlove: {fileID: 0}
-  curHelmet: {fileID: 0}
-  curArmorSet: {fileID: 0}
-  curBoots: {fileID: 0}
-  bones: []
-  parentedObjects: []
+  statObject: {fileID: 11400000, guid: 6f2e44279c1fd0e459c7b8ea528c734c, type: 2}
+  Life: 0
+  MovementRange: 0
+  Factions: 
+  POName: 
+  Damage: 0
+  AttackRange: 0
+  TotalActions: 0
+  actionsRemaining: 0
+  isTurn: 0
 --- !u!1 &1880951516788806991
 GameObject:
   m_ObjectHideFlags: 0

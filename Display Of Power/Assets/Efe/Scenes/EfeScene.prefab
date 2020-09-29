@@ -246,54 +246,6 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
---- !u!1 &432903929473575524
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 432903929473575526}
-  - component: {fileID: 432903929473575525}
-  m_Layer: 0
-  m_Name: Sky and Fog Volume
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &432903929473575526
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 432903929473575524}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -24.987051, y: 2.9859333, z: -41.33159}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 432903930983095577}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &432903929473575525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 432903929473575524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: aed2bca7c4a4b1249b41a8ea09bb7e66, type: 2}
 --- !u!1 &432903929574534416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,6 +1611,7 @@ MonoBehaviour:
   curPlayfield: 0
   _levelcategory: {fileID: 432903930133440492}
   _worldcategory: {fileID: 432903929773339414}
+  curGameState: 0
   lastSelectedTarget: {fileID: 0}
   curLocation: {fileID: 0}
   curHoveredObject: {fileID: 0}
@@ -3719,15 +3672,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5122b0bd006801d4893916670af790d3, type: 3}
---- !u!1 &432903929949046555 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4114617479536830004, guid: 5122b0bd006801d4893916670af790d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 4547497734337995055}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &432903929949046556 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4114617479536830003, guid: 5122b0bd006801d4893916670af790d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 4547497734337995055}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &432903929949046555 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4114617479536830004, guid: 5122b0bd006801d4893916670af790d3,
     type: 3}
   m_PrefabInstance: {fileID: 4547497734337995055}
   m_PrefabAsset: {fileID: 0}
@@ -3826,6 +3779,81 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5128833624598254835, guid: f007f3d81d0f5fe48ac0d1af8447ee1b,
     type: 3}
   m_PrefabInstance: {fileID: 4696336140968112350}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5199558999072087957
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 432903930983095577}
+    m_Modifications:
+    - target: {fileID: 5632156542485935601, guid: fa3cdc79bc755944da37a60b1ad7b901,
+        type: 3}
+      propertyPath: m_Name
+      value: Sky and Fog Volume
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632156542485935603, guid: fa3cdc79bc755944da37a60b1ad7b901,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -24.987051
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632156542485935603, guid: fa3cdc79bc755944da37a60b1ad7b901,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.9859333
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632156542485935603, guid: fa3cdc79bc755944da37a60b1ad7b901,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -41.33159
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632156542485935603, guid: fa3cdc79bc755944da37a60b1ad7b901,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632156542485935603, guid: fa3cdc79bc755944da37a60b1ad7b901,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632156542485935603, guid: fa3cdc79bc755944da37a60b1ad7b901,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632156542485935603, guid: fa3cdc79bc755944da37a60b1ad7b901,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632156542485935603, guid: fa3cdc79bc755944da37a60b1ad7b901,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632156542485935603, guid: fa3cdc79bc755944da37a60b1ad7b901,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632156542485935603, guid: fa3cdc79bc755944da37a60b1ad7b901,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632156542485935603, guid: fa3cdc79bc755944da37a60b1ad7b901,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fa3cdc79bc755944da37a60b1ad7b901, type: 3}
+--- !u!4 &432903929473575526 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5632156542485935603, guid: fa3cdc79bc755944da37a60b1ad7b901,
+    type: 3}
+  m_PrefabInstance: {fileID: 5199558999072087957}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5757442230148039690
 PrefabInstance:

@@ -25,8 +25,6 @@ public class MouseControl : MonoBehaviour
     public Material defaultMat;
     public GenerateGrid GridOb;
     public bool doneMoving;
-
-
     public GameObject selectionManager;
 
     //detection range for movement/attacks
@@ -66,9 +64,6 @@ public class MouseControl : MonoBehaviour
     {
         if (isMoving == false) 
         { 
-
-
-      
         //whenever there is no hovered target or cicked hex reset the last selected hex to its original material
             if (hoveredTarget != null )
             {
@@ -99,7 +94,7 @@ public class MouseControl : MonoBehaviour
 
 
 
-
+        
         //Ray cast from the mouse to find objects
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -134,13 +129,11 @@ public class MouseControl : MonoBehaviour
 
 
 
-            //if you click, while hovering a selected hex, and you have not already clicked a hex, change that object to the selected color and Declare that a hex has been clicked
+            //  if you click, while hovering a selected hex, and you have not already clicked a hex,
+            //  change that object to the selected color and Declare that a hex has been clicked
             if (Input.GetMouseButtonUp(0) && hoveredTarget != null)
             {
-
                 selectHex(hoveredTarget.gameObject);
-
-               
             }
 
         }
@@ -336,7 +329,7 @@ public class MouseControl : MonoBehaviour
             }
         }
 
-
+    Debug.Log("SelectHex script");
 
     }
     public void killUnit(GameObject deadUnit)
@@ -346,16 +339,20 @@ public class MouseControl : MonoBehaviour
         GridOb.turnOrder.Remove(deadUnit);
         Destroy(deadUnit);
 
+        Debug.Log("KillUnit scriopt");
+
     }
 
     public void runMovement()
     {
         StartCoroutine(movementRoutine());
+        Debug.Log("runMovement");
     }
     public void runMovement(GameObject start, GameObject end)
     {
         GridOb.choosePath(start, end);
         StartCoroutine(movementRoutine());
+        Debug.Log("RunMovemenet 2");
     }
 
     IEnumerator movementRoutine()

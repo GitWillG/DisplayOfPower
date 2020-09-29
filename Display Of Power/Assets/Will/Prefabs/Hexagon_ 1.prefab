@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7062928629309054727}
   - component: {fileID: 8321762375073241537}
   m_Layer: 8
-  m_Name: Hexagon_
+  m_Name: Hexagon_ 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4824d653c2c633c46b9a1b9fc4fc990c, type: 2}
+  - {fileID: 2100000, guid: c0ac9cdfe3ccf1d42a2088ddf87f6ba4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

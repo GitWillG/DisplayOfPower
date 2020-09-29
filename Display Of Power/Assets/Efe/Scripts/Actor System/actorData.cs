@@ -18,6 +18,7 @@ namespace efe{
         public float baseDamage;
         public itemSO[] relic;
         public bool randomizeName;
+        public bool isPlayer;
         public factionSO ownerFaction;
         public dialogSO defaultDialog;
 
@@ -36,6 +37,7 @@ namespace efe{
         public enum types {hero, commander, civilian, unit}
         public types actorType;
         NavMeshAgent agent;
+        Animator animator;
         immersionManager im;
         GameObject gm;
         rigHumanoid rig;
@@ -44,8 +46,9 @@ namespace efe{
         {
             agent = GetComponent<NavMeshAgent>();
             gm = GameObject.FindGameObjectWithTag("GM");
-            im = gm.GetComponent<immersionManager>();
+            // im = gm.GetComponent<immersionManager>();
             rig = GetComponent<rigHumanoid>();
+            animator = GetComponent<Animator>();
 
             if(actorQuests.Count > 0)
             {
@@ -71,6 +74,11 @@ namespace efe{
             }
         }
 
+        public void Update()
+        {
+            processAiMovement();
+        }
+
         [ContextMenu("Sync Editor")]
         public void syncEditor()
         {
@@ -78,5 +86,26 @@ namespace efe{
             // Object reference = Resources.FindObjectsOfTypeAll
         }
 
+
+        public void processAiMovement()
+        {
+            if(!isPlayer)
+            {
+                if(agent.remainingDistance > agent.stoppingDistance)
+            {
+                // blend trees sync with navmesh
+                // Animation controller has a float called "Speed", which blend tree inside also uses
+                // Blend tree uses it to determine thresholds to determine which animation should play
+                // Aka - 0.5 speed = walk, 1 = run, 0 = idle
+                animator.SetFloat("Speed", agent.velocity.magnitude);
+            }     
+            else
+            {
+                // still blend as it will send 0 for magnitude anyhow
+                // else represents that agent reached its target vector
+                animator.SetFloat("Speed", agent.velocity.magnitude);
+            }
+            }
+        }
     }
 }

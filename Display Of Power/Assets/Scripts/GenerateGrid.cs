@@ -9,11 +9,13 @@ using UnityEngine.UIElements;
 
 public class GenerateGrid : MonoBehaviour
 {
+
+    [Header("Spawn Parameters")]
     //nnumber of tiles along x axis of grid
     public int Width;
-    //number of tilels along z axis of grid
+    //number of tiles along z axis of grid
     public int Depth;
-    public CubeUnit cubeclass;
+    // public CubeUnit cubeclass;
     public List<GameObject> innerList;
     public List<List<GameObject>> movementRadius;
     public GameObject hexPrefab;
@@ -24,16 +26,18 @@ public class GenerateGrid : MonoBehaviour
     public int k = 0;
     ///////////////////////testing
     //public Material newmat;
-    public GameObject testLocation;
+    // public GameObject testLocation;
     public GameObject[,] hexArray;
     public List<GameObject> legalHex;
-    public Material testmat;
+    // public Material testmat;
     public List<GameObject> postObCheck;
     //////////
 
+    [Header("Battle Parameters")]
     public List<GameObject> enemyList;
     public List<GameObject> allyList;
 
+    [Header("References")]
     public EnemySpawn enemySpawn;
     public MouseControl mouseControl;
 
@@ -64,7 +68,8 @@ public class GenerateGrid : MonoBehaviour
 
     /// new stuff
 
-
+    [Header("Editor")]
+    public List<GameObject> generated_grids;
 
 
     // Start is called before the first frame update
@@ -140,7 +145,7 @@ public class GenerateGrid : MonoBehaviour
                 hexOb.transform.SetParent(this.gameObject.transform);
                 hexOb.transform.localPosition = new Vector3(xPos, 0, z * zOffset);
                 hexArray[x, z] = hexOb.gameObject;
-
+                generated_grids.Add(hexOb);
 
                 hexesSpawned++; if (hexesSpawned <= constrainSpawn)
                 {
@@ -462,5 +467,31 @@ public class GenerateGrid : MonoBehaviour
             //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
         }
     }
+
+    [ContextMenu("Clear grids")]
+    void clearList()
+    {   
+        bool clear = false;
+        foreach(GameObject temp in generated_grids)
+        {
+            if(generated_grids == null)
+            {
+                return;
+            }
+            if(temp != null)
+            { 
+                DestroyImmediate(temp);
+                generated_grids.Remove(temp);
+                clear = true;
+             
+            }
+            if(clear)
+            {
+                generated_grids.Clear();
+            }
+            
+        }
+    }
+
 
 }
