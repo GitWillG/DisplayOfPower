@@ -23,6 +23,8 @@ public class GUIManager : MonoBehaviour
 
     public Image[] skill_slots;
     MouseControl mc;
+
+    public Texture2D[] cursor_textures;
     
     // Start is called before the first frame update
     void Start()
@@ -30,26 +32,19 @@ public class GUIManager : MonoBehaviour
         // HUDReference = Instantiate(HUD, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
         // gm = GameObject.FindGameObjectWithTag("GM").GetComponent<gameManager>();
         // isHUDopen = true;
+        Cursor.SetCursor(cursor_textures[0], Vector2.zero, CursorMode.Auto);
         mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
 
     }
 
     void Update()
     {
-        if(mc.selectedTarget != null)
+       
+        actorData selectedData = mc.selectedTarget.GetChild(0).GetComponent<actorData>();
+        for(int i = 0; i < selectedData.spells.Length; i++)
         {
-            foreach(Image temp in skill_slots)
-            {
-                temp_skillSlot tempClass = temp.GetComponent<temp_skillSlot>();
-                // if(!tempClass.guiChecked)
-                // {
-                    actorData selectedData = mc.selectedTarget.GetChild(0).GetComponent<actorData>();
-                    temp.sprite = selectedData.spells[0].spellIcon;
-                    Debug.Log(selectedData + " " + temp.sprite.name);
-                    // tempClass.guiChecked = true;
-                // }
-                
-            }
+            skill_slots[i].sprite = selectedData.spells[i].spellIcon;
+
         }
         // if(Input.GetKeyDown(KeyCode.Q))
         // {
