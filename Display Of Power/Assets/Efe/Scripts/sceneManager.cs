@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using efe;
+using UnityEngine.SceneManagement;
 
 namespace efe{
 
 public class sceneManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void openScene(string sceneName)
     {
-        
+        SceneManager.LoadScene(sceneName);
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void quitGame()
     {
-        
+        Application.Quit();
     }
 }
 }
