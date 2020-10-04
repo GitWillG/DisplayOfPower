@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Swordsman
   m_EditorClassIdentifier: 
   SOname: 
-  life: 100
+  life: 10
   damage: 20
   faction: Ally
   attackRange: 1

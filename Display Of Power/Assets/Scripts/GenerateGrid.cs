@@ -83,6 +83,7 @@ public class GenerateGrid : MonoBehaviour
         ///
         enemyList = new List<GameObject>();
         allyList = new List<GameObject>();
+        hexArray = new GameObject[Width, Depth];
         gridGeneration();
         enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
         enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
@@ -125,7 +126,6 @@ public class GenerateGrid : MonoBehaviour
     public void gridGeneration()
     {
         hexesSpawned = 0;
-        hexArray = new GameObject[Width, Depth];
         //2 Dimension grid
         for (int x = 0; x < Width; x++)
         {
@@ -257,43 +257,62 @@ public class GenerateGrid : MonoBehaviour
     //That list is then moved to a new layer and re-coloured
     public void checkAttackLegality(int radius, GameObject centerPoint, Material newMat)
     { 
-        int testRadius = radius;
-        float xNum = 0;
-        float zNum = 0;
-        int centerX = 0;
-        int centerZ = 0;
-
-        for (int x = 0; x < Width; x++)
+        for (int x = 0; x< generated_grids.Count; x++)
         {
-            for (int z = 0; z < Depth; z++)
+            float distance = Vector3.Distance(centerPoint.transform.position, generated_grids[x].transform.position);
+            if (distance <= 1.8f * radius)
             {
-                if (centerPoint == hexArray[x, z].gameObject)
-                {
-                    centerX = x;
-                    centerZ = z;
-
-                    xNum = x - (z - (z & 1)) / 2;
-                    zNum = z;
-
-
-                }
+                legalHex.Add(generated_grids[x]);
             }
         }
 
-        for (int a = 0; a < Width; a++)
-        {
-            for (int b = 0; b < Depth; b++)
-            {
-                float newx = a - (b - (b & 1)) / 2;
-                float newz = b;
-                float distance = Mathf.Max(Mathf.Abs(xNum - newx) + Mathf.Abs(xNum + zNum - newx - newz) + Mathf.Abs(zNum - newz));
-                if (distance <= testRadius * 2)
-                {
-                    legalHex.Add(hexArray[a, b]);
-                }
 
-            }
-        }
+
+
+
+
+
+
+
+        //int testRadius = radius;
+        //float xNum = 0;
+        //float zNum = 0;
+        //int centerX = 0;
+        //int centerZ = 0;
+
+        //for (int x = 0; x < Width; x++)
+        //{
+        //    for (int z = 0; z < Depth; z++)
+        //    {
+        //        Debug.Log(hexArray);
+        //        //Debug.Log(hexArray[x, z].gameObject);
+        //        if (centerPoint == hexArray[x, z].gameObject)
+        //        {
+        //            centerX = x;
+        //            centerZ = z;
+
+        //            xNum = x - (z - (z & 1)) / 2;
+        //            zNum = z;
+
+
+        //        }
+        //    }
+        //}
+
+        //for (int a = 0; a < Width; a++)
+        //{
+        //    for (int b = 0; b < Depth; b++)
+        //    {
+        //        float newx = a - (b - (b & 1)) / 2;
+        //        float newz = b;
+        //        float distance = Mathf.Max(Mathf.Abs(xNum - newx) + Mathf.Abs(xNum + zNum - newx - newz) + Mathf.Abs(zNum - newz));
+        //        if (distance <= testRadius * 2)
+        //        {
+        //            legalHex.Add(hexArray[a, b]);
+        //        }
+
+        //    }
+        //}
 
         for (int i = 0; i < legalHex.Count; i++)
         {
@@ -400,6 +419,11 @@ public class GenerateGrid : MonoBehaviour
         //        turnOrder.Remove(turnorder);
         //    }
         //}
+        if (mouseControl.selectedTarget != null && mouseControl.selectedTarget.childCount > 0)
+        {
+            mouseControl.swapRange();
+            mouseControl.removeRangeInd();
+        }
         Debug.Log(turnOrder.Count);
         if (k >= turnOrder.Count - 1)
         {

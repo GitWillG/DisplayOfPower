@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: EnemyUnit
   m_EditorClassIdentifier: 
   SOname: 
-  life: 100
+  life: 10
   damage: 5
   faction: NotAnEnemy
   attackRange: 2
   movementRange: 4
   totalActions: 2
   actionsRemaining: 2
+  prefabObj: {fileID: 0}
+  menuItem: {fileID: 0}

@@ -163,7 +163,7 @@ public class MouseControl : MonoBehaviour
             detectRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().AttackRange;
         }
     }
-    private void removeRangeInd()
+    public void removeRangeInd()
     {
         selectionRenderer = selectedTarget.GetComponent<Renderer>();
         //reset the selected hex
@@ -226,6 +226,7 @@ public class MouseControl : MonoBehaviour
             //selectedTarget = null;
             ////go back to raycasting on our default hex layer
             //currentMask = 1 << 8;
+            swapRange();
             removeRangeInd();
             isMoving = false;
         }
@@ -324,7 +325,7 @@ public class MouseControl : MonoBehaviour
         GridOb.turnOrder.Remove(deadUnit);
         Destroy(deadUnit);
 
-        Debug.Log("KillUnit scriopt");
+        Debug.Log("KillUnit script");
 
     }
 
