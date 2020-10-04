@@ -99,5 +99,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8669675296627683148, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: actionsRemaining
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8669675296627683148, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: belongsToPlayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 786bb629964b051418ae471652568f3c, type: 3}

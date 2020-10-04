@@ -91,7 +91,7 @@ public class cinematicManager : MonoBehaviour
     {
         GameObject speaker = GameObject.Find(sequence.speakerID);
         Sprite speakerAvatar = speaker.GetComponent<actorData>().cinematicAvatar;
-        _dialogTextArea.text = speakerDialog;
+        // _dialogTextArea.text = speakerDialog;
         _speakerName.text = speaker.name;
         _speakerPortrait = speakerAvatar;
     }

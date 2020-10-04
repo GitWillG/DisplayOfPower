@@ -19,7 +19,7 @@ public class EnemySpawn : MonoBehaviour
     int numOfEnemies;
     GameObject newEnemy;
     public GameObject allyPrefab;
-
+    public GameObject teamFeedbackObject;
 
     /// <summary>
     GameObject[] targetHexes;
@@ -95,7 +95,7 @@ public class EnemySpawn : MonoBehaviour
         }
     }
 
-    public void SpawnSpecificLocation(GameObject unitToSpawn, List<GameObject> spawnGrid, string location)
+    public void SpawnSpecificLocation(GameObject unitToSpawn, List<GameObject> spawnGrid, string teamString)
     {
 
 
@@ -126,15 +126,31 @@ public class EnemySpawn : MonoBehaviour
             newEnemy = (GameObject)Instantiate(unitToSpawn, new Vector3(hexSpawn.transform.position.x, hexSpawn.transform.position.y + 0.8f, hexSpawn.transform.position.z), Quaternion.identity);
             newEnemy.transform.SetParent(hexSpawn.transform);
             newEnemy.layer = 9;
+           
         }
-        if (location == "ally")
+        // Assign team and feedback objects
+        prefabUnits data = newEnemy.GetComponent<prefabUnits>();
+        Vector3 spawnPosition = new Vector3
+        (
+            newEnemy.transform.position.x,
+            newEnemy.transform.position.y + 2,
+            newEnemy.transform.position.z
+        );
+        teamFeedbackObject = Instantiate(teamFeedbackObject, spawnPosition, Quaternion.identity);
+        teamFeedbackObject.transform.parent = newEnemy.transform;
+
+        if (teamString == "ally")
         {
             grid.allyList.Add(newEnemy);
+            data.belongsToPlayer = true;
+            // teamFeedbackObject.GetComponent<Material>().color = Color.blue;
         }
-        else if (location == "enemy")
+        else if (teamString == "enemy")
         {
             grid.enemyList.Add(newEnemy);
+            // teamFeedbackObject.GetComponent<Material>().color = Color.red;
         }
+        
     }
 
     //public void SpawnSpecificLocation(int numOfUnits, GameObject unitToSpawn, List<GameObject> spawnGrid)
@@ -145,6 +161,7 @@ public class EnemySpawn : MonoBehaviour
     //    }
     //}
 
+    
 
     public void SpawnEnemies(int numOfUnits, GameObject unitToSpawn)
     {

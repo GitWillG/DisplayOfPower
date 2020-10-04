@@ -14,6 +14,9 @@ public class prefabUnits : MonoBehaviour
     public int TotalActions;
     public int actionsRemaining;
     public bool isTurn;
+    public bool belongsToPlayer;
+    // public enum teams {playerTeam, enemyTeam}
+    // public teams curTeam;
     // Start is called before the first frame update
     void Start()
     {

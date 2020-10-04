@@ -23,8 +23,8 @@ public class baseAI : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (self.isTurn)
+    {   
+        if (self.isTurn && !self.belongsToPlayer)
         {
             if (target == null)
             {

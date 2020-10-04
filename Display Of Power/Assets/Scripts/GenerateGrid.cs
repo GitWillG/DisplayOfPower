@@ -267,13 +267,6 @@ public class GenerateGrid : MonoBehaviour
         }
 
 
-
-
-
-
-
-
-
         //int testRadius = radius;
         //float xNum = 0;
         //float zNum = 0;

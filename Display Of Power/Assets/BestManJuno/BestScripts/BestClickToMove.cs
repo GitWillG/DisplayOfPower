@@ -12,6 +12,7 @@ public class BestClickToMove : MonoBehaviour
     public Material selectedMaterial;
 
     public Vector3 location;
+    public GameObject feedbackParticle;
 
 
     // Start is called before the first frame update
@@ -70,12 +71,12 @@ public class BestClickToMove : MonoBehaviour
     }
     public void ClickAttack(GameObject unit, GameObject targetHex)
     {
-
+        // unit = source/dealer
+        // targetHex = target/receiver
         //subtract life from targetted unit equal to "damage" of selected unit
         targetHex.GetComponentInChildren<prefabUnits>().Life -= unit.GetComponent<prefabUnits>().Damage;
-
-
         targetHex.GetComponentInChildren<prefabUnits>().statObject.life -= unit.GetComponent<prefabUnits>().Damage;
+        Instantiate(feedbackParticle, targetHex.transform.position, Quaternion.identity);
 
     }
 
