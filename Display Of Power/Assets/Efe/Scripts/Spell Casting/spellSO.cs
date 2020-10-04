@@ -10,7 +10,8 @@ namespace efe {
 public class spellSO : ScriptableObject
 {   
 
-
+    public GameObject overwrite;
+    public bool useOverwrite;
     public enum targetHandling { area, single, line, self, 
         closestAlly, closestEnemy }
 
@@ -46,8 +47,6 @@ public class spellSO : ScriptableObject
     public float castingDuration; // DONE
     public float delayPostCast; // DONE
     public float spellMoveSpeed; // DONE
-
-
     // GUI
     public Sprite spellIcon;
 
