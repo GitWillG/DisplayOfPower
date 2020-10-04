@@ -40,9 +40,15 @@ public class GUIManager : MonoBehaviour
         {
             foreach(Image temp in skill_slots)
             {
-                actorData selectedData = mc.selectedTarget.GetChild(0).GetComponent<actorData>();
-                temp.sprite = selectedData.spells[0].spellIcon;
-                Debug.Log(selectedData + " " + temp.sprite.name);
+                temp_skillSlot tempClass = temp.GetComponent<temp_skillSlot>();
+                // if(!tempClass.guiChecked)
+                // {
+                    actorData selectedData = mc.selectedTarget.GetChild(0).GetComponent<actorData>();
+                    temp.sprite = selectedData.spells[0].spellIcon;
+                    Debug.Log(selectedData + " " + temp.sprite.name);
+                    // tempClass.guiChecked = true;
+                // }
+                
             }
         }
         // if(Input.GetKeyDown(KeyCode.Q))

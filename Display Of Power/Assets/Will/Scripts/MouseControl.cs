@@ -8,12 +8,13 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
 using UnityEngine.EventSystems;
+using efe;
 
 public class MouseControl : MonoBehaviour
 {
     
     public EventSystem ev_system;
-    
+    [Header("GUI")]
     public TextMeshProUGUI lifeBox;
     public TextMeshProUGUI unitBox;
     public TextMeshProUGUI attackBox;
@@ -56,8 +57,7 @@ public class MouseControl : MonoBehaviour
     public bool clickedHex;
     //The renderer of any given selection
     Renderer selectionRenderer;
-
-
+    spellManager sm;
 
     private void Start()
     {
@@ -65,16 +65,18 @@ public class MouseControl : MonoBehaviour
         //nothing is selected at the start
         clickedHex = false;
         doneMoving = true;
+        
+        sm = GameObject.FindGameObjectWithTag("GM").GetComponent<spellManager>();
     }
 
     private void Update()
     {
         if (isMoving == false) 
         { 
-        //whenever there is no hovered target or cicked hex reset the last selected hex to its original material
-            if (hoveredTarget != null )
+            //whenever there is no hovered target or cicked hex reset the last selected hex to its original material
+            if (hoveredTarget != null)
             {
-            //if youve clicked a hex we use the selection colors, otherwise we use our default hex colors
+                //if youve clicked a hex we use the selection colors, otherwise we use our default hex colors
                 if(clickedHex == true)
                 {
                     oldMat = legalMove;
@@ -84,22 +86,19 @@ public class MouseControl : MonoBehaviour
                     oldMat = defaultMat;
                 }
 
-            //get the rennderer of the last hovered targed
+                //get the rennderer of the last hovered targed
                 selectionRenderer = hoveredTarget.GetComponent<Renderer>();
-            //reset it
+                //reset it
                 selectionRenderer.material = oldMat;
-            //null the old target
+                //null the old target
                 hoveredTarget = null;
-
             }
 
-        //after you've reset the hexes to their original color, if a hex is selected keep it colored as such
+            //after you've reset the hexes to their original color, if a hex is selected keep it colored as such
             if (selectedTarget != null)
             {
                 selectedTarget.gameObject.GetComponent<Renderer>().material = selectedMat;
             }
-
-
 
         // if(!EventSystem.current.IsPointerOverGameObject())
         // {
@@ -108,7 +107,7 @@ public class MouseControl : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, currentMask))
                 {
-            //save the selection and get its renderer
+                    //save the selection and get its renderer
                     var selection = hit.transform;
                     selectionRenderer = selection.GetComponent<Renderer>();
 
@@ -131,13 +130,10 @@ public class MouseControl : MonoBehaviour
                     // Deselection
                     if (selection == selectedTarget && Input.GetMouseButtonUp(0) && clickedHex == true)
                     {
-
                         removeRangeInd();
                         return;
                     }
                 }
-
-
 
                 //  if you click, while hovering a selected hex, and you have not already clicked a hex,
                 //  change that object to the selected color and Declare that a hex has been clicked
@@ -154,8 +150,6 @@ public class MouseControl : MonoBehaviour
         // }
     }
 
-
-
     //Switch the selected range to the appropriate range
     public void swapRange()
     {
@@ -168,11 +162,7 @@ public class MouseControl : MonoBehaviour
         {
             detectRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().AttackRange;
         }
-
-        
-
     }
-
     private void removeRangeInd()
     {
         selectionRenderer = selectedTarget.GetComponent<Renderer>();
@@ -193,9 +183,6 @@ public class MouseControl : MonoBehaviour
         unitBox.text = "";
     }
 
-
-
-
     [ContextMenu("switch between attack or move")]
     public void moveAttackSwap()
     {
@@ -208,18 +195,14 @@ public class MouseControl : MonoBehaviour
             grid.GetComponent<GenerateGrid>().removeCheck(defaultMat); 
             grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
 
-
             if (isMove)
             {
                 grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, legalMove);
-
             }
             else
             {
                 grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, legalMove);
-
             }
-
         }
         //reset and rehighlight appropriate hexes
     }
@@ -244,7 +227,6 @@ public class MouseControl : MonoBehaviour
             ////go back to raycasting on our default hex layer
             //currentMask = 1 << 8;
             removeRangeInd();
-
             isMoving = false;
         }
     }
@@ -258,13 +240,9 @@ public class MouseControl : MonoBehaviour
         if (hoveredMat == false)
         {
             selectionRenderer.material = selectedMat;
-
         }
-
         if (clickedHex == false)
         {
-
-
             ////////////////////////////
             //temporary testing measure, this allows us to easilly add units to the battlefield at run time for testing purposes
             if (transformSelected.childCount == 0)
@@ -277,8 +255,6 @@ public class MouseControl : MonoBehaviour
 
             }
             ///////////////////////////
-
-
             else
             {
                 //save the hovered target as a selected one
@@ -295,11 +271,9 @@ public class MouseControl : MonoBehaviour
                 if (isMove)
                 {
                     grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, legalMove);
-
                 }
                 else
                 {
-
                     grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, legalMove);
                 }
             }
@@ -319,7 +293,6 @@ public class MouseControl : MonoBehaviour
                 }
                 runMovement();
                 selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
-
                 return;
                 //grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);   
             }
@@ -387,7 +360,6 @@ public class MouseControl : MonoBehaviour
                 selectedTarget = GridOb.path[i].transform;
             }
             
-
         }
         doneMoving = true;
 

@@ -10,13 +10,15 @@ public class spellManager : MonoBehaviour
     public GameObject targetReference;
     public spellSO _spellDEMO;
     public Material _baseMaterial;
-
     factionManager fm;
-
     GameObject projectile;
     public GameObject circle_radius_preview;
     MouseControl mc;
     spellSO curSpellPreview;
+
+    // Cast type tracking
+    public string[] castTypes = {"Single", "Area"};
+    public string curCastType;
     // Start is called before the first frame update
     void Start()
     {   
@@ -78,7 +80,14 @@ public class spellManager : MonoBehaviour
         if(mc.selectedTarget.GetChild(0).GetComponent<actorData>().spells[0].SkillTargetHandling == spellSO.targetHandling.area)
         {   
             radius = Instantiate(circle_radius_preview, transform.position, Quaternion.identity);
+            curCastType = castTypes[1];
+
+        }
+        else if(mc.selectedTarget.GetChild(0).GetComponent<actorData>().spells[0].SkillTargetHandling == spellSO.targetHandling.single)
+        {
+            curCastType = castTypes[0];
         }   
+
         // curSpellPreview = mc.selectedTarget.GetChild(0).GetComponent<actorData>().spells[0];
         // else if(spellData.SkillTargetHandling == spellSO.targetHandling.single)
         // {
@@ -88,17 +97,16 @@ public class spellManager : MonoBehaviour
 
     public void processPreview()
     {   
-        GameObject[] radius = GameObject.FindGameObjectsWithTag("RadiusPreview");
-        foreach(GameObject temp in radius)
+        if(curCastType == "Area")
         {
-            if(radius != null)
+            GameObject[] radius = GameObject.FindGameObjectsWithTag("RadiusPreview");
+            foreach(GameObject temp in radius)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                // Result of the ray
-                RaycastHit hit;
-                if(Physics.Raycast(ray, out hit, Mathf.Infinity))
+                if(radius != null)
                 {
-                    temp.transform.position = hit.point;
+                    Vector3 tempMouse = Input.mousePosition;
+                    tempMouse.z = 11;
+                    temp.transform.position = Camera.main.ScreenToWorldPoint(tempMouse);
                 }
             }
         }
