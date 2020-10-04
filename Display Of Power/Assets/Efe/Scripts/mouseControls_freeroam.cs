@@ -33,6 +33,7 @@ namespace efe // efe library
         // Reference to immersion manager - part of gameManager object
         immersionManager im;
         // Current quest that NPC is offering
+        cinematicManager cm;
         public questItem curQuest;
         public GameObject moveParticle; // Particle that will spawn on mouse click if player agent is suppposed to move somewhere
         // Start is called before the first frame update
@@ -42,6 +43,7 @@ namespace efe // efe library
             gm = GetComponent<gameManager>();
             guim = GetComponent<GUIManager>();
             im = GetComponent<immersionManager>();
+            cm = GameObject.FindGameObjectWithTag("CinematicManager").GetComponent<cinematicManager>();
             // Avatar player uses in level or world?
             playerToControl = gm.curAvatar;
             // Access to components to be used later
@@ -73,49 +75,53 @@ namespace efe // efe library
                 // Debug.Log(EventSystem.current.IsPointerOverGameObject());
                 if(!EventSystem.current.IsPointerOverGameObject())
                 {
-                    // Cast
-                    if(Physics.Raycast(ray, out hit, Mathf.Infinity))
+                    // Check if no cutscene is running
+                    if(!cm.isCinematicRunning)
                     {
-                        // Instead of casting it twice, conditions can be put inside a single ray
-                        // Prevent all mouse controls that affects 3d scene if mouse is on a GUI element
-                            
-                        if (Input.GetMouseButtonDown(0)) // left click
+                        // Cast
+                        if(Physics.Raycast(ray, out hit, Mathf.Infinity))
                         {
-                            // Script responsible of sending agent to vector3
-                            movePlayer(curAgent, hit.point);
-                        }
-                        
-                        if(Input.GetMouseButtonDown(1)) // right click
-                        {
-                            float distance = Vector3.Distance(playerToControl.transform.position, hit.transform.position);
-                            if(distance < 10)
+                            // Instead of casting it twice, conditions can be put inside a single ray
+                            // Prevent all mouse controls that affects 3d scene if mouse is on a GUI element
+                                
+                            if (Input.GetMouseButtonDown(0)) // left click
                             {
-                            // Script responsible for interacting with any object in game - actors, items, props, locations...etc
-                                interactObject(hit.transform.gameObject);
-                            }
-                            else
-                            {
+                                // Script responsible of sending agent to vector3
                                 movePlayer(curAgent, hit.point);
                             }
+                            
+                            if(Input.GetMouseButtonDown(1)) // right click
+                            {
+                                float distance = Vector3.Distance(playerToControl.transform.position, hit.transform.position);
+                                if(distance < 10)
+                                {
+                                // Script responsible for interacting with any object in game - actors, items, props, locations...etc
+                                    interactObject(hit.transform.gameObject);
+                                }
+                                else
+                                {
+                                    movePlayer(curAgent, hit.point);
+                                }
+                            }
+                            
+                            // hover below
+                            // Debug.Log(hit.transform.gameObject.name);
+                            // Ray is still casted, but no condition is needed as it is cast all the time
+                            // TODO - Optimization, use coroutine or invoke to cast it less
+                            // Now it is casted 24 times every second
+                            // Hover over NPCs
+                            if(hit.transform.gameObject.tag == "NPC")
+                            {
+                                // Store
+                                gm.curHoveredObject = hit.transform.gameObject;
+                                // Enable edge outline
+                                im.highlighObject(gm.curHoveredObject);
+                            }
                         }
-                        
-                        // hover below
-                        // Debug.Log(hit.transform.gameObject.name);
-                        // Ray is still casted, but no condition is needed as it is cast all the time
-                        // TODO - Optimization, use coroutine or invoke to cast it less
-                        // Now it is casted 24 times every second
-                        // Hover over NPCs
-                        if(hit.transform.gameObject.tag == "NPC")
-                        {
-                            // Store
-                            gm.curHoveredObject = hit.transform.gameObject;
-                            // Enable edge outline
-                            im.highlighObject(gm.curHoveredObject);
-                        }
-                    }
 
-                    // Script responsible of syncing blend trees and navmesh agents
-                    processPlayerMovement();
+                        // Script responsible of syncing blend trees and navmesh agents
+                        processPlayerMovement();
+                    }
                 }
             }
         }

@@ -99,19 +99,19 @@ public class GUIManager : MonoBehaviour
         // }
     }
 
-    // public void openGUI(GameObject GUI)
-    // {
-    //     Instantiate(GUI, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
-    //     gameManager.curGUI = GUI;
-    //     gm.changeField("HUD");
-    //     Debug.Log(GUI.name + " opened.");
-    // }
-    // public void closeGUI(GameObject GUI)
-    // {
-    //     Destroy(GUI);
-    //     Time.timeScale = 1;
-    //     // gm_ref.changeState("Level");
-    //     // Debug.Log(GUI.name + " closed.");
-    // }
+    public void openGUI(GameObject GUI)
+    {
+        Instantiate(GUI, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
+        gameManager.curGUI = GUI;
+        gm.changeField("HUD");
+        Debug.Log(GUI.name + " opened.");
+    }
+    public void closeGUI(GameObject GUI)
+    {
+        Destroy(GUI);
+        Time.timeScale = 1;
+        // gm_ref.changeState("Level");
+        // Debug.Log(GUI.name + " closed.");
+    }
 
 }

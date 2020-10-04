@@ -42,6 +42,8 @@ namespace efe{
         GameObject gm;
         rigHumanoid rig;
         public spellSO[] spells;
+        public Sprite cinematicAvatar;
+        
         void Start()
         {
             agent = GetComponent<NavMeshAgent>();

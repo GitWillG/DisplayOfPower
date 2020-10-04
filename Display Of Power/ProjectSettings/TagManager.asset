@@ -24,6 +24,7 @@ TagManager:
   - GUI
   - SM
   - RadiusPreview
+  - CinematicManager
   layers:
   - Default
   - TransparentFX
