@@ -93,7 +93,13 @@ public class spellManager : MonoBehaviour
         {
             if(radius != null)
             {
-                temp.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                // Result of the ray
+                RaycastHit hit;
+                if(Physics.Raycast(ray, out hit, Mathf.Infinity))
+                {
+                    temp.transform.position = hit.point;
+                }
             }
         }
     }

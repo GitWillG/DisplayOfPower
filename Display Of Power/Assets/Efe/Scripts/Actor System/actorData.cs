@@ -89,22 +89,25 @@ namespace efe{
 
         public void processAiMovement()
         {
-            if(!isPlayer)
+            if(agent != null)
             {
-                if(agent.remainingDistance > agent.stoppingDistance)
-            {
-                // blend trees sync with navmesh
-                // Animation controller has a float called "Speed", which blend tree inside also uses
-                // Blend tree uses it to determine thresholds to determine which animation should play
-                // Aka - 0.5 speed = walk, 1 = run, 0 = idle
-                animator.SetFloat("Speed", agent.velocity.magnitude);
-            }     
-            else
-            {
-                // still blend as it will send 0 for magnitude anyhow
-                // else represents that agent reached its target vector
-                animator.SetFloat("Speed", agent.velocity.magnitude);
-            }
+                if(!isPlayer)
+                {
+                    if(agent.remainingDistance > agent.stoppingDistance)
+                    {
+                        // blend trees sync with navmesh
+                        // Animation controller has a float called "Speed", which blend tree inside also uses
+                        // Blend tree uses it to determine thresholds to determine which animation should play
+                        // Aka - 0.5 speed = walk, 1 = run, 0 = idle
+                        animator.SetFloat("Speed", agent.velocity.magnitude);
+                    }     
+                    else
+                    {
+                        // still blend as it will send 0 for magnitude anyhow
+                        // else represents that agent reached its target vector
+                        animator.SetFloat("Speed", agent.velocity.magnitude);
+                    }
+                }
             }
         }
     }

@@ -194,7 +194,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   colorMode:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   color:
     m_OverrideState: 0
@@ -203,14 +203,14 @@ MonoBehaviour:
     showAlpha: 0
     showEyeDropper: 1
   tint:
-    m_OverrideState: 1
-    m_Value: {r: 1, g: 0.9831054, b: 0.4198113, a: 1}
+    m_OverrideState: 0
+    m_Value: {r: 0.9528302, g: 0.93278724, b: 0.21124065, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
   maxFogDistance:
-    m_OverrideState: 1
-    m_Value: 1612.8
+    m_OverrideState: 0
+    m_Value: 2587.4
     min: 0
   mipFogMaxMip:
     m_OverrideState: 0
@@ -227,26 +227,26 @@ MonoBehaviour:
     min: 0
   baseHeight:
     m_OverrideState: 1
-    m_Value: 2.64
+    m_Value: -6.5
   maximumHeight:
     m_OverrideState: 1
-    m_Value: 18.8
+    m_Value: 44.6
   albedo:
     m_OverrideState: 1
-    m_Value: {r: 0.8447248, g: 0.8584906, b: 0.63576895, a: 1}
+    m_Value: {r: 0.9056604, g: 0.80459243, b: 0.51690996, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 1.7
     min: 1
   enableVolumetricFog:
     m_OverrideState: 1
     m_Value: 1
   anisotropy:
     m_OverrideState: 1
-    m_Value: -0.04
+    m_Value: 0.54
     min: -1
     max: 1
   globalLightProbeDimmer:
@@ -332,7 +332,7 @@ MonoBehaviour:
     m_Value: 0.41
   compensation:
     m_OverrideState: 1
-    m_Value: 4.83
+    m_Value: 5.48
   limitMin:
     m_OverrideState: 0
     m_Value: -10
@@ -395,7 +395,7 @@ MonoBehaviour:
     m_Value: 2
   threshold:
     m_OverrideState: 1
-    m_Value: 0.7
+    m_Value: 3.49
     min: 0
   intensity:
     m_OverrideState: 1
@@ -409,7 +409,7 @@ MonoBehaviour:
     max: 1
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.5126113, g: 0.36470586, b: 0.98039216, a: 1}
+    m_Value: {r: 1, g: 0.6421685, b: 0.18396229, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -525,17 +525,17 @@ MonoBehaviour:
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 2.3
+    m_Value: 1.75
     min: 0
     max: 4
   directLightingStrength:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.85
     min: 0
     max: 1
   radius:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 3.3
     min: 0.25
     max: 5
   temporalAccumulation:
@@ -543,7 +543,7 @@ MonoBehaviour:
     m_Value: 1
   ghostingReduction:
     m_OverrideState: 1
-    m_Value: 0.66
+    m_Value: 0.51
     min: 0
     max: 1
   blurSharpness:
@@ -611,7 +611,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   rotation:
     m_OverrideState: 1
-    m_Value: 158
+    m_Value: 0
     min: 0
     max: 360
   skyIntensityMode:
@@ -633,7 +633,7 @@ MonoBehaviour:
     m_Value: {x: 0.27889717, y: 0.35756263, z: 0.5}
   desiredLuxValue:
     m_OverrideState: 1
-    m_Value: 2000
+    m_Value: 5000
   updateMode:
     m_OverrideState: 0
     m_Value: 0
