@@ -256,7 +256,8 @@ public class GenerateGrid : MonoBehaviour
     //it then calculates the radius in this axial grid, and checks for hexes in that radius and adds them to a list
     //That list is then moved to a new layer and re-coloured
     public void checkAttackLegality(int radius, GameObject centerPoint, Material newMat)
-    { 
+    {
+        //legalHex.Clear();
         for (int x = 0; x< generated_grids.Count; x++)
         {
             float distance = Vector3.Distance(centerPoint.transform.position, generated_grids[x].transform.position);
