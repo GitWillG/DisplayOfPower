@@ -60,17 +60,17 @@ namespace efe
         // Update is called once per frame
         void Update()
         {
-            // if(Input.GetKeyDown(KeyCode.M))
-            // {
-            //     if(curPlayfield == playfields.onLevel)
-            //     {
-            //         changeField("World");
-            //     }
-            //     else if(curPlayfield == playfields.onWorld)
-            //     {
-            //         changeField("Level");
-            //     }
-            // }
+            if(Input.GetKeyDown(KeyCode.M))
+            {
+                if(curPlayfield == playfields.onLevel)
+                {
+                    changeField("World");
+                }
+                else if(curPlayfield == playfields.onWorld)
+                {
+                    changeField("Level");
+                }
+            }
         }
 
 

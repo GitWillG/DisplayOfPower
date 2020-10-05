@@ -102,53 +102,51 @@ public class MouseControl : MonoBehaviour
 
         // if(!EventSystem.current.IsPointerOverGameObject())
         // {
- 
-                //Ray cast from the mouse to find objects
-                    var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit, Mathf.Infinity, currentMask))
-                    {
-                        //save the selection and get its renderer
-                        var selection = hit.transform;
-                        selectionRenderer = selection.GetComponent<Renderer>();
-
-                        //if we have not clicked a hex and the hovered object has a renderer we change the material to a hovered material, and declare it our selected target
-                        // Hovering
-                        if (selectionRenderer != null )
-                        {
-                            oldMat = selectionRenderer.material;
-                            selectionRenderer.material = hoveredMat;
-                            hoveredTarget = selection;
-
-                            //if (selectedTarget != null && isMove && hoveredTarget != null)
-                            //{
-                            //    GridOb.choosePath(selectedTarget.gameObject, hoveredTarget.gameObject);
-                            //}
-
-                        }
-
-                        //otherwise if you have selected a target, and you click on that object, we will revert it to its original material and reset the clicked Bool
-                        // Deselection
-                        if (selection == selectedTarget && Input.GetMouseButtonUp(0) && clickedHex == true)
-                        {
-                            removeRangeInd();
-                            return;
-                        }
-                    }
-
-                    //  if you click, while hovering a selected hex, and you have not already clicked a hex,
-                    //  change that object to the selected color and Declare that a hex has been clicked
-                    if (Input.GetMouseButtonUp(0) && hoveredTarget != null)
-                    {
-                        selectHex(hoveredTarget.gameObject);
-                    }
-
-                }
-                else
+            //Ray cast from the mouse to find objects
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, currentMask))
                 {
-                    finishMovement();
+                    //save the selection and get its renderer
+                    var selection = hit.transform;
+                    selectionRenderer = selection.GetComponent<Renderer>();
+
+                    //if we have not clicked a hex and the hovered object has a renderer we change the material to a hovered material, and declare it our selected target
+                    // Hovering
+                    if (selectionRenderer != null )
+                    {
+                        oldMat = selectionRenderer.material;
+                        selectionRenderer.material = hoveredMat;
+                        hoveredTarget = selection;
+
+                        //if (selectedTarget != null && isMove && hoveredTarget != null)
+                        //{
+                        //    GridOb.choosePath(selectedTarget.gameObject, hoveredTarget.gameObject);
+                        //}
+
+                    }
+
+                    //otherwise if you have selected a target, and you click on that object, we will revert it to its original material and reset the clicked Bool
+                    // Deselection
+                    if (selection == selectedTarget && Input.GetMouseButtonUp(0) && clickedHex == true)
+                    {
+                        removeRangeInd();
+                        return;
+                    }
                 }
-            
+
+                //  if you click, while hovering a selected hex, and you have not already clicked a hex,
+                //  change that object to the selected color and Declare that a hex has been clicked
+                if (Input.GetMouseButtonUp(0) && hoveredTarget != null)
+                {
+                    selectHex(hoveredTarget.gameObject);
+                }
+
+            }
+            else
+            {
+                finishMovement();
+            }
         // }
     }
 
@@ -303,6 +301,8 @@ public class MouseControl : MonoBehaviour
          
 
             //attack
+
+
             else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && currentChar.GetComponent<prefabUnits>().actionsRemaining > 0)
             {
                 this.gameObject.GetComponent<BestClickToMove>().ClickAttack(selectedTarget.GetChild(0).gameObject, transformSelected.gameObject);
@@ -315,7 +315,7 @@ public class MouseControl : MonoBehaviour
             }
         }
 
-    // Debug.Log("SelectHex script");
+    Debug.Log("SelectHex script");
 
     }
     public void killUnit(GameObject deadUnit)
@@ -325,20 +325,20 @@ public class MouseControl : MonoBehaviour
         GridOb.turnOrder.Remove(deadUnit);
         Destroy(deadUnit);
 
-        // Debug.Log("KillUnit script");
+        Debug.Log("KillUnit script");
 
     }
 
     public void runMovement()
     {
         StartCoroutine(movementRoutine());
-        // Debug.Log("runMovement");
+        Debug.Log("runMovement");
     }
     public void runMovement(GameObject start, GameObject end)
     {
         GridOb.choosePath(start, end);
         StartCoroutine(movementRoutine());
-        // Debug.Log("RunMovemenet 2");
+        Debug.Log("RunMovemenet 2");
     }
 
     IEnumerator movementRoutine()

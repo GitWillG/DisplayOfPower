@@ -78,14 +78,6 @@ public class BestClickToMove : MonoBehaviour
         targetHex.GetComponentInChildren<prefabUnits>().statObject.life -= unit.GetComponent<prefabUnits>().Damage;
         Instantiate(feedbackParticle, targetHex.transform.position, Quaternion.identity);
 
-        // play attack animation on unit
-        // play takehit animation on target
-        Animator unitAnimator = unit.GetComponent<Animator>();
-        unitAnimator.SetTrigger("Attack");
-        Animator targetAnimator = targetHex.transform.GetChild(0).GetComponent<Animator>();
-        targetAnimator.SetTrigger("TakeHit");
-
-
     }
 
 }
