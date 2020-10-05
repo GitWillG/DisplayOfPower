@@ -37,7 +37,6 @@ public class baseAI : MonoBehaviour
                 {
 
                     mouseController.moveAttackSwap();
-                    Debug.Log("checkattack");
                     for (int i = 0; i< gridOb.legalHex.Count; i++)
                     {
                         
@@ -54,22 +53,27 @@ public class baseAI : MonoBehaviour
 
                                 }
                                 mouseController.moveAttackSwap();
-                                return;
+                            if (self.actionsRemaining == 0)
+                            {
+                                gridOb.EndTurn();
+                            }
+                            return;
                             
                         }
 
 
                     }
                     mouseController.moveAttackSwap();
-                    Debug.Log("check move");
 
                     mouseController.selectHex(this.transform.parent.gameObject);
                     mouseController.doneMoving = false;
                     //mouseController.selectedTarget = this.transform.parent;
                     //Debug.Log(self.actionsRemaining);
                     closeDistance();
+
+
+                }
             }
-        }
 
         }
         
@@ -110,7 +114,7 @@ public class baseAI : MonoBehaviour
         //Debug.Log("move");
         //mouseController.runMovement();
         self.actionsRemaining -= 1;
-        return;
+
     }
 
 }

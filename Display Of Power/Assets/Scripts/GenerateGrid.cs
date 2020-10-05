@@ -395,7 +395,6 @@ public class GenerateGrid : MonoBehaviour
         {
             //Debug.Log("Turn order: " + (i+1) + " " + turnOrder[i]);
         }
-        Debug.Log(turnOrder.Count);
     }
 
     
@@ -417,7 +416,6 @@ public class GenerateGrid : MonoBehaviour
             mouseControl.swapRange();
             mouseControl.removeRangeInd();
         }
-        Debug.Log(turnOrder.Count);
         if (k >= turnOrder.Count - 1)
         {
             k = 0;
@@ -445,6 +443,7 @@ public class GenerateGrid : MonoBehaviour
             mouseControl.clickedHex = false;
             //mouseControl.selectedTarget = turnOrder[k].transform;
             mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
+            Debug.Log("test2");
         }
 
       
@@ -477,6 +476,8 @@ public class GenerateGrid : MonoBehaviour
             turnOrder[k].GetComponent<prefabUnits>().actionsRemaining = 0;
             //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
         }
+        Debug.Log("test");
+        NextTurn();
     }
 
     [ContextMenu("Clear grids")]

@@ -311,11 +311,15 @@ public class MouseControl : MonoBehaviour
                 {
                     killUnit(transformSelected.GetChild(0).gameObject);
                 }
+                if (selectedTarget.GetComponentInChildren<prefabUnits>().actionsRemaining == 0)
+                {
+                    GridOb.EndTurn();
+                }
+
                 return;
             }
         }
 
-    Debug.Log("SelectHex script");
 
     }
     public void killUnit(GameObject deadUnit)
@@ -325,24 +329,22 @@ public class MouseControl : MonoBehaviour
         GridOb.turnOrder.Remove(deadUnit);
         Destroy(deadUnit);
 
-        Debug.Log("KillUnit script");
 
     }
 
     public void runMovement()
     {
         StartCoroutine(movementRoutine());
-        Debug.Log("runMovement");
     }
     public void runMovement(GameObject start, GameObject end)
     {
         GridOb.choosePath(start, end);
         StartCoroutine(movementRoutine());
-        Debug.Log("RunMovemenet 2");
     }
 
     IEnumerator movementRoutine()
     {
+        GameObject unit = selectedTarget.GetChild(0).gameObject;
         for (int i = 1; i < GridOb.path.Count; i++)
         {
             selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = true;
@@ -363,6 +365,10 @@ public class MouseControl : MonoBehaviour
             
         }
         doneMoving = true;
+        if (unit.GetComponent<prefabUnits>().actionsRemaining == 0)
+        {
+            GridOb.EndTurn();
+        }
 
     }
 }

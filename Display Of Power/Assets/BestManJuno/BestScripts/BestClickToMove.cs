@@ -53,7 +53,6 @@ public class BestClickToMove : MonoBehaviour
 
         unit.transform.SetParent(targetHex.transform);
 
-        Debug.Log("Click move");
         //unitCol = unit.GetComponent<Renderer>();
 
         //if (Input.GetMouseButtonDown(0))
