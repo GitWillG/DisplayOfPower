@@ -186,7 +186,6 @@ public class MouseControl : MonoBehaviour
     [ContextMenu("switch between attack or move")]
     public void moveAttackSwap()
     {
-        Debug.Log("swap");
         //flip the is move bool
         isMove = !isMove;
         //swap the range to appropriate range
@@ -369,10 +368,6 @@ public class MouseControl : MonoBehaviour
         if (unit.GetComponent<prefabUnits>().actionsRemaining == 0)
         {
             GridOb.EndTurn();
-        }
-        else
-        {
-            GridOb.NextTurn();
         }
 
     }

@@ -143,7 +143,6 @@ public class EnemySpawn : MonoBehaviour
         {
             grid.allyList.Add(newEnemy);
             data.belongsToPlayer = true;
-            newEnemy.GetComponent<prefabUnits>().Factions = "Ally";
             // teamFeedbackObject.GetComponent<Material>().color = Color.blue;
         }
         else if (teamString == "enemy")
