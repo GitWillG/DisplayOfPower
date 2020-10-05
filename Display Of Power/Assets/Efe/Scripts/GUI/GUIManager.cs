@@ -53,11 +53,14 @@ public class GUIManager : MonoBehaviour
                 
         //     }
         // }
-        actorData selectedData = mc.selectedTarget.GetChild(0).GetComponent<actorData>();
-        for(int i = 0; i < selectedData.spells.Length; i++)
-        {
-            skill_slots[i].sprite = selectedData.spells[i].spellIcon;
-        }
+        // if(mc.selectedTarget.GetChild(0) != null)
+        // {
+        //     actorData selectedData = mc.selectedTarget.GetChild(0).GetComponent<actorData>();
+        //     for(int i = 0; i < selectedData.spells.Length; i++)
+        //     {
+        //         skill_slots[i].sprite = selectedData.spells[i].spellIcon;
+        //     }
+        // }
         // if(Input.GetKeyDown(KeyCode.Q))
         // {
         //     openGUI(questLog_GUI);
@@ -119,6 +122,11 @@ public class GUIManager : MonoBehaviour
         Time.timeScale = 1;
         // gm_ref.changeState("Level");
         // Debug.Log(GUI.name + " closed.");
+    }
+
+    public void speedTime(float time)
+    {
+        Time.timeScale = time;
     }
 
 }

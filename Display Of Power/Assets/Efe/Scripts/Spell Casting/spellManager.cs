@@ -36,7 +36,7 @@ public class spellManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        processPreview();
+        // processPreview();
         GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Projectile");
         foreach(GameObject projectile in projectiles)
         {

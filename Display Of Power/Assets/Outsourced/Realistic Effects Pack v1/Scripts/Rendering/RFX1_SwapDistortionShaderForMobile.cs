@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditor.Build;
 #endif
 
-public class RFX1_SwapDistortionShaderForMobile : IActiveBuildTargetChanged
+public class RFX1_SwapDistortionShaderForMobile : MonoBehaviour
 {
 #if UNITY_EDITOR
     public int callbackOrder { get { return 0; } }

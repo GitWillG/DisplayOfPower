@@ -45,7 +45,7 @@ public class BestClickToMove : MonoBehaviour
         //    }
 
         //}
-        unit.GetComponent<NavMeshAgent>().enabled = true;
+        // unit.GetComponent<NavMeshAgent>().enabled = true;
 
         agent = unit.GetComponent<NavMeshAgent>();
 

@@ -91,8 +91,8 @@ namespace efe{
 
         public void processAiMovement()
         {
-            // if(agent.isOnNavMesh)
-            // {
+            if(agent.isOnNavMesh)
+            {
                 if(!isPlayer)
                 {
                     if(agent.remainingDistance > agent.stoppingDistance)
@@ -110,7 +110,7 @@ namespace efe{
                         animator.SetFloat("Speed", agent.velocity.magnitude);
                     }
                 }
-            // }
+            }
             agent.speed = 10;
         }
     }

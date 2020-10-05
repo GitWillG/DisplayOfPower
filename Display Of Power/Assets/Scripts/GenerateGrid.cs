@@ -70,7 +70,8 @@ public class GenerateGrid : MonoBehaviour
 
     [Header("Editor")]
     public List<GameObject> generated_grids;
-
+    public GameObject VictoryScreen;
+    public GameObject DefeatScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -111,11 +112,13 @@ public class GenerateGrid : MonoBehaviour
             {
                 Debug.Log("you lose");
                 hasStarted = false;
+                Instantiate(DefeatScreen, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
             }
             else if (enemyList.Count <= 0)
             {
                 Debug.Log("you win");
                 hasStarted = false;
+                Instantiate(VictoryScreen, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
             }
   
         }
@@ -257,6 +260,7 @@ public class GenerateGrid : MonoBehaviour
     //That list is then moved to a new layer and re-coloured
     public void checkAttackLegality(int radius, GameObject centerPoint, Material newMat)
     { 
+        //legalHex.Clear();
         for (int x = 0; x< generated_grids.Count; x++)
         {
             float distance = Vector3.Distance(centerPoint.transform.position, generated_grids[x].transform.position);
@@ -403,7 +407,7 @@ public class GenerateGrid : MonoBehaviour
     [ContextMenu("Start Next Turn")]
     public void NextTurn()
     {
-
+        mouseControl.isMove = true;
         //foreach (GameObject turnorder in turnOrder)
         //{
         //    if (turnorder == null)

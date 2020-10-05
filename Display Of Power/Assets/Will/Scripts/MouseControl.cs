@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using TMPro;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
@@ -59,6 +58,7 @@ public class MouseControl : MonoBehaviour
     //The renderer of any given selection
     Renderer selectionRenderer;
     spellManager sm;
+    public GameObject endTurnBTN;
 
     private void Start()
     {
@@ -66,6 +66,7 @@ public class MouseControl : MonoBehaviour
         //nothing is selected at the start
         clickedHex = false;
         doneMoving = true;
+       
         
         sm = GameObject.FindGameObjectWithTag("GM").GetComponent<spellManager>();
     }
@@ -148,7 +149,7 @@ public class MouseControl : MonoBehaviour
             {
                 finishMovement();
             }
-        // }
+        //  }
     }
 
     //Switch the selected range to the appropriate range
@@ -214,7 +215,7 @@ public class MouseControl : MonoBehaviour
     {
         if (selectedTarget.GetChild(0).transform.position.x >= selectedTarget.transform.position.x - 0.2 && selectedTarget.GetChild(0).transform.position.x <= selectedTarget.transform.position.x + 0.2 && selectedTarget.GetChild(0).transform.position.z >= selectedTarget.transform.position.z - 0.2 && selectedTarget.GetChild(0).transform.position.z <= selectedTarget.transform.position.z + 0.2)
         {
-            selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = false;
+            // selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = false;
             selectedTarget.GetChild(0).transform.position = new Vector3(selectedTarget.transform.position.x, selectedTarget.transform.position.y, selectedTarget.transform.position.z);
             grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
             grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
@@ -254,7 +255,7 @@ public class MouseControl : MonoBehaviour
                 GameObject newUnit = (GameObject)Instantiate(unitPrefab, new Vector3(transformSelected.transform.position.x, 0.8f, transformSelected.transform.position.z), Quaternion.identity);
                 newUnit.name = unitPrefab.name;
                 newUnit.transform.SetParent(transformSelected.transform);
-                newUnit.GetComponent<NavMeshAgent>().enabled = false;
+                // newUnit.GetComponent<NavMeshAgent>().enabled = false;
 
             }
             ///////////////////////////
@@ -317,6 +318,7 @@ public class MouseControl : MonoBehaviour
                 if (selectedTarget.GetComponentInChildren<prefabUnits>().actionsRemaining == 0)
                 {
                     GridOb.EndTurn();
+                    endTurnBTN.SetActive(true);
                 }
 
                 return;
@@ -350,7 +352,7 @@ public class MouseControl : MonoBehaviour
         GameObject unit = selectedTarget.GetChild(0).gameObject;
         for (int i = 1; i < GridOb.path.Count; i++)
         {
-            selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = true;
+            // selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = true;
             isMoving = true;
             this.gameObject.GetComponent<BestClickToMove>().ClickMove(selectedTarget.GetChild(0).gameObject, GridOb.path[i]);
             selectedTarget = GridOb.path[i].transform;
@@ -371,6 +373,11 @@ public class MouseControl : MonoBehaviour
         if (unit.GetComponent<prefabUnits>().actionsRemaining == 0)
         {
             GridOb.EndTurn();
+            endTurnBTN.SetActive(true);
+        }
+        else
+        {
+            GridOb.NextTurn();
         }
 
     }

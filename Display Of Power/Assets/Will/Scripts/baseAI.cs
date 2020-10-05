@@ -26,6 +26,7 @@ public class baseAI : MonoBehaviour
     {   
         if (self.isTurn && !self.belongsToPlayer)
         {
+            mouseController.endTurnBTN.SetActive(false);
             if (target == null)
             {
                 findClosest();
@@ -53,10 +54,11 @@ public class baseAI : MonoBehaviour
 
                                 }
                                 mouseController.moveAttackSwap();
-                            if (self.actionsRemaining == 0)
-                            {
-                                gridOb.EndTurn();
-                            }
+                                if (self.actionsRemaining == 0)
+                                {
+                                    gridOb.EndTurn();
+                                    mouseController.endTurnBTN.SetActive(true);
+                                }
                             return;
                             
                         }
@@ -116,5 +118,9 @@ public class baseAI : MonoBehaviour
         self.actionsRemaining -= 1;
 
     }
+    IEnumerator waitsecond()
+    {
+        yield return new WaitForSeconds(1);
 
+    }
 }
