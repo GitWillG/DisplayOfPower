@@ -111,6 +111,7 @@ namespace efe{
                     }
                 }
             // }
+            agent.speed = 10;
         }
     }
 }
