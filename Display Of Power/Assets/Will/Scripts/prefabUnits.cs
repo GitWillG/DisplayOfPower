@@ -28,6 +28,8 @@ public class prefabUnits : MonoBehaviour
         Damage = statObject.damage;
         TotalActions = statObject.totalActions;
         actionsRemaining = statObject.actionsRemaining;
+
+        statObject.life = 10;
     }
 
 }
