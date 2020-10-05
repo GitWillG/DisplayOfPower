@@ -39,7 +39,7 @@ namespace efe{
         public GameObject webCharParent;
         public GameObject webCharacterIcon;
 
-        bool generatedType;
+        //bool generatedType;
 
         [Header("Location Map")]
         public GameObject npcIconBase;
@@ -59,12 +59,12 @@ namespace efe{
             {
                 if(gm.curLocation.GetComponent<locationData>() != null)
                 {
-                    generatedType = false; // its an existing location
+                   /* generatedType = false;*/ // its an existing location
                     generateNPCicons();
                 }
                 else 
                 {
-                    generatedType = true; // generated
+                   /* generatedType = true;*/ // generated
                     
                 }
             }

@@ -43,7 +43,7 @@ public class GenerateGrid : MonoBehaviour
 
     //actual dimensions of our prefab for refference
     private float hexWidth = 1.732f;
-    private float hexDepth = 2f;
+    //private float hexDepth = 2f;
     public bool hasStarted = false;
 
     //zOffset is 0.75 * depth of the hex

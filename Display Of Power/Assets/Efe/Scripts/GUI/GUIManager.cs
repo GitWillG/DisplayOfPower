@@ -29,7 +29,7 @@ public class GUIManager : MonoBehaviour
     void Start()
     {
         // HUDReference = Instantiate(HUD, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
-        // gm = GameObject.FindGameObjectWithTag("GM").GetComponent<gameManager>();
+         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<gameManager>();
         // isHUDopen = true;
         mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
         Cursor.SetCursor(cursor_textures[0], Vector2.zero, CursorMode.Auto);

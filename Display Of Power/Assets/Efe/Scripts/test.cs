@@ -7,7 +7,7 @@ public class test : MonoBehaviour {
     // New properties appeared for class LineRender in version 2017.1
     public LineRenderer l;
  
-    int len=2;
+    //int len=2;
  
     // Update is called once per frame
     void Update () {
