@@ -6,107 +6,88 @@ using efe;
 public class spellManager : MonoBehaviour
 {
 
-    [Header("Casting Abiliy Info")]
     public GameObject sourceReference;
     public GameObject targetReference;
     public spellSO _spellDEMO;
     public Material _baseMaterial;
     factionManager fm;
     GameObject projectile;
-    [Header("Spell Preview Types")]
     public GameObject circle_radius_preview;
-    public GameObject single_radius_preview;
     MouseControl mc;
-    GUIManager guim;
     spellSO curSpellPreview;
+
     // Cast type tracking
-    string[] castTypes = {"Single", "Area"};
-    string curCastType;
-    public bool castPreviewEnabled = false;
-    spellSO curSpell;
+    public string[] castTypes = {"Single", "Area"};
+    public string curCastType;
     // Start is called before the first frame update
     void Start()
     {   
         // StartCoroutine(castSpell(sourceReference, targetReference, _spellDEMO));
         fm = GetComponent<factionManager>();
         mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
-        guim = GetComponent<GUIManager>();
     }
 
     // Update is called once per frame
     void Update()
     {   
-        processPreview();
-        GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Projectile");
-        foreach(GameObject projectile in projectiles)
-        {
-            if(projectile != null)
-            {
-                projectileData projData = projectile.GetComponent<projectileData>();
-                float distance = Vector3.Distance(projectile.transform.position, projData.target.transform.position);
+            processPreview();
+    //     GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Projectile");
+    //     foreach(GameObject projectile in projectiles)
+    //     {
+    //         if(projectile != null)
+    //         {
+    //             projectileData projData = projectile.GetComponent<projectileData>();
+    //             float distance = Vector3.Distance(projectile.transform.position, projData.target.transform.position);
                 
-                if(distance < 1)
-                {
-                    Destroy(projectile);
-                    projData.target.GetComponent<Animator>().SetTrigger("Die");
-                    // Debug.Log("Projectile destroyed.");
+    //             if(distance < 1)
+    //             {
+    //                 Destroy(projectile);
+    //                 projData.target.GetComponent<Animator>().SetTrigger("Die");
+    //                 // Debug.Log("Projectile destroyed.");
 
-                    factionSO sourceFaction = projData.source.GetComponent<actorData>().ownerFaction;
-                    factionSO targetFaction = projData.target.GetComponent<actorData>().ownerFaction;
-                    if(sourceFaction == null && targetFaction == null)
-                    {
-                        return;
-                    }
+    //                 factionSO sourceFaction = projData.source.GetComponent<actorData>().ownerFaction;
+    //                 factionSO targetFaction = projData.target.GetComponent<actorData>().ownerFaction;
+    //                 if(sourceFaction == null && targetFaction == null)
+    //                 {
+    //                     return;
+    //                 }
 
-                    fm.changeDiplomacyByReference(sourceFaction, targetFaction, -15);
-                    // fm.changeDiplomacyByString("Fire Water Fearless", 2);
-                    break;
-                }
-                else
-                {
-                    projectile.transform.position = Vector3.MoveTowards(
-                    projectile.transform.position, 
-                    projData.target.transform.position,
-                    projData.referenceSpell.spellMoveSpeed * Time.deltaTime
-                    );
-                    // Debug.Log(projectile.name + " moving to " + projData.target.name);
-                }
+    //                 fm.changeDiplomacyByReference(sourceFaction, targetFaction, -15);
+    //                 // fm.changeDiplomacyByString("Fire Water Fearless", 2);
+    //                 break;
+    //             }
+    //             else
+    //             {
+    //                 projectile.transform.position = Vector3.MoveTowards(
+    //                 projectile.transform.position, 
+    //                 projData.target.transform.position,
+    //                 projData.referenceSpell.spellMoveSpeed * Time.deltaTime
+    //                 );
+    //                 // Debug.Log(projectile.name + " moving to " + projData.target.name);
+    //             }
                 
-            }
-            else
-            {
-                return;
-            }
-        }
+    //         }
+    //         else
+    //         {
+    //             return;
+    //         }
+    //     }
     }
 
     public void startSpellPreview()
     {   
-        GameObject preview;
+        GameObject radius;
         if(mc.selectedTarget.GetChild(0).GetComponent<actorData>().spells[0].SkillTargetHandling == spellSO.targetHandling.area)
         {   
-            preview = Instantiate(circle_radius_preview, transform.position, Quaternion.identity);
+            radius = Instantiate(circle_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[1];
 
         }
         else if(mc.selectedTarget.GetChild(0).GetComponent<actorData>().spells[0].SkillTargetHandling == spellSO.targetHandling.single)
         {
-            preview = Instantiate(single_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[0];
         }   
-        castPreviewEnabled = true;
-        Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
 
-        // Remove already existing previews if there is one
-        // GameObject[] radiusPreviews = GameObject.FindGameObjectsWithTag("RadiusPreview");
-        // if(radiusPreviews != null)
-        // {
-        //     foreach(GameObject temp in radiusPreviews)
-        //     {
-        //         Destroy(temp);
-        //     }
-        // }
-        // mc.isMoving = true;
         // curSpellPreview = mc.selectedTarget.GetChild(0).GetComponent<actorData>().spells[0];
         // else if(spellData.SkillTargetHandling == spellSO.targetHandling.single)
         // {
@@ -116,44 +97,16 @@ public class spellManager : MonoBehaviour
 
     public void processPreview()
     {   
-        GameObject currentSelectedCharacter = mc.selectedTarget.GetChild(0).gameObject;
-        curSpell = mc.selectedTarget.GetChild(0).GetComponent<actorData>().spells[0];
-        if(castPreviewEnabled)
+        if(curCastType == "Area")
         {
-            if(curCastType == "Area" || curCastType == "Single")
+            GameObject[] radius = GameObject.FindGameObjectsWithTag("RadiusPreview");
+            foreach(GameObject temp in radius)
             {
-                GameObject[] radius = GameObject.FindGameObjectsWithTag("RadiusPreview");
-                foreach(GameObject temp in radius)
+                if(radius != null)
                 {
-                    if(radius != null)
-                    {
-                        Vector3 tempMouse = Input.mousePosition;
-                        tempMouse.z = 11;
-                        temp.transform.position = Camera.main.ScreenToWorldPoint(tempMouse);
-                        //      
-                        if(Input.GetMouseButtonDown(0))
-                        {
-                            Destroy(temp);
-                            castPreviewEnabled = false;
-                            Debug.Log("Preview finished.");
-                            //      
-                            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                            RaycastHit hit;
-                            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-                            {
-                                if(hit.transform.gameObject.tag == "NPC")
-                                {
-                                    castSpell(currentSelectedCharacter, hit.transform.gameObject, curSpell);
-                                    Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
-                                    // mc.isMoving = false;
-                                }
-                                else
-                                {
-                                    Debug.Log("There is no NPCs in this area.");
-                                }
-                            }
-                        }
-                    }   
+                    Vector3 tempMouse = Input.mousePosition;
+                    tempMouse.z = 11;
+                    temp.transform.position = Camera.main.ScreenToWorldPoint(tempMouse);
                 }
             }
         }
