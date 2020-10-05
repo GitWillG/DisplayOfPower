@@ -18,7 +18,6 @@ public class MouseControl : MonoBehaviour
     public TextMeshProUGUI lifeBox;
     public TextMeshProUGUI unitBox;
     public TextMeshProUGUI attackBox;
-    public TextMeshProUGUI actionsLeft;
     [Header("Materials")]
     //Selected hex material
     public Material selectedMat;
@@ -182,12 +181,12 @@ public class MouseControl : MonoBehaviour
         lifeBox.text = "";
         attackBox.text = "";
         unitBox.text = "";
-        actionsLeft.text = "";
     }
 
     [ContextMenu("switch between attack or move")]
     public void moveAttackSwap()
     {
+        Debug.Log("swap");
         //flip the is move bool
         isMove = !isMove;
         //swap the range to appropriate range
@@ -266,7 +265,6 @@ public class MouseControl : MonoBehaviour
                 lifeBox.text = selectedTarget.GetComponentInChildren<prefabUnits>().Life.ToString();
                 attackBox.text = selectedTarget.GetComponentInChildren<prefabUnits>().Damage.ToString();
                 unitBox.text = selectedTarget.GetComponentInChildren<prefabUnits>().name.ToString();
-                actionsLeft.text = selectedTarget.GetComponentInChildren<prefabUnits>().actionsRemaining.ToString();
                 //swap the mask to our legal hex layer for raycasting
                 currentMask = 1 << 10;
                 //swap to the appropriate range
@@ -371,6 +369,10 @@ public class MouseControl : MonoBehaviour
         if (unit.GetComponent<prefabUnits>().actionsRemaining == 0)
         {
             GridOb.EndTurn();
+        }
+        else
+        {
+            GridOb.NextTurn();
         }
 
     }
