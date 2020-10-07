@@ -102,8 +102,8 @@ public class MouseControl : MonoBehaviour
                 selectedTarget.gameObject.GetComponent<Renderer>().material = selectedMat;
             }
 
-        // if(!EventSystem.current.IsPointerOverGameObject())
-        // {
+        if(!EventSystem.current.IsPointerOverGameObject())
+        {
             //Ray cast from the mouse to find objects
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
@@ -149,7 +149,7 @@ public class MouseControl : MonoBehaviour
             {
                 finishMovement();
             }
-        //  }
+        }
     }
 
     //Switch the selected range to the appropriate range

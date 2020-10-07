@@ -1,7 +1,9 @@
 #if UNITY_EDITOR
 using UnityEngine;
 using System.Collections;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 [CustomEditor(typeof(RFX1_EffectSettings))]
 public class RFX1_EffectSettingsInspector : Editor

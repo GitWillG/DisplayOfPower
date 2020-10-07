@@ -11,9 +11,7 @@ public class battleManager : MonoBehaviour
     public GameObject battleCam;
     public GameObject freeCam;
     public GameObject heroSelect;
-
-
-        public GameObject selectManager;
+    public GameObject selectManager;
     public GameObject battleHud;
     GameObject[] battleEncounters;
     preSelection preSelect;

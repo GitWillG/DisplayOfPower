@@ -18,7 +18,7 @@ public class GUIManager : MonoBehaviour
     public bool isHUDopen = true;
     public GameObject battleGUI;
     public GameObject escapeMenu;
-    gameManager gm;
+    // gameManager gm;
     GameObject HUDReference;
 
     public Image[] skill_slots;
@@ -113,7 +113,7 @@ public class GUIManager : MonoBehaviour
     {
         Instantiate(GUI, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
         gameManager.curGUI = GUI;
-        gm.changeField("HUD");
+        // gm.changeField("HUD");
         Debug.Log(GUI.name + " opened.");
     }
     public void closeGUI(GameObject GUI)

@@ -4,7 +4,9 @@ using System;
 using System.Collections;
 using System.IO;
 using NUnit.Framework;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEditor.AI;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
