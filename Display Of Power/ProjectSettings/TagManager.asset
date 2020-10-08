@@ -25,6 +25,7 @@ TagManager:
   - SM
   - RadiusPreview
   - CinematicManager
+  - slotImage
   layers:
   - Default
   - TransparentFX
@@ -41,7 +42,7 @@ TagManager:
   - WorldMapObjects
   - LevelObjects
   - NPCs
-  - 
+  - BlockedHex
   - 
   - 
   - 

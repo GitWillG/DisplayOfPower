@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 using efe;
+using TMPro;
 public class GUIManager : MonoBehaviour
 {
 
@@ -15,6 +18,7 @@ public class GUIManager : MonoBehaviour
     public GameObject factionPage_GUI;
     public GameObject partyEntrance_GUI;
     public GameObject inventory_GUI;
+    public GameObject tooltip_skill;
     public bool isHUDopen = true;
     public GameObject battleGUI;
     public GameObject escapeMenu;
@@ -24,6 +28,10 @@ public class GUIManager : MonoBehaviour
     public Image[] skill_slots;
     MouseControl mc;
     public Texture2D[] cursor_textures;
+
+    // [Range(-1000, 1000)]
+    public Vector3 offsetTooltip;
+    Vector2 tooltipSpawnPosition;
     
     // Start is called before the first frame update
     void Start()
@@ -33,11 +41,34 @@ public class GUIManager : MonoBehaviour
         // isHUDopen = true;
         mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
         Cursor.SetCursor(cursor_textures[0], Vector2.zero, CursorMode.Auto);
+        // tooltip_skill = Instantiate(tooltip_skill, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
+        // tooltip_skill.transform.parent = battleGUI.transform;
+        tooltip_skill.SetActive(false);
 
-    }
+        // battleGUI.SetActive(false);
+        offsetTooltip.x = 115;
+        offsetTooltip.y = 215;
+
+        
+
+    }   
+
+    // void OnGUI()
+    // {
+    //     GUI.Box(new Rect(0, 0, Screen.width / 8, Screen.height / 4), "This is a box");
+    // }
 
     void Update()
     {
+        if(tooltip_skill != null)
+        {
+            tooltip_skill.transform.position = Input.mousePosition + offsetTooltip;
+            float distance = Vector2.Distance(tooltip_skill.transform.position, tooltipSpawnPosition);
+            if(distance > 50)
+            {
+                hideTooltip();
+            }
+        }
         // if(mc.selectedTarget != null)
         // {
         //     foreach(Image temp in skill_slots)
@@ -53,14 +84,33 @@ public class GUIManager : MonoBehaviour
                 
         //     }
         // }
-        // if(mc.selectedTarget.GetChild(0) != null)
+
+        // MOST IMPORTANT PART OF CODE,
+        // DONT REMOVE OR GAME IS CORRUPTED
+
+        if(mc.lastSelectedTarget != null)
+        {
+            // Updates the skillbar depending on current selected actor's spells
+            if(mc.lastSelectedTarget.GetChild(0) != null)
+            {
+                actorData selectedData = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
+                for(int i = 0; i < selectedData.spells.Length; i++)
+                {
+                    skill_slots[i].sprite = selectedData.spells[i].spellIcon;
+                }
+            }
+        }
+
+
+
+        // foreach(Image temp in skill_slots)
         // {
-        //     actorData selectedData = mc.selectedTarget.GetChild(0).GetComponent<actorData>();
-        //     for(int i = 0; i < selectedData.spells.Length; i++)
+        //     if(EventSystem.current.IsPointerOverGameObject() && EventSystem.current.currentSelectedGameObject.CompareTag("slotImage"))
         //     {
-        //         skill_slots[i].sprite = selectedData.spells[i].spellIcon;
+        //         GameObject skillTooltip = Instantiate(tooltip_skill, new Vector3(temp.transform.position.x, temp.transform.position.y + 5, 0));
         //     }
         // }
+
         // if(Input.GetKeyDown(KeyCode.Q))
         // {
         //     openGUI(questLog_GUI);
@@ -109,6 +159,8 @@ public class GUIManager : MonoBehaviour
         // }
     }
 
+  
+
     public void openGUI(GameObject GUI)
     {
         Instantiate(GUI, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
@@ -127,6 +179,42 @@ public class GUIManager : MonoBehaviour
     public void speedTime(float time)
     {
         Time.timeScale = time;
+    }
+
+    public void showTooltip(int index)
+    {
+        tooltip_skill.SetActive(true);
+        tooltipSpawnPosition = Input.mousePosition + offsetTooltip;
+        Debug.Log("Showing tooltip...");
+        
+        if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index] != null)
+        {
+            spellSO curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index];
+            tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = curSpell.spellName;
+            if(curSpell.SkillTargetHandling == spellSO.targetHandling.area)
+            {
+                tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "Area";
+            }
+            else
+            {
+                tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "Single";
+            }
+            
+            tooltip_skill.transform.Find("BG").transform.Find("DamageResult").GetComponent<TextMeshProUGUI>().text = curSpell.effectAmount.ToString();
+        }
+        else
+        {
+            tooltip_skill.SetActive(false);
+            return;
+        }
+        
+    
+    }
+
+    public void hideTooltip()
+    {
+        tooltip_skill.SetActive(false);
+        Debug.Log("Tooltip hidden...");
     }
 
 }

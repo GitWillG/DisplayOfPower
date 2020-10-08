@@ -24,6 +24,7 @@ public class spellManager : MonoBehaviour
     string curCastType;
     public bool castPreviewEnabled = false;
     spellSO curSpell;
+
     // Start is called before the first frame update
     void Start()
     {   
@@ -35,8 +36,9 @@ public class spellManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
-        // processPreview();
+    {      
+        spellShortcuts();
+        processPreview();
         GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Projectile");
         foreach(GameObject projectile in projectiles)
         {
@@ -48,7 +50,12 @@ public class spellManager : MonoBehaviour
                 if(distance < 1)
                 {
                     Destroy(projectile);
-                    projData.target.GetComponent<Animator>().SetTrigger("Die");
+                    projData.target.GetComponent<Animator>().SetTrigger("takeHit");
+                    projData.target.GetComponent<prefabUnits>().Life -= projData.referenceSpell.effectAmount;
+                    if(projData.target.GetComponent<prefabUnits>().Life <= 0)
+                    {
+                        mc.killUnit(projData.target);
+                    }
                     // Debug.Log("Projectile destroyed.");
 
                     factionSO sourceFaction = projData.source.GetComponent<actorData>().ownerFaction;
@@ -60,6 +67,7 @@ public class spellManager : MonoBehaviour
 
                     fm.changeDiplomacyByReference(sourceFaction, targetFaction, -15);
                     // fm.changeDiplomacyByString("Fire Water Fearless", 2);
+                    
                     break;
                 }
                 else
@@ -80,23 +88,113 @@ public class spellManager : MonoBehaviour
         }
     }
 
-    public void startSpellPreview()
+    void spellShortcuts()
+    {
+        if(mc.lastSelectedTarget != null)
+        {
+            actorData data = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                if(data.spells[0] != null)
+                {
+                    startSpellPreview(data.spells[0]);
+                }
+                else
+                {
+                    Debug.Log("There is no spell in this slot.");
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                if(data.spells[1] != null)
+                {
+                    startSpellPreview(data.spells[1]);      
+                }
+                else
+                {
+                    Debug.Log("There is no spell in this slot.");
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                if(data.spells[2] != null)
+                {
+                    startSpellPreview(data.spells[2]);       
+                }
+                else
+                {
+                    Debug.Log("There is no spell in this slot.");
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                if(data.spells[3] != null)
+                {
+                    startSpellPreview(data.spells[3]);            
+                }
+                else
+                {
+                    Debug.Log("There is no spell in this slot.");
+                }
+            }
+        }
+
+    }
+
+
+    public void startSpellPreview(spellSO spellInQuestion)
     {   
         GameObject preview;
-        if(mc.selectedTarget.GetChild(0).GetComponent<actorData>().spells[0].SkillTargetHandling == spellSO.targetHandling.area)
+        if(spellInQuestion.SkillTargetHandling == spellSO.targetHandling.area)
         {   
             preview = Instantiate(circle_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[1];
 
         }
-        else if(mc.selectedTarget.GetChild(0).GetComponent<actorData>().spells[0].SkillTargetHandling == spellSO.targetHandling.single)
+        else if(spellInQuestion.SkillTargetHandling == spellSO.targetHandling.single)
         {
+           
             preview = Instantiate(single_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[0];
         }   
         castPreviewEnabled = true;
         Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
+        Debug.Log("Started spell preview.");
+        // Remove already existing previews if there is one
+        // GameObject[] radiusPreviews = GameObject.FindGameObjectsWithTag("RadiusPreview");
+        // if(radiusPreviews != null)
+        // {
+        //     foreach(GameObject temp in radiusPreviews)
+        //     {
+        //         Destroy(temp);
+        //     }
+        // }
+        // mc.isMoving = true;
+        // curSpellPreview = mc.selectedTarget.GetChild(0).GetComponent<actorData>().spells[0];
+        // else if(spellData.SkillTargetHandling == spellSO.targetHandling.single)
+        // {
 
+        // }
+    }
+
+    public void startSpellPreview()
+    {   
+        GameObject preview;
+        if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[0].SkillTargetHandling == spellSO.targetHandling.area)
+        {   
+            preview = Instantiate(circle_radius_preview, transform.position, Quaternion.identity);
+            curCastType = castTypes[1];
+
+        }
+        else if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[0].SkillTargetHandling == spellSO.targetHandling.single)
+        {
+           
+            // preview = Instantiate(single_radius_preview, transform.position, Quaternion.identity);
+            curCastType = castTypes[0];
+        }   
+        castPreviewEnabled = true;
+        Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
+        Debug.Log("Started spell preview.");
         // Remove already existing previews if there is one
         // GameObject[] radiusPreviews = GameObject.FindGameObjectsWithTag("RadiusPreview");
         // if(radiusPreviews != null)
@@ -116,44 +214,80 @@ public class spellManager : MonoBehaviour
 
     public void processPreview()
     {   
-        GameObject currentSelectedCharacter = mc.selectedTarget.GetChild(0).gameObject;
-        curSpell = mc.selectedTarget.GetChild(0).GetComponent<actorData>().spells[0];
-        if(castPreviewEnabled)
+        if(mc.lastSelectedTarget != null)
         {
-            if(curCastType == "Area" || curCastType == "Single")
+            GameObject currentSelectedCharacter = mc.lastSelectedTarget.GetChild(0).gameObject;
+            curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[0];
+            if(castPreviewEnabled)
             {
-                GameObject[] radius = GameObject.FindGameObjectsWithTag("RadiusPreview");
-                foreach(GameObject temp in radius)
+                if(curCastType == "Area")
                 {
-                    if(radius != null)
+                    GameObject[] radius = GameObject.FindGameObjectsWithTag("RadiusPreview");
+                    foreach(GameObject temp in radius)
                     {
-                        Vector3 tempMouse = Input.mousePosition;
-                        tempMouse.z = 11;
-                        temp.transform.position = Camera.main.ScreenToWorldPoint(tempMouse);
-                        //      
-                        if(Input.GetMouseButtonDown(0))
-                        {
-                            Destroy(temp);
-                            castPreviewEnabled = false;
-                            Debug.Log("Preview finished.");
-                            //      
-                            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                            RaycastHit hit;
-                            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                        if(radius != null)
+                        {   
+                            RaycastHit hit_preview;
+                            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit_preview))
                             {
-                                if(hit.transform.gameObject.tag == "NPC")
+                                temp.transform.position = new Vector3
+                                (
+                                    hit_preview.point.x,
+                                    hit_preview.point.y,
+                                    hit_preview.point.z
+                                );
+                            }
+                            
+                            //      
+                            if(Input.GetMouseButtonDown(1))
+                            {
+                                Destroy(temp);
+                                castPreviewEnabled = false;
+                                Debug.Log("Preview finished.");
+                                Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
+                                //      
+                                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                                RaycastHit hit;
+                                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                                 {
-                                    castSpell(currentSelectedCharacter, hit.transform.gameObject, curSpell);
-                                    Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
-                                    // mc.isMoving = false;
-                                }
-                                else
-                                {
-                                    Debug.Log("There is no NPCs in this area.");
+                                    // if(hit.transform.gameObject.tag == "NPC")
+                                    // {
+                                        castSpell(currentSelectedCharacter, hit.transform.gameObject, curSpell);
+                                        // mc.isMoving = false;
+                                    // }
+                                    // else
+                                    // {
+                                    //     Debug.Log("There is no NPCs in this area.");
+                                    // }
                                 }
                             }
+                        }   
+                    }
+                }
+                else if(curCastType == "Single")
+                {
+                    if(Input.GetMouseButtonDown(1))
+                    {
+
+                        castPreviewEnabled = false;
+                        Debug.Log("Preview finished.");
+                        Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
+                        //      
+                        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        RaycastHit hit;
+                        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                        {
+                            if(hit.transform.gameObject.tag == "NPC")
+                            {
+                                castSpell(currentSelectedCharacter, hit.transform.gameObject, curSpell);
+                                // mc.isMoving = false;
+                            }
+                            else
+                            {
+                                Debug.Log("There is no NPCs in this area.");
+                            }
                         }
-                    }   
+                    }
                 }
             }
         }
@@ -182,6 +316,7 @@ public class spellManager : MonoBehaviour
             sourceAnimator.SetTrigger("Cast3");
         }
 
+    
         // Spawn caster particle on caster
         Instantiate(spellData.casterParticle, source.transform.position, Quaternion.identity);
         // Spawn target particle on target
@@ -189,15 +324,22 @@ public class spellManager : MonoBehaviour
         // Debug.Log(1);
         for(int i = 0; i <= spellData.spawnAmount; i++)
         {
-            // Debug.Log(2);
-            // Spawn a primitive based on skill shape
-            if(spellData.shape == spellSO.skillShape.cube)
+            if(spellData.useOverwrite)
             {
-                projectile = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                projectile = Instantiate(spellData.overwriteParticles, source.transform.position, Quaternion.identity);
             }
-            else if(spellData.shape == spellSO.skillShape.sphere)
+            else
             {
-                projectile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                // Debug.Log(2);
+                // Spawn a primitive based on skill shape
+                if(spellData.shape == spellSO.skillShape.cube)
+                {
+                    projectile = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                }
+                else if(spellData.shape == spellSO.skillShape.sphere)
+                {
+                    projectile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                }
             }
             // Adjust ground level
             projectile.transform.position = new Vector3

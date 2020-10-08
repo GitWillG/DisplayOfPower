@@ -39,7 +39,7 @@ namespace efe{
         public GameObject webCharParent;
         public GameObject webCharacterIcon;
 
-        bool generatedType;
+        // bool generatedType;
 
         [Header("Location Map")]
         public GameObject npcIconBase;
@@ -55,19 +55,19 @@ namespace efe{
             ps = gm.GetComponent<playerStats>();
             sm = gm.GetComponent<settingsManager>();
 
-            if(this.name == "partyEntrance")
-            {
-                if(gm.curLocation.GetComponent<locationData>() != null)
-                {
-                    generatedType = false; // its an existing location
-                    generateNPCicons();
-                }
-                else 
-                {
-                    generatedType = true; // generated
+            // if(this.name == "partyEntrance")
+            // {
+            //     if(gm.curLocation.GetComponent<locationData>() != null)
+            //     {
+            //         generatedType = false; // its an existing location
+            //         generateNPCicons();
+            //     }
+            //     else 
+            //     {
+            //         generatedType = true; // generated
                     
-                }
-            }
+            //     }
+            // }
 
             if(this.gameObject.tag == "CharacterWebGUI")
             {
