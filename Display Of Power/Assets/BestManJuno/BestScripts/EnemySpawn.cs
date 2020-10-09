@@ -19,7 +19,7 @@ public class EnemySpawn : MonoBehaviour
     int numOfEnemies;
     GameObject newEnemy;
     public GameObject allyPrefab;
-    public GameObject teamFeedbackObject;
+    public GameObject[] teamFeedbackObjects;
 
     /// <summary>
     GameObject[] targetHexes;
@@ -136,20 +136,26 @@ public class EnemySpawn : MonoBehaviour
             newEnemy.transform.position.y + 2,
             newEnemy.transform.position.z
         );
-        teamFeedbackObject = Instantiate(teamFeedbackObject, spawnPosition, Quaternion.identity);
-        teamFeedbackObject.transform.parent = newEnemy.transform;
+
+
 
         if (teamString == "ally")
         {
             grid.allyList.Add(newEnemy);
             data.belongsToPlayer = true;
             newEnemy.GetComponent<prefabUnits>().Factions = "Ally";
-            // teamFeedbackObject.GetComponent<Material>().color = Color.blue;
+            newEnemy.name = "Mage";
+            teamFeedbackObjects[1] = Instantiate(teamFeedbackObjects[1], spawnPosition, Quaternion.identity);
+            teamFeedbackObjects[1].transform.parent = newEnemy.transform;
+             
         }
         else if (teamString == "enemy")
         {
             grid.enemyList.Add(newEnemy);
-            // teamFeedbackObject.GetComponent<Material>().color = Color.red;
+            newEnemy.name = "Soldier";
+            teamFeedbackObjects[0] = Instantiate(teamFeedbackObjects[0], spawnPosition, Quaternion.identity);
+            teamFeedbackObjects[0].transform.parent = newEnemy.transform;
+            
         }
         
     }

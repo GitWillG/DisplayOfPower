@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a488d22c1496284a8ea28aedee4bed7, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
+  overwriteParticles: {fileID: 1042962290400280, guid: 45f134f709433794c9fd82ae5c0d5009,
+    type: 3}
+  useOverwrite: 1
   spellID: 1728
   spellName: Fireball
-  effectAmount: 1
+  effectAmount: 10
   effectType: 1
   cooldown: 1
   castingDuration: 1
   delayPostCast: 1
-  spellMoveSpeed: 1
-  spellIcon: {fileID: 21300000, guid: 6eb7b6c03a71e2c43afc57375d8ab1e5, type: 3}
+  spellMoveSpeed: 5
+  spellIcon: {fileID: 21300000, guid: 0e0fcf5253592454498daebc77f755a8, type: 3}
   SkillNature: 2
   shape: 0
   visualizationMethod: 1
@@ -29,7 +32,7 @@ MonoBehaviour:
   sizeMultiplier: 1
   skillAura: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
     type: 3}
-  SkillTargetHandling: 0
+  SkillTargetHandling: 1
   SkillCasterAnimation: 1
   playEndAnimation: 0
   SkillEndAnimation: 0

@@ -6,5 +6,6 @@ namespace efe{
 public class temp_skillSlot : MonoBehaviour
 {   
     public bool guiChecked = false;
+    public int indexCallback;
 }
 }

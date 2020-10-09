@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.PlayerLoop;
-using UnityEngine.UIElements;
+using TMPro;
 
 public class GenerateGrid : MonoBehaviour
 {
@@ -43,7 +43,7 @@ public class GenerateGrid : MonoBehaviour
 
     //actual dimensions of our prefab for refference
     private float hexWidth = 1.732f;
-    //private float hexDepth = 2f;
+    // private float hexDepth = 2f;
     public bool hasStarted = false;
 
     //zOffset is 0.75 * depth of the hex
@@ -55,7 +55,6 @@ public class GenerateGrid : MonoBehaviour
     List<GameObject> unitsOnField = new List<GameObject>();
     //New list for turn order that will include all units on field
     public List<GameObject> turnOrder =  new List<GameObject>(); 
-
 
     /// new stuff
     public List<GameObject> allySpawnHexes;
@@ -72,6 +71,13 @@ public class GenerateGrid : MonoBehaviour
     public List<GameObject> generated_grids;
     public GameObject VictoryScreen;
     public GameObject DefeatScreen;
+    bool gridHidden = false;
+
+    public GameObject turnNotification;
+    int addedPropAmount;
+    public GameObject blockade;
+
+    public List<GameObject> blockedHexes;
 
     // Start is called before the first frame update
     void Start()
@@ -104,7 +110,14 @@ public class GenerateGrid : MonoBehaviour
         //enemySpawn.SpawnEnemies(5, enemySpawn.enemyPrefab, enemyList);
     }
     private void Update()
-    {
+    {   
+
+        showGrid();
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            addPropsRandomly(blockade);
+        }
+
         if (hasStarted)
         {
 
@@ -122,6 +135,21 @@ public class GenerateGrid : MonoBehaviour
             }
   
         }
+
+    }
+
+    public void winTest()
+    {
+
+            enemyList.Clear();
+
+
+    }
+
+    public void loseTest()
+    {
+
+            allyList.Clear();
 
     }
 
@@ -428,6 +456,7 @@ public class GenerateGrid : MonoBehaviour
         {
             turnOrder[k].GetComponent<prefabUnits>().actionsRemaining = turnOrder[k].GetComponent<prefabUnits>().TotalActions;
             turnOrder[k].GetComponent<prefabUnits>().isTurn = false;
+            turnOrder[k].GetComponent<prefabUnits>().actionsRemaining = 2;
             if (k < turnOrder.Count -1)
             {
                 k = k + 1;
@@ -447,7 +476,19 @@ public class GenerateGrid : MonoBehaviour
             mouseControl.clickedHex = false;
             //mouseControl.selectedTarget = turnOrder[k].transform;
             mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
-            Debug.Log("test2");
+            // Debug.Log("test2");
+           
+            // Show whose turn
+            // GameObject tempTurn = Instantiate(turnNotification, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
+            // if(turnOrder[k].GetComponent<prefabUnits>().Factions == "Ally")
+            // {
+            //     tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "Player's Turn";
+            // }
+            // else
+            // {
+            //     tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "AI's Turn";
+            // }
+            // Destroy(tempTurn, 4);
         }
 
       
@@ -509,5 +550,56 @@ public class GenerateGrid : MonoBehaviour
         }
     }
 
+
+    public void showGrid()
+    {
+        if(Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            if(!gridHidden)
+            {
+                gridHidden = true;
+                Debug.Log("Grid is hidden");
+                foreach(GameObject temp in generated_grids)
+                {
+                    temp.GetComponent<Renderer>().enabled = false;
+                }
+            }
+            else
+            {
+                gridHidden = false;
+                Debug.Log("Grid is not hidden");
+                foreach(GameObject temp in generated_grids)
+                {
+                    temp.GetComponent<Renderer>().enabled = true;
+                }
+            }
+        }
+    }
+
+    public void addPropsRandomly(GameObject targetObject)
+    {
+            for(int b = 0; b < 5; b++)
+            {
+                int randomNo = UnityEngine.Random.Range(0, generated_grids.Count);     
+                if(generated_grids[randomNo].transform.childCount == 0)
+                {               
+                    Vector3 spawnPos = new Vector3(
+                        generated_grids[randomNo].transform.position.x,
+                        generated_grids[randomNo].transform.position.y + 2,
+                        generated_grids[randomNo].transform.position.z
+
+                    );
+                    Instantiate(targetObject, spawnPos, Quaternion.identity);
+                    blockedHexes.Add(generated_grids[randomNo]);
+                    generated_grids[randomNo].layer = 15;
+                }
+                else
+                {
+                    Debug.Log("There is something in this grid already.");
+                }
+                
+            }
+
+    }
 
 }

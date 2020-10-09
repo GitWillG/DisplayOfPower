@@ -233,7 +233,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d17235f7fa183014099cdb8402b50743, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2cfed8a67652c714fb054142fd216e78, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -284,9 +284,9 @@ RectTransform:
   m_Father: {fileID: 1395301846}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -157.97}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 75}
   m_SizeDelta: {x: 1920, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &712590011
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 676a1c4eada60a44f971e51f14b4c7d0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 049e0888566fe464891a7b109d6780db, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441482e8936e35048a1dffac814e3ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Profile: {fileID: 11400000, guid: a396eed182ef90e429f5e1c090af43b9, type: 2}
+  m_Profile: {fileID: 0}
   m_StaticLightingSkyUniqueID: 0
   m_SkySettings: {fileID: 0}
   m_SkySettingsFromProfile: {fileID: 0}
@@ -942,7 +942,7 @@ TerrainCollider:
   m_GameObject: {fileID: 1465626528}
   m_Material: {fileID: 0}
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: 225d47dc99561e0438e1d0cd514ac529, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 684e2a16689e92b43be0daede623b910, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &1465626530
 Terrain:
@@ -953,7 +953,7 @@ Terrain:
   m_GameObject: {fileID: 1465626528}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 225d47dc99561e0438e1d0cd514ac529, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 684e2a16689e92b43be0daede623b910, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -1109,18 +1109,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1548364607}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 825415387}
-        m_MethodName: quitGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1548364607
 MonoBehaviour:
   m_ObjectHideFlags: 0

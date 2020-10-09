@@ -9,10 +9,10 @@ namespace efe {
 [CreateAssetMenu(menuName = "Spells/Create new...")]
 public class spellSO : ScriptableObject
 {   
+    public GameObject overwriteParticles;
+    public bool useOverwrite;
 
-
-    public enum targetHandling { area, single, line, self, 
-        closestAlly, closestEnemy }
+    public enum targetHandling { area, single, self}
 
     public enum skillShape { sphere, cube} // DONE
     // public enum types { passive, activeInstant, activeToMouse } // TODO

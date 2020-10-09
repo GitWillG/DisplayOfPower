@@ -26,7 +26,7 @@ namespace efe
         public GameObject _levelcategory;
         public GameObject _worldcategory;
         public gameStates curGameState;
-        //bool onWorld = false;
+        // bool onWorld = false;
         // TODO - causes stack overflow investigate
         // bool onWorld{get {return onWorld; } set{onWorld = false;}}
         cameraControl_freeroam cc;

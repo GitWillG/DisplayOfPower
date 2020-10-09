@@ -75,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: spells.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
@@ -86,6 +86,18 @@ PrefabInstance:
     - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: spells.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b1f48f95abf31b40bc8303f1e26d450,
+        type: 2}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: spells.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: cc79de48410ecf94dafc805d17433e15,
+        type: 2}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: spells.Array.data[3]
       value: 
       objectReference: {fileID: 11400000, guid: 127b518b08de14647831a7da2b6a59aa,
         type: 2}
