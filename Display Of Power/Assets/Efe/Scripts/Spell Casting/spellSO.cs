@@ -13,6 +13,7 @@ public class spellSO : ScriptableObject
     public bool useOverwrite;
 
     public enum targetHandling { area, single, self}
+    public enum allowedTargets {ally, enemy}
 
     public enum skillShape { sphere, cube} // DONE
     // public enum types { passive, activeInstant, activeToMouse } // TODO
@@ -71,6 +72,7 @@ public class spellSO : ScriptableObject
     [Header("Target Parameters")]
     [Space(10)]
     public targetHandling SkillTargetHandling;
+    public allowedTargets allowedTarget;
 
     // Animation the caster rigged gameobject will play
     [Header("Animation Info")]

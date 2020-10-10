@@ -354,7 +354,8 @@ public class MouseControl : MonoBehaviour
         GridOb.allyList.Remove(deadUnit);
         GridOb.enemyList.Remove(deadUnit);
         GridOb.turnOrder.Remove(deadUnit);
-        Destroy(deadUnit);
+
+        Destroy(deadUnit, 5);
 
 
     }

@@ -50,39 +50,39 @@ public class rigHumanoid : MonoBehaviour
 
     public void initializeGear()
     {
-        if(curBoots != null)
-        {
-            GameObject spawned = Instantiate(curBoots.itemMesh, l_boots_bone.transform.position, Quaternion.identity);
-            mirrorItemToBone(curBoots);
-            spawned.transform.parent = l_boots_bone.transform;
-            // parentedObjects.Add(spawned);
-        }
-        if(curGlove != null)
-        {
-            GameObject spawned = Instantiate(curGlove.itemMesh, l_glove_bone.transform.position, Quaternion.identity);
-            spawned.transform.parent = l_glove_bone.transform;
-            mirrorItemToBone(curGlove);
-            // parentedObjects.Add(spawned);
-        }
-        if(curArmorSet != null)
-        {
-            GameObject spawned = Instantiate(curArmorSet.itemMesh, armor_set_bone.transform.position, Quaternion.identity);
+        // if(curBoots != null)
+        // {
+        //     GameObject spawned = Instantiate(curBoots.itemMesh, l_boots_bone.transform.position, Quaternion.identity);
+        //     mirrorItemToBone(curBoots);
+        //     spawned.transform.parent = l_boots_bone.transform;
+        //     // parentedObjects.Add(spawned);
+        // }
+        // if(curGlove != null)
+        // {
+        //     GameObject spawned = Instantiate(curGlove.itemMesh, l_glove_bone.transform.position, Quaternion.identity);
+        //     spawned.transform.parent = l_glove_bone.transform;
+        //     mirrorItemToBone(curGlove);
+        //     // parentedObjects.Add(spawned);
+        // }
+        // if(curArmorSet != null)
+        // {
+        //     GameObject spawned = Instantiate(curArmorSet.itemMesh, armor_set_bone.transform.position, Quaternion.identity);
 
-            spawned.transform.position = new Vector3(
-                armor_set_bone.transform.position.x, 
-                armor_set_bone.transform.position.y - armor_set_bone.transform.position.y, 
-                armor_set_bone.transform.position.z);
+        //     spawned.transform.position = new Vector3(
+        //         armor_set_bone.transform.position.x, 
+        //         armor_set_bone.transform.position.y - armor_set_bone.transform.position.y, 
+        //         armor_set_bone.transform.position.z);
 
-            spawned.transform.parent = armor_set_bone.transform;
-            // parentedObjects.Add(spawned);
-        }
-        if(curHelmet != null)
-        {
-            GameObject spawned = Instantiate(curHelmet.itemMesh, helmet_bone.transform.position, Quaternion.identity);
-            spawned.transform.parent = helmet_bone.transform;
-            // parentedObjects.Add(spawned);
-        }
-        // Debug.Log("Initiliazed NPC gear.");
+        //     spawned.transform.parent = armor_set_bone.transform;
+        //     // parentedObjects.Add(spawned);
+        // }
+        // if(curHelmet != null)
+        // {
+        //     GameObject spawned = Instantiate(curHelmet.itemMesh, helmet_bone.transform.position, Quaternion.identity);
+        //     spawned.transform.parent = helmet_bone.transform;
+        //     // parentedObjects.Add(spawned);
+        // }
+        // // Debug.Log("Initiliazed NPC gear.");
     }
 
     void mirrorItemToBone(itemSO item)

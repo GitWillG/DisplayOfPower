@@ -32,6 +32,8 @@ public class GUIManager : MonoBehaviour
     // [Range(-1000, 1000)]
     public Vector3 offsetTooltip;
     Vector2 tooltipSpawnPosition;
+
+    public GameObject effectNotification3D_text;
     
     // Start is called before the first frame update
     void Start()
@@ -64,7 +66,7 @@ public class GUIManager : MonoBehaviour
         {
             tooltip_skill.transform.position = Input.mousePosition + offsetTooltip;
             float distance = Vector2.Distance(tooltip_skill.transform.position, tooltipSpawnPosition);
-            if(distance > 50)
+            if(distance > 25)
             {
                 hideTooltip();
             }
@@ -176,6 +178,7 @@ public class GUIManager : MonoBehaviour
         // Debug.Log(GUI.name + " closed.");
     }
 
+    // used for fast forwarding buttons
     public void speedTime(float time)
     {
         Time.timeScale = time;
@@ -183,13 +186,15 @@ public class GUIManager : MonoBehaviour
 
     public void showTooltip(int index)
     {
-        tooltip_skill.SetActive(true);
-        tooltipSpawnPosition = Input.mousePosition + offsetTooltip;
-        Debug.Log("Showing tooltip...");
-        
-        if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index] != null)
+
+
+        spellSO curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index];
+        if(curSpell != null)
         {
-            spellSO curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index];
+            tooltip_skill.SetActive(true);
+            tooltipSpawnPosition = Input.mousePosition + offsetTooltip;
+            // Debug.Log("Showing tooltip..." + index);
+
             tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = curSpell.spellName;
             if(curSpell.SkillTargetHandling == spellSO.targetHandling.area)
             {

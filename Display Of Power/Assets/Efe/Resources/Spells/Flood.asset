@@ -15,8 +15,8 @@ MonoBehaviour:
   overwriteParticles: {fileID: 0}
   useOverwrite: 0
   spellID: 1728
-  spellName: Fireball
-  effectAmount: 10
+  spellName: Flood
+  effectAmount: 35
   effectType: 0
   cooldown: 1
   castingDuration: 1
