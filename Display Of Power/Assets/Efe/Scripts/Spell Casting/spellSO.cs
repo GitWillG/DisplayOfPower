@@ -47,6 +47,7 @@ public class spellSO : ScriptableObject
     public float castingDuration; // DONE
     public float delayPostCast; // DONE
     public float spellMoveSpeed; // DONE
+    public int spellRange;
 
 
     // GUI
