@@ -157,6 +157,8 @@ public class EnemySpawn : MonoBehaviour
             teamFeedbackObjects[0].transform.parent = newEnemy.transform;
             
         }
+
+        
         
     }
 

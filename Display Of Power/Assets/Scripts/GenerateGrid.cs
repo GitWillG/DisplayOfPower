@@ -78,10 +78,13 @@ public class GenerateGrid : MonoBehaviour
     public GameObject blockade;
 
     public List<GameObject> blockedHexes;
+    GUIManager guim;
 
     // Start is called before the first frame update
     void Start()
-    {   ///
+    {   
+        guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
+        ///
         allySpawnHexes = new List<GameObject>();
         enemySpawnHexes = new List<GameObject>();
         hexesSpawned = 0;
@@ -105,7 +108,7 @@ public class GenerateGrid : MonoBehaviour
         enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
         hasStarted = true;
      
-
+        guim.initializeHealthBars();
         //enemySpawn.SpawnEnemies(5, enemySpawn.allyPrefab, allyList);
         //enemySpawn.SpawnEnemies(5, enemySpawn.enemyPrefab, enemyList);
     }

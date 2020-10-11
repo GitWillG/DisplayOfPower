@@ -24,6 +24,7 @@ public class spellManager : MonoBehaviour
     string curCastType;
     public bool castPreviewEnabled = false;
     spellSO curSpell;
+    public GameObject spellCollisionObject;
 
     // Start is called before the first frame update
     void Start()
@@ -350,6 +351,10 @@ public class spellManager : MonoBehaviour
             );
             // Used for tracking in update
             projectile.tag = "Projectile";
+            // Add spellCollision object and parent
+            // Used for detecting any props
+            GameObject spellColl = Instantiate(spellCollisionObject, projectile.transform.position, Quaternion.identity);
+            spellColl.transform.parent = projectile.transform;
             // Add projectileData to projectile to store target and source
             projectileData projData = projectile.AddComponent<projectileData>();
             projData.source = source;
@@ -363,12 +368,16 @@ public class spellManager : MonoBehaviour
             // Spawn aura and attach
             GameObject aura = Instantiate(spellData.skillAura.gameObject, projectile.transform.position, Quaternion.identity);
             aura.transform.parent = projectile.transform;
-            // Give material
-            projectile.GetComponent<Renderer>().material = _baseMaterial;
-            //Recolor
-            projectile.GetComponent<Renderer>().material.color = spellData.baseColor;
-            // Debug
-            // Debug.Log("Spell casted.");
+            if(spellData.visualizationMethod == spellSO.visualType.material)
+            {
+                // Give material
+                projectile.GetComponent<Renderer>().material = _baseMaterial;
+            }
+            else
+            {
+                //Recolor
+                projectile.GetComponent<Renderer>().material.color = spellData.baseColor;
+            }
         }
         
     }

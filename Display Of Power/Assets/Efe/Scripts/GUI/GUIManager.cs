@@ -34,6 +34,7 @@ public class GUIManager : MonoBehaviour
     Vector2 tooltipSpawnPosition;
 
     public GameObject effectNotification3D_text;
+    public GameObject healthBar;
     
     // Start is called before the first frame update
     void Start()
@@ -162,6 +163,17 @@ public class GUIManager : MonoBehaviour
     }
 
   
+    public void initializeHealthBars()
+    {
+        GameObject[] NPCs = GameObject.FindGameObjectsWithTag("NPC");
+        foreach(GameObject temp in NPCs)
+        {
+            GameObject bar = Instantiate(healthBar, temp.transform.position, Quaternion.identity);
+            bar.transform.parent = temp.transform;
+        }
+    }
+
+    
 
     public void openGUI(GameObject GUI)
     {
