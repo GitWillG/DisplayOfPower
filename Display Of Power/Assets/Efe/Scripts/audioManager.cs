@@ -19,7 +19,7 @@ public class audioManager : MonoBehaviour
         
     }
 
-    public void playAudio(AudioSource targetAudio)
+    public static void playAudio(AudioSource targetAudio)
     {
         targetAudio.Play();
     }

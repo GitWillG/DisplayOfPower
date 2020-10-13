@@ -328,6 +328,7 @@ public class spellManager : MonoBehaviour
             if(spellData.useOverwrite)
             {
                 projectile = Instantiate(spellData.overwriteParticles, source.transform.position, Quaternion.identity);
+                Debug.Log("Overwritten.");
             }
             else
             {
@@ -366,8 +367,11 @@ public class spellManager : MonoBehaviour
             // Editor usage
             projectile.name = "Projectile from " + spellData.spellName + " " + spellData.spellID;
             // Spawn aura and attach
-            GameObject aura = Instantiate(spellData.skillAura.gameObject, projectile.transform.position, Quaternion.identity);
-            aura.transform.parent = projectile.transform;
+            if(spellData.skillAura != null)
+            {
+                GameObject aura = Instantiate(spellData.skillAura.gameObject, projectile.transform.position, Quaternion.identity);
+                aura.transform.parent = projectile.transform;
+            }
             if(spellData.visualizationMethod == spellSO.visualType.material)
             {
                 // Give material
@@ -379,6 +383,7 @@ public class spellManager : MonoBehaviour
                 projectile.GetComponent<Renderer>().material.color = spellData.baseColor;
             }
         }
+        Debug.Log("Cast" + spellData.spellName);
         
     }
 }

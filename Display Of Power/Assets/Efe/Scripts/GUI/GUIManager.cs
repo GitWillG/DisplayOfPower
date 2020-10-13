@@ -143,23 +143,23 @@ public class GUIManager : MonoBehaviour
         // {
         //     openGUI(characterWeb);
         // }
-        // if(Input.GetKeyDown(KeyCode.Escape))
-        // {
-        //     GameObject[] GUIs = GameObject.FindGameObjectsWithTag("GUI");
-        //     if(GUIs == null)
-        //     {
-        //         // open escape menu
-        //         openGUI(escapeMenu);
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameObject[] GUIs = GameObject.FindGameObjectsWithTag("GUI");
+            if(GUIs == null)
+            {
+                // open escape menu
+                openGUI(escapeMenu);
                 
-        //     }
-        //     else
-        //     {
-        //         foreach(GameObject temp in GUIs)
-        //         {
-        //             temp.SetActive(false);
-        //         }
-        //     }
-        // }
+            }
+            else
+            {
+                foreach(GameObject temp in GUIs)
+                {
+                    temp.SetActive(false);
+                }
+            }
+        }
     }
 
   

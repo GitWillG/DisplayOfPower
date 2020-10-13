@@ -48,4 +48,9 @@ public class lightManager : MonoBehaviour
     {
 
     }
+
+    public void applyNight()
+    {
+        
+    }
 }

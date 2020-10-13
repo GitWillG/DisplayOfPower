@@ -93,12 +93,15 @@ public class spellSO : ScriptableObject
     [Header("Particle Parameters")]
     [Space(10)]
     // The particle that will spawn on caster
-    public ParticleSystem casterParticle;
+    public GameObject casterParticle;
     // public bool trailWaitForCaster; // TODO
     // The particle that will move to target
-    public ParticleSystem targetParticle;
+    public GameObject targetParticle;
     // public bool returnTrailAfterEnd;
 
+    [Header("Audio")]
+    public AudioSource castSFX;
+    public AudioSource impactSFX;
 
     // Screen Effects
 

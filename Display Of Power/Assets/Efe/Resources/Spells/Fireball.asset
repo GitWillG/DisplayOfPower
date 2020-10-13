@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a488d22c1496284a8ea28aedee4bed7, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  overwriteParticles: {fileID: 1042962290400280, guid: 45f134f709433794c9fd82ae5c0d5009,
+  overwriteParticles: {fileID: 1758863767508122, guid: 482d1b03634169d4b965867e2965b19c,
     type: 3}
   useOverwrite: 1
   spellID: 1728
@@ -22,7 +22,8 @@ MonoBehaviour:
   cooldown: 1
   castingDuration: 1
   delayPostCast: 1
-  spellMoveSpeed: 5
+  spellMoveSpeed: 3
+  spellRange: 0
   spellIcon: {fileID: 21300000, guid: 0e0fcf5253592454498daebc77f755a8, type: 3}
   SkillNature: 2
   shape: 0
@@ -30,17 +31,17 @@ MonoBehaviour:
   baseColor: {r: 0.9944883, g: 1, b: 0.10849059, a: 0}
   baseMaterial: {fileID: 0}
   sizeMultiplier: 1
-  skillAura: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
-    type: 3}
+  skillAura: {fileID: 0}
   SkillTargetHandling: 1
-  SkillCasterAnimation: 1
+  allowedTarget: 1
+  SkillCasterAnimation: 0
   playEndAnimation: 0
   SkillEndAnimation: 0
-  heightFromGroundLevel: 1
+  heightFromGroundLevel: 2
   spawnAmount: 0
   casterParticle: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
     type: 3}
-  targetParticle: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
+  targetParticle: {fileID: 1614009984883388, guid: e60108672d125184eadba4a9fd0ff561,
     type: 3}
   resizeCasterUponCast: 0
   resizeCasterUponEnd: 0

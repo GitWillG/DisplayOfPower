@@ -22,6 +22,14 @@ namespace efe{
         public factionSO ownerFaction;
         public dialogSO defaultDialog;
 
+        [Header("Audio")]
+        public AudioSource click_voice;
+        public AudioSource move_voice;
+        public AudioSource takehit_voice;
+        public AudioSource death_voice;
+        public AudioSource order_attack_voice;
+        public AudioSource attack_voice;
+
         [Header("Quests")]
         public List<questItem> actorQuests;
         public bool hasQuest;
