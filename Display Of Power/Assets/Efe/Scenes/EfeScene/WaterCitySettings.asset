@@ -411,7 +411,6 @@ MonoBehaviour:
   - {fileID: -822585539952645831}
   - {fileID: -4321467015268133302}
   - {fileID: 4180127718593263172}
-  - {fileID: 2598765571127712979}
   - {fileID: 8345214264813381707}
 --- !u!114 &2489269728458004942
 MonoBehaviour:
@@ -636,7 +635,7 @@ MonoBehaviour:
     m_Value: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 1
     min: 0
   maximumVelocity:
     m_OverrideState: 1
