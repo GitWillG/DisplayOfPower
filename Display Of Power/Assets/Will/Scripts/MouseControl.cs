@@ -311,7 +311,7 @@ public class MouseControl : MonoBehaviour
             //movement
             GameObject currentChar = selectedTarget.transform.GetChild(0).gameObject;
 
-            if (transformSelected != null && Input.GetMouseButtonUp(0) && isMove && transformSelected.childCount <= 0 && currentChar.GetComponent<prefabUnits>().actionsRemaining >0)
+            if (transformSelected != null && Input.GetMouseButtonUp(0) && isMove && transformSelected.childCount <= 0 && currentChar.GetComponent<prefabUnits>().actionsRemaining >0 && currentChar.GetComponent<prefabUnits>().isTurn)
             {
                 if (selectedTarget != null )
                 {
@@ -329,7 +329,7 @@ public class MouseControl : MonoBehaviour
             //attack
 
 
-            else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && currentChar.GetComponent<prefabUnits>().actionsRemaining > 0)
+            else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && currentChar.GetComponent<prefabUnits>().actionsRemaining > 0 && currentChar.GetComponent<prefabUnits>().isTurn)
             {
                 this.gameObject.GetComponent<BestClickToMove>().ClickAttack(selectedTarget.GetChild(0).gameObject, transformSelected.gameObject);
                 selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
