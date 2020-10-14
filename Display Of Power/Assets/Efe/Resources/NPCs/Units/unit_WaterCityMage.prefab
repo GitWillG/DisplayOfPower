@@ -65,7 +65,7 @@ PrefabInstance:
     - target: {fileID: 1863947349140452884, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: m_Name
-      value: Mage
+      value: unit_WaterCityMage
       objectReference: {fileID: 0}
     - target: {fileID: 2623307384217085597, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
@@ -101,6 +101,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 127b518b08de14647831a7da2b6a59aa,
         type: 2}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: actorName
+      value: Water City Mage
+      objectReference: {fileID: 0}
     - target: {fileID: 4627312191918277055, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: m_IsActive

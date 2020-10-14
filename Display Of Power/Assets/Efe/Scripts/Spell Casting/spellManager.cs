@@ -52,11 +52,17 @@ public class spellManager : MonoBehaviour
                 if(distance < 1)
                 {
                     Destroy(projectile);
-                    projData.target.GetComponent<Animator>().SetTrigger("takeHit");
                     projData.target.GetComponent<prefabUnits>().Life -= projData.referenceSpell.effectAmount;
+
+                    // Kill if hp is lower than 0
                     if(projData.target.GetComponent<prefabUnits>().Life <= 0)
                     {
+                        projData.target.GetComponent<Animator>().SetTrigger("Die");
                         mc.killUnit(projData.target);
+                    }
+                    else
+                    {
+                        projData.target.GetComponent<Animator>().SetTrigger("takeHit");
                     }
                     // Debug.Log("Projectile destroyed.");
 

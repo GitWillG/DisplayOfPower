@@ -96,21 +96,21 @@ public class GenerateGrid : MonoBehaviour
         allyList = new List<GameObject>();
         hexArray = new GameObject[Width, Depth];
         gridGeneration();
-        
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
 
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "ally");
 
-
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyPrefab, enemySpawnHexes, "enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "enemy");
         hasStarted = true;
      
         guim.initializeHealthBars();
+
+        addPropsRandomly(blockade);
         //enemySpawn.SpawnEnemies(5, enemySpawn.allyPrefab, allyList);
         //enemySpawn.SpawnEnemies(5, enemySpawn.enemyPrefab, enemyList);
     }
@@ -128,13 +128,13 @@ public class GenerateGrid : MonoBehaviour
 
             if (allyList.Count <= 0)
             {
-                Debug.Log("you lose");
+                // Debug.Log("you lose");
                 hasStarted = false;
                 Instantiate(DefeatScreen, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
             }
             else if (enemyList.Count <= 0)
             {
-                Debug.Log("you win");
+                // Debug.Log("you win");
                 hasStarted = false;
                 Instantiate(VictoryScreen, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
             }
@@ -485,16 +485,16 @@ public class GenerateGrid : MonoBehaviour
             // Debug.Log("test2");
            
             // Show whose turn
-            // GameObject tempTurn = Instantiate(turnNotification, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
-            // if(turnOrder[k].GetComponent<prefabUnits>().Factions == "Ally")
-            // {
-            //     tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "Player's Turn";
-            // }
-            // else
-            // {
-            //     tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "AI's Turn";
-            // }
-            // Destroy(tempTurn, 4);
+            GameObject tempTurn = Instantiate(turnNotification, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
+            if(turnOrder[k].GetComponent<prefabUnits>().Factions == "Ally")
+            {
+                tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "Player's Turn";
+            }
+            else
+            {
+                tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "AI's Turn";
+            }
+            Destroy(tempTurn, 4);
         }
 
       

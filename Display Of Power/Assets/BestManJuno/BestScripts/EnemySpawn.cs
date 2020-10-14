@@ -8,7 +8,7 @@ public class EnemySpawn : MonoBehaviour
 {
 
     //Prefab is set through editor
-    public GameObject enemyPrefab;
+    [Header("References")]
     public GenerateGrid grid;
 
     //array for the hexes spawned on the map
@@ -18,13 +18,19 @@ public class EnemySpawn : MonoBehaviour
     //number of enemies to be spawned
     int numOfEnemies;
     GameObject newEnemy;
+    [Header("Available Units")]
     public GameObject allyPrefab;
+    public GameObject enemyPrefab;
+    public List<GameObject> allyUnits;
+    public List<GameObject> enemyUnits;
+    [Header("Backend")]
     public GameObject[] teamFeedbackObjects;
 
     /// <summary>
     GameObject[] targetHexes;
     /// </summary>
 
+    [Header("GUI")]
     public TMP_InputField numOfBads;
 
     [ContextMenu("Spawn Enemy")]
