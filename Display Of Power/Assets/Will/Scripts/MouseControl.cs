@@ -73,7 +73,12 @@ public class MouseControl : MonoBehaviour
     }
 
     private void Update()
-    {   
+    {
+        if(GridOb.currTurn != null)
+        {
+            GridOb.currTurn.GetComponent<Renderer>().material = hoveredMat;
+
+        }
 
         if(selectedTarget != null)
         {
@@ -254,6 +259,7 @@ public class MouseControl : MonoBehaviour
             swapRange();
             removeRangeInd();
             isMoving = false;
+            GridOb.currTurn = GridOb.turnOrder[GridOb.k].transform.parent.gameObject;
         }
     }
 

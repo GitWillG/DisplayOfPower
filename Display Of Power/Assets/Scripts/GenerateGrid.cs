@@ -13,6 +13,7 @@ public class GenerateGrid : MonoBehaviour
     [Header("Spawn Parameters")]
     //nnumber of tiles along x axis of grid
     public int Width;
+    public GameObject currTurn;
     //number of tiles along z axis of grid
     public int Depth;
     // public CubeUnit cubeclass;
@@ -451,10 +452,10 @@ public class GenerateGrid : MonoBehaviour
             mouseControl.swapRange();
             mouseControl.removeRangeInd();
         }
-        if (k >= turnOrder.Count - 1)
-        {
-            k = 0;
-        }
+        //if (k >= turnOrder.Count - 1)
+        //{
+        //    k = 0;
+        //}
         if (turnOrder[k].GetComponent<prefabUnits>().actionsRemaining == 0)
         {
             turnOrder[k].GetComponent<prefabUnits>().actionsRemaining = turnOrder[k].GetComponent<prefabUnits>().TotalActions;
@@ -473,6 +474,7 @@ public class GenerateGrid : MonoBehaviour
         }
         mouseControl.hoveredTarget = turnOrder[k].transform.parent;
         turnOrder[k].GetComponent<prefabUnits>().isTurn = true;
+        currTurn = turnOrder[k].transform.parent.gameObject;
         if (turnOrder[k].GetComponent<prefabUnits>().isTurn == true)
         {
 
@@ -524,7 +526,7 @@ public class GenerateGrid : MonoBehaviour
             turnOrder[k].GetComponent<prefabUnits>().actionsRemaining = 0;
             //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
         }
-        Debug.Log("test");
+        
         NextTurn();
     }
 
