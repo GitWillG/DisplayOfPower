@@ -96,6 +96,7 @@ public class GenerateGrid : MonoBehaviour
         allyList = new List<GameObject>();
         hexArray = new GameObject[Width, Depth];
         gridGeneration();
+        
         enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
         enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");
         enemySpawn.SpawnSpecificLocation(enemySpawn.allyPrefab, allySpawnHexes, "ally");

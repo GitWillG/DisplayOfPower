@@ -24,6 +24,7 @@ public class GUIManager : MonoBehaviour
     public GameObject escapeMenu;
     // gameManager gm;
     GameObject HUDReference;
+    spellManager sm;
 
     public Image[] skill_slots;
     MouseControl mc;
@@ -40,6 +41,10 @@ public class GUIManager : MonoBehaviour
     public GameObject logAligner;
     public GameObject logText;
 
+    [Header("Initiative Bar")]
+    public GameObject initiativeSprite;
+    public GameObject initiativeAligner;
+
     
     // Start is called before the first frame update
     void Start()
@@ -48,6 +53,7 @@ public class GUIManager : MonoBehaviour
         // gm = GameObject.FindGameObjectWithTag("GM").GetComponent<gameManager>();
         // isHUDopen = true;
         mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
+        sm = GameObject.FindGameObjectWithTag("GM").GetComponent<spellManager>();
         Cursor.SetCursor(cursor_textures[0], Vector2.zero, CursorMode.Auto);
         // tooltip_skill = Instantiate(tooltip_skill, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
         // tooltip_skill.transform.parent = battleGUI.transform;
@@ -95,9 +101,6 @@ public class GUIManager : MonoBehaviour
             }
         }
 
-
-
-
         // if(Input.GetKeyDown(KeyCode.Q))
         // {
         //     openGUI(questLog_GUI);
@@ -134,7 +137,7 @@ public class GUIManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             GameObject[] GUIs = GameObject.FindGameObjectsWithTag("GUI");
-            if(GUIs == null)
+            if(GUIs.Length == 0)
             {
                 // open escape menu
                 openGUI(escapeMenu);
@@ -242,6 +245,9 @@ public class GUIManager : MonoBehaviour
             }
             
             tooltip_skill.transform.Find("BG").transform.Find("DamageResult").GetComponent<TextMeshProUGUI>().text = curSpell.effectAmount.ToString();
+            
+            // Sync the GUI with spell manager
+            sm.curIndexCallback = index;
         }
         else
         {

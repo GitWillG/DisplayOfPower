@@ -25,6 +25,7 @@ public class spellManager : MonoBehaviour
     public bool castPreviewEnabled = false;
     spellSO curSpell;
     public GameObject spellCollisionObject;
+    public int curIndexCallback;
 
     // Start is called before the first frame update
     void Start()
@@ -160,7 +161,7 @@ public class spellManager : MonoBehaviour
         }   
         castPreviewEnabled = true;
         Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
-        Debug.Log("Started spell preview.");
+        Debug.Log("Started spell preview. " + spellInQuestion.spellName);
         // Remove already existing previews if there is one
         // GameObject[] radiusPreviews = GameObject.FindGameObjectsWithTag("RadiusPreview");
         // if(radiusPreviews != null)
@@ -181,13 +182,13 @@ public class spellManager : MonoBehaviour
     public void startSpellPreview()
     {   
         GameObject preview;
-        if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[0].SkillTargetHandling == spellSO.targetHandling.area)
+        if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].SkillTargetHandling == spellSO.targetHandling.area)
         {   
             preview = Instantiate(circle_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[1];
 
         }
-        else if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[0].SkillTargetHandling == spellSO.targetHandling.single)
+        else if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].SkillTargetHandling == spellSO.targetHandling.single)
         {
            
             // preview = Instantiate(single_radius_preview, transform.position, Quaternion.identity);
@@ -218,7 +219,7 @@ public class spellManager : MonoBehaviour
         if(mc.lastSelectedTarget != null)
         {
             GameObject currentSelectedCharacter = mc.lastSelectedTarget.GetChild(0).gameObject;
-            curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[0];
+            curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback];
             if(castPreviewEnabled)
             {
                 if(curCastType == "Area")
@@ -317,15 +318,20 @@ public class spellManager : MonoBehaviour
             sourceAnimator.SetTrigger("Cast3");
         }
 
-    
+        if(spellData.casterParticle != null)
+        {
         // Spawn caster particle on caster
-        Instantiate(spellData.casterParticle, source.transform.position, Quaternion.identity);
+            Instantiate(spellData.casterParticle, source.transform.position, Quaternion.identity);
+        }
+        if(spellData.targetParticle != null)
+        {
         // Spawn target particle on target
-        Instantiate(spellData.targetParticle, target.transform.position, Quaternion.identity);
+            Instantiate(spellData.targetParticle, target.transform.position, Quaternion.identity);
+        }
         // Debug.Log(1);
         for(int i = 0; i <= spellData.spawnAmount; i++)
         {
-            if(spellData.useOverwrite)
+            if(spellData.useOverwrite == true)
             {
                 projectile = Instantiate(spellData.overwriteParticles, source.transform.position, Quaternion.identity);
                 Debug.Log("Overwritten.");
@@ -383,7 +389,8 @@ public class spellManager : MonoBehaviour
                 projectile.GetComponent<Renderer>().material.color = spellData.baseColor;
             }
         }
-        Debug.Log("Cast" + spellData.spellName);
+        // Debug.Log("Cast" + spellData.spellName);
+        guim.updateLog(source.name + " casted a " + spellData.spellName);
         
     }
 }
