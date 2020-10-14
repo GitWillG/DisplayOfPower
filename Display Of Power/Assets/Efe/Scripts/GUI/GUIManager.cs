@@ -35,6 +35,11 @@ public class GUIManager : MonoBehaviour
 
     public GameObject effectNotification3D_text;
     public GameObject healthBar;
+
+    [Header("Battle Log")]
+    public GameObject logAligner;
+    public GameObject logText;
+
     
     // Start is called before the first frame update
     void Start()
@@ -52,6 +57,7 @@ public class GUIManager : MonoBehaviour
         offsetTooltip.x = 115;
         offsetTooltip.y = 215;
 
+
         
 
     }   
@@ -63,6 +69,8 @@ public class GUIManager : MonoBehaviour
 
     void Update()
     {
+
+        // If distance of mouse and latest interacted skill icon is more than 25, hide tooltip
         if(tooltip_skill != null)
         {
             tooltip_skill.transform.position = Input.mousePosition + offsetTooltip;
@@ -72,25 +80,8 @@ public class GUIManager : MonoBehaviour
                 hideTooltip();
             }
         }
-        // if(mc.selectedTarget != null)
-        // {
-        //     foreach(Image temp in skill_slots)
-        //     {
-        //         temp_skillSlot tempClass = temp.GetComponent<temp_skillSlot>();
-        //         // if(!tempClass.guiChecked)
-        //         // {
-        //             actorData selectedData = mc.selectedTarget.GetChild(0).GetComponent<actorData>();
-        //             temp.sprite = selectedData.spells[0].spellIcon;
-        //             Debug.Log(selectedData + " " + temp.sprite.name);
-        //             // tempClass.guiChecked = true;
-        //         // }
-                
-        //     }
-        // }
 
-        // MOST IMPORTANT PART OF CODE,
-        // DONT REMOVE OR GAME IS CORRUPTED
-
+        // Sync skill slots with selected actor's skills
         if(mc.lastSelectedTarget != null)
         {
             // Updates the skillbar depending on current selected actor's spells
@@ -106,13 +97,6 @@ public class GUIManager : MonoBehaviour
 
 
 
-        // foreach(Image temp in skill_slots)
-        // {
-        //     if(EventSystem.current.IsPointerOverGameObject() && EventSystem.current.currentSelectedGameObject.CompareTag("slotImage"))
-        //     {
-        //         GameObject skillTooltip = Instantiate(tooltip_skill, new Vector3(temp.transform.position.x, temp.transform.position.y + 5, 0));
-        //     }
-        // }
 
         // if(Input.GetKeyDown(KeyCode.Q))
         // {
@@ -143,6 +127,10 @@ public class GUIManager : MonoBehaviour
         // {
         //     openGUI(characterWeb);
         // }
+
+
+        // Escape to remove any open GUI first
+        // Then open escape menu if there is no GUI open
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             GameObject[] GUIs = GameObject.FindGameObjectsWithTag("GUI");
@@ -162,14 +150,51 @@ public class GUIManager : MonoBehaviour
         }
     }
 
-  
+    public void updateLog(string logContent)
+    {
+        GameObject tempLog = Instantiate(logText, logAligner.transform);
+        tempLog.transform.parent = logAligner.transform;
+        tempLog.transform.SetAsFirstSibling();
+
+        TextMeshProUGUI textData = tempLog.GetComponent<TextMeshProUGUI>();
+        textData.text = "[Log]: " + logContent;
+
+        Debug.Log("New log entered :" + textData.text);
+    }
+    public void updateLog(string logContent, string logType)
+    {
+        GameObject tempLog = Instantiate(logText, logAligner.transform);
+        tempLog.transform.parent = logAligner.transform;
+        tempLog.transform.SetAsFirstSibling();
+
+        TextMeshProUGUI textData = tempLog.GetComponent<TextMeshProUGUI>();
+        textData.text = "[" + logType + "]: " + logContent;
+
+        Debug.Log("New log entered :" + textData.text);
+    }
+    public void updateLog(string logContent, string logType, Color logColor)
+    {
+        GameObject tempLog = Instantiate(logText, logAligner.transform);
+        tempLog.transform.parent = logAligner.transform;
+        tempLog.transform.SetAsFirstSibling();
+
+        TextMeshProUGUI textData = tempLog.GetComponent<TextMeshProUGUI>();
+        textData.text = "[" + logType + "]: " + logContent;
+        textData.color = logColor;
+
+        Debug.Log("New log entered :" + textData.text);
+    }
+
     public void initializeHealthBars()
     {
-        GameObject[] NPCs = GameObject.FindGameObjectsWithTag("NPC");
-        foreach(GameObject temp in NPCs)
+        if(healthBar != null)
         {
-            GameObject bar = Instantiate(healthBar, temp.transform.position, Quaternion.identity);
-            bar.transform.parent = temp.transform;
+            GameObject[] NPCs = GameObject.FindGameObjectsWithTag("NPC");
+            foreach(GameObject temp in NPCs)
+            {
+                GameObject bar = Instantiate(healthBar, temp.transform.position, Quaternion.identity);
+                bar.transform.parent = temp.transform;
+            }
         }
     }
 
@@ -194,12 +219,11 @@ public class GUIManager : MonoBehaviour
     public void speedTime(float time)
     {
         Time.timeScale = time;
+        updateLog("Time moves " + time + " times faster.");
     }
 
     public void showTooltip(int index)
     {
-
-
         spellSO curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index];
         if(curSpell != null)
         {
@@ -230,8 +254,11 @@ public class GUIManager : MonoBehaviour
 
     public void hideTooltip()
     {
-        tooltip_skill.SetActive(false);
-        Debug.Log("Tooltip hidden...");
+        if(tooltip_skill.activeInHierarchy)
+        {
+            tooltip_skill.SetActive(false);
+            Debug.Log("Tooltip hidden...");
+        }
     }
 
 }
