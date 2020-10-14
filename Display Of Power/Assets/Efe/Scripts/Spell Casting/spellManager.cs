@@ -52,18 +52,30 @@ public class spellManager : MonoBehaviour
                 if(distance < 1)
                 {
                     Destroy(projectile);
-                    projData.target.GetComponent<prefabUnits>().Life -= projData.referenceSpell.effectAmount;
 
-                    // Kill if hp is lower than 0
-                    if(projData.target.GetComponent<prefabUnits>().Life <= 0)
+
+                    // Spells like fireball...
+                    if(projData.referenceSpell.effectType == spellSO.effectTypes.substractive)
                     {
-                        projData.target.GetComponent<Animator>().SetTrigger("Die");
-                        mc.killUnit(projData.target);
+                        projData.target.GetComponent<prefabUnits>().Life -= projData.referenceSpell.effectAmount;
+                        // Kill if hp is lower than 0
+                        if(projData.target.GetComponent<prefabUnits>().Life <= 0)
+                        {
+                            projData.target.GetComponent<Animator>().SetTrigger("Die");
+                            mc.killUnit(projData.target);
+                        }
+                        else
+                        {
+                            projData.target.GetComponent<Animator>().SetTrigger("takeHit");
+                        }
                     }
+                    // Spells like healing...etc
                     else
                     {
-                        projData.target.GetComponent<Animator>().SetTrigger("takeHit");
+                        projData.target.GetComponent<prefabUnits>().Life += projData.referenceSpell.effectAmount;
                     }
+
+
                     // Debug.Log("Projectile destroyed.");
 
                     factionSO sourceFaction = projData.source.GetComponent<actorData>().ownerFaction;

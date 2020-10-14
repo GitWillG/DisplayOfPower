@@ -33067,7 +33067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4291914686442718}
   m_Layer: 0
-  m_Name: Effect9
+  m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33344,7 +33344,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1.5594e-41, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 5.9959e-41, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -33508,7 +33508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4002703410192104
 Transform:
   m_ObjectHideFlags: 0

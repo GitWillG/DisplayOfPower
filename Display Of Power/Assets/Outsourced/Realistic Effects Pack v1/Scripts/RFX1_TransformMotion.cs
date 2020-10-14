@@ -80,11 +80,11 @@ public class RFX1_TransformMotion : MonoBehaviour
 
     void Update()
     {
-        if (!dropFirstFrameForFixUnityBugWithParticles)
-        {
-            UpdateWorldPosition();
-        }
-        else dropFirstFrameForFixUnityBugWithParticles = false;
+        // if (!dropFirstFrameForFixUnityBugWithParticles)
+        // {
+        //     UpdateWorldPosition();
+        // }
+        // else dropFirstFrameForFixUnityBugWithParticles = false;
     }
 
     void UpdateWorldPosition()
