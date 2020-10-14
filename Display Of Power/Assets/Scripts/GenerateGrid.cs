@@ -486,6 +486,7 @@ public class GenerateGrid : MonoBehaviour
            
             // Show whose turn
             GameObject tempTurn = Instantiate(turnNotification, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
+            tempTurn.transform.parent = guim.battleGUI.transform;
             if(turnOrder[k].GetComponent<prefabUnits>().Factions == "Ally")
             {
                 tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "Player's Turn";

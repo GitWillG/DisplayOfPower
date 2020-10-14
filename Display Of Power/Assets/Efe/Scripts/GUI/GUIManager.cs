@@ -15,6 +15,7 @@ public class GUIManager : MonoBehaviour
     public GameObject locationMap_GUI;
     public GameObject questTaken_GUI;
     public GameObject questLog_GUI;
+    public GameObject options_GUI;
     public GameObject factionPage_GUI;
     public GameObject partyEntrance_GUI;
     public GameObject inventory_GUI;
@@ -148,6 +149,11 @@ public class GUIManager : MonoBehaviour
                 foreach(GameObject temp in GUIs)
                 {
                     temp.SetActive(false);
+                    
+                    if(Time.timeScale == 0)
+                    {
+                        Time.timeScale = 1;
+                    }
                 }
             }
         }
@@ -208,6 +214,7 @@ public class GUIManager : MonoBehaviour
         Instantiate(GUI, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
         gameManager.curGUI = GUI;
         // gm.changeField("HUD");
+        Time.timeScale = 0;
         Debug.Log(GUI.name + " opened.");
     }
     public void closeGUI(GameObject GUI)

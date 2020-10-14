@@ -16,7 +16,7 @@ public class settingsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        curEvent = EventSystem.current;
+        // curEvent = EventSystem.current;
         gameMuted = false;
     }
 

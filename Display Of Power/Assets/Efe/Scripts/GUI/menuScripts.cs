@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using efe;
+using UnityEngine.SceneManagement;
 
 namespace efe{
     public class menuScripts : MonoBehaviour
@@ -80,14 +81,6 @@ namespace efe{
         public void enterLocation(bool generationToSend)
         {
             lm.enterLocation(generationToSend);
-        }
-
-        public void updateLog(string targetString)
-        {
-            foreach(TextMeshProUGUI temp in logTexts)
-            {
-                temp.text = targetString;
-            }
         }
 
         public void leaveLocation()
@@ -255,6 +248,11 @@ namespace efe{
                 ); 
                 icon.transform.parent = webCharParent.transform;
             }
+        }
+
+        public void returnToMainMenu()
+        {
+            SceneManager.LoadScene("masterMainMenu");
         }
 
         public void quitGame()
