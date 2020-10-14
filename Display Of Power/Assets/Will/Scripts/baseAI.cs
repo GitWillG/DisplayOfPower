@@ -23,28 +23,35 @@ public class baseAI : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
+    {
         if (self.isTurn && !self.belongsToPlayer)
         {
+            int check = Random.Range(0, 2);
             mouseController.endTurnBTN.SetActive(false);
-            if (target == null)
+            if (check == 0 || target == null)
             {
                 findClosest();
             }
-            if (mouseController.doneMoving)
+            //if(check == 2)
+            //{
+            //    gridOb.EndTurn();
+            //}
+            else
             {
-                
-                if (self.actionsRemaining > 0)
+                if (mouseController.doneMoving)
                 {
 
-                    mouseController.moveAttackSwap();
-                    for (int i = 0; i< gridOb.legalHex.Count; i++)
+                    if (self.actionsRemaining > 0)
                     {
-                        
-                        if (gridOb.legalHex[i].transform.childCount > 0 && gridOb.legalHex[i].transform.GetChild(0).GetComponent<prefabUnits>().Factions == "Ally")
+
+                        mouseController.moveAttackSwap();
+                        for (int i = 0; i < gridOb.legalHex.Count; i++)
                         {
-                            //Debug.Log("checkattack");
-                            
+
+                            if (gridOb.legalHex[i].transform.childCount > 0 && gridOb.legalHex[i].transform.GetChild(0).GetComponent<prefabUnits>().Factions == "Ally")
+                            {
+                                //Debug.Log("checkattack");
+
                                 clickActions.ClickAttack(self.gameObject, gridOb.legalHex[i]);
                                 self.actionsRemaining -= 1;
                                 Debug.Log("Dealt 5 damage to" + gridOb.legalHex[i].transform.GetChild(0).gameObject);
@@ -59,26 +66,26 @@ public class baseAI : MonoBehaviour
                                     gridOb.EndTurn();
                                     mouseController.endTurnBTN.SetActive(true);
                                 }
-                            return;
-                            
+                                return;
+
+                            }
+
+
                         }
+                        mouseController.moveAttackSwap();
+
+                        mouseController.selectHex(this.transform.parent.gameObject);
+                        mouseController.doneMoving = false;
+                        //mouseController.selectedTarget = this.transform.parent;
+                        //Debug.Log(self.actionsRemaining);
+                        closeDistance();
 
 
                     }
-                    mouseController.moveAttackSwap();
-
-                    mouseController.selectHex(this.transform.parent.gameObject);
-                    mouseController.doneMoving = false;
-                    //mouseController.selectedTarget = this.transform.parent;
-                    //Debug.Log(self.actionsRemaining);
-                    closeDistance();
-
-
                 }
-            }
 
+            }
         }
-        
     }
 
     private void findClosest()
