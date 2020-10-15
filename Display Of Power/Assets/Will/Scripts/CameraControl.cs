@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using efe;
 
 public class CameraControl : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class CameraControl : MonoBehaviour
     private float zoomSpeed = 3f;
     GameObject objectToPan;
     bool isPanning = false;
+    
+    float camMoveSpeed = 3;
     void Start()
     {
         //Get the scenes main camera
@@ -103,24 +106,29 @@ public class CameraControl : MonoBehaviour
             m_Camera.fieldOfView = currentFOV;
         }
         // Panning is true
-        else
+        else if(isPanning)
         {
-            float distance = Vector3.Distance(m_Camera.transform.position, objectToPan.transform.position);
-            if(distance > 3)
-            {
-                Vector3 panPosition = new Vector3
-                (
-                    objectToPan.transform.position.x,
-                    m_Camera.transform.position.y,
-                    objectToPan.transform.position.z
-                );
-            }
-            else
-            {
-                isPanning = false;
-            }
+
+            Vector3 panPosition = new Vector3
+            (
+                objectToPan.transform.position.x - 5,
+                m_Camera.transform.position.y,
+                objectToPan.transform.position.z - 5
+            );
+            m_Camera.transform.position = Vector3.MoveTowards(m_Camera.transform.position, panPosition, 1);
+            
+                if(Vector3.Distance(m_Camera.transform.position, panPosition) <= 3)
+                {
+                   StartCoroutine("resetPan", 1);
+                }
         }
 
 
+    }
+
+    IEnumerator resetPan(float time)
+    {
+        yield return new WaitForSeconds(time);
+        isPanning = false;
     }
 }

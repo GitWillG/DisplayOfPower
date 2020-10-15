@@ -7,6 +7,7 @@ using UnityEngine.AI;
 using UnityEngine.PlayerLoop;
 using TMPro;
 using efe;
+using UnityEngine.UI;
 
 public class GenerateGrid : MonoBehaviour
 {
@@ -81,6 +82,10 @@ public class GenerateGrid : MonoBehaviour
 
     public List<GameObject> blockedHexes;
     GUIManager guim;
+    
+    [Header("Initiative Bar")]
+    public GameObject initiativeSprite;
+    public GameObject initiativeAligner;
 
     // Start is called before the first frame update
     void Start()
@@ -499,7 +504,28 @@ public class GenerateGrid : MonoBehaviour
             Destroy(tempTurn, 4);
         }
 
+        // update initiatve GUI with turn order
+        // Initiative bar
+        for(int z = 0; z < turnOrder.Count; z++)
+        {
+            createInitiativeSprite(turnOrder[z]);
+
+        }
+
       
+    }
+
+    public void createInitiativeSprite(GameObject sourceObject)
+    {
+        GameObject temp = Instantiate(initiativeSprite, initiativeAligner.transform.position, Quaternion.identity);
+        temp.transform.parent = initiativeAligner.transform;
+
+        actorData data = sourceObject.GetComponent<actorData>();
+        temp.transform.Find("Avatar").GetComponent<Image>().sprite = data.initiativeAvatar;
+
+        temp.GetComponent<temp_initiativeDataHolder>().referenceObject = sourceObject;
+
+        Debug.Log("Created sprite.");
     }
 
     public void choosePath(GameObject start, GameObject end)

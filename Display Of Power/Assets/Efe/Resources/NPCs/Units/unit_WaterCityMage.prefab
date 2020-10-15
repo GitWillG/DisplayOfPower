@@ -141,6 +141,12 @@ PrefabInstance:
       propertyPath: AttackRange
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: initiativeAvatar
+      value: 
+      objectReference: {fileID: 21300000, guid: 55711eb6ed2410f4ebe264b309775f75,
+        type: 3}
     - target: {fileID: 4627312191918277055, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: m_IsActive

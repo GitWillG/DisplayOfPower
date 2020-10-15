@@ -29,6 +29,7 @@ public class GUIManager : MonoBehaviour
 
     public Image[] skill_slots;
     MouseControl mc;
+    public GenerateGrid gg;
     public Texture2D[] cursor_textures;
 
     // [Range(-1000, 1000)]
@@ -42,9 +43,6 @@ public class GUIManager : MonoBehaviour
     public GameObject logAligner;
     public GameObject logText;
 
-    [Header("Initiative Bar")]
-    public GameObject initiativeSprite;
-    public GameObject initiativeAligner;
 
     
     // Start is called before the first frame update
@@ -102,6 +100,8 @@ public class GUIManager : MonoBehaviour
             }
         }
 
+
+
         // if(Input.GetKeyDown(KeyCode.Q))
         // {
         //     openGUI(questLog_GUI);
@@ -158,6 +158,7 @@ public class GUIManager : MonoBehaviour
             }
         }
     }
+
 
     public void updateLog(string logContent)
     {

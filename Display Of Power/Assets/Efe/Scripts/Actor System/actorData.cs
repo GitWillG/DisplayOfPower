@@ -30,6 +30,7 @@ namespace efe{
         public int MovementRange;
         public int AttackRange;
         public int TotalActions;
+        public Sprite initiativeAvatar;
 
         [Header("Audio")]
         public AudioSource click_voice;
