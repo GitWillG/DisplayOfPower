@@ -17,6 +17,7 @@ MonoBehaviour:
   useOverwrite: 1
   spellID: 1728
   spellName: Fireball
+  enableEffects: 1
   effectAmount: 10
   effectType: 1
   cooldown: 1

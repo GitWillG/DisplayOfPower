@@ -16,6 +16,7 @@ MonoBehaviour:
   useOverwrite: 0
   spellID: 1728
   spellName: Heal
+  enableEffects: 1
   effectAmount: 5
   effectType: 0
   cooldown: 1

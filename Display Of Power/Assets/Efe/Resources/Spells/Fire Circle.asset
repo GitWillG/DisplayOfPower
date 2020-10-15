@@ -16,8 +16,9 @@ MonoBehaviour:
   useOverwrite: 0
   spellID: 1728
   spellName: Fire Circle
+  enableEffects: 1
   effectAmount: 25
-  effectType: 0
+  effectType: 1
   cooldown: 1
   castingDuration: 1
   delayPostCast: 1

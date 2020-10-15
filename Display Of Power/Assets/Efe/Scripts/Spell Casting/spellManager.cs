@@ -55,24 +55,27 @@ public class spellManager : MonoBehaviour
 
 
                     // Spells like fireball...
-                    if(projData.referenceSpell.effectType == spellSO.effectTypes.substractive)
+                    if(projData.referenceSpell.enableEffects)
                     {
-                        projData.target.GetComponent<actorData>().Life -= projData.referenceSpell.effectAmount;
-                        // Kill if hp is lower than 0
-                        if(projData.target.GetComponent<actorData>().Life <= 0)
+                        if(projData.referenceSpell.effectType == spellSO.effectTypes.substractive)
                         {
-                            projData.target.GetComponent<Animator>().SetTrigger("Die");
-                            mc.killUnit(projData.target);
+                            projData.target.GetComponent<actorData>().Life -= projData.referenceSpell.effectAmount;
+                            // Kill if hp is lower than 0
+                            if(projData.target.GetComponent<actorData>().Life <= 0)
+                            {
+                                projData.target.GetComponent<Animator>().SetTrigger("Die");
+                                mc.killUnit(projData.target);
+                            }
+                            else
+                            {
+                                projData.target.GetComponent<Animator>().SetTrigger("takeHit");
+                            }
                         }
+                        // Spells like healing...etc
                         else
                         {
-                            projData.target.GetComponent<Animator>().SetTrigger("takeHit");
+                            projData.target.GetComponent<actorData>().Life += projData.referenceSpell.effectAmount;
                         }
-                    }
-                    // Spells like healing...etc
-                    else
-                    {
-                        projData.target.GetComponent<actorData>().Life += projData.referenceSpell.effectAmount;
                     }
 
 
