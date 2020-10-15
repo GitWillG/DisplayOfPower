@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/MASTER/Tent.unity
     guid: 38d859fcdc1d2e44eae0726616ef0c01
   - enabled: 1
+    path: Assets/MASTER/Siege.unity
+    guid: c4d8a368b10aee84a93da9d6b15fd7f7
+  - enabled: 1
     path: Assets/MASTER/WorldMap.unity
     guid: 3251eccaa1ac7f3419612f0b9e14ce28
   m_configObjects: {}

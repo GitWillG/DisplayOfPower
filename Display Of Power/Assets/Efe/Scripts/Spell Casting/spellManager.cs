@@ -309,8 +309,16 @@ public class spellManager : MonoBehaviour
                         {
                             if(hit.transform.gameObject.tag == "NPC")
                             {
-                                castSpell(currentSelectedCharacter, hit.transform.gameObject, curSpell);
-                                // mc.isMoving = false;
+                                actorData data = hit.transform.gameObject.GetComponent<actorData>();
+                                if(data.ownerFaction_string == "Enemy")
+                                {
+                                    castSpell(currentSelectedCharacter, hit.transform.gameObject, curSpell);
+                                    // mc.isMoving = false;
+                                }
+                                else
+                                {
+                                    guim.updateLog("You cannot target an ally.");
+                                }
                             }
                             else
                             {
