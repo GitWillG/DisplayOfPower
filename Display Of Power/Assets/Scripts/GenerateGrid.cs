@@ -86,6 +86,7 @@ public class GenerateGrid : MonoBehaviour
     [Header("Initiative Bar")]
     public GameObject initiativeSprite;
     public GameObject initiativeAligner;
+    public List<GameObject> initiatives;
 
     // Start is called before the first frame update
     void Start()
@@ -504,6 +505,14 @@ public class GenerateGrid : MonoBehaviour
             Destroy(tempTurn, 4);
         }
 
+        if(initiatives.Count > 0)
+        {
+            foreach(GameObject a in initiatives)
+            {
+                Destroy(a);
+            }
+            initiatives.Clear();
+        }
         // update initiatve GUI with turn order
         // Initiative bar
         for(int z = 0; z < turnOrder.Count; z++)
@@ -517,13 +526,17 @@ public class GenerateGrid : MonoBehaviour
 
     public void createInitiativeSprite(GameObject sourceObject)
     {
+
+        
         GameObject temp = Instantiate(initiativeSprite, initiativeAligner.transform.position, Quaternion.identity);
         temp.transform.parent = initiativeAligner.transform;
+        initiatives.Add(temp);
 
         actorData data = sourceObject.GetComponent<actorData>();
         temp.transform.Find("Avatar").GetComponent<Image>().sprite = data.initiativeAvatar;
 
         temp.GetComponent<temp_initiativeDataHolder>().referenceObject = sourceObject;
+
 
         Debug.Log("Created sprite.");
     }
