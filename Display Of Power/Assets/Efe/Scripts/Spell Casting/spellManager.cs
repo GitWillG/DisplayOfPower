@@ -57,9 +57,9 @@ public class spellManager : MonoBehaviour
                     // Spells like fireball...
                     if(projData.referenceSpell.effectType == spellSO.effectTypes.substractive)
                     {
-                        projData.target.GetComponent<prefabUnits>().Life -= projData.referenceSpell.effectAmount;
+                        projData.target.GetComponent<actorData>().Life -= projData.referenceSpell.effectAmount;
                         // Kill if hp is lower than 0
-                        if(projData.target.GetComponent<prefabUnits>().Life <= 0)
+                        if(projData.target.GetComponent<actorData>().Life <= 0)
                         {
                             projData.target.GetComponent<Animator>().SetTrigger("Die");
                             mc.killUnit(projData.target);
@@ -72,7 +72,7 @@ public class spellManager : MonoBehaviour
                     // Spells like healing...etc
                     else
                     {
-                        projData.target.GetComponent<prefabUnits>().Life += projData.referenceSpell.effectAmount;
+                        projData.target.GetComponent<actorData>().Life += projData.referenceSpell.effectAmount;
                     }
 
 
@@ -424,7 +424,7 @@ public class spellManager : MonoBehaviour
         }
 
         // Reduce action points of the source from action needed of spell
-        source.GetComponent<prefabUnits>().actionsRemaining -= spellData.actionNeeded;
+        source.GetComponent<actorData>().actionsRemaining -= spellData.actionNeeded;
         
 
         // Debug.Log("Cast" + spellData.spellName);

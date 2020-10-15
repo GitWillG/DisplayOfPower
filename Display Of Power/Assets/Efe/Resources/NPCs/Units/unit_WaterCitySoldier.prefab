@@ -134,7 +134,7 @@ PrefabInstance:
     - target: {fileID: 1863947349140452884, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: m_Name
-      value: Soldier
+      value: unit_WaterCitySoldier
       objectReference: {fileID: 0}
     - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
@@ -147,7 +147,48 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: cc79de48410ecf94dafc805d17433e15,
         type: 2}
-    m_RemovedComponents: []
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: actorName
+      value: Water City Soldier
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: Life
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: maxLife
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: ownerFaction_string
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: actionsRemaining
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: baseDamage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: MovementRange
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: AttackRange
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8669675296627683148, guid: 786bb629964b051418ae471652568f3c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 786bb629964b051418ae471652568f3c, type: 3}
 --- !u!4 &8518538396452760849 stripped
 Transform:

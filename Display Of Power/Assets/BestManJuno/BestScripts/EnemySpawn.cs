@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using efe;
 
 public class EnemySpawn : MonoBehaviour
 {
@@ -135,7 +136,7 @@ public class EnemySpawn : MonoBehaviour
            
         }
         // Assign team and feedback objects
-        prefabUnits data = newEnemy.GetComponent<prefabUnits>();
+        actorData data = newEnemy.GetComponent<actorData>();
         Vector3 spawnPosition = new Vector3
         (
             newEnemy.transform.position.x,
@@ -149,7 +150,7 @@ public class EnemySpawn : MonoBehaviour
         {
             grid.allyList.Add(newEnemy);
             data.belongsToPlayer = true;
-            newEnemy.GetComponent<prefabUnits>().Factions = "Ally";
+            newEnemy.GetComponent<actorData>().ownerFaction_string = "Ally";
             newEnemy.name = "Mage";
             teamFeedbackObjects[1] = Instantiate(teamFeedbackObjects[1], spawnPosition, Quaternion.identity);
             teamFeedbackObjects[1].transform.parent = newEnemy.transform;

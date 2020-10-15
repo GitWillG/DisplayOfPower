@@ -106,6 +106,41 @@ PrefabInstance:
       propertyPath: actorName
       value: Water City Mage
       objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: Life
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: baseDamage
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: actionsRemaining
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: ownerFaction_string
+      value: Ally
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: belongsToPlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: MovementRange
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: AttackRange
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4627312191918277055, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: m_IsActive
@@ -132,5 +167,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 7f100d9b54b1f4241ad03cd7ba716afc,
         type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8669675296627683148, guid: 786bb629964b051418ae471652568f3c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 786bb629964b051418ae471652568f3c, type: 3}

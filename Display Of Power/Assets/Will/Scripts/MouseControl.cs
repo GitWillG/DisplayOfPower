@@ -187,11 +187,11 @@ public class MouseControl : MonoBehaviour
         //if move, use move range, otherwise use the attack range
         if (isMove)
         {
-            detectRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().MovementRange;
+            detectRange = selectedTarget.GetChild(0).GetComponent<actorData>().MovementRange;
         }
         else
         {
-            detectRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().AttackRange;
+            detectRange = selectedTarget.GetChild(0).GetComponent<actorData>().AttackRange;
         }
     }
     public void removeRangeInd()
@@ -296,10 +296,10 @@ public class MouseControl : MonoBehaviour
                 //save the hovered target as a selected one
                 selectedTarget = transformSelected;
                 clickedHex = true;
-                lifeBox.text = selectedTarget.GetComponentInChildren<prefabUnits>().Life.ToString();
-                attackBox.text = selectedTarget.GetComponentInChildren<prefabUnits>().Damage.ToString();
-                unitBox.text = selectedTarget.GetComponentInChildren<prefabUnits>().name.ToString();
-                actionsLeft.text = selectedTarget.GetComponentInChildren<prefabUnits>().actionsRemaining.ToString();
+                lifeBox.text = selectedTarget.GetComponentInChildren<actorData>().Life.ToString();
+                attackBox.text = selectedTarget.GetComponentInChildren<actorData>().baseDamage.ToString();
+                unitBox.text = selectedTarget.GetComponentInChildren<actorData>().actorName.ToString();
+                actionsLeft.text = selectedTarget.GetComponentInChildren<actorData>().actionsRemaining.ToString();
                 //swap the mask to our legal hex layer for raycasting
                 currentMask = 1 << 10;
                 //swap to the appropriate range
@@ -321,7 +321,7 @@ public class MouseControl : MonoBehaviour
             //movement
             GameObject currentChar = selectedTarget.transform.GetChild(0).gameObject;
 
-            if (transformSelected != null && Input.GetMouseButtonUp(0) && isMove && transformSelected.childCount <= 0 && currentChar.GetComponent<prefabUnits>().actionsRemaining >0 && currentChar.GetComponent<prefabUnits>().isTurn)
+            if (transformSelected != null && Input.GetMouseButtonUp(0) && isMove && transformSelected.childCount <= 0 && currentChar.GetComponent<actorData>().actionsRemaining >0 && currentChar.GetComponent<actorData>().isTurn)
             {
                 if (selectedTarget != null )
                 {
@@ -329,7 +329,7 @@ public class MouseControl : MonoBehaviour
 
                 }
                 runMovement();
-                selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
+                selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().actionsRemaining -= 1;
                 return;
                 //grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);   
             }
@@ -339,15 +339,15 @@ public class MouseControl : MonoBehaviour
             //attack
 
 
-            else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && currentChar.GetComponent<prefabUnits>().actionsRemaining > 0 && currentChar.GetComponent<prefabUnits>().isTurn)
+            else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && currentChar.GetComponent<actorData>().actionsRemaining > 0 && currentChar.GetComponent<actorData>().isTurn)
             {
                 this.gameObject.GetComponent<BestClickToMove>().ClickAttack(selectedTarget.GetChild(0).gameObject, transformSelected.gameObject);
-                selectedTarget.GetChild(0).gameObject.GetComponent<prefabUnits>().actionsRemaining -= 1;
-                if (transformSelected.GetChild(0).gameObject.GetComponent<prefabUnits>().Life <= 0)
+                selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().actionsRemaining -= 1;
+                if (transformSelected.GetChild(0).gameObject.GetComponent<actorData>().Life <= 0)
                 {
                     killUnit(transformSelected.GetChild(0).gameObject);
                 }
-                if (selectedTarget.GetComponentInChildren<prefabUnits>().actionsRemaining == 0)
+                if (selectedTarget.GetComponentInChildren<actorData>().actionsRemaining == 0)
                 {
                     GridOb.EndTurn();
                     endTurnBTN.SetActive(true);
@@ -404,7 +404,7 @@ public class MouseControl : MonoBehaviour
             
         }
         doneMoving = true;
-        if (unit.GetComponent<prefabUnits>().actionsRemaining == 0)
+        if (unit.GetComponent<actorData>().actionsRemaining == 0)
         {
             GridOb.EndTurn();
             endTurnBTN.SetActive(true);

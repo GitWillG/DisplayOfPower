@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using will;
+using efe;
 
 namespace will{
 
@@ -12,7 +13,7 @@ public class BattleUI : MonoBehaviour
     public int k;
     public TMP_Text stats;
     public GenerateGrid generateGrid;
-    public prefabUnits prefUnits;
+    public actorData prefUnits;
     public MouseControl mouseControl;
 
     private void Start()
@@ -30,8 +31,14 @@ public class BattleUI : MonoBehaviour
     public void DisplayStats(GameObject unitSelected)
     {
         unitSelected = mouseControl.selectedTarget.GetChild(0).gameObject;
-        prefUnits = unitSelected.GetComponent<prefabUnits>();
-        stats.text = "Faction" + prefUnits.Factions + "\n" + "Health" + prefUnits.Life + "\n" + "Strength" + prefUnits.Damage + "\n" + "Attack Range" + prefUnits.AttackRange + "\n" + "Movement Range" + prefUnits.MovementRange + "\n" + "Moves Remaining" + prefUnits.actionsRemaining;
+        prefUnits = unitSelected.GetComponent<actorData>();
+        stats.text = 
+        "Faction" + prefUnits.ownerFaction_string + 
+        "\n" + "Health" + prefUnits.Life + 
+        "\n" + "Strength" + prefUnits.baseDamage + 
+        "\n" + "Attack Range" + prefUnits.AttackRange + 
+        "\n" + "Movement Range" + prefUnits.MovementRange + 
+        "\n" + "Moves Remaining" + prefUnits.actionsRemaining;
     }
 
 }

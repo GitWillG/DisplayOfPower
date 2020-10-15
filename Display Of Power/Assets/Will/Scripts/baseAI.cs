@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using efe;
 
 public class baseAI : MonoBehaviour
 {
@@ -9,12 +10,12 @@ public class baseAI : MonoBehaviour
     public MouseControl mouseController;
     public GameObject target;
     public BestClickToMove clickActions;
-    public prefabUnits self;
+    public actorData self;
     public GameObject hexTarget;
     // Start is called before the first frame update
     void Start()
     {
-        self = this.gameObject.GetComponent<prefabUnits>();
+        self = this.gameObject.GetComponent<actorData>();
         self.isTurn = false;
         gridOb = GameObject.Find("grid").GetComponent<GenerateGrid>();
         mouseController = GameObject.Find("selectionManager").GetComponent<MouseControl>();
@@ -48,14 +49,14 @@ public class baseAI : MonoBehaviour
                         for (int i = 0; i < gridOb.legalHex.Count; i++)
                         {
 
-                            if (gridOb.legalHex[i].transform.childCount > 0 && gridOb.legalHex[i].transform.GetChild(0).GetComponent<prefabUnits>().Factions == "Ally")
+                            if (gridOb.legalHex[i].transform.childCount > 0 && gridOb.legalHex[i].transform.GetChild(0).GetComponent<actorData>().ownerFaction_string == "Ally")
                             {
                                 //Debug.Log("checkattack");
 
                                 clickActions.ClickAttack(self.gameObject, gridOb.legalHex[i]);
                                 self.actionsRemaining -= 1;
                                 Debug.Log("Dealt 5 damage to" + gridOb.legalHex[i].transform.GetChild(0).gameObject);
-                                if (gridOb.legalHex[i].transform.GetChild(0).gameObject.GetComponent<prefabUnits>().Life <= 0)
+                                if (gridOb.legalHex[i].transform.GetChild(0).gameObject.GetComponent<actorData>().Life <= 0)
                                 {
                                     mouseController.killUnit(gridOb.legalHex[i].transform.GetChild(0).gameObject);
 

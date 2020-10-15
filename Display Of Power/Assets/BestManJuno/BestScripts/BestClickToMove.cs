@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using efe;
 
 public class BestClickToMove : MonoBehaviour
 {
@@ -73,8 +74,8 @@ public class BestClickToMove : MonoBehaviour
         // unit = source/dealer
         // targetHex = target/receiver
         //subtract life from targetted unit equal to "damage" of selected unit
-        targetHex.GetComponentInChildren<prefabUnits>().Life -= unit.GetComponent<prefabUnits>().Damage;
-        targetHex.GetComponentInChildren<prefabUnits>().statObject.life -= unit.GetComponent<prefabUnits>().Damage;
+        targetHex.GetComponentInChildren<actorData>().Life -= unit.GetComponent<actorData>().baseDamage;
+        // targetHex.GetComponentInChildren<actorData>().statObject.life -= unit.GetComponent<actorData>().baseDamage;
         Instantiate(feedbackParticle, targetHex.transform.position, Quaternion.identity);
         
         Animator targetAnimator = targetHex.GetComponentInChildren<Animator>();

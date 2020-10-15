@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using will;
+using efe;
 
 namespace will{
 
@@ -73,7 +74,7 @@ public class BestMouseControl : MonoBehaviour
                 //Debug.Log(selection);
                 selectionRenderer.material = oldMat;
                 clickedHex = false;
-                int movableRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().MovementRange;
+                int movableRange = selectedTarget.GetChild(0).GetComponent<actorData>().MovementRange;
                 //Debug.Log(movableRange);
                 //checkRadius(selectedTarget.position, movableRange, oldMat, "Hex");
                 grid.GetComponent<GenerateGrid>().removeCheck(oldMat);
@@ -96,7 +97,7 @@ public class BestMouseControl : MonoBehaviour
             }
             else
             {
-                int movableRange = selectedTarget.GetChild(0).GetComponent<prefabUnits>().MovementRange;
+                int movableRange = selectedTarget.GetChild(0).GetComponent<actorData>().MovementRange;
                 Debug.Log(movableRange);
                 //grid.GetComponent<GenerateGrid>().checkLegality(movableRange, selectedTarget.gameObject, selectedMat);
                 //checkRadius(selectedTarget.position, movableRange, legalMove, "MovableHex");

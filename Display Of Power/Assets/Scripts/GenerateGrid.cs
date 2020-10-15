@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.PlayerLoop;
 using TMPro;
+using efe;
 
 public class GenerateGrid : MonoBehaviour
 {
@@ -457,11 +458,11 @@ public class GenerateGrid : MonoBehaviour
         //{
         //    k = 0;
         //}
-        if (turnOrder[k].GetComponent<prefabUnits>().actionsRemaining == 0)
+        if (turnOrder[k].GetComponent<actorData>().actionsRemaining == 0)
         {
-            turnOrder[k].GetComponent<prefabUnits>().actionsRemaining = turnOrder[k].GetComponent<prefabUnits>().TotalActions;
-            turnOrder[k].GetComponent<prefabUnits>().isTurn = false;
-            turnOrder[k].GetComponent<prefabUnits>().actionsRemaining = 2;
+            turnOrder[k].GetComponent<actorData>().actionsRemaining = turnOrder[k].GetComponent<actorData>().TotalActions;
+            turnOrder[k].GetComponent<actorData>().isTurn = false;
+            turnOrder[k].GetComponent<actorData>().actionsRemaining = 2;
             if (k < turnOrder.Count -1)
             {
                 k = k + 1;
@@ -474,9 +475,9 @@ public class GenerateGrid : MonoBehaviour
 
         }
         mouseControl.hoveredTarget = turnOrder[k].transform.parent;
-        turnOrder[k].GetComponent<prefabUnits>().isTurn = true;
+        turnOrder[k].GetComponent<actorData>().isTurn = true;
         currTurn = turnOrder[k].transform.parent.gameObject;
-        if (turnOrder[k].GetComponent<prefabUnits>().isTurn == true)
+        if (turnOrder[k].GetComponent<actorData>().isTurn == true)
         {
 
             mouseControl.clickedHex = false;
@@ -487,7 +488,7 @@ public class GenerateGrid : MonoBehaviour
             // Show whose turn
             GameObject tempTurn = Instantiate(turnNotification, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
             tempTurn.transform.parent = guim.battleGUI.transform;
-            if(turnOrder[k].GetComponent<prefabUnits>().Factions == "Ally")
+            if(turnOrder[k].GetComponent<actorData>().ownerFaction_string == "Ally")
             {
                 tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "Player's Turn";
             }
@@ -523,9 +524,9 @@ public class GenerateGrid : MonoBehaviour
 
     public void EndTurn()
     {
-        if (turnOrder[k].GetComponent<prefabUnits>().isTurn)
+        if (turnOrder[k].GetComponent<actorData>().isTurn)
         {
-            turnOrder[k].GetComponent<prefabUnits>().actionsRemaining = 0;
+            turnOrder[k].GetComponent<actorData>().actionsRemaining = 0;
             //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
         }
         guim.updateLog("Turn ended.", Color.green);

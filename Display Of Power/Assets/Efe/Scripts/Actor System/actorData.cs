@@ -10,17 +10,26 @@ namespace efe{
     {
         [Header("Base stats")]
         public string actorName;
-        public float actorGold;
-        public float actorXP;
-        public float actorXPRequired;
-        public float actionPoint;
-        public float maxActionPoint;
-        public float baseDamage;
+        public int Life;
+        public int maxLife;
+        public int actorGold;
+        public int actorXP;
+        public int actorXPRequired;
+        public int actionPoint;
+        public string ownerFaction_string;
+        public int actionsRemaining;
+        public int maxActionPoint;
+        public int baseDamage;
         public itemSO[] relic;
         public bool randomizeName;
         public bool isPlayer;
         public factionSO ownerFaction;
         public dialogSO defaultDialog;
+        public bool belongsToPlayer;
+        public bool isTurn;
+        public int MovementRange;
+        public int AttackRange;
+        public int TotalActions;
 
         [Header("Audio")]
         public AudioSource click_voice;
