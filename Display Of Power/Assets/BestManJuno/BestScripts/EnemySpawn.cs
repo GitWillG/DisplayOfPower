@@ -34,6 +34,8 @@ public class EnemySpawn : MonoBehaviour
     [Header("GUI")]
     public TMP_InputField numOfBads;
 
+    public GameObject healthBar;
+
     [ContextMenu("Spawn Enemy")]
     public void SpawnEnemy()
     {
@@ -144,8 +146,6 @@ public class EnemySpawn : MonoBehaviour
             newEnemy.transform.position.z
         );
 
-
-
         if (teamString == "ally")
         {
             grid.allyList.Add(newEnemy);
@@ -153,8 +153,7 @@ public class EnemySpawn : MonoBehaviour
             newEnemy.GetComponent<actorData>().ownerFaction_string = "Ally";
             newEnemy.name = "Mage";
             teamFeedbackObjects[1] = Instantiate(teamFeedbackObjects[1], spawnPosition, Quaternion.identity);
-            teamFeedbackObjects[1].transform.parent = newEnemy.transform;
-             
+            teamFeedbackObjects[1].transform.parent = newEnemy.transform;  
         }
         else if (teamString == "enemy")
         {
@@ -162,8 +161,13 @@ public class EnemySpawn : MonoBehaviour
             newEnemy.name = "Soldier";
             teamFeedbackObjects[0] = Instantiate(teamFeedbackObjects[0], spawnPosition, Quaternion.identity);
             teamFeedbackObjects[0].transform.parent = newEnemy.transform;
-            
         }
+
+        GameObject temp = Instantiate(healthBar, 
+        new Vector3(newEnemy.transform.position.x, newEnemy.transform.position.y + 2, newEnemy.transform.position.z),
+         Quaternion.identity);
+        temp.transform.parent = newEnemy.transform;
+        newEnemy.GetComponent<actorData>().healthBar = healthBar.transform.Find("Slider").gameObject.GetComponent<Slider>();
 
         
         

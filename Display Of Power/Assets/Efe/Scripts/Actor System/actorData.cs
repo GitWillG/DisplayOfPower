@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using efe;
 
 // needs to be called "using efe;"
@@ -11,7 +12,7 @@ namespace efe{
         [Header("Base stats")]
         public string actorName;
         public int Life;
-        public int maxLife;
+        int maxLife;
         public int actorGold;
         public int actorXP;
         public int actorXPRequired;
@@ -61,14 +62,20 @@ namespace efe{
         rigHumanoid rig;
         public spellSO[] spells;
         public Sprite cinematicAvatar;
+
+        public Slider healthBar;
         
         void Start()
         {
+
             agent = GetComponent<NavMeshAgent>();
             gm = GameObject.FindGameObjectWithTag("GM");
             // im = gm.GetComponent<immersionManager>();
             rig = GetComponent<rigHumanoid>();
             animator = GetComponent<Animator>();
+
+            // Health Bar
+            maxLife = Life;
 
             if(actorQuests.Count > 0)
             {
@@ -97,6 +104,13 @@ namespace efe{
         public void Update()
         {
             processAiMovement();
+            updateHealthBar();
+        }
+
+        void updateHealthBar()
+        {
+            healthBar.maxValue = maxLife;
+            healthBar.value = Life;
         }
 
         [ContextMenu("Sync Editor")]
