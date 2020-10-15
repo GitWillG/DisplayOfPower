@@ -180,6 +180,9 @@ public class GUIManager : MonoBehaviour
         textData.text = "[" + logType + "]: " + logContent;
 
         Debug.Log("New log entered :" + textData.text);
+
+        // make other legs less focused
+        
     }
     public void updateLog(string logContent, string logType, Color logColor)
     {
@@ -189,6 +192,19 @@ public class GUIManager : MonoBehaviour
 
         TextMeshProUGUI textData = tempLog.GetComponent<TextMeshProUGUI>();
         textData.text = "[" + logType + "]: " + logContent;
+        textData.color = logColor;
+
+        Debug.Log("New log entered :" + textData.text);
+    }
+
+    public void updateLog(string logContent,  Color logColor)
+    {
+        GameObject tempLog = Instantiate(logText, logAligner.transform);
+        tempLog.transform.parent = logAligner.transform;
+        tempLog.transform.SetAsFirstSibling();
+
+        TextMeshProUGUI textData = tempLog.GetComponent<TextMeshProUGUI>();
+        textData.text = "[Log]: " + logContent;
         textData.color = logColor;
 
         Debug.Log("New log entered :" + textData.text);
@@ -251,6 +267,16 @@ public class GUIManager : MonoBehaviour
                 tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "Single";
             }
             
+            // change the damage type depending on type of effect spell has
+            if(curSpell.effectType == spellSO.effectTypes.substractive)
+            {
+                tooltip_skill.transform.Find("BG").transform.Find("Damage").GetComponent<TextMeshProUGUI>().text = "Damage";
+            }
+            else
+            {
+                tooltip_skill.transform.Find("BG").transform.Find("Damage").GetComponent<TextMeshProUGUI>().text = "Heal";
+            }
+
             tooltip_skill.transform.Find("BG").transform.Find("DamageResult").GetComponent<TextMeshProUGUI>().text = curSpell.effectAmount.ToString();
             
             // Sync the GUI with spell manager

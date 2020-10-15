@@ -115,7 +115,7 @@ namespace efe // efe library
                                 // Store
                                 gm.curHoveredObject = hit.transform.gameObject;
                                 // Enable edge outline
-                                im.highlighObject(gm.curHoveredObject);
+                                // im.highlighObject(gm.curHoveredObject);
                             }
                         }
 

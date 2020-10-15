@@ -47,6 +47,7 @@ public class audioManager : MonoBehaviour
             if(temp.name.Contains(audioID))
             {
                 result = temp;
+                break;
             }
         }
         source.PlayOneShot(result);

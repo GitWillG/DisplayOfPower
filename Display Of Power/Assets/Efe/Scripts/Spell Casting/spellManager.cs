@@ -259,7 +259,7 @@ public class spellManager : MonoBehaviour
                             }
                             
                             //      
-                            if(Input.GetMouseButtonDown(1))
+                            if(Input.GetMouseButtonDown(0))
                             {
                                 Destroy(temp);
                                 castPreviewEnabled = false;
@@ -281,12 +281,19 @@ public class spellManager : MonoBehaviour
                                     // }
                                 }
                             }
+                            else if(Input.GetMouseButtonDown(1))
+                            {
+                                Destroy(temp);
+                                castPreviewEnabled = false;
+                                Debug.Log("Preview cancelled.");
+                                Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
+                            }
                         }   
                     }
                 }
                 else if(curCastType == "Single")
                 {
-                    if(Input.GetMouseButtonDown(1))
+                    if(Input.GetMouseButtonDown(0))
                     {
 
                         castPreviewEnabled = false;
@@ -304,9 +311,17 @@ public class spellManager : MonoBehaviour
                             }
                             else
                             {
-                                Debug.Log("There is no NPCs in this area.");
+                                guim.updateLog("There is no NPC here.");
+                                Debug.Log("There is no NPCs here.");
                             }
                         }
+                    }
+                    else if(Input.GetMouseButtonDown(1))
+                    {
+                        castPreviewEnabled = false;
+                        Debug.Log("Preview cancelled.");
+                        Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
+                        guim.updateLog("Preview cancelled.");
                     }
                 }
             }
@@ -407,6 +422,11 @@ public class spellManager : MonoBehaviour
                 projectile.GetComponent<Renderer>().material.color = spellData.baseColor;
             }
         }
+
+        // Reduce action points of the source from action needed of spell
+        source.GetComponent<prefabUnits>().actionsRemaining -= spellData.actionNeeded;
+        
+
         // Debug.Log("Cast" + spellData.spellName);
         guim.updateLog(source.name + " casted a " + spellData.spellName);
         

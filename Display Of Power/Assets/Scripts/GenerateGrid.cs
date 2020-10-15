@@ -528,6 +528,7 @@ public class GenerateGrid : MonoBehaviour
             turnOrder[k].GetComponent<prefabUnits>().actionsRemaining = 0;
             //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
         }
+        guim.updateLog("Turn ended.", Color.green);
         
         NextTurn();
     }

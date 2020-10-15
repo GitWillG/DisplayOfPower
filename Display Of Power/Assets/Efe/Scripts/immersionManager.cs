@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using efe; // Access to namespace library
-
+using Knife.HDRPOutline.Core;
 
 // Immersion manager governs everything that doesn't affect the game design/gameplay directly, but used mostly for visualization.
 // Features such as overhead names are written here.
@@ -11,11 +11,13 @@ using efe; // Access to namespace library
 public class immersionManager : MonoBehaviour
 {
 
-    // 3D text that spawns on top of actors' heads
-    public GameObject NPCObject;
+
     actorData data;
     gameManager gm;
     GameObject curPlayer;
+    [Header("NPC labels")]
+    // 3D text that spawns on top of actors' heads
+    public GameObject NPCObject;
     // Minimum distance between players and all legit actors required for labels to appear
     public float distance_NPC_labels;
     // Static metric gathered from basemesh to spawn the 3D text on top of actor's head
@@ -23,12 +25,31 @@ public class immersionManager : MonoBehaviour
     // List to store all active labels in the scene
     public List<GameObject> labelsActive;
     // Material for edge outline
+    [Header("Mesh Outlining")]
+    // outline material
     public Material selectedMaterialVFX;
-    // Before using edge outline, materials of hovered objects need to be stored
-    // TODO - might have to store it on instances instead if more than 2 objects can be hovered
-    Material[] selected_object_materials;
+    [SerializeField]
+    // old material of selected object stored here
+    Material oldMaterial;
+    // replace skinned mesh materials of object selected with this list to array
+    // which is dynamically adjusted on highlightObject script
+    public List<Material> resultMaterials;
+    [SerializeField]
+    // check if there is any highlight 
+    bool highlighted = false;
+    bool highlighted2 = false;
+    // Point light reference to make the outline pop up more
+    public GameObject highlightLight;
+    // Check if there is a light already, dont spawn new ones if there is one
+    GameObject storedLight;
+    [Header("Test Subjects")]
+    public GameObject testmateira;
+    public GameObject propTest;
+
+
     // 3D exclamation model used to show if an actor has any quest to give to player
     public GameObject questAvailableMark;
+    OutlineObject outlineData;
 
     void Start()
     {
@@ -46,6 +67,33 @@ public class immersionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if(Input.GetKeyDown(KeyCode.M))
+        // {
+        //     if(!highlighted)
+        //     {
+        //         highlighObject(testmateira, "Character");
+        //         highlighted = true;
+        //     }
+        //     else
+        //     {
+        //         restoreHighlight(testmateira);
+        //         highlighted = false;
+        //     }
+        // }
+        // if(Input.GetKeyDown(KeyCode.N))
+        // {
+        //     if(!highlighted2)
+        //     {
+        //         highlighObject(propTest, "Prop");
+        //         highlighted2 = true;
+        //     }
+        //     else
+        //     {
+        //         restoreHighlight(propTest);
+        //         highlighted2 = false;
+        //     }
+        // }
+
         if(Input.GetKey(KeyCode.H))
         {
             // Find all the actors in the scene
@@ -101,10 +149,77 @@ public class immersionManager : MonoBehaviour
 
     // Script responsible switching between an object's original materials and an edge outline material once hovered
     // Called from mouseControls
-    public void highlighObject(GameObject target)
+    public void highlighObject(GameObject target, string objectType)
     {
-        // selected_object_materials = target.GetComponent<Renderer>().materials;
+
+        // Objects with rigs have skinned mesh renderer
+        if(objectType == "Character")
+        {
+            // Target reference is a prefab
+            // So find the body in its childs
+            GameObject body = target.transform.Find("Body").gameObject;
+            // Save the old material
+            oldMaterial = body.GetComponent<Renderer>().material;
+            // Access to skinned mesh component
+            SkinnedMeshRenderer renderer = body.GetComponent<SkinnedMeshRenderer>();
+            
+            // Add the original material of the body to list of materials mesh will have in the end
+            resultMaterials.Add(oldMaterial);
+            // Add outline material as 2nd
+            resultMaterials.Add(selectedMaterialVFX);
+            // Replace materials array with new one
+            // Before replacement, there is only oldMaterial
+            // After replacement, there is oldmaterial + outlinematerial
+            renderer.materials = resultMaterials.ToArray();
+
+
+        }
+        // No skinned mesh renderer, just change material
+        else if(objectType == "Prop")
+        {
+            // store prop material
+            oldMaterial = target.GetComponent<Renderer>().material;
+            // change prop material to outline material
+            target.GetComponent<Renderer>().material = selectedMaterialVFX;
+            // Add outlnieobject script for more control
+            if(target.GetComponent<OutlineObject>() == null)
+            {
+                outlineData = target.AddComponent<OutlineObject>();
+            }
+            // Properties
+            // Auto-fill the material property with outline material reference in this manager
+            outlineData.Material = selectedMaterialVFX;
+            outlineData.FresnelPower = 3;
+            outlineData.FresnelScale = 4;
+        }
+        // Does it get the right reference for each type of object?
+        Debug.Log(target.name);
+
+        // Instantiate the light in approximately in the center of body - its not dynamic yet
+        if(storedLight == null)
+        {
+            storedLight = Instantiate(highlightLight, 
+            new Vector3
+            (target.transform.position.x, 
+            target.transform.position.y + 5, 
+            target.transform.position.z), 
+            Quaternion.identity);
+        }
+        // if there is already a light in scene, just move it
+        else
+        {
+            storedLight.transform.position = target.transform.position;
+        }
+
+        // TODO - multiple selections support
         
-        
+    }
+
+    public void restoreHighlight(GameObject target, string ObjectType)
+    {
+        target.GetComponent<Renderer>().material = oldMaterial;
+        target.GetComponent<OutlineObject>().enabled = false;
+        // resultMaterials.Clear();
+        // resultMaterials.Add(oldMaterial);
     }
 }

@@ -59,6 +59,7 @@ public class MouseControl : MonoBehaviour
     //The renderer of any given selection
     Renderer selectionRenderer;
     spellManager sm;
+    GUIManager guim;
     public GameObject endTurnBTN;
 
     private void Start()
@@ -70,6 +71,7 @@ public class MouseControl : MonoBehaviour
        
         
         sm = GameObject.FindGameObjectWithTag("GM").GetComponent<spellManager>();
+        guim = sm.GetComponent<GUIManager>();
     }
 
     private void Update()
@@ -273,6 +275,8 @@ public class MouseControl : MonoBehaviour
         {
             selectionRenderer.material = selectedMat;
         }
+
+
         if (clickedHex == false)
         {
             ////////////////////////////
@@ -361,6 +365,7 @@ public class MouseControl : MonoBehaviour
         GridOb.enemyList.Remove(deadUnit);
         GridOb.turnOrder.Remove(deadUnit);
 
+        guim.updateLog(deadUnit.name + " died.");
         Destroy(deadUnit, 3);
 
 
