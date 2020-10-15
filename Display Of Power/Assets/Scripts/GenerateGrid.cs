@@ -88,9 +88,13 @@ public class GenerateGrid : MonoBehaviour
     public GameObject initiativeAligner;
     public List<GameObject> initiatives;
 
+    CameraControl cc;
+
     // Start is called before the first frame update
     void Start()
     {   
+        cc = Camera.main.GetComponent<CameraControl>();
+
         guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
         ///
         allySpawnHexes = new List<GameObject>();
@@ -504,6 +508,8 @@ public class GenerateGrid : MonoBehaviour
             }
             Destroy(tempTurn, 4);
         }
+
+        cc.panToObject(turnOrder[k]);
 
         if(initiatives.Count > 0)
         {
