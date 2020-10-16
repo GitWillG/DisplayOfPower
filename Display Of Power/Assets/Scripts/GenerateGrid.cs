@@ -507,24 +507,30 @@ public class GenerateGrid : MonoBehaviour
                 tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "AI's Turn";
             }
             Destroy(tempTurn, 4);
+            // Debug.Log("test");
         }
 
         cc.panToObject(turnOrder[k]);
 
         if(initiatives.Count > 0)
         {
-            foreach(GameObject a in initiatives)
-            {
-                Destroy(a);
-            }
-            initiatives.Clear();
+            initiativeAligner.transform.GetChild(0).transform.SetAsLastSibling();
+            // foreach(GameObject a in initiatives)
+            // {
+            //     Destroy(a);
+            //     Debug.Log(a + " destroyed.");
+            // }
+            // initiatives.Clear();
         }
-        // update initiatve GUI with turn order
-        // Initiative bar
-        for(int z = 0; z < turnOrder.Count; z++)
+        else
         {
-            createInitiativeSprite(turnOrder[z]);
-
+            // update initiatve GUI with turn order
+            // Initiative bar
+            for(int z = 0; z < turnOrder.Count; z++)
+            {
+                createInitiativeSprite(turnOrder[z]);
+            
+            }
         }
 
       
@@ -532,7 +538,6 @@ public class GenerateGrid : MonoBehaviour
 
     public void createInitiativeSprite(GameObject sourceObject)
     {
-
         
         GameObject temp = Instantiate(initiativeSprite, initiativeAligner.transform.position, Quaternion.identity);
         temp.transform.parent = initiativeAligner.transform;
@@ -542,6 +547,18 @@ public class GenerateGrid : MonoBehaviour
         temp.transform.Find("Avatar").GetComponent<Image>().sprite = data.initiativeAvatar;
 
         temp.GetComponent<temp_initiativeDataHolder>().referenceObject = sourceObject;
+        temp.name = data.actorName;
+
+        // if(data.isTurn)
+        // {
+        //     temp.transform.SetAsFirstSibling();
+        //     // temp.transform.localScale = new Vector2(2,2);
+        // }
+        // else
+        // {
+        //     temp.transform.localScale = new Vector2(1, 1);
+        //     // temp.transform.SetAsLastSibling();
+        // }
 
 
         Debug.Log("Created sprite.");

@@ -169,7 +169,7 @@ public class GUIManager : MonoBehaviour
         TextMeshProUGUI textData = tempLog.GetComponent<TextMeshProUGUI>();
         textData.text = "[Log]: " + logContent;
 
-        Debug.Log("New log entered :" + textData.text);
+        // Debug.Log("New log entered :" + textData.text);
     }
     public void updateLog(string logContent, string logType)
     {
@@ -180,7 +180,7 @@ public class GUIManager : MonoBehaviour
         TextMeshProUGUI textData = tempLog.GetComponent<TextMeshProUGUI>();
         textData.text = "[" + logType + "]: " + logContent;
 
-        Debug.Log("New log entered :" + textData.text);
+        // Debug.Log("New log entered :" + textData.text);
 
         // make other legs less focused
         
@@ -195,7 +195,7 @@ public class GUIManager : MonoBehaviour
         textData.text = "[" + logType + "]: " + logContent;
         textData.color = logColor;
 
-        Debug.Log("New log entered :" + textData.text);
+        // Debug.Log("New log entered :" + textData.text);
     }
 
     public void updateLog(string logContent,  Color logColor)
@@ -208,7 +208,7 @@ public class GUIManager : MonoBehaviour
         textData.text = "[Log]: " + logContent;
         textData.color = logColor;
 
-        Debug.Log("New log entered :" + textData.text);
+        // Debug.Log("New log entered :" + textData.text);
     }
 
     public void initializeHealthBars()
@@ -220,6 +220,7 @@ public class GUIManager : MonoBehaviour
             {
                 GameObject bar = Instantiate(healthBar, temp.transform.position, Quaternion.identity);
                 bar.transform.parent = temp.transform;
+                temp.GetComponent<actorData>().healthBar = bar.GetComponent<Slider>();
             }
         }
     }
@@ -246,7 +247,15 @@ public class GUIManager : MonoBehaviour
     public void speedTime(float time)
     {
         Time.timeScale = time;
-        updateLog("Time moves " + time + " times faster.");
+        if(time == 0)
+        {
+            updateLog("Game is paused.");
+        }
+        else
+        {
+            updateLog("Time moves " + time + " times faster.");
+        }
+        
     }
 
     public void showTooltip(int index)

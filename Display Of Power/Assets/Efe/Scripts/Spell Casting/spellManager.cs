@@ -26,6 +26,7 @@ public class spellManager : MonoBehaviour
     spellSO curSpell;
     public GameObject spellCollisionObject;
     public int curIndexCallback;
+    public GenerateGrid gg;
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +54,6 @@ public class spellManager : MonoBehaviour
                 {
                     Destroy(projectile);
 
-
                     // Spells like fireball...
                     if(projData.referenceSpell.enableEffects)
                     {
@@ -72,9 +72,10 @@ public class spellManager : MonoBehaviour
                             }
                         }
                         // Spells like healing...etc
-                        else
+                        else if (projData.referenceSpell.effectType == spellSO.effectTypes.additive)
                         {
                             projData.target.GetComponent<actorData>().Life += projData.referenceSpell.effectAmount;
+                            // Debug.Log("Heal");
                         }
                     }
 
@@ -310,14 +311,29 @@ public class spellManager : MonoBehaviour
                             if(hit.transform.gameObject.tag == "NPC")
                             {
                                 actorData data = hit.transform.gameObject.GetComponent<actorData>();
-                                if(data.ownerFaction_string == "Enemy")
+                                if(curSpell.effectType == spellSO.effectTypes.substractive)
                                 {
-                                    castSpell(currentSelectedCharacter, hit.transform.gameObject, curSpell);
-                                    // mc.isMoving = false;
+                                    if(data.ownerFaction_string == "Enemy")
+                                    {
+                                        castSpell(currentSelectedCharacter, hit.transform.gameObject, curSpell);
+                                        // mc.isMoving = false;
+                                    }
+                                    else
+                                    {
+                                        guim.updateLog("You cannot target an ally.");
+                                    }
                                 }
-                                else
+                                else if(curSpell.effectType == spellSO.effectTypes.additive)
                                 {
-                                    guim.updateLog("You cannot target an ally.");
+                                    if(data.ownerFaction_string == "Ally")
+                                    {
+                                        castSpell(currentSelectedCharacter, hit.transform.gameObject, curSpell);
+                                        // mc.isMoving = false;
+                                    }
+                                    else
+                                    {
+                                        guim.updateLog("You cannot target an enemy.");
+                                    }
                                 }
                             }
                             else
@@ -341,105 +357,123 @@ public class spellManager : MonoBehaviour
 
     public void castSpell(GameObject source, GameObject target, spellSO spellData)
     {
+
+        
         actorData sourceActor = source.GetComponent<actorData>();
         actorData targetActor = target.GetComponent<actorData>();
         Animator sourceAnimator = source.GetComponent<Animator>();
         Animator targetAnimator = target.GetComponent<Animator>();
-        
-        // yield return new WaitForSeconds(1);
+        if(sourceActor.isTurn)
+        {
+            // yield return new WaitForSeconds(1);
 
-        // Caster
-        if(spellData.SkillCasterAnimation == spellSO.castAnimationTypes.type_1)
-        {
-            sourceAnimator.SetTrigger("Cast1");
-        }
-        else if(spellData.SkillCasterAnimation == spellSO.castAnimationTypes.type_2)
-        {
-            sourceAnimator.SetTrigger("Cast2");
-        }
-        else if(spellData.SkillCasterAnimation == spellSO.castAnimationTypes.type_3)
-        {
-            sourceAnimator.SetTrigger("Cast3");
-        }
-
-        if(spellData.casterParticle != null)
-        {
-        // Spawn caster particle on caster
-            Instantiate(spellData.casterParticle, source.transform.position, Quaternion.identity);
-        }
-        if(spellData.targetParticle != null)
-        {
-        // Spawn target particle on target
-            Instantiate(spellData.targetParticle, target.transform.position, Quaternion.identity);
-        }
-        // Debug.Log(1);
-        for(int i = 0; i <= spellData.spawnAmount; i++)
-        {
-            if(spellData.useOverwrite == true)
+            // Caster
+            if(spellData.SkillCasterAnimation == spellSO.castAnimationTypes.type_1)
             {
-                projectile = Instantiate(spellData.overwriteParticles, source.transform.position, Quaternion.identity);
-                Debug.Log("Overwritten.");
+                sourceAnimator.SetTrigger("Cast1");
             }
-            else
+            else if(spellData.SkillCasterAnimation == spellSO.castAnimationTypes.type_2)
             {
-                // Debug.Log(2);
-                // Spawn a primitive based on skill shape
-                if(spellData.shape == spellSO.skillShape.cube)
+                sourceAnimator.SetTrigger("Cast2");
+            }
+            else if(spellData.SkillCasterAnimation == spellSO.castAnimationTypes.type_3)
+            {
+                sourceAnimator.SetTrigger("Cast3");
+            }
+
+            if(spellData.casterParticle != null)
+            {
+            // Spawn caster particle on caster
+                Instantiate(spellData.casterParticle, source.transform.position, Quaternion.identity);
+            }
+            if(spellData.targetParticle != null)
+            {
+            // Spawn target particle on target
+                Instantiate(spellData.targetParticle, target.transform.position, Quaternion.identity);
+            }
+            // Debug.Log(1);
+            for(int i = 0; i <= spellData.spawnAmount; i++)
+            {
+                if(spellData.useOverwrite == true)
                 {
-                    projectile = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    Vector3 spawnPosition = new Vector3(
+                        source.transform.position.x,
+                        source.transform.position.y,
+                        source.transform.position.z
+
+                    );
+                    projectile = Instantiate(spellData.overwriteParticles, source.transform.position, Quaternion.identity);
+                    Debug.Log("Overwritten.");
                 }
-                else if(spellData.shape == spellSO.skillShape.sphere)
+                else
                 {
-                    projectile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    // Debug.Log(2);
+                    // Spawn a primitive based on skill shape
+                    if(spellData.shape == spellSO.skillShape.cube)
+                    {
+                        projectile = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    }
+                    else if(spellData.shape == spellSO.skillShape.sphere)
+                    {
+                        projectile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    }
+                }
+                // Adjust ground level
+                projectile.transform.position = new Vector3
+                (
+                    source.transform.position.x,
+                    source.transform.position.y + spellData.heightFromGroundLevel,
+                    source.transform.position.z
+                );
+                // Used for tracking in update
+                projectile.tag = "Projectile";
+                // Add spellCollision object and parent
+                // Used for detecting any props
+                GameObject spellColl = Instantiate(spellCollisionObject, projectile.transform.position, Quaternion.identity);
+                spellColl.transform.parent = projectile.transform;
+                // Add projectileData to projectile to store target and source
+                projectileData projData = projectile.AddComponent<projectileData>();
+                projData.source = source;
+                projData.target = target;
+                projData.referenceSpell = spellData;
+                // Adjust size
+                projectile.transform.localScale = new Vector3(1, 1, 1);
+                projectile.transform.localScale *= spellData.sizeMultiplier /4;
+                // Editor usage
+                projectile.name = "Projectile from " + spellData.spellName + " " + spellData.spellID;
+                // Spawn aura and attach
+                if(spellData.skillAura != null)
+                {
+                    GameObject aura = Instantiate(spellData.skillAura.gameObject, projectile.transform.position, Quaternion.identity);
+                    aura.transform.parent = projectile.transform;
+                }
+                if(spellData.visualizationMethod == spellSO.visualType.material)
+                {
+                    // Give material
+                    projectile.GetComponent<Renderer>().material = _baseMaterial;
+                }
+                else
+                {
+                    //Recolor
+                    projectile.GetComponent<Renderer>().material.color = spellData.baseColor;
                 }
             }
-            // Adjust ground level
-            projectile.transform.position = new Vector3
-            (
-                source.transform.position.x,
-                source.transform.position.y + spellData.heightFromGroundLevel,
-                source.transform.position.z
-            );
-            // Used for tracking in update
-            projectile.tag = "Projectile";
-            // Add spellCollision object and parent
-            // Used for detecting any props
-            GameObject spellColl = Instantiate(spellCollisionObject, projectile.transform.position, Quaternion.identity);
-            spellColl.transform.parent = projectile.transform;
-            // Add projectileData to projectile to store target and source
-            projectileData projData = projectile.AddComponent<projectileData>();
-            projData.source = source;
-            projData.target = target;
-            projData.referenceSpell = spellData;
-            // Adjust size
-            projectile.transform.localScale = new Vector3(1, 1, 1);
-            projectile.transform.localScale *= spellData.sizeMultiplier /4;
-            // Editor usage
-            projectile.name = "Projectile from " + spellData.spellName + " " + spellData.spellID;
-            // Spawn aura and attach
-            if(spellData.skillAura != null)
+
+            // Reduce action points of the source from action needed of spell
+            sourceActor.actionsRemaining -= spellData.actionNeeded;
+            if(sourceActor.actionsRemaining == 0)
             {
-                GameObject aura = Instantiate(spellData.skillAura.gameObject, projectile.transform.position, Quaternion.identity);
-                aura.transform.parent = projectile.transform;
+                gg.EndTurn();
             }
-            if(spellData.visualizationMethod == spellSO.visualType.material)
-            {
-                // Give material
-                projectile.GetComponent<Renderer>().material = _baseMaterial;
-            }
-            else
-            {
-                //Recolor
-                projectile.GetComponent<Renderer>().material.color = spellData.baseColor;
-            }
+            
+
+            // Debug.Log("Cast" + spellData.spellName);
+            guim.updateLog(source.name + " casted a " + spellData.spellName);
+        
         }
-
-        // Reduce action points of the source from action needed of spell
-        source.GetComponent<actorData>().actionsRemaining -= spellData.actionNeeded;
-        
-
-        // Debug.Log("Cast" + spellData.spellName);
-        guim.updateLog(source.name + " casted a " + spellData.spellName);
-        
+        else
+        {
+            guim.updateLog("It is not this character's turn.");
+        }
     }
 }

@@ -167,7 +167,7 @@ public class EnemySpawn : MonoBehaviour
         new Vector3(newEnemy.transform.position.x, newEnemy.transform.position.y + 2, newEnemy.transform.position.z),
          Quaternion.identity);
         temp.transform.parent = newEnemy.transform;
-        newEnemy.GetComponent<actorData>().healthBar = healthBar.transform.Find("Slider").gameObject.GetComponent<Slider>();
+        newEnemy.GetComponent<actorData>().healthBar = temp.transform.Find("Slider").gameObject.GetComponent<Slider>();
 
         
         

@@ -14,7 +14,7 @@ public class CameraControl : MonoBehaviour
     private float zoomSpeed = 3f;
     GameObject objectToPan;
     bool isPanning = false;
-    
+    Vector3 panPosition;
     float camMoveSpeed = 3;
     void Start()
     {
@@ -36,9 +36,7 @@ public class CameraControl : MonoBehaviour
     void Update()
     {   
     
-
         // WASD Camera steer
-
         //WASD allows a player to pan the camera
         //movement speed set to 20 at run time
         if(!isPanning)
@@ -60,7 +58,6 @@ public class CameraControl : MonoBehaviour
             {
                 cameraFollow.x += moveAmount * Time.deltaTime;
             }
-
 
             // Edge steering
 
@@ -109,17 +106,17 @@ public class CameraControl : MonoBehaviour
         else if(isPanning)
         {
 
-            Vector3 panPosition = new Vector3
+            panPosition = new Vector3
             (
                 objectToPan.transform.position.x - 5,
-                m_Camera.transform.position.y,
+                cameraFollow.y,
                 objectToPan.transform.position.z - 5
             );
-            m_Camera.transform.position = Vector3.MoveTowards(m_Camera.transform.position, panPosition, 1);
+            cameraFollow = Vector3.MoveTowards(cameraFollow, panPosition, 1);
             
-                if(Vector3.Distance(m_Camera.transform.position, panPosition) <= 3)
+                if(Vector3.Distance(cameraFollow, panPosition) <= 3)
                 {
-                   StartCoroutine("resetPan", 1);
+                   StartCoroutine("resetPan", 1/4);
                 }
         }
 
@@ -130,5 +127,6 @@ public class CameraControl : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         isPanning = false;
+        
     }
 }
