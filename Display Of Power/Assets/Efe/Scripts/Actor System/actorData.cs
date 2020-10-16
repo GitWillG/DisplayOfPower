@@ -109,8 +109,12 @@ namespace efe{
 
         void updateHealthBar()
         {
-            healthBar.maxValue = maxLife;
-            healthBar.value = Life;
+            if (this.GetComponent<actorData>().healthBar != null)
+            {
+                healthBar.maxValue = maxLife;
+                healthBar.value = Life;
+
+            }
         }
 
         [ContextMenu("Sync Editor")]
