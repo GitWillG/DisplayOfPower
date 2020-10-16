@@ -11,8 +11,12 @@ using efe;
 
 public class MouseControl : MonoBehaviour
 {
-    
+    //
+    /// <summary>
+    /// NEED TO REHASH RIGHT CLICK TO ENABLE MOVEMENT RADIUS
+    /// </summary>
     public EventSystem ev_system;
+    public GameObject basicAttackButton;
     [Header("GUI")]
     public TextMeshProUGUI lifeBox;
     public TextMeshProUGUI unitBox;
@@ -33,6 +37,7 @@ public class MouseControl : MonoBehaviour
     public GenerateGrid GridOb;
     public bool doneMoving;
     public GameObject selectionManager;
+    private GameObject currClickedHex;
 
     //detection range for movement/attacks
     public int detectRange;
@@ -121,8 +126,13 @@ public class MouseControl : MonoBehaviour
         {
             // Check if player is previewing a skill
             if(!sm.castPreviewEnabled)
-            {
-                //Ray cast from the mouse to find objects
+                {
+                    if (Input.GetMouseButtonUp(1) && clickedHex == true)
+                    {
+                        Debug.Log("words");
+                        moveRadius();
+                    }
+                    //Ray cast from the mouse to find objects
                     var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit;
                     // Debug.Log(0);
@@ -151,6 +161,7 @@ public class MouseControl : MonoBehaviour
                         }
                         //otherwise if you have selected a target, and you click on that object, we will revert it to its original material and reset the clicked Bool
                         // Deselection
+
                         if (selection == selectedTarget && Input.GetMouseButtonUp(0) && clickedHex == true)
                         {
                             removeRangeInd();
@@ -268,6 +279,7 @@ public class MouseControl : MonoBehaviour
     public void selectHex(GameObject hexSelected)
     {
         Transform transformSelected = hexSelected.transform;
+        currClickedHex = hexSelected;
         //Debug.Log("test");
         //Debug.Log(transformSelected);
         //Debug.Log(selectedTarget);
@@ -279,6 +291,7 @@ public class MouseControl : MonoBehaviour
 
         if (clickedHex == false)
         {
+            
             ////////////////////////////
             //temporary testing measure, this allows us to easilly add units to the battlefield at run time for testing purposes
             if (transformSelected.childCount == 0)
@@ -318,6 +331,7 @@ public class MouseControl : MonoBehaviour
         }
         else if (clickedHex == true)
         {
+   
             //movement
             GameObject currentChar = selectedTarget.transform.GetChild(0).gameObject;
 
@@ -394,14 +408,14 @@ public class MouseControl : MonoBehaviour
             if (isMoving == true)
             {
                 finishMovement();
-                
+
             }
 
             if (i + 1 < GridOb.path.Count)
             {
                 selectedTarget = GridOb.path[i].transform;
             }
-            
+
         }
         doneMoving = true;
         if (unit.GetComponent<actorData>().actionsRemaining == 0)
@@ -414,6 +428,17 @@ public class MouseControl : MonoBehaviour
             GridOb.NextTurn();
         }
 
+    }
+    public void moveRadius()
+    {
+        isMove = true;
+        removeRangeInd();
+        selectHex(currClickedHex);
+        basicAttackButton.SetActive(true);
+        //Debug.Log(isMove);
+        //attackBox
+        //detectRange = currClickedHex.transform.GetChild(0).GetComponent<actorData>().MovementRange;
+        //swapRange();
     }
 }
 
