@@ -592,7 +592,7 @@ public class GenerateGrid : MonoBehaviour
             //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
         }
         guim.updateLog("Turn ended.", Color.green);
-        
+        mouseControl.endTurnBTN.SetActive(true);
         NextTurn();
     }
 

@@ -15,10 +15,13 @@ public class BestClickToMove : MonoBehaviour
     public Vector3 location;
     public GameObject feedbackParticle;
 
+    GUIManager guim;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
         //agent = GetComponent<NavMeshAgent>();
 
         //surface.BuildNavMesh();
@@ -78,6 +81,8 @@ public class BestClickToMove : MonoBehaviour
         // targetHex.GetComponentInChildren<actorData>().statObject.life -= unit.GetComponent<actorData>().baseDamage;
         Instantiate(feedbackParticle, targetHex.transform.position, Quaternion.identity);
         
+        guim.updateLog(unit.GetComponent<actorData>().actorName + " dealt " + unit.GetComponent<actorData>().baseDamage + " to " + targetHex.GetComponentInChildren<actorData>().actorName);
+
         Animator targetAnimator = targetHex.GetComponentInChildren<Animator>();
         Animator sourceAnimator = unit.GetComponent<Animator>();
         targetAnimator.SetTrigger("takeHit");

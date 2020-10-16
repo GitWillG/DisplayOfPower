@@ -12,6 +12,7 @@ public class baseAI : MonoBehaviour
     public BestClickToMove clickActions;
     public actorData self;
     public GameObject hexTarget;
+    GUIManager guim;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,7 @@ public class baseAI : MonoBehaviour
         gridOb = GameObject.Find("grid").GetComponent<GenerateGrid>();
         mouseController = GameObject.Find("selectionManager").GetComponent<MouseControl>();
         clickActions = GameObject.Find("selectionManager").GetComponent<BestClickToMove>();
+        guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
     }
 
     // Update is called once per frame
@@ -55,17 +57,19 @@ public class baseAI : MonoBehaviour
 
                                 clickActions.ClickAttack(self.gameObject, gridOb.legalHex[i]);
                                 self.actionsRemaining -= 1;
-                                Debug.Log("Dealt 5 damage to" + gridOb.legalHex[i].transform.GetChild(0).gameObject);
+                                // Debug.Log("Dealt 5 damage to " + gridOb.legalHex[i].transform.GetChild(0).gameObject);
+                                // guim.updateLog(this.GetComponent<actorData>().actorName + " dealt " + this.GetComponent<actorData>().baseDamage + " to " + gridOb.legalHex[i].transform.GetChild(0).GetComponent<actorData>().actorName);
                                 if (gridOb.legalHex[i].transform.GetChild(0).gameObject.GetComponent<actorData>().Life <= 0)
                                 {
                                     mouseController.killUnit(gridOb.legalHex[i].transform.GetChild(0).gameObject);
+                                    
 
                                 }
                                 mouseController.moveAttackSwap();
                                 if (self.actionsRemaining == 0)
                                 {
                                     gridOb.EndTurn();
-                                    mouseController.endTurnBTN.SetActive(true);
+                                    
                                 }
                                 return;
 
