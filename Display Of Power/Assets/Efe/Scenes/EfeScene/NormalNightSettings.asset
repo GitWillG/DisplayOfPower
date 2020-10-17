@@ -266,6 +266,29 @@ MonoBehaviour:
   filter:
     m_OverrideState: 0
     m_Value: 0
+--- !u!114 &-5711269299613971936
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d7593b3a9277ac4696b20006c21dde2, type: 3}
+  m_Name: VisualEnvironment
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  skyType:
+    m_OverrideState: 1
+    m_Value: 1
+  skyAmbientMode:
+    m_OverrideState: 1
+    m_Value: 1
+  fogType:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!114 &-4321467015268133302
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -412,6 +435,7 @@ MonoBehaviour:
   - {fileID: -4321467015268133302}
   - {fileID: 4180127718593263172}
   - {fileID: 8345214264813381707}
+  - {fileID: -5711269299613971936}
 --- !u!114 &2489269728458004942
 MonoBehaviour:
   m_ObjectHideFlags: 3

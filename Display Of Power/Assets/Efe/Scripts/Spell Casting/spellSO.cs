@@ -51,6 +51,10 @@ public class spellSO : ScriptableObject
     public bool enableEffects;
     public int effectAmount; // damage for fireball, heal amount for heal
     public effectTypes effectType;
+    [Header("Substractive Spell Properties")]
+    public bool applyStatus;
+    public int statusDuration;
+    public int damagePerTurn;
     // public int manaCost; // TODO
     [Header("Other Gameplay Functionality")]
     public float cooldown; // DONE

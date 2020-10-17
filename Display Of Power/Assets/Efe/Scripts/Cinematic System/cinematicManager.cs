@@ -15,10 +15,11 @@ public class cinematicManager : MonoBehaviour
     GUIManager guim;
     [Header("Camera Info")]
     public Camera cineCam;
+    [Header("Auto-filled at start")]
     [SerializeField]
     Camera lastActiveCam;
     
-    [Header("GUI Contents")]
+    [Header("GUI Contents - Auto-filled at start")]
     [SerializeField]
     TextMeshProUGUI _dialogTextArea;
     [SerializeField]
@@ -61,6 +62,7 @@ public class cinematicManager : MonoBehaviour
 
             lastActiveCam = Camera.main;
             Camera.main.enabled = false;
+            cineCam.gameObject.SetActive(true);
             cineCam = Camera.main;
             
             instanceCinematicGUI = Instantiate(cinematicGUI, new Vector2(Screen.width / 2, Screen.height /2), Quaternion.identity);
@@ -79,7 +81,7 @@ public class cinematicManager : MonoBehaviour
             Camera.main.enabled = true;
 
             guim.closeGUI(instanceCinematicGUI);
-
+            cineCam.gameObject.SetActive(false);
             isCinematicRunning = false;
             Debug.Log("Cinematic disabled.");
         }
@@ -106,6 +108,11 @@ public class cinematicManager : MonoBehaviour
             playSequence(curSequence);
             Debug.Log("Cinema updated.");
         }
+    }
+
+    public void actorTalk()
+    {
+        
     }
     
 }
