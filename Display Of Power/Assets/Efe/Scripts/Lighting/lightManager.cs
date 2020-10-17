@@ -11,6 +11,9 @@ public class lightManager : MonoBehaviour
 
     Light curLight;
 
+    bool isNight = false;
+    public GameObject[] weatherSettings;
+
     void Start()
     {
         curLightPreset = listLightPresets[0];
@@ -51,6 +54,17 @@ public class lightManager : MonoBehaviour
 
     public void applyNight()
     {
-        
+        if(isNight)
+        {
+            isNight = false;
+            weatherSettings[0].SetActive(false);
+            weatherSettings[1].SetActive(true);
+        }
+        else
+        {
+            isNight = true;
+            weatherSettings[0].SetActive(true);
+            weatherSettings[1].SetActive(false);
+        }
     }
 }

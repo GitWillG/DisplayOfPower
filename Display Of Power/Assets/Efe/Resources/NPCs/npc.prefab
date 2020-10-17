@@ -760,7 +760,6 @@ GameObject:
   - component: {fileID: 3805228078017992854}
   - component: {fileID: 919132148619600024}
   - component: {fileID: 1207662291}
-  - component: {fileID: 8669675296627683148}
   - component: {fileID: -7036244467791413128}
   - component: {fileID: 7358549808338987942}
   m_Layer: 0
@@ -834,10 +833,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorName: NPC
+  Life: 0
   actorGold: 0
   actorXP: 0
   actorXPRequired: 0
   actionPoint: 0
+  ownerFaction_string: 
+  actionsRemaining: 0
   maxActionPoint: 0
   baseDamage: 0
   relic: []
@@ -845,6 +847,18 @@ MonoBehaviour:
   isPlayer: 0
   ownerFaction: {fileID: 0}
   defaultDialog: {fileID: 0}
+  belongsToPlayer: 0
+  isTurn: 0
+  MovementRange: 0
+  AttackRange: 0
+  TotalActions: 0
+  initiativeAvatar: {fileID: 0}
+  click_voice: {fileID: 0}
+  move_voice: {fileID: 0}
+  takehit_voice: {fileID: 0}
+  death_voice: {fileID: 0}
+  order_attack_voice: {fileID: 0}
+  attack_voice: {fileID: 0}
   actorQuests: []
   hasQuest: 0
   walkAround: 1
@@ -857,6 +871,7 @@ MonoBehaviour:
   actorType: 0
   spells: []
   cinematicAvatar: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!195 &919132148619600024
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -892,29 +907,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2.3035488, z: 1}
   m_Center: {x: 0, y: 0.65177417, z: 0}
---- !u!114 &8669675296627683148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863947349140452884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 512306979fb9ad04b9d5fbe1935f549d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statObject: {fileID: 11400000, guid: 6f2e44279c1fd0e459c7b8ea528c734c, type: 2}
-  Life: 0
-  MovementRange: 0
-  Factions: 
-  POName: 
-  Damage: 0
-  AttackRange: 0
-  TotalActions: 0
-  actionsRemaining: 0
-  isTurn: 0
-  belongsToPlayer: 0
 --- !u!114 &-7036244467791413128
 MonoBehaviour:
   m_ObjectHideFlags: 0

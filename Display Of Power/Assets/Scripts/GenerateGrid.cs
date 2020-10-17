@@ -12,12 +12,14 @@ using UnityEngine.UI;
 public class GenerateGrid : MonoBehaviour
 {
 
+    [Header("Grid Size")]
+    public int Depth;
+    public int Width;
     [Header("Spawn Parameters")]
     //nnumber of tiles along x axis of grid
-    public int Width;
     public GameObject currTurn;
     //number of tiles along z axis of grid
-    public int Depth;
+    
     // public CubeUnit cubeclass;
     public List<GameObject> innerList;
     public List<List<GameObject>> movementRadius;

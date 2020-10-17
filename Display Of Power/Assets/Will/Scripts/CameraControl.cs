@@ -6,7 +6,7 @@ using efe;
 public class CameraControl : MonoBehaviour
 {
     //main camera
-    public Camera m_Camera;
+    Camera m_Camera;
     //a point at which the camera will move towards
     private Vector3 cameraFollow;
     //the Field of view of the camera (allows for zooming)
@@ -121,6 +121,12 @@ public class CameraControl : MonoBehaviour
         }
 
 
+    }
+
+
+    void rotateCamera()
+    {
+        
     }
 
     IEnumerator resetPan(float time)
