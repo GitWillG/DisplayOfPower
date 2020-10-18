@@ -378,6 +378,8 @@ public class MouseControl : MonoBehaviour
         GridOb.allyList.Remove(deadUnit);
         GridOb.enemyList.Remove(deadUnit);
         GridOb.turnOrder.Remove(deadUnit);
+        
+        Destroy(deadUnit.GetComponent<actorData>().initiativeReference);
 
         guim.updateLog(deadUnit.name + " died.");
         Destroy(deadUnit, 3);

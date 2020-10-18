@@ -110,15 +110,15 @@ public class GenerateGrid : MonoBehaviour
         hexArray = new GameObject[Width, Depth];
         gridGeneration();
 
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "ally");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "ally");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "ally");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "Ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "Ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "Ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "Ally");
 
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "enemy");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "enemy");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "enemy");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "Enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "Enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "Enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "Enemy");
         hasStarted = true;
      
         guim.initializeHealthBars();
@@ -547,6 +547,8 @@ public class GenerateGrid : MonoBehaviour
 
         actorData data = sourceObject.GetComponent<actorData>();
         temp.transform.Find("Avatar").GetComponent<Image>().sprite = data.initiativeAvatar;
+
+        data.initiativeReference = temp;
 
         temp.GetComponent<temp_initiativeDataHolder>().referenceObject = sourceObject;
         temp.name = data.actorName;

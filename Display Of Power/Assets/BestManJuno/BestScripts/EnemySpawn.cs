@@ -146,7 +146,7 @@ public class EnemySpawn : MonoBehaviour
             newEnemy.transform.position.z
         );
 
-        if (teamString == "ally")
+        if (teamString == "Ally")
         {
             grid.allyList.Add(newEnemy);
             data.belongsToPlayer = true;
@@ -155,7 +155,7 @@ public class EnemySpawn : MonoBehaviour
             teamFeedbackObjects[1] = Instantiate(teamFeedbackObjects[1], spawnPosition, Quaternion.identity);
             teamFeedbackObjects[1].transform.parent = newEnemy.transform;  
         }
-        else if (teamString == "enemy")
+        else if (teamString == "Enemy")
         {
             grid.enemyList.Add(newEnemy);
             newEnemy.name = "Soldier";

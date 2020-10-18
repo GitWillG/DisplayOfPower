@@ -64,6 +64,7 @@ namespace efe{
         public Sprite cinematicAvatar;
 
         public Slider healthBar;
+        public GameObject initiativeReference;
         
         void Start()
         {
