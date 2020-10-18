@@ -55,6 +55,7 @@ public class spellSO : ScriptableObject
     public bool applyStatus;
     public int statusDuration;
     public int damagePerTurn;
+    public bool isProjectileBased;
     // public int manaCost; // TODO
     [Header("Other Gameplay Functionality")]
     public float cooldown; // DONE
