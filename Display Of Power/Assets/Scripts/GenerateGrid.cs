@@ -317,46 +317,6 @@ public class GenerateGrid : MonoBehaviour
         }
 
 
-        //int testRadius = radius;
-        //float xNum = 0;
-        //float zNum = 0;
-        //int centerX = 0;
-        //int centerZ = 0;
-
-        //for (int x = 0; x < Width; x++)
-        //{
-        //    for (int z = 0; z < Depth; z++)
-        //    {
-        //        Debug.Log(hexArray);
-        //        //Debug.Log(hexArray[x, z].gameObject);
-        //        if (centerPoint == hexArray[x, z].gameObject)
-        //        {
-        //            centerX = x;
-        //            centerZ = z;
-
-        //            xNum = x - (z - (z & 1)) / 2;
-        //            zNum = z;
-
-
-        //        }
-        //    }
-        //}
-
-        //for (int a = 0; a < Width; a++)
-        //{
-        //    for (int b = 0; b < Depth; b++)
-        //    {
-        //        float newx = a - (b - (b & 1)) / 2;
-        //        float newz = b;
-        //        float distance = Mathf.Max(Mathf.Abs(xNum - newx) + Mathf.Abs(xNum + zNum - newx - newz) + Mathf.Abs(zNum - newz));
-        //        if (distance <= testRadius * 2)
-        //        {
-        //            legalHex.Add(hexArray[a, b]);
-        //        }
-
-        //    }
-        //}
-
         for (int i = 0; i < legalHex.Count; i++)
         {
             if (legalHex[i] != centerPoint)
@@ -384,6 +344,7 @@ public class GenerateGrid : MonoBehaviour
 
     }
     //This takes the list of movement hexes and reverts them to their original layer then clears the list
+    //
     public void removeMoveCheck(Material newMat)
     {
         for (int i = 0; i < tempList.Count; i++)
