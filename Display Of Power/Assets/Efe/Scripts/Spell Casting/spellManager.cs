@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using efe;
+using TMPro;
 
 public class spellManager : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class spellManager : MonoBehaviour
     GUIManager guim;
     spellSO curSpellPreview;
     // Cast type tracking
-    string[] castTypes = {"Single", "Area"};
+    string[] castTypes = {"Single", "Area", "Self Around"};
     string curCastType;
     public bool castPreviewEnabled = false;
     spellSO curSpell;
@@ -174,22 +175,26 @@ public class spellManager : MonoBehaviour
     public void startSpellPreview(spellSO spellInQuestion)
     {   
         GameObject preview;
+        noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 3), Quaternion.identity);
+        TextMeshProUGUI noteText = noteInstance.transform.Find("BG").transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        
         if(spellInQuestion.SkillTargetHandling == spellSO.targetHandling.area)
         {   
             preview = Instantiate(circle_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[1];
-
+            noteText.text = "Target an area to cast the spell.";
         }
         else if(spellInQuestion.SkillTargetHandling == spellSO.targetHandling.single)
         {
-           
             preview = Instantiate(single_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[0];
         }   
-
-        noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 3), Quaternion.identity);
-
-        
+        else if(spellInQuestion.SkillTargetHandling == spellSO.targetHandling.selfaround)
+        {
+            curCastType = castTypes[2];
+            noteText.text = "Click again to cast the spell.";
+        }
+       
         castPreviewEnabled = true;
         Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
         Debug.Log("Started spell preview. " + spellInQuestion.spellName);
@@ -213,10 +218,14 @@ public class spellManager : MonoBehaviour
     public void startSpellPreview()
     {   
         GameObject preview;
+        noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 3), Quaternion.identity);
+        TextMeshProUGUI noteText = noteInstance.transform.Find("BG").transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        
         if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].SkillTargetHandling == spellSO.targetHandling.area)
         {   
             preview = Instantiate(circle_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[1];
+            noteText.text = "Target an area to cast the spell.";
 
         }
         else if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].SkillTargetHandling == spellSO.targetHandling.single)
@@ -224,10 +233,12 @@ public class spellManager : MonoBehaviour
            
             // preview = Instantiate(single_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[0];
-        }   
-
-        noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 3), Quaternion.identity);
-
+        }  
+        else if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].SkillTargetHandling == spellSO.targetHandling.selfaround)
+        {
+            curCastType = castTypes[2];
+            noteText.text = "Click again to cast the spell.";
+        } 
 
         castPreviewEnabled = true;
         Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
@@ -320,7 +331,7 @@ public class spellManager : MonoBehaviour
                     {
 
                         castPreviewEnabled = false;
-                        Debug.Log("Preview finished.");
+                        // Debug.Log("Preview finished.");
                         Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
                         //      
                         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -371,7 +382,7 @@ public class spellManager : MonoBehaviour
                             else
                             {
                                 guim.updateLog("There is no NPC here.");
-                                Debug.Log("There is no NPCs here.");
+                                // Debug.Log("There is no NPCs here.");
                                 am.playAudio2D("error");
                                         
                                         if(noteInstance != null)
@@ -592,8 +603,10 @@ public class spellManager : MonoBehaviour
                 }
                 else
                 {
-                tempStatusParticle = Instantiate(actor.statusSpellReference.statusParticle.gameObject, actor.transform.position, Quaternion.identity); 
+                    tempStatusParticle = Instantiate(actor.statusSpellReference.statusParticle.gameObject, actor.transform.position, Quaternion.identity); 
+                    
                 }
+                tempStatusParticle.transform.parent = actor.transform;
                 Destroy(tempStatusParticle, 3);
 
                 guim.updateLog(actor.actorName + " gets status effects from " + actor.statusSpellReference.spellName);

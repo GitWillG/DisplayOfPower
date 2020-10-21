@@ -72,7 +72,6 @@ namespace efe{
         public GameObject maxHPtext_reference;
         public GameObject damageGUI_reference;
         MouseControl mc;
-
         GameObject enemySideReference;
         GameObject allySideReference;
 
@@ -80,6 +79,10 @@ namespace efe{
         public spellSO statusSpellReference;
         public int statusDuration;
         public int statusEffect;
+
+        public GameObject baseProjectile;
+        public bool useParticles;
+        public ParticleSystem projectileParticle;
 
         
         void Start()

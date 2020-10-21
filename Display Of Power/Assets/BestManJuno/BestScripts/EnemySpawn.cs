@@ -166,7 +166,7 @@ public class EnemySpawn : MonoBehaviour
         GameObject temp = Instantiate(healthBar, 
         new Vector3(newEnemy.transform.position.x, newEnemy.transform.position.y + 2, newEnemy.transform.position.z),
          Quaternion.identity);
-        temp.transform.parent = newEnemy.transform;
+        temp.transform.SetParent(newEnemy.transform);
         newEnemy.GetComponent<actorData>().healthBar = temp.transform.Find("Slider").gameObject.GetComponent<Slider>();
         newEnemy.GetComponent<actorData>().AP_reference = temp.transform.Find("ActionPointIndicator").transform.Find("AP").gameObject;
         newEnemy.GetComponent<actorData>().damageGUI_reference = temp.transform.Find("AttackBG").transform.Find("Attack").gameObject;
