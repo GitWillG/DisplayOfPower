@@ -20,8 +20,12 @@ MonoBehaviour:
   effectAmount: 5
   effectType: 0
   applyStatus: 0
+  statusType: 0
   statusDuration: 0
-  damagePerTurn: 0
+  statusEffectPerTurn: 0
+  statusParticle: {fileID: 0}
+  overwriteStatusVisual: 0
+  statusOverwriteParticle: {fileID: 0}
   isProjectileBased: 0
   cooldown: 1
   castingDuration: 1

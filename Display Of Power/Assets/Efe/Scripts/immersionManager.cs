@@ -151,7 +151,7 @@ public class immersionManager : MonoBehaviour
     // Called from mouseControls
     public void highlighObject(GameObject target, string objectType)
     {
-
+        if(target == null) return;
         // Objects with rigs have skinned mesh renderer
         if(objectType == "Character")
         {
@@ -172,7 +172,7 @@ public class immersionManager : MonoBehaviour
             // Before replacement, there is only oldMaterial
             // After replacement, there is oldmaterial + outlinematerial
             renderer.materials = resultMaterials.ToArray();
-            Debug.Log(body.name + target.name);
+            // Debug.Log(body.name + target.name);
 
 
         }
@@ -219,9 +219,11 @@ public class immersionManager : MonoBehaviour
 
     public void restoreHighlight(GameObject target, string ObjectType)
     {
+        if(target == null || ObjectType == null) return;
         if(ObjectType == "Character")
         {
             GameObject body = target.transform.Find("Body").gameObject;
+            if(body == null) return;
             SkinnedMeshRenderer renderer = body.GetComponent<SkinnedMeshRenderer>();
             // Save the old material
             resultMaterials.Clear();

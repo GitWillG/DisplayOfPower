@@ -28,7 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 415326}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &100436
 GameObject:
@@ -291,7 +291,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 415326}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &103776
 GameObject:
@@ -759,7 +759,7 @@ Transform:
   m_LocalScale: {x: 1, y: 0.99999994, z: 1}
   m_Children: []
   m_Father: {fileID: 409770}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &13721654
 SkinnedMeshRenderer:
@@ -946,7 +946,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 409770}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &13725486
 SkinnedMeshRenderer:
@@ -1198,7 +1198,7 @@ Transform:
   m_LocalScale: {x: 1.0967503, y: 1.0967505, z: 1.0967504}
   m_Children: []
   m_Father: {fileID: 415326}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3360234
 MeshFilter:
@@ -1276,7 +1276,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 409770}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &13763144
 SkinnedMeshRenderer:
@@ -1405,6 +1405,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 23.752779, y: 23.752779, z: 23.752779}
   m_Children:
+  - {fileID: 459418}
   - {fileID: 455750}
   - {fileID: 425786}
   - {fileID: 404600}
@@ -1484,9 +1485,20 @@ MonoBehaviour:
   actorType: 0
   spells: []
   cinematicAvatar: {fileID: 0}
+  overheadReference: {fileID: 0}
   healthBar: {fileID: 0}
   initiativeReference: {fileID: 0}
   AP_reference: {fileID: 0}
+  curHPtext_reference: {fileID: 0}
+  maxHPtext_reference: {fileID: 0}
+  damageGUI_reference: {fileID: 0}
+  hasStatus: 0
+  statusSpellReference: {fileID: 0}
+  statusDuration: 0
+  statusEffect: 0
+  baseProjectile: {fileID: 0}
+  useParticles: 0
+  projectileParticle: {fileID: 0}
 --- !u!195 &7674899837049132280
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1654,12 +1666,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127872}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.538211e-11, y: 0.0007174663, z: 0.041741326}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.04174133, z: -0.0007174685}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 409770}
-  m_RootOrder: 2
+  m_Father: {fileID: 415326}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &13740740
 SkinnedMeshRenderer:
@@ -2046,7 +2058,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 415326}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &141348
 GameObject:
@@ -2169,7 +2181,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 409770}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &13751652
 SkinnedMeshRenderer:
@@ -3240,7 +3252,7 @@ Transform:
   - {fileID: 447828}
   - {fileID: 445348}
   m_Father: {fileID: 415326}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &187252
 GameObject:
@@ -3332,14 +3344,13 @@ Transform:
   m_Children:
   - {fileID: 492122}
   - {fileID: 422676}
-  - {fileID: 459418}
   - {fileID: 410190}
   - {fileID: 415322}
   - {fileID: 475078}
   - {fileID: 426628}
   - {fileID: 403562}
   m_Father: {fileID: 415326}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &190798
 GameObject:
@@ -3558,7 +3569,7 @@ Transform:
   m_LocalScale: {x: 1.05805, y: 1.05805, z: 1.0580502}
   m_Children: []
   m_Father: {fileID: 409770}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &13743392
 SkinnedMeshRenderer:
