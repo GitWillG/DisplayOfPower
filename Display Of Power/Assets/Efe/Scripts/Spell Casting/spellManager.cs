@@ -19,6 +19,7 @@ public class spellManager : MonoBehaviour
     public GameObject circle_radius_preview;
     public GameObject single_radius_preview;
     MouseControl mc;
+    immersionManager im;
     GUIManager guim;
     spellSO curSpellPreview;
     // Cast type tracking
@@ -41,6 +42,7 @@ public class spellManager : MonoBehaviour
         mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
         guim = GetComponent<GUIManager>();
         am = GetComponent<audioManager>();
+        im = GetComponent<immersionManager>();
     }
 
     // Update is called once per frame
@@ -340,6 +342,7 @@ public class spellManager : MonoBehaviour
                         {
                             if(hit.transform.gameObject.tag == "NPC")
                             {
+                                
                                 actorData data = hit.transform.gameObject.GetComponent<actorData>();
                                 if(curSpell.effectType == spellSO.effectTypes.substractive)
                                 {

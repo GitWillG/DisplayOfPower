@@ -158,11 +158,12 @@ public class immersionManager : MonoBehaviour
             // Target reference is a prefab
             // So find the body in its childs
             GameObject body = target.transform.Find("Body").gameObject;
+            if(body == null) return;
             // Save the old material
             oldMaterial = body.GetComponent<Renderer>().material;
             // Access to skinned mesh component
             SkinnedMeshRenderer renderer = body.GetComponent<SkinnedMeshRenderer>();
-            
+            resultMaterials.Clear();
             // Add the original material of the body to list of materials mesh will have in the end
             resultMaterials.Add(oldMaterial);
             // Add outline material as 2nd
@@ -171,6 +172,7 @@ public class immersionManager : MonoBehaviour
             // Before replacement, there is only oldMaterial
             // After replacement, there is oldmaterial + outlinematerial
             renderer.materials = resultMaterials.ToArray();
+            Debug.Log(body.name + target.name);
 
 
         }
@@ -193,7 +195,7 @@ public class immersionManager : MonoBehaviour
             outlineData.FresnelScale = 4;
         }
         // Does it get the right reference for each type of object?
-        Debug.Log(target.name);
+        // Debug.Log(target.name);
 
         // Instantiate the light in approximately in the center of body - its not dynamic yet
         if(storedLight == null)
@@ -217,9 +219,21 @@ public class immersionManager : MonoBehaviour
 
     public void restoreHighlight(GameObject target, string ObjectType)
     {
-        target.GetComponent<Renderer>().material = oldMaterial;
-        target.GetComponent<OutlineObject>().enabled = false;
-        // resultMaterials.Clear();
-        // resultMaterials.Add(oldMaterial);
+        if(ObjectType == "Character")
+        {
+            GameObject body = target.transform.Find("Body").gameObject;
+            SkinnedMeshRenderer renderer = body.GetComponent<SkinnedMeshRenderer>();
+            // Save the old material
+            resultMaterials.Clear();
+            // Add the original material of the body to list of materials mesh will have in the end
+            resultMaterials.Add(oldMaterial);
+            // Replace materials array with new one
+            // Before replacement, there is only oldMaterial
+            // After replacement, there is oldmaterial + outlinematerial
+            renderer.materials = resultMaterials.ToArray();
+            // resultMaterials.Clear();
+            // resultMaterials.Add(oldMaterial);
+            Debug.Log(target.name + " restored.");
+        }
     }
 }

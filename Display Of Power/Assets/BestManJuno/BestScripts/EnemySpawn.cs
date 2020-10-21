@@ -164,7 +164,7 @@ public class EnemySpawn : MonoBehaviour
         }
 
         GameObject temp = Instantiate(healthBar, 
-        new Vector3(newEnemy.transform.position.x, newEnemy.transform.position.y + 2, newEnemy.transform.position.z),
+        new Vector3(newEnemy.transform.position.x, newEnemy.transform.position.y + 3, newEnemy.transform.position.z),
          Quaternion.identity);
         temp.transform.SetParent(newEnemy.transform);
         newEnemy.GetComponent<actorData>().healthBar = temp.transform.Find("Slider").gameObject.GetComponent<Slider>();

@@ -71,6 +71,7 @@ public class MouseControl : MonoBehaviour
     public List<GameObject> listRays;
     public GameObject rayParticle;
     public GameObject selectionCircle;
+    immersionManager im;
 
     private void Start()
     {
@@ -82,7 +83,8 @@ public class MouseControl : MonoBehaviour
         tutorial.SetActive(true);
         
         sm = GameObject.FindGameObjectWithTag("GM").GetComponent<spellManager>();
-        guim = sm.GetComponent<GUIManager>();
+        guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
+        im = GameObject.FindGameObjectWithTag("GM").GetComponent<immersionManager>();
     }
 
     private void Update()
@@ -223,6 +225,7 @@ public class MouseControl : MonoBehaviour
         grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
         //null the selected hex
         selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(false);
+        im.restoreHighlight(selectedTarget.GetChild(0).gameObject, "Character");
         
         foreach(GameObject temp in listSelectionCircles)
         {
@@ -329,7 +332,7 @@ public class MouseControl : MonoBehaviour
                 unitBox.text = selectedTarget.GetComponentInChildren<actorData>().actorName.ToString();
                 actionsLeft.text = selectedTarget.GetComponentInChildren<actorData>().actionsRemaining.ToString();
                 selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(true);
-                
+                im.highlighObject(selectedTarget.GetChild(0).gameObject, "Character");
                 GameObject tempCircle = Instantiate(selectionCircle, selectedTarget.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);
                 tempCircle.transform.parent = selectedTarget.transform.GetChild(0).gameObject.transform;
                 listSelectionCircles.Add(tempCircle);

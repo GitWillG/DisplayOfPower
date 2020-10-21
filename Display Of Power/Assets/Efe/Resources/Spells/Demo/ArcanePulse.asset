@@ -43,7 +43,7 @@ MonoBehaviour:
   sizeMultiplier: 1
   skillAura: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
     type: 3}
-  SkillTargetHandling: 1
+  SkillTargetHandling: 3
   allowedTarget: 0
   SkillCasterAnimation: 0
   playEndAnimation: 0
