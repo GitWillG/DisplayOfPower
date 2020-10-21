@@ -22,6 +22,18 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.00028394087
       objectReference: {fileID: 0}
+    - target: {fileID: 103212, guid: 080b3c0984c7ed34cb7c4c4958c88e61, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 109108, guid: 080b3c0984c7ed34cb7c4c4958c88e61, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 113796, guid: 080b3c0984c7ed34cb7c4c4958c88e61, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 127422, guid: 080b3c0984c7ed34cb7c4c4958c88e61, type: 3}
       propertyPath: m_Name
       value: Orc Warrior
@@ -29,6 +41,22 @@ PrefabInstance:
     - target: {fileID: 127422, guid: 080b3c0984c7ed34cb7c4c4958c88e61, type: 3}
       propertyPath: m_TagString
       value: NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 127448, guid: 080b3c0984c7ed34cb7c4c4958c88e61, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 150486, guid: 080b3c0984c7ed34cb7c4c4958c88e61, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 154234, guid: 080b3c0984c7ed34cb7c4c4958c88e61, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196960, guid: 080b3c0984c7ed34cb7c4c4958c88e61, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 415326, guid: 080b3c0984c7ed34cb7c4c4958c88e61, type: 3}
       propertyPath: m_LocalPosition.x

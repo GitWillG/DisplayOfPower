@@ -211,20 +211,6 @@ public class GUIManager : MonoBehaviour
         // Debug.Log("New log entered :" + textData.text);
     }
 
-    public void initializeHealthBars()
-    {
-        if(healthBar != null)
-        {
-            GameObject[] NPCs = GameObject.FindGameObjectsWithTag("NPC");
-            foreach(GameObject temp in NPCs)
-            {
-                GameObject bar = Instantiate(healthBar, temp.transform.position, Quaternion.identity);
-                bar.transform.parent = temp.transform;
-                temp.GetComponent<actorData>().healthBar = bar.GetComponent<Slider>();
-            }
-        }
-    }
-
     
 
     public void openGUI(GameObject GUI)

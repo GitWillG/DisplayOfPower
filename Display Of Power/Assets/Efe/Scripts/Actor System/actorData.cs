@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using TMPro;
 using efe;
 
 // needs to be called "using efe;"
@@ -63,8 +64,14 @@ namespace efe{
         public spellSO[] spells;
         public Sprite cinematicAvatar;
 
+        public GameObject overheadReference;
         public Slider healthBar;
         public GameObject initiativeReference;
+        public GameObject AP_reference;
+        public GameObject curHPtext_reference;
+        public GameObject maxHPtext_reference;
+        public GameObject damageGUI_reference;
+        MouseControl mc;
         
         void Start()
         {
@@ -74,6 +81,9 @@ namespace efe{
             // im = gm.GetComponent<immersionManager>();
             rig = GetComponent<rigHumanoid>();
             animator = GetComponent<Animator>();
+            mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
+
+            overheadReference.SetActive(false);
 
             // Health Bar
             maxLife = Life;
@@ -110,12 +120,27 @@ namespace efe{
 
         void updateHealthBar()
         {
-            if (this.GetComponent<actorData>().healthBar != null)
+            
+            // if(isTurn)
+            // {
+            //     overheadReference.gameObject.SetActive(true);
+            // }
+            // else
+            // {
+            //     overheadReference.gameObject.SetActive(false);
+            // }
+
+            if (healthBar != null)
             {
                 healthBar.maxValue = maxLife;
                 healthBar.value = Life;
+                AP_reference.GetComponent<TextMeshProUGUI>().text = actionsRemaining.ToString();
+                damageGUI_reference.GetComponent<TextMeshProUGUI>().text = baseDamage.ToString();
+                curHPtext_reference.GetComponent<TextMeshProUGUI>().text = Life.ToString();
+                maxHPtext_reference.GetComponent<TextMeshProUGUI>().text = maxLife.ToString();
 
             }
+            
         }
 
         [ContextMenu("Sync Editor")]

@@ -57,6 +57,7 @@ public class baseAI : MonoBehaviour
                                 //Debug.Log("checkattack");
 
                                 clickActions.ClickAttack(self.gameObject, gridOb.legalHex[i]);
+                                transform.LookAt(gridOb.legalHex[i].transform);
                                 self.actionsRemaining -= 1;
                                 // Debug.Log("Dealt 5 damage to " + gridOb.legalHex[i].transform.GetChild(0).gameObject);
                                 // guim.updateLog(this.GetComponent<actorData>().actorName + " dealt " + this.GetComponent<actorData>().baseDamage + " to " + gridOb.legalHex[i].transform.GetChild(0).GetComponent<actorData>().actorName);

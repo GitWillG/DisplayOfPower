@@ -37,7 +37,7 @@ public class MouseControl : MonoBehaviour
     public GenerateGrid GridOb;
     public bool doneMoving;
     public GameObject selectionManager;
-    private GameObject currClickedHex;
+    public GameObject currClickedHex;
 
     //detection range for movement/attacks
     public int detectRange;
@@ -66,6 +66,7 @@ public class MouseControl : MonoBehaviour
     spellManager sm;
     GUIManager guim;
     public GameObject endTurnBTN;
+    public GameObject tutorial;
 
     private void Start()
     {
@@ -73,7 +74,8 @@ public class MouseControl : MonoBehaviour
         //nothing is selected at the start
         clickedHex = false;
         doneMoving = true;
-       
+    
+        tutorial.SetActive(true);
         
         sm = GameObject.FindGameObjectWithTag("GM").GetComponent<spellManager>();
         guim = sm.GetComponent<GUIManager>();
@@ -216,6 +218,7 @@ public class MouseControl : MonoBehaviour
         grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
         grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
         //null the selected hex
+        selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(false);
         selectedTarget = null;
         //go back to raycasting on our default hex layer
         currentMask = 1 << 8; 
@@ -224,6 +227,7 @@ public class MouseControl : MonoBehaviour
         attackBox.text = "";
         unitBox.text = "";
         actionsLeft.text = "";
+        
     }
 
     [ContextMenu("switch between attack or move")]
@@ -313,6 +317,7 @@ public class MouseControl : MonoBehaviour
                 attackBox.text = selectedTarget.GetComponentInChildren<actorData>().baseDamage.ToString();
                 unitBox.text = selectedTarget.GetComponentInChildren<actorData>().actorName.ToString();
                 actionsLeft.text = selectedTarget.GetComponentInChildren<actorData>().actionsRemaining.ToString();
+                selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(true);
                 //swap the mask to our legal hex layer for raycasting
                 currentMask = 1 << 10;
                 //swap to the appropriate range

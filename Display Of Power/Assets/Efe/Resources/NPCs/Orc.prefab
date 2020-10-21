@@ -1485,6 +1485,8 @@ MonoBehaviour:
   spells: []
   cinematicAvatar: {fileID: 0}
   healthBar: {fileID: 0}
+  initiativeReference: {fileID: 0}
+  AP_reference: {fileID: 0}
 --- !u!195 &7674899837049132280
 NavMeshAgent:
   m_ObjectHideFlags: 0

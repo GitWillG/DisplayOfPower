@@ -16,6 +16,10 @@ public class CameraControl : MonoBehaviour
     bool isPanning = false;
     Vector3 panPosition;
     float camMoveSpeed = 3;
+    // public GameObject anchor;
+    // Vector3 cameraRight = anchor.transform.right;
+    // Vector3 cameraForward = anchor.transform.forward;
+    
     void Start()
     {
         //Get the scenes main camera
@@ -44,6 +48,7 @@ public class CameraControl : MonoBehaviour
             float moveAmount = 20f;
             if ((Input.GetKey(KeyCode.W)))
             {
+                // anchor.transform.position += cameraRight * Time.deltaTime;
                 cameraFollow.z += moveAmount * Time.deltaTime;
             }
             if ((Input.GetKey(KeyCode.S)))

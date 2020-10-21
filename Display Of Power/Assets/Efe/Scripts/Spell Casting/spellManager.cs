@@ -12,6 +12,7 @@ public class spellManager : MonoBehaviour
     public spellSO _spellDEMO;
     public Material _baseMaterial;
     factionManager fm;
+    audioManager am;
     GameObject projectile;
     [Header("Spell Preview Types")]
     public GameObject circle_radius_preview;
@@ -35,6 +36,7 @@ public class spellManager : MonoBehaviour
         fm = GetComponent<factionManager>();
         mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
         guim = GetComponent<GUIManager>();
+        am = GetComponent<audioManager>();
     }
 
     // Update is called once per frame
@@ -321,6 +323,7 @@ public class spellManager : MonoBehaviour
                                     else
                                     {
                                         guim.updateLog("You cannot target an ally.");
+                                        am.playAudio2D("error");
                                     }
                                 }
                                 else if(curSpell.effectType == spellSO.effectTypes.additive)
@@ -333,6 +336,8 @@ public class spellManager : MonoBehaviour
                                     else
                                     {
                                         guim.updateLog("You cannot target an enemy.");
+                                        am.playAudio2D("error");
+
                                     }
                                 }
                             }
@@ -340,6 +345,7 @@ public class spellManager : MonoBehaviour
                             {
                                 guim.updateLog("There is no NPC here.");
                                 Debug.Log("There is no NPCs here.");
+                                am.playAudio2D("error");
                             }
                         }
                     }
@@ -474,6 +480,7 @@ public class spellManager : MonoBehaviour
         else
         {
             guim.updateLog("It is not this character's turn.");
+            am.playAudio2D("error");
         }
     }
 }

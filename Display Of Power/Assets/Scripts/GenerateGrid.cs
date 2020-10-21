@@ -111,19 +111,18 @@ public class GenerateGrid : MonoBehaviour
         gridGeneration();
 
         enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "Ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[1], allySpawnHexes, "Ally");
         enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "Ally");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "Ally");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "Ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[1], allySpawnHexes, "Ally");
 
         enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "Enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[1], enemySpawnHexes, "Enemy");
         enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "Enemy");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "Enemy");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "Enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[1], enemySpawnHexes, "Enemy");
         hasStarted = true;
      
-        guim.initializeHealthBars();
 
-        addPropsRandomly(blockade);
+        // addPropsRandomly(blockade);
         //enemySpawn.SpawnEnemies(5, enemySpawn.allyPrefab, allyList);
         //enemySpawn.SpawnEnemies(5, enemySpawn.enemyPrefab, enemyList);
     }
@@ -131,10 +130,10 @@ public class GenerateGrid : MonoBehaviour
     {   
 
         showGrid();
-        if(Input.GetKeyDown(KeyCode.B))
-        {
-            addPropsRandomly(blockade);
-        }
+        // if(Input.GetKeyDown(KeyCode.B))
+        // {
+        //     addPropsRandomly(blockade);
+        // }
 
         if (hasStarted)
         {

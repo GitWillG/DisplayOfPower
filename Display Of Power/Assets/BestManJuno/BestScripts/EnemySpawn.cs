@@ -152,15 +152,15 @@ public class EnemySpawn : MonoBehaviour
             data.belongsToPlayer = true;
             newEnemy.GetComponent<actorData>().ownerFaction_string = "Ally";
             newEnemy.name = "Mage";
-            teamFeedbackObjects[1] = Instantiate(teamFeedbackObjects[1], spawnPosition, Quaternion.identity);
-            teamFeedbackObjects[1].transform.parent = newEnemy.transform;  
+            // teamFeedbackObjects[1] = Instantiate(teamFeedbackObjects[1], spawnPosition, Quaternion.identity);
+            // teamFeedbackObjects[1].transform.parent = newEnemy.transform;  
         }
         else if (teamString == "Enemy")
         {
             grid.enemyList.Add(newEnemy);
             newEnemy.name = "Soldier";
-            teamFeedbackObjects[0] = Instantiate(teamFeedbackObjects[0], spawnPosition, Quaternion.identity);
-            teamFeedbackObjects[0].transform.parent = newEnemy.transform;
+            // teamFeedbackObjects[0] = Instantiate(teamFeedbackObjects[0], spawnPosition, Quaternion.identity);
+            // teamFeedbackObjects[0].transform.parent = newEnemy.transform;
         }
 
         GameObject temp = Instantiate(healthBar, 
@@ -168,9 +168,11 @@ public class EnemySpawn : MonoBehaviour
          Quaternion.identity);
         temp.transform.parent = newEnemy.transform;
         newEnemy.GetComponent<actorData>().healthBar = temp.transform.Find("Slider").gameObject.GetComponent<Slider>();
-
-        
-        
+        newEnemy.GetComponent<actorData>().AP_reference = temp.transform.Find("ActionPointIndicator").transform.Find("AP").gameObject;
+        newEnemy.GetComponent<actorData>().damageGUI_reference = temp.transform.Find("AttackBG").transform.Find("Attack").gameObject;
+        newEnemy.GetComponent<actorData>().curHPtext_reference = temp.transform.Find("curHP").gameObject;
+        newEnemy.GetComponent<actorData>().maxHPtext_reference = temp.transform.Find("MaxHP").gameObject;
+        newEnemy.GetComponent<actorData>().overheadReference = temp;
     }
 
     //public void SpawnSpecificLocation(int numOfUnits, GameObject unitToSpawn, List<GameObject> spawnGrid)
