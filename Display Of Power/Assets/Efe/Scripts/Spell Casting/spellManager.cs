@@ -230,7 +230,7 @@ public class spellManager : MonoBehaviour
 
         castPreviewEnabled = true;
         Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
-        Debug.Log("Started spell preview.");
+        // Debug.Log("Started spell preview.");
         
         // Remove already existing previews if there is one
         // GameObject[] radiusPreviews = GameObject.FindGameObjectsWithTag("RadiusPreview");
@@ -383,7 +383,7 @@ public class spellManager : MonoBehaviour
                     else if(Input.GetMouseButtonDown(1))
                     {
                         castPreviewEnabled = false;
-                        Debug.Log("Preview cancelled.");
+                        // Debug.Log("Preview cancelled.");
                         Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
                         guim.updateLog("Preview cancelled.");
                                 

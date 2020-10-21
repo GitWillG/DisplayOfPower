@@ -67,6 +67,10 @@ public class MouseControl : MonoBehaviour
     GUIManager guim;
     public GameObject endTurnBTN;
     public GameObject tutorial;
+    public List<GameObject> listSelectionCircles;
+    public List<GameObject> listRays;
+    public GameObject rayParticle;
+    public GameObject selectionCircle;
 
     private void Start()
     {
@@ -219,6 +223,13 @@ public class MouseControl : MonoBehaviour
         grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
         //null the selected hex
         selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(false);
+        
+        foreach(GameObject temp in listSelectionCircles)
+        {
+            Destroy(temp);
+        }
+        listSelectionCircles.Clear();
+        
         selectedTarget = null;
         //go back to raycasting on our default hex layer
         currentMask = 1 << 8; 
@@ -318,6 +329,9 @@ public class MouseControl : MonoBehaviour
                 unitBox.text = selectedTarget.GetComponentInChildren<actorData>().actorName.ToString();
                 actionsLeft.text = selectedTarget.GetComponentInChildren<actorData>().actionsRemaining.ToString();
                 selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(true);
+                GameObject tempCircle = Instantiate(selectionCircle, selectedTarget.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);
+                tempCircle.transform.parent = selectedTarget.transform.GetChild(0).gameObject.transform;
+                listSelectionCircles.Add(tempCircle);
                 //swap the mask to our legal hex layer for raycasting
                 currentMask = 1 << 10;
                 //swap to the appropriate range

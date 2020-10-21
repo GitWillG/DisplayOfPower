@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 6790952996458751025}
   - component: {fileID: 6863334881656109700}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -776,7 +776,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1615560775182562912}
         m_MethodName: openScene
         m_Mode: 5
         m_Arguments:
@@ -800,12 +800,12 @@ GameObject:
   - component: {fileID: 1330635827235610157}
   - component: {fileID: 2889500638407602965}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Tent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6023002476342989182
 RectTransform:
   m_ObjectHideFlags: 0

@@ -308,7 +308,7 @@ public class GUIManager : MonoBehaviour
         if(tooltip_skill.activeInHierarchy)
         {
             tooltip_skill.SetActive(false);
-            Debug.Log("Tooltip hidden...");
+            // Debug.Log("Tooltip hidden...");
         }
     }
 
