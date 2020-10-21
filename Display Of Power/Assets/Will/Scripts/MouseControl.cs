@@ -65,7 +65,7 @@ public class MouseControl : MonoBehaviour
     Renderer selectionRenderer;
     spellManager sm;
     GUIManager guim;
-    public GameObject endTurnBTN;
+    public GameObject playerTurnGUI;
     public GameObject tutorial;
     public List<GameObject> listSelectionCircles;
     public List<GameObject> listRays;
@@ -329,9 +329,12 @@ public class MouseControl : MonoBehaviour
                 unitBox.text = selectedTarget.GetComponentInChildren<actorData>().actorName.ToString();
                 actionsLeft.text = selectedTarget.GetComponentInChildren<actorData>().actionsRemaining.ToString();
                 selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(true);
+                selectedTarget.GetComponentInChildren<actorData>().overheadReference.transform.localScale *= 2;
                 GameObject tempCircle = Instantiate(selectionCircle, selectedTarget.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);
                 tempCircle.transform.parent = selectedTarget.transform.GetChild(0).gameObject.transform;
                 listSelectionCircles.Add(tempCircle);
+
+
                 //swap the mask to our legal hex layer for raycasting
                 currentMask = 1 << 10;
                 //swap to the appropriate range
@@ -383,7 +386,7 @@ public class MouseControl : MonoBehaviour
                 if (selectedTarget.GetComponentInChildren<actorData>().actionsRemaining == 0)
                 {
                     GridOb.EndTurn();
-                    endTurnBTN.SetActive(true);
+                    playerTurnGUI.SetActive(true);
                 }
 
                 return;
@@ -442,7 +445,7 @@ public class MouseControl : MonoBehaviour
         if (unit.GetComponent<actorData>().actionsRemaining == 0)
         {
             GridOb.EndTurn();
-            endTurnBTN.SetActive(true);
+            playerTurnGUI.SetActive(true);
         }
         else
         {

@@ -429,13 +429,15 @@ public class spellManager : MonoBehaviour
 
             if(spellData.casterParticle != null)
             {
-            // Spawn caster particle on caster
-                Instantiate(spellData.casterParticle, source.transform.position, Quaternion.identity);
+                // Spawn caster particle on caster
+                GameObject temp = Instantiate(spellData.casterParticle, source.transform.position, Quaternion.identity);
+                Destroy(temp, 3);
             }
             if(spellData.targetParticle != null)
             {
-            // Spawn target particle on target
-                Instantiate(spellData.targetParticle, target.transform.position, Quaternion.identity);
+                // Spawn target particle on target
+                GameObject temp = Instantiate(spellData.targetParticle, source.transform.position, Quaternion.identity);
+                Destroy(temp, 3);
             }
             // Debug.Log(1);
             for(int i = 0; i <= spellData.spawnAmount; i++)

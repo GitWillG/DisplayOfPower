@@ -112,7 +112,7 @@ public class GenerateGrid : MonoBehaviour
         hexArray = new GameObject[Width, Depth];
         gridGeneration();
 
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "Ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[2], allySpawnHexes, "Ally");
         enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[1], allySpawnHexes, "Ally");
         enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "Ally");
         enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[1], allySpawnHexes, "Ally");
@@ -558,7 +558,7 @@ public class GenerateGrid : MonoBehaviour
             //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
         }
         guim.updateLog("Turn ended.", Color.green);
-        mouseControl.endTurnBTN.SetActive(true);
+        mouseControl.playerTurnGUI.SetActive(true);
         am.playAudio2D("endturn");
         NextTurn();
     }

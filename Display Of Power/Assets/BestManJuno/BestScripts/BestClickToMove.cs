@@ -14,6 +14,7 @@ public class BestClickToMove : MonoBehaviour
 
     public Vector3 location;
     public GameObject feedbackParticle;
+    public GameObject numberIndicator;
 
     GUIManager guim;
 
@@ -79,8 +80,31 @@ public class BestClickToMove : MonoBehaviour
         //subtract life from targetted unit equal to "damage" of selected unit
         targetHex.GetComponentInChildren<actorData>().Life -= unit.GetComponent<actorData>().baseDamage;
         // targetHex.GetComponentInChildren<actorData>().statObject.life -= unit.GetComponent<actorData>().baseDamage;
-        Instantiate(feedbackParticle, targetHex.transform.position, Quaternion.identity);
-        
+        Vector3 bloodSpawn = new Vector3(
+            targetHex.transform.GetChild(0).transform.position.x,
+            targetHex.transform.GetChild(0).transform.position.y + 1,
+            targetHex.transform.GetChild(0).transform.position.z
+        );
+        GameObject bloodTemp = Instantiate(feedbackParticle, bloodSpawn, Quaternion.identity);
+        Destroy(bloodTemp, 2);
+        Vector3 indicatorPos = new Vector3(
+            targetHex.transform.GetChild(0).transform.position.x,
+            targetHex.transform.GetChild(0).transform.position.y + 2,
+            targetHex.transform.GetChild(0).transform.position.z
+        );
+        GameObject temp = Instantiate(numberIndicator, indicatorPos, Quaternion.identity);
+        int reversed = unit.GetComponent<actorData>().baseDamage * -1;
+        if(unit.GetComponent<actorData>().ownerFaction_string == "Ally")
+        {
+            temp.GetComponent<TextMesh>().color = Color.green;
+        }
+        else
+        {
+            temp.GetComponent<TextMesh>().color = Color.red;
+        }
+        temp.GetComponent<TextMesh>().text = reversed.ToString();
+        Destroy(temp, 4);
+
         guim.updateLog(unit.GetComponent<actorData>().actorName + " dealt " + unit.GetComponent<actorData>().baseDamage + " to " + targetHex.GetComponentInChildren<actorData>().actorName);
 
         Animator targetAnimator = targetHex.GetComponentInChildren<Animator>();
