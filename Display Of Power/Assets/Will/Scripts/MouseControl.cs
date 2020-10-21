@@ -308,6 +308,8 @@ public class MouseControl : MonoBehaviour
 
     public void selectHex(GameObject hexSelected)
     {
+        // if(sm.castPreviewEnabled) return;
+
         Transform transformSelected = hexSelected.transform;
         currClickedHex = hexSelected;
         //Debug.Log("test");
