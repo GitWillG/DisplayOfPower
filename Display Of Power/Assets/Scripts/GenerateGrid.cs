@@ -92,6 +92,7 @@ public class GenerateGrid : MonoBehaviour
 
     CameraControl cc;
     audioManager am;
+    spellManager sm;
 
     // Start is called before the first frame update
     void Start()
@@ -100,6 +101,7 @@ public class GenerateGrid : MonoBehaviour
 
         guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
         am = GameObject.FindGameObjectWithTag("GM").GetComponent<audioManager>();
+        sm = GameObject.FindGameObjectWithTag("GM").GetComponent<spellManager>();
         ///
         allySpawnHexes = new List<GameObject>();
         enemySpawnHexes = new List<GameObject>();
@@ -112,10 +114,10 @@ public class GenerateGrid : MonoBehaviour
         hexArray = new GameObject[Width, Depth];
         gridGeneration();
 
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[2], allySpawnHexes, "Ally");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[1], allySpawnHexes, "Ally");
         enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[0], allySpawnHexes, "Ally");
         enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[1], allySpawnHexes, "Ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[2], allySpawnHexes, "Ally");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.allyUnits[3], allySpawnHexes, "Ally");
 
         enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "Enemy");
         enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[1], enemySpawnHexes, "Enemy");
@@ -415,6 +417,7 @@ public class GenerateGrid : MonoBehaviour
     [ContextMenu("Start Next Turn")]
     public void NextTurn()
     {
+
         mouseControl.isMove = true;
         //foreach (GameObject turnorder in turnOrder)
         //{
@@ -496,6 +499,8 @@ public class GenerateGrid : MonoBehaviour
             
             }
         }
+
+        sm.processStatuses();
 
       
     }

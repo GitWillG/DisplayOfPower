@@ -81,13 +81,13 @@ PrefabInstance:
         type: 3}
       propertyPath: spells.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 2ecadc4ff9f04734aa590baf285df19d,
+      objectReference: {fileID: 11400000, guid: 91032ae8b11b74a4dac153d3dfdc93fb,
         type: 2}
     - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: spells.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 5b1f48f95abf31b40bc8303f1e26d450,
+      objectReference: {fileID: 11400000, guid: d243e1d971ab0544790cca1ec67aaaa9,
         type: 2}
     - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
         type: 3}

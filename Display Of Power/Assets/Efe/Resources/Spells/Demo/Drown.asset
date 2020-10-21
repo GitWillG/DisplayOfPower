@@ -12,23 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a488d22c1496284a8ea28aedee4bed7, type: 3}
   m_Name: Drown
   m_EditorClassIdentifier: 
-  overwriteParticles: {fileID: 0}
-  useOverwrite: 0
-  spellID: 1728
-  spellName: Heal
+  overwriteParticles: {fileID: 1272224181608010, guid: ba32d6ffbec06034697cddca0390ce64,
+    type: 3}
+  useOverwrite: 1
+  spellID: 1428
+  spellName: Drown
   enableEffects: 1
-  effectAmount: 5
-  effectType: 0
-  applyStatus: 0
-  statusDuration: 0
-  damagePerTurn: 0
+  effectAmount: 1
+  effectType: 1
+  applyStatus: 1
+  statusType: 1
+  statusDuration: 2
+  statusEffectPerTurn: 1
+  statusParticle: {fileID: 0}
+  overwriteStatusVisual: 1
+  statusOverwriteParticle: {fileID: 1272224181608010, guid: ba32d6ffbec06034697cddca0390ce64,
+    type: 3}
   isProjectileBased: 0
   cooldown: 1
   castingDuration: 1
   delayPostCast: 1
   spellMoveSpeed: 5
   spellRange: 0
-  actionNeeded: 1
+  actionNeeded: 2
   spellIcon: {fileID: 21300000, guid: 3200ad18d00c7344f878391b6f38e796, type: 3}
   SkillNature: 2
   shape: 0
@@ -39,16 +45,14 @@ MonoBehaviour:
   skillAura: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
     type: 3}
   SkillTargetHandling: 1
-  allowedTarget: 0
-  SkillCasterAnimation: 0
+  allowedTarget: 1
+  SkillCasterAnimation: 1
   playEndAnimation: 0
   SkillEndAnimation: 0
   heightFromGroundLevel: 1
   spawnAmount: 0
-  casterParticle: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
-    type: 3}
-  targetParticle: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
-    type: 3}
+  casterParticle: {fileID: 0}
+  targetParticle: {fileID: 0}
   castSFX: {fileID: 0}
   impactSFX: {fileID: 0}
   resizeCasterUponCast: 0

@@ -34,6 +34,11 @@ public class spellSO : ScriptableObject
     {
         additive, substractive
     }
+    public enum statusTypes
+    {
+        additive, substractive
+    }
+
 
     public enum visualType
     {
@@ -51,10 +56,15 @@ public class spellSO : ScriptableObject
     public bool enableEffects;
     public int effectAmount; // damage for fireball, heal amount for heal
     public effectTypes effectType;
-    [Header("Substractive Spell Properties")]
+    [Header("Status Properties")]
     public bool applyStatus;
+    public statusTypes statusType;
     public int statusDuration;
-    public int damagePerTurn;
+    public int statusEffectPerTurn;
+    public ParticleSystem statusParticle;
+    public bool overwriteStatusVisual;
+    public GameObject statusOverwriteParticle;
+    [Header("Substractive Spell Properties")]
     public bool isProjectileBased;
     // public int manaCost; // TODO
     [Header("Other Gameplay Functionality")]

@@ -76,6 +76,11 @@ namespace efe{
         GameObject enemySideReference;
         GameObject allySideReference;
 
+        public bool hasStatus = false;
+        public spellSO statusSpellReference;
+        public int statusDuration;
+        public int statusEffect;
+
         
         void Start()
         {
