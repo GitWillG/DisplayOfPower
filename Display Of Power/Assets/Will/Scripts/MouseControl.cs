@@ -8,6 +8,7 @@ using UnityEngine.AI;
 using UnityEngine.Rendering;
 using UnityEngine.EventSystems;
 using efe;
+using UnityEngine.UI;
 
 public class MouseControl : MonoBehaviour
 {
@@ -72,6 +73,7 @@ public class MouseControl : MonoBehaviour
     public GameObject rayParticle;
     public GameObject selectionCircle;
     immersionManager im;
+    public Material initativeMaterialHighlight;
 
     private void Start()
     {
@@ -226,6 +228,16 @@ public class MouseControl : MonoBehaviour
         //null the selected hex
         selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(false);
         im.restoreHighlight(selectedTarget.GetChild(0).gameObject, "Character");
+
+        if(selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference == null) 
+        {
+            return;
+        }
+        else
+        {
+            selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference.GetComponent<Image>().material = null;
+        }
+
         
         foreach(GameObject temp in listSelectionCircles)
         {
@@ -337,6 +349,15 @@ public class MouseControl : MonoBehaviour
                 tempCircle.transform.parent = selectedTarget.transform.GetChild(0).gameObject.transform;
                 listSelectionCircles.Add(tempCircle);
 
+                if(selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference == null)
+                {
+                    return;
+                }
+                else
+                {
+                    selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference.GetComponent<Image>().material = initativeMaterialHighlight;
+                }
+                
 
                 //swap the mask to our legal hex layer for raycasting
                 currentMask = 1 << 10;

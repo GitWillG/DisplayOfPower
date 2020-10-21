@@ -46,6 +46,7 @@ public class spellSO : ScriptableObject
     }
 
     public int spellID; // DONE
+    public bool isPassive;
 
     [Header("Base Design")]
     [Space(10)]

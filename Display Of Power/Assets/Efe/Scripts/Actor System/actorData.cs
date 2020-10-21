@@ -33,6 +33,7 @@ namespace efe{
         public int AttackRange;
         public int TotalActions;
         public Sprite initiativeAvatar;
+        public bool isBoss;
 
         [Header("Audio")]
         public AudioSource click_voice;
@@ -98,6 +99,11 @@ namespace efe{
             mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
 
             overheadReference.SetActive(false);
+
+            if(isBoss)
+            {
+                transform.localScale *= 2/1;
+            }
 
             // Health Bar
             maxLife = Life;

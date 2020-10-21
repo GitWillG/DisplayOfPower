@@ -121,7 +121,7 @@ public class GenerateGrid : MonoBehaviour
 
         enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "Enemy");
         enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[1], enemySpawnHexes, "Enemy");
-        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[0], enemySpawnHexes, "Enemy");
+        enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[2], enemySpawnHexes, "Enemy");
         enemySpawn.SpawnSpecificLocation(enemySpawn.enemyUnits[1], enemySpawnHexes, "Enemy");
         hasStarted = true;
      
