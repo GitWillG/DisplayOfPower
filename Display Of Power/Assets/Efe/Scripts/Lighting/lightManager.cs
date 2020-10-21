@@ -16,8 +16,11 @@ public class lightManager : MonoBehaviour
 
     void Start()
     {
-        curLightPreset = listLightPresets[0];
-        curLight = GetComponent<Light>();
+        if(listLightPresets.Length > 0)
+        {
+            curLightPreset = listLightPresets[0];
+            curLight = GetComponent<Light>();
+        }
 
         // curLight.intensity = curLightPreset.strength;
         // curLight.color = curLightPreset.lightColor;

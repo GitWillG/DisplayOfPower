@@ -43,6 +43,8 @@ public class GUIManager : MonoBehaviour
     public GameObject logAligner;
     public GameObject logText;
 
+    public GameObject debugTools;
+
 
     
     // Start is called before the first frame update
@@ -83,6 +85,20 @@ public class GUIManager : MonoBehaviour
             if(distance > 25)
             {
                 hideTooltip();
+            }
+        }
+
+        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.D))
+        {
+            if(debugTools.activeInHierarchy)
+            {
+                debugTools.SetActive(false);
+                updateLog("Debug tools closed.");
+            }
+            else
+            {
+                debugTools.SetActive(true);
+                updateLog("Debug tools opened.");
             }
         }
 

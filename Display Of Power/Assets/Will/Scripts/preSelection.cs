@@ -23,6 +23,7 @@ namespace will{
             selectedHero = new List<GameObject>();
             if (availableHeroes != null)
             {
+                if(availableHeroes.Count > 0)
                 currentHero = availableHeroes[k];
             }
             if (outputFields[0] != null)

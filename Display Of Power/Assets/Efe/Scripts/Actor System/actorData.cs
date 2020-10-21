@@ -72,9 +72,15 @@ namespace efe{
         public GameObject maxHPtext_reference;
         public GameObject damageGUI_reference;
         MouseControl mc;
+
+        GameObject enemySideReference;
+        GameObject allySideReference;
+
         
         void Start()
         {
+            enemySideReference = GameObject.FindGameObjectWithTag("EnemySide");
+            allySideReference = GameObject.FindGameObjectWithTag("AllySide");
 
             agent = GetComponent<NavMeshAgent>();
             gm = GameObject.FindGameObjectWithTag("GM");
@@ -116,6 +122,15 @@ namespace efe{
         {
             processAiMovement();
             updateHealthBar();
+
+            if(ownerFaction_string == "Enemy")
+            {
+                this.transform.LookAt(allySideReference.transform);
+            }
+            else
+            {
+                this.transform.LookAt(enemySideReference.transform);
+            }
         }
 
         void updateHealthBar()

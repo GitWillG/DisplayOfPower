@@ -59,7 +59,8 @@ public class CameraControl : MonoBehaviour
             {
                 cameraFollow.x -= moveAmount * Time.deltaTime;
             }
-            if ((Input.GetKey(KeyCode.D)))
+            // left control is for debug tools
+            if (!Input.GetKey(KeyCode.LeftControl) && (Input.GetKey(KeyCode.D)))
             {
                 cameraFollow.x += moveAmount * Time.deltaTime;
             }

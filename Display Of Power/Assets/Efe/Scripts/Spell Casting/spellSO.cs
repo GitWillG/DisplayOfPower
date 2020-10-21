@@ -17,7 +17,7 @@ public class spellSO : ScriptableObject
     public GameObject overwriteParticles;
     public bool useOverwrite;
 
-    public enum targetHandling { area, single, self}
+    public enum targetHandling { area, single, self, selfaround}
     public enum allowedTargets {ally, enemy}
 
     public enum skillShape { sphere, cube} // DONE

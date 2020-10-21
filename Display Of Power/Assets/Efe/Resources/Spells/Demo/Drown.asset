@@ -10,22 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a488d22c1496284a8ea28aedee4bed7, type: 3}
-  m_Name: Flood
+  m_Name: Drown
   m_EditorClassIdentifier: 
   overwriteParticles: {fileID: 0}
   useOverwrite: 0
   spellID: 1728
-  spellName: Flood
+  spellName: Heal
   enableEffects: 1
-  effectAmount: 35
-  effectType: 1
+  effectAmount: 5
+  effectType: 0
+  applyStatus: 0
+  statusDuration: 0
+  damagePerTurn: 0
+  isProjectileBased: 0
   cooldown: 1
   castingDuration: 1
   delayPostCast: 1
   spellMoveSpeed: 5
   spellRange: 0
   actionNeeded: 1
-  spellIcon: {fileID: 21300000, guid: f247d5a8a94ada84bbaf976761c55c99, type: 3}
+  spellIcon: {fileID: 21300000, guid: 3200ad18d00c7344f878391b6f38e796, type: 3}
   SkillNature: 2
   shape: 0
   visualizationMethod: 1
@@ -36,7 +40,7 @@ MonoBehaviour:
     type: 3}
   SkillTargetHandling: 1
   allowedTarget: 0
-  SkillCasterAnimation: 1
+  SkillCasterAnimation: 0
   playEndAnimation: 0
   SkillEndAnimation: 0
   heightFromGroundLevel: 1

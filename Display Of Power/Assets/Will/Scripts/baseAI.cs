@@ -29,7 +29,7 @@ public class baseAI : MonoBehaviour
     {
         if (self.isTurn && !self.belongsToPlayer)
         {
-            Debug.Log(this.name + " says hi to your father");
+            // Debug.Log(this.name + " says hi to your father");
             int check = Random.Range(0, 2);
             mouseController.endTurnBTN.SetActive(false);
             if (check == 0 || target == null)

@@ -28,6 +28,8 @@ public class spellManager : MonoBehaviour
     public GameObject spellCollisionObject;
     public int curIndexCallback;
     public GenerateGrid gg;
+    public GameObject previewNotficiation;
+    GameObject noteInstance;
 
     // Start is called before the first frame update
     void Start()
@@ -183,6 +185,10 @@ public class spellManager : MonoBehaviour
             preview = Instantiate(single_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[0];
         }   
+
+        noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 3), Quaternion.identity);
+
+        
         castPreviewEnabled = true;
         Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
         Debug.Log("Started spell preview. " + spellInQuestion.spellName);
@@ -218,9 +224,14 @@ public class spellManager : MonoBehaviour
             // preview = Instantiate(single_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[0];
         }   
+
+        noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 3), Quaternion.identity);
+
+
         castPreviewEnabled = true;
         Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
         Debug.Log("Started spell preview.");
+        
         // Remove already existing previews if there is one
         // GameObject[] radiusPreviews = GameObject.FindGameObjectsWithTag("RadiusPreview");
         // if(radiusPreviews != null)
@@ -240,7 +251,7 @@ public class spellManager : MonoBehaviour
 
     public void processPreview()
     {   
-        if(mc.lastSelectedTarget != null)
+        if(mc.lastSelectedTarget.GetChild(0) != null)
         {
             GameObject currentSelectedCharacter = mc.lastSelectedTarget.GetChild(0).gameObject;
             curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback];
@@ -293,6 +304,11 @@ public class spellManager : MonoBehaviour
                                 castPreviewEnabled = false;
                                 Debug.Log("Preview cancelled.");
                                 Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
+                                                                        
+                                        if(noteInstance != null)
+                                        {
+                                            Destroy(noteInstance);
+                                        }
                             }
                         }   
                     }
@@ -324,6 +340,11 @@ public class spellManager : MonoBehaviour
                                     {
                                         guim.updateLog("You cannot target an ally.");
                                         am.playAudio2D("error");
+                                                                                
+                                        if(noteInstance != null)
+                                        {
+                                            Destroy(noteInstance);
+                                        }
                                     }
                                 }
                                 else if(curSpell.effectType == spellSO.effectTypes.additive)
@@ -337,6 +358,11 @@ public class spellManager : MonoBehaviour
                                     {
                                         guim.updateLog("You cannot target an enemy.");
                                         am.playAudio2D("error");
+                                                                                
+                                        if(noteInstance != null)
+                                        {
+                                            Destroy(noteInstance);
+                                        }
 
                                     }
                                 }
@@ -346,6 +372,11 @@ public class spellManager : MonoBehaviour
                                 guim.updateLog("There is no NPC here.");
                                 Debug.Log("There is no NPCs here.");
                                 am.playAudio2D("error");
+                                        
+                                        if(noteInstance != null)
+                                        {
+                                            Destroy(noteInstance);
+                                        }
                             }
                         }
                     }
@@ -355,6 +386,11 @@ public class spellManager : MonoBehaviour
                         Debug.Log("Preview cancelled.");
                         Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
                         guim.updateLog("Preview cancelled.");
+                                
+                                if(noteInstance != null)
+                                {
+                                    Destroy(noteInstance);
+                                }
                     }
                 }
             }
@@ -364,7 +400,11 @@ public class spellManager : MonoBehaviour
     public void castSpell(GameObject source, GameObject target, spellSO spellData)
     {
 
-        
+        if(noteInstance != null)
+        {
+            Destroy(noteInstance);
+        }
+
         actorData sourceActor = source.GetComponent<actorData>();
         actorData targetActor = target.GetComponent<actorData>();
         Animator sourceAnimator = source.GetComponent<Animator>();

@@ -91,6 +91,7 @@ public class GenerateGrid : MonoBehaviour
     public List<GameObject> initiatives;
 
     CameraControl cc;
+    audioManager am;
 
     // Start is called before the first frame update
     void Start()
@@ -98,6 +99,7 @@ public class GenerateGrid : MonoBehaviour
         cc = Camera.main.GetComponent<CameraControl>();
 
         guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
+        am = GameObject.FindGameObjectWithTag("GM").GetComponent<audioManager>();
         ///
         allySpawnHexes = new List<GameObject>();
         enemySpawnHexes = new List<GameObject>();
@@ -525,7 +527,7 @@ public class GenerateGrid : MonoBehaviour
         // }
 
 
-        Debug.Log("Created sprite.");
+        // Debug.Log("Created sprite.");
     }
 
     public void choosePath(GameObject start, GameObject end)
@@ -557,6 +559,7 @@ public class GenerateGrid : MonoBehaviour
         }
         guim.updateLog("Turn ended.", Color.green);
         mouseControl.endTurnBTN.SetActive(true);
+        am.playAudio2D("endturn");
         NextTurn();
     }
 

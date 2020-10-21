@@ -26,6 +26,8 @@ TagManager:
   - RadiusPreview
   - CinematicManager
   - slotImage
+  - AllySide
+  - EnemySide
   layers:
   - Default
   - TransparentFX
