@@ -437,6 +437,17 @@ public class GenerateGrid : MonoBehaviour
         //}
         if (turnOrder[k].GetComponent<actorData>().actionsRemaining == 0)
         {
+            if (initiatives.Count > 0)
+            {
+                initiativeAligner.transform.GetChild(0).transform.SetAsLastSibling();
+                // foreach(GameObject a in initiatives)
+                // {
+                //     Destroy(a);
+                //     Debug.Log(a + " destroyed.");
+                // }
+                // initiatives.Clear();
+            }
+       
             turnOrder[k].GetComponent<actorData>().actionsRemaining = turnOrder[k].GetComponent<actorData>().TotalActions;
             turnOrder[k].GetComponent<actorData>().isTurn = false;
             turnOrder[k].GetComponent<actorData>().actionsRemaining = 2;
@@ -478,25 +489,14 @@ public class GenerateGrid : MonoBehaviour
         }
 
         cc.panToObject(turnOrder[k]);
-
-        if(initiatives.Count > 0)
-        {
-            initiativeAligner.transform.GetChild(0).transform.SetAsLastSibling();
-            // foreach(GameObject a in initiatives)
-            // {
-            //     Destroy(a);
-            //     Debug.Log(a + " destroyed.");
-            // }
-            // initiatives.Clear();
-        }
-        else
+        if (initiatives.Count == 0)
         {
             // update initiatve GUI with turn order
             // Initiative bar
-            for(int z = 0; z < turnOrder.Count; z++)
+            for (int z = 0; z < turnOrder.Count; z++)
             {
                 createInitiativeSprite(turnOrder[z]);
-            
+
             }
         }
 
@@ -557,7 +557,7 @@ public class GenerateGrid : MonoBehaviour
 
     public void EndTurn()
     {
-        if (turnOrder[k].GetComponent<actorData>().isTurn)
+        if (turnOrder[k].GetComponent<actorData>().isTurn && turnOrder[k].GetComponent<actorData>().actionsRemaining > 0)
         {
             turnOrder[k].GetComponent<actorData>().actionsRemaining = 0;
             //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);

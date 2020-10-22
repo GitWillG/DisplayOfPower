@@ -36,7 +36,7 @@ MonoBehaviour:
   castingDuration: 1
   delayPostCast: 1
   spellMoveSpeed: 5
-  spellRange: 0
+  spellRange: 5
   actionNeeded: 1
   spellIcon: {fileID: 21300000, guid: 9d06b54dd7c101147a82ba575d718603, type: 3}
   SkillNature: 2

@@ -16,15 +16,26 @@ MonoBehaviour:
     type: 3}
   useOverwrite: 1
   spellID: 1728
+  isPassive: 0
   spellName: Fireball
+  spellDescription: 
   enableEffects: 1
   effectAmount: 10
   effectType: 1
+  applyStatus: 0
+  statusType: 0
+  statusDuration: 0
+  statusEffectPerTurn: 0
+  statusParticle: {fileID: 0}
+  overwriteStatusVisual: 0
+  statusOverwriteParticle: {fileID: 0}
+  isProjectileBased: 0
+  instant: 0
   cooldown: 1
   castingDuration: 1
   delayPostCast: 1
   spellMoveSpeed: 3
-  spellRange: 0
+  spellRange: 5
   actionNeeded: 1
   spellIcon: {fileID: 21300000, guid: 0e0fcf5253592454498daebc77f755a8, type: 3}
   SkillNature: 2
