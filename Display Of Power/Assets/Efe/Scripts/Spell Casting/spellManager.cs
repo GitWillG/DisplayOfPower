@@ -497,8 +497,11 @@ public class spellManager : MonoBehaviour
                                 if(noteInstance != null)
                                 {
                                     Destroy(noteInstance);
-                                }
                     }
+                    mc.removeRangeInd();
+                    mc.selectedTarget = mc.lastSelectedTarget;
+                    mc.moveRadius();
+                }
                 }
             }
         
