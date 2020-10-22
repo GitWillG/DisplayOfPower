@@ -15,6 +15,10 @@ public class CameraControl : MonoBehaviour
     GameObject objectToPan;
     bool isPanning = false;
     Vector3 panPosition;
+    Transform rightAnchor;
+    Transform forwardAnchor;
+    Transform backAnchor;
+    Transform leftAnchor;
     // float camMoveSpeed = 3;
     // public GameObject anchor;
     // Vector3 cameraRight = anchor.transform.right;
@@ -28,6 +32,12 @@ public class CameraControl : MonoBehaviour
         cameraFollow = m_Camera.transform.position;
         //set the current FOV to the camera's default FOV
         currentFOV = m_Camera.fieldOfView;
+
+        rightAnchor = transform.Find("D");
+        forwardAnchor = transform.Find("W");
+        backAnchor = transform.Find("S");
+        leftAnchor = transform.Find("A");
+        
     }
     
     public void panToObject(GameObject targetObject)
@@ -45,26 +55,45 @@ public class CameraControl : MonoBehaviour
         //movement speed set to 20 at run time
         if(!isPanning)
         {
-            float moveAmount = 20f;
+            // float moveAmount = 20f;
+            // if ((Input.GetKey(KeyCode.W)))
+            // {
+            //     // anchor.transform.position += cameraRight * Time.deltaTime;
+            //     cameraFollow.z += moveAmount * Time.deltaTime;
+            // }
+            // if ((Input.GetKey(KeyCode.S)))
+            // {
+            //     cameraFollow.z -= moveAmount * Time.deltaTime;
+            // }
+            // if ((Input.GetKey(KeyCode.A)))
+            // {
+            //     cameraFollow.x -= moveAmount * Time.deltaTime;
+            // }
+            // // left control is for debug tools
+            // if (!Input.GetKey(KeyCode.LeftControl) && (Input.GetKey(KeyCode.D)))
+            // {
+            //     cameraFollow.x += moveAmount * Time.deltaTime;
+            // }
+
             if ((Input.GetKey(KeyCode.W)))
             {
                 // anchor.transform.position += cameraRight * Time.deltaTime;
-                cameraFollow.z += moveAmount * Time.deltaTime;
+                cameraFollow = Vector3.MoveTowards(cameraFollow, forwardAnchor.position, 1);
             }
             if ((Input.GetKey(KeyCode.S)))
             {
-                cameraFollow.z -= moveAmount * Time.deltaTime;
+                
+                cameraFollow = Vector3.MoveTowards(cameraFollow, backAnchor.position, 1);
             }
             if ((Input.GetKey(KeyCode.A)))
             {
-                cameraFollow.x -= moveAmount * Time.deltaTime;
+                cameraFollow = Vector3.MoveTowards(cameraFollow, leftAnchor.position, 1);
             }
             // left control is for debug tools
             if (!Input.GetKey(KeyCode.LeftControl) && (Input.GetKey(KeyCode.D)))
             {
-                cameraFollow.x += moveAmount * Time.deltaTime;
+                cameraFollow = Vector3.MoveTowards(cameraFollow, rightAnchor.position, 1);
             }
-
             // Edge steering
 
             //Touching an edge of the screen will also pan the camera in that direction
