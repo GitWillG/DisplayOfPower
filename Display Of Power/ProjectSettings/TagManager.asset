@@ -28,6 +28,7 @@ TagManager:
   - slotImage
   - AllySide
   - EnemySide
+  - Terrain
   layers:
   - Default
   - TransparentFX
@@ -45,8 +46,8 @@ TagManager:
   - LevelObjects
   - NPCs
   - BlockedHex
-  - 
-  - 
+  - Preview
+  - Terrain
   - 
   - 
   - 

@@ -320,14 +320,18 @@ public class spellManager : MonoBehaviour
                         if(radius != null)
                         {   
                             RaycastHit hit_preview;
-                            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit_preview))
+                            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit_preview, Mathf.Infinity, 1 << 17))
                             {
-                                temp.transform.position = new Vector3
-                                (
-                                    hit_preview.point.x,
-                                    hit_preview.point.y,
-                                    hit_preview.point.z
-                                );
+                                if(hit_preview.transform.tag == "Terrain")
+                                {
+                                    temp.transform.position = new Vector3
+                                    (
+                                        hit_preview.point.x,
+                                        hit_preview.point.y,
+                                        hit_preview.point.z
+                                    );
+                                    Debug.Log(hit_preview.transform.gameObject.name);
+                                }
                             }
                             
                             //      
