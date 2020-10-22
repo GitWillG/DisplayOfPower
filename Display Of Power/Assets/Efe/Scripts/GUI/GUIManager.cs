@@ -298,7 +298,7 @@ public class GUIManager : MonoBehaviour
             tooltipSpawnPosition = Input.mousePosition + offsetTooltip;
             // Debug.Log("Showing tooltip..." + index);
 
-            tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = curSpell.spellDescription;
+            tooltip_skill.transform.Find("BG").transform.Find("SpellDesc").GetComponent<TextMeshProUGUI>().text = curSpell.spellDescription;
            
             tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = curSpell.spellName;
             if(curSpell.SkillTargetHandling == spellSO.targetHandling.area)

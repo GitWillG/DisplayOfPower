@@ -613,19 +613,16 @@ public class spellManager : MonoBehaviour
                     }
                 }               
 
-                // Debug.Log("Cast" + spellData.spellName);
-                guim.updateLog(source.name + " casted a " + spellData.spellName);
-            
             }
             else if(spellData.instant)
             {
                 if(spellData.effectType == spellSO.effectTypes.substractive)
                 {
-                    targetActor.Life -= spellData.effectAmount;
+                    target.GetComponent<actorData>().Life -= spellData.effectAmount;
                 }
                 else
                 {
-                    targetActor.Life += spellData.effectAmount;
+                    target.GetComponent<actorData>().Life += spellData.effectAmount;
                 }
 
                 if(spellData.applyStatus)
@@ -654,6 +651,9 @@ public class spellManager : MonoBehaviour
         {
             gg.EndTurn();
         }
+
+        // Debug.Log("Cast" + spellData.spellName);
+        guim.updateLog(source.name + " casted a " + spellData.spellName);
     }
 
     public void processStatuses()
