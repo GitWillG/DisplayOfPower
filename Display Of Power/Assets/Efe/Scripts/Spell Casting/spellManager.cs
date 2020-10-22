@@ -233,6 +233,9 @@ public class spellManager : MonoBehaviour
         noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 3), Quaternion.identity);
         TextMeshProUGUI noteText = noteInstance.transform.Find("BG").transform.Find("Text").GetComponent<TextMeshProUGUI>();
         
+        // Passive spells cannot be casted
+        if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
+
         if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].SkillTargetHandling == spellSO.targetHandling.area)
         {   
             preview = Instantiate(circle_radius_preview, transform.position, Quaternion.identity);
@@ -358,7 +361,6 @@ public class spellManager : MonoBehaviour
                 {
                     if(Input.GetMouseButtonDown(0))
                     {
-
                         castPreviewEnabled = false;
                         // Debug.Log("Preview finished.");
                         Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
@@ -420,6 +422,34 @@ public class spellManager : MonoBehaviour
                                         }
                             }
                         }
+                    }
+                    else if(Input.GetMouseButtonDown(1))
+                    {
+                        castPreviewEnabled = false;
+                        // Debug.Log("Preview cancelled.");
+                        Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
+                        guim.updateLog("Preview cancelled.");
+                                
+                                if(noteInstance != null)
+                                {
+                                    Destroy(noteInstance);
+                                }
+                    }
+                }
+                else if(curCastType == "Self Around")
+                {
+                    if(Input.GetMouseButtonDown(0))
+                    {
+                        GameObject[] NPCs = GameObject.FindGameObjectsWithTag("NPC");
+                        foreach(GameObject t in NPCs)
+                        {
+                            actorData tData = t.GetComponent<actorData>();
+                            if(tData.ownerFaction_string == "Enemy")
+                            {
+                                castSpell(currentSelectedCharacter, t, curSpell);
+                            }
+                        }
+                        
                     }
                     else if(Input.GetMouseButtonDown(1))
                     {
