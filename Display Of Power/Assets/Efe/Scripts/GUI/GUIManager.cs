@@ -262,6 +262,7 @@ public class GUIManager : MonoBehaviour
 
     public void showTooltip(int index)
     {
+        if(mc.lastSelectedTarget.GetChild(0) == null) return;
         spellSO curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index];
         if(curSpell != null)
         {

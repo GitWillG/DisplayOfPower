@@ -97,8 +97,11 @@ namespace efe{
             rig = GetComponent<rigHumanoid>();
             animator = GetComponent<Animator>();
             mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
-
-            overheadReference.SetActive(false);
+            
+            if(overheadReference != null)
+            {
+                overheadReference.SetActive(false);
+            }
 
             if(isBoss)
             {

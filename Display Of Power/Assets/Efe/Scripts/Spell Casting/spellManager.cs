@@ -122,8 +122,8 @@ public class spellManager : MonoBehaviour
 
     void spellShortcuts()
     {
-        if(mc.lastSelectedTarget != null)
-        {
+        if(mc.lastSelectedTarget == null) return;
+        
             actorData data = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -169,7 +169,7 @@ public class spellManager : MonoBehaviour
                     Debug.Log("There is no spell in this slot.");
                 }
             }
-        }
+        
 
     }
 
@@ -267,8 +267,8 @@ public class spellManager : MonoBehaviour
     {   
         // if(mc.lastSelectedTarget.GetChild(0) == null) return;
 
-        if(mc.lastSelectedTarget.GetChild(0) != null)
-        {
+        if(mc.lastSelectedTarget == null) return;
+
             GameObject currentSelectedCharacter = mc.lastSelectedTarget.GetChild(0).gameObject;
 
             // if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback] == null) return;
@@ -347,7 +347,6 @@ public class spellManager : MonoBehaviour
                         {
                             if(hit.transform.gameObject.tag == "NPC")
                             {
-                                
                                 actorData data = hit.transform.gameObject.GetComponent<actorData>();
                                 if(curSpell.effectType == spellSO.effectTypes.substractive)
                                 {
@@ -414,7 +413,7 @@ public class spellManager : MonoBehaviour
                     }
                 }
             }
-        }
+        
     }
 
     public void castSpell(GameObject source, GameObject target, spellSO spellData)

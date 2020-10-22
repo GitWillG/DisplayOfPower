@@ -227,6 +227,7 @@ public class MouseControl : MonoBehaviour
         grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
         //null the selected hex
         selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(false);
+        
         im.restoreHighlight(selectedTarget.GetChild(0).gameObject, "Character");
 
         if(selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference == null) 
