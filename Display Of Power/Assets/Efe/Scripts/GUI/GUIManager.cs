@@ -76,7 +76,7 @@ public class GUIManager : MonoBehaviour
 
     void Update()
     {
-
+        syncSkillBar();
         // If distance of mouse and latest interacted skill icon is more than 25, hide tooltip
         if(tooltip_skill != null)
         {
@@ -102,22 +102,7 @@ public class GUIManager : MonoBehaviour
             }
         }
 
-        // Sync skill slots with selected actor's skills
-        if(mc.lastSelectedTarget != null)
-        {
-            // Updates the skillbar depending on current selected actor's spells
-            if(mc.lastSelectedTarget.GetChild(0) != null)
-            {
-                actorData selectedData = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
-                for(int i = 0; i < selectedData.spells.Length; i++)
-                {
-                    skill_slots[i].sprite = selectedData.spells[i].spellIcon;
-                }
-            }
-        }
-
-
-
+        
         // if(Input.GetKeyDown(KeyCode.Q))
         // {
         //     openGUI(questLog_GUI);
@@ -176,6 +161,29 @@ public class GUIManager : MonoBehaviour
     }
 
 
+    void syncSkillBar()
+    {
+        // Sync skill slots with selected actor's skills
+        if(mc.lastSelectedTarget == null) return;
+        
+        // Updates the skillbar depending on current selected actor's spells
+        if(mc.lastSelectedTarget.GetChild(0) == null) return;
+        
+        actorData selectedData = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
+        for(int i = 0; i < selectedData.spells.Length; i++)
+        {
+            skill_slots[i].sprite = selectedData.spells[i].spellIcon;
+        }
+            
+        // Clear the skill slot when nothing is selected
+        if(mc.lastSelectedTarget == null)
+        {
+            for(int o = 0; o < skill_slots.Length; o++)
+            {
+                skill_slots[o].sprite = null;
+            }
+        }
+    }
     public void updateLog(string logContent)
     {
         GameObject tempLog = Instantiate(logText, logAligner.transform);

@@ -93,7 +93,7 @@ namespace efe{
 
             agent = GetComponent<NavMeshAgent>();
             gm = GameObject.FindGameObjectWithTag("GM");
-            // im = gm.GetComponent<immersionManager>();
+            im = gm.GetComponent<immersionManager>();
             rig = GetComponent<rigHumanoid>();
             animator = GetComponent<Animator>();
             mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();

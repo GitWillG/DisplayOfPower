@@ -26,11 +26,14 @@ namespace will{
                 if(availableHeroes.Count > 0)
                 currentHero = availableHeroes[k];
             }
-            if (outputFields[0] != null)
-            {
-                testField = outputFields[0];
 
+            if(outputFields.Count > 0)
+            {
+                if (outputFields[0] == null) return;
+                
+                testField = outputFields[0];
             }
+            
         }
 
         // Update is called once per frame

@@ -15,7 +15,7 @@ public class CameraControl : MonoBehaviour
     GameObject objectToPan;
     bool isPanning = false;
     Vector3 panPosition;
-    float camMoveSpeed = 3;
+    // float camMoveSpeed = 3;
     // public GameObject anchor;
     // Vector3 cameraRight = anchor.transform.right;
     // Vector3 cameraForward = anchor.transform.forward;

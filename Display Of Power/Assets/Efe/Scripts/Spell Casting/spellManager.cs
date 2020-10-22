@@ -271,7 +271,7 @@ public class spellManager : MonoBehaviour
 
             GameObject currentSelectedCharacter = mc.lastSelectedTarget.GetChild(0).gameObject;
 
-            // if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback] == null) return;
+            if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback] == null) return;
 
             curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback];
             if(castPreviewEnabled)
