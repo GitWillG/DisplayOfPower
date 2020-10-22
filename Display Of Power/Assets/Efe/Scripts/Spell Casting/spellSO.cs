@@ -52,6 +52,7 @@ public class spellSO : ScriptableObject
     [Space(10)]
     [Tooltip("Name of the spell.")]
     public string spellName; // DONE
+    [TextArea(15, 20)]
     public string spellDescription;
     [Header("Damage/Healing Functionality")]
     [Tooltip("Set enable effects on if you want etc: Fireball to damage or Heal to heal. Off, if you want spells like Teleportation or Sleep.")]
@@ -68,6 +69,9 @@ public class spellSO : ScriptableObject
     public GameObject statusOverwriteParticle;
     [Header("Substractive Spell Properties")]
     public bool isProjectileBased;
+    
+    [Header("Additive Spell Properties")]
+    public bool instant;
     // public int manaCost; // TODO
     [Header("Other Gameplay Functionality")]
     public float cooldown; // DONE

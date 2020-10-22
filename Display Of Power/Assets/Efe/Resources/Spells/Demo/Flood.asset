@@ -15,7 +15,10 @@ MonoBehaviour:
   overwriteParticles: {fileID: 0}
   useOverwrite: 0
   spellID: 1728
+  isPassive: 0
   spellName: Flood
+  spellDescription: A rush of water flows from Briar, sending out a wave in all directions
+    that deals 25 damage to surrounding enemies.
   enableEffects: 1
   effectAmount: 35
   effectType: 1
@@ -27,6 +30,7 @@ MonoBehaviour:
   overwriteStatusVisual: 0
   statusOverwriteParticle: {fileID: 0}
   isProjectileBased: 0
+  instant: 0
   cooldown: 1
   castingDuration: 1
   delayPostCast: 1

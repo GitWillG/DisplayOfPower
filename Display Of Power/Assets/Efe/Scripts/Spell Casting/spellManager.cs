@@ -50,66 +50,76 @@ public class spellManager : MonoBehaviour
     {      
         spellShortcuts();
         processPreview();
+        
         GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Projectile");
         foreach(GameObject projectile in projectiles)
         {
             if(projectile != null)
             {
                 projectileData projData = projectile.GetComponent<projectileData>();
-                float distance = Vector3.Distance(projectile.transform.position, projData.target.transform.position);
-                
-                if(distance < 1)
+
+                if(projData.referenceSpell.isProjectileBased == false || projData.referenceSpell.instant == true) 
                 {
-                    Destroy(projectile);
-
-                    // Spells like fireball...
-                    if(projData.referenceSpell.enableEffects)
-                    {
-                        if(projData.referenceSpell.effectType == spellSO.effectTypes.substractive)
-                        {
-                            projData.target.GetComponent<actorData>().Life -= projData.referenceSpell.effectAmount;
-                            // Kill if hp is lower than 0
-                            if(projData.target.GetComponent<actorData>().Life <= 0)
-                            {
-                                projData.target.GetComponent<Animator>().SetTrigger("Die");
-                                mc.killUnit(projData.target);
-                            }
-                            else
-                            {
-                                projData.target.GetComponent<Animator>().SetTrigger("takeHit");
-                            }
-                        }
-                        // Spells like healing...etc
-                        else if (projData.referenceSpell.effectType == spellSO.effectTypes.additive)
-                        {
-                            projData.target.GetComponent<actorData>().Life += projData.referenceSpell.effectAmount;
-                            // Debug.Log("Heal");
-                        }
-                    }
-
-
-                    // Debug.Log("Projectile destroyed.");
-
-                    factionSO sourceFaction = projData.source.GetComponent<actorData>().ownerFaction;
-                    factionSO targetFaction = projData.target.GetComponent<actorData>().ownerFaction;
-                    if(sourceFaction == null && targetFaction == null)
-                    {
-                        return;
-                    }
-
-                    fm.changeDiplomacyByReference(sourceFaction, targetFaction, -15);
-                    // fm.changeDiplomacyByString("Fire Water Fearless", 2);
-                    
-                    break;
+                    return;
                 }
                 else
                 {
-                    projectile.transform.position = Vector3.MoveTowards(
-                    projectile.transform.position, 
-                    projData.target.transform.position,
-                    projData.referenceSpell.spellMoveSpeed * Time.deltaTime
-                    );
-                    // Debug.Log(projectile.name + " moving to " + projData.target.name);
+
+                    float distance = Vector3.Distance(projectile.transform.position, projData.target.transform.position);
+                    
+                    if(distance < 1)
+                    {
+                        Destroy(projectile);
+
+                        // Spells like fireball...
+                        if(projData.referenceSpell.enableEffects)
+                        {
+                            if(projData.referenceSpell.effectType == spellSO.effectTypes.substractive)
+                            {
+                                projData.target.GetComponent<actorData>().Life -= projData.referenceSpell.effectAmount;
+                                // Kill if hp is lower than 0
+                                if(projData.target.GetComponent<actorData>().Life <= 0)
+                                {
+                                    projData.target.GetComponent<Animator>().SetTrigger("Die");
+                                    mc.killUnit(projData.target);
+                                }
+                                else
+                                {
+                                    projData.target.GetComponent<Animator>().SetTrigger("takeHit");
+                                }
+                            }
+                            // Spells like healing...etc
+                            else if (projData.referenceSpell.effectType == spellSO.effectTypes.additive)
+                            {
+                                projData.target.GetComponent<actorData>().Life += projData.referenceSpell.effectAmount;
+                                // Debug.Log("Heal");
+                            }
+                        }
+
+
+                        // Debug.Log("Projectile destroyed.");
+
+                        factionSO sourceFaction = projData.source.GetComponent<actorData>().ownerFaction;
+                        factionSO targetFaction = projData.target.GetComponent<actorData>().ownerFaction;
+                        if(sourceFaction == null && targetFaction == null)
+                        {
+                            return;
+                        }
+
+                        fm.changeDiplomacyByReference(sourceFaction, targetFaction, -15);
+                        // fm.changeDiplomacyByString("Fire Water Fearless", 2);
+                        
+                        break;
+                    }
+                    else
+                    {
+                        projectile.transform.position = Vector3.MoveTowards(
+                        projectile.transform.position, 
+                        projData.target.transform.position,
+                        projData.referenceSpell.spellMoveSpeed * Time.deltaTime
+                        );
+                        // Debug.Log(projectile.name + " moving to " + projData.target.name);
+                    }
                 }
                 
             }
@@ -122,8 +132,9 @@ public class spellManager : MonoBehaviour
 
     void spellShortcuts()
     {
-        if(mc.lastSelectedTarget == null) return;
-        
+            if(mc.lastSelectedTarget == null) return;
+            if(mc.isMoving) return;
+
             actorData data = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -510,7 +521,7 @@ public class spellManager : MonoBehaviour
                 if(spellData.targetParticle != null)
                 {
                     // Spawn target particle on target
-                    GameObject temp = Instantiate(spellData.targetParticle, source.transform.position, Quaternion.identity);
+                    GameObject temp = Instantiate(spellData.targetParticle, target.transform.position, Quaternion.identity);
                     Destroy(temp, 3);
                 }
 
@@ -600,19 +611,30 @@ public class spellManager : MonoBehaviour
                         targetActor.statusEffect = spellData.statusEffectPerTurn;
                         targetActor.statusSpellReference = spellData;
                     }
-                }
-
-                // Reduce action points of the source from action needed of spell
-                sourceActor.actionsRemaining -= spellData.actionNeeded;
-                if(sourceActor.actionsRemaining == 0)
-                {
-                    gg.EndTurn();
-                }
-                
+                }               
 
                 // Debug.Log("Cast" + spellData.spellName);
                 guim.updateLog(source.name + " casted a " + spellData.spellName);
             
+            }
+            else if(spellData.instant)
+            {
+                if(spellData.effectType == spellSO.effectTypes.substractive)
+                {
+                    targetActor.Life -= spellData.effectAmount;
+                }
+                else
+                {
+                    targetActor.Life += spellData.effectAmount;
+                }
+
+                if(spellData.applyStatus)
+                {
+                    targetActor.hasStatus = true;
+                    targetActor.statusDuration = spellData.statusDuration;
+                    targetActor.statusEffect = spellData.statusEffectPerTurn;
+                    targetActor.statusSpellReference = spellData;
+                }
             }
         }
         else if(spellData.actionNeeded > sourceActor.actionsRemaining)
@@ -624,6 +646,13 @@ public class spellManager : MonoBehaviour
         {
             guim.updateLog("It is not this character's turn.");
             am.playAudio2D("error");
+        }
+
+        // Reduce action points of the source from action needed of spell
+        sourceActor.actionsRemaining -= spellData.actionNeeded;
+        if(sourceActor.actionsRemaining == 0)
+        {
+            gg.EndTurn();
         }
     }
 

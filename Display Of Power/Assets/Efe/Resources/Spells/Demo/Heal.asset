@@ -17,7 +17,7 @@ MonoBehaviour:
   spellID: 1728
   isPassive: 0
   spellName: Heal
-  spellDescription: 
+  spellDescription: Instantly heals an ally.
   enableEffects: 1
   effectAmount: 5
   effectType: 0
@@ -29,6 +29,7 @@ MonoBehaviour:
   overwriteStatusVisual: 0
   statusOverwriteParticle: {fileID: 0}
   isProjectileBased: 0
+  instant: 1
   cooldown: 1
   castingDuration: 1
   delayPostCast: 1

@@ -164,7 +164,7 @@ public class GUIManager : MonoBehaviour
 
     void syncSkillBar()
     {   
-        
+        if(mc.isMoving) return;
         // Sync skill slots with selected actor's skills
         if(mc.lastSelectedTarget == null) return;
         

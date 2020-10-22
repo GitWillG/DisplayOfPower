@@ -18,7 +18,7 @@ MonoBehaviour:
   spellID: 1723
   isPassive: 0
   spellName: Waterball
-  spellDescription: 
+  spellDescription: A passive aura that grants +%10 damage to allies.
   enableEffects: 1
   effectAmount: 10
   effectType: 1
@@ -30,6 +30,7 @@ MonoBehaviour:
   overwriteStatusVisual: 0
   statusOverwriteParticle: {fileID: 0}
   isProjectileBased: 0
+  instant: 0
   cooldown: 1
   castingDuration: 1
   delayPostCast: 1

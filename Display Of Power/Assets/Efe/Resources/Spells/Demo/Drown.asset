@@ -16,7 +16,11 @@ MonoBehaviour:
     type: 3}
   useOverwrite: 1
   spellID: 1428
+  isPassive: 0
   spellName: Drown
+  spellDescription: 'Traps an enemy with surging waters. This enemy becomes unattackable
+    and is stunned throughout the durration of the spell. Each round trapped by Drown
+    causes 15 damage to the target. '
   enableEffects: 1
   effectAmount: 1
   effectType: 1
@@ -29,6 +33,7 @@ MonoBehaviour:
   statusOverwriteParticle: {fileID: 1272224181608010, guid: ba32d6ffbec06034697cddca0390ce64,
     type: 3}
   isProjectileBased: 0
+  instant: 0
   cooldown: 1
   castingDuration: 1
   delayPostCast: 1
