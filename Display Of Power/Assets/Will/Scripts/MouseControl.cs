@@ -139,7 +139,6 @@ public class MouseControl : MonoBehaviour
                 {
                     if (Input.GetMouseButtonUp(1) && clickedHex == true)
                     {
-                        Debug.Log("words");
                         moveRadius();
                     }
                     //Ray cast from the mouse to find objects
@@ -172,10 +171,10 @@ public class MouseControl : MonoBehaviour
                         //otherwise if you have selected a target, and you click on that object, we will revert it to its original material and reset the clicked Bool
                         // Deselection
 
-                        if (selection == selectedTarget && Input.GetMouseButtonUp(0) && clickedHex == true)
+                        if (selection == selectedTarget && Input.GetMouseButtonUp(0) && clickedHex == true && hoveredTarget == selectedTarget)
                         {
+
                             removeRangeInd();
-                            // Debug.Log(3);
                             return;
                         }
                     }
@@ -193,7 +192,7 @@ public class MouseControl : MonoBehaviour
                     }
 
                 }
-                else
+                else if (isMoving)
                 {
                     finishMovement();
                     // Debug.Log(5);
@@ -205,6 +204,10 @@ public class MouseControl : MonoBehaviour
     //Switch the selected range to the appropriate range
     public void swapRange()
     {
+        if (selectedTarget != null)
+        {
+
+        
         //if move, use move range, otherwise use the attack range
         if (isMove)
         {
@@ -214,10 +217,11 @@ public class MouseControl : MonoBehaviour
         {
             detectRange = selectedTarget.GetChild(0).GetComponent<actorData>().AttackRange;
         }
+        }
     }
     public void removeRangeInd()
     {
-        selectionRenderer = selectedTarget.GetComponent<Renderer>();
+        selectionRenderer = selectedTarget.GetComponent<Renderer>();    
         //reset the selected hex
         selectionRenderer.material = oldMat;
         //nothing is selected anymore
@@ -291,7 +295,9 @@ public class MouseControl : MonoBehaviour
                 lastSelectedTarget.transform.position.x, 
                 lastSelectedTarget.transform.position.y, 
                 lastSelectedTarget.transform.position.z);
-                
+
+
+
             grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
             grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
             ////reset the selected hex

@@ -272,9 +272,19 @@ public class spellManager : MonoBehaviour
         {
             curCastType = castTypes[2];
             noteText.text = "Click again to cast the spell.";
-        } 
+        }
         // Destroy(noteInstance);
-        
+
+        mc.removeRangeInd();
+        mc.clickedHex = true;
+        mc.selectedTarget = mc.lastSelectedTarget;
+        gg.checkAttackLegality(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].spellRange, 
+            mc.lastSelectedTarget.gameObject, 
+            mc.legalMove);
+
+        mc.currentMask = 1 << 10
+;
+
 
         castPreviewEnabled = true;
         Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
@@ -341,7 +351,8 @@ public class spellManager : MonoBehaviour
                                 castPreviewEnabled = false;
                                 Debug.Log("Preview finished.");
                                 Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
-                                //      
+                                
+
                                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                                 RaycastHit hit;
                                 if (Physics.Raycast(ray, out hit, Mathf.Infinity))
@@ -359,7 +370,8 @@ public class spellManager : MonoBehaviour
                             }
                             else if(Input.GetMouseButtonDown(1))
                             {
-                                Destroy(temp);
+                            
+                            Destroy(temp);
                                 castPreviewEnabled = false;
                                 Debug.Log("Preview cancelled.");
                                 Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
@@ -368,7 +380,12 @@ public class spellManager : MonoBehaviour
                                         {
                                             Destroy(noteInstance);
                                         }
-                            }
+
+
+                            mc.removeRangeInd();
+                            mc.selectedTarget = mc.lastSelectedTarget;
+                            mc.moveRadius();
+                        }
                         }   
                     }
                 }
@@ -449,7 +466,11 @@ public class spellManager : MonoBehaviour
                                 {
                                     Destroy(noteInstance);
                                 }
-                    }
+
+                    mc.removeRangeInd();
+                    mc.selectedTarget = mc.lastSelectedTarget;
+                    mc.moveRadius();
+                }
                 }
                 else if(curCastType == "Self Around")
                 {
