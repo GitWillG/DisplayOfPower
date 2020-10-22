@@ -174,6 +174,7 @@ public class spellManager : MonoBehaviour
     }
 
 
+    // For spell shortcuts
     public void startSpellPreview(spellSO spellInQuestion)
     {   
         GameObject preview;
@@ -188,7 +189,15 @@ public class spellManager : MonoBehaviour
         }
         else if(spellInQuestion.SkillTargetHandling == spellSO.targetHandling.single)
         {
-            preview = Instantiate(single_radius_preview, transform.position, Quaternion.identity);
+            if(spellInQuestion.allowedTarget == spellSO.allowedTargets.enemy)
+            {
+                noteText.text = "Target an enemy to cast the spell.";
+            }
+            else
+            {
+                noteText.text = "Target an ally to cast the spell.";
+            }
+            // preview = Instantiate(single_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[0];
         }   
         else if(spellInQuestion.SkillTargetHandling == spellSO.targetHandling.selfaround)
@@ -217,6 +226,7 @@ public class spellManager : MonoBehaviour
         // }
     }
 
+    // For skillbar
     public void startSpellPreview()
     {   
         GameObject preview;
@@ -233,6 +243,14 @@ public class spellManager : MonoBehaviour
         else if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].SkillTargetHandling == spellSO.targetHandling.single)
         {
            
+            if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].allowedTarget == spellSO.allowedTargets.enemy)
+            {
+                noteText.text = "Target an enemy to cast the spell.";
+            }
+            else
+            {
+                noteText.text = "Target an ally to cast the spell.";
+            }
             // preview = Instantiate(single_radius_preview, transform.position, Quaternion.identity);
             curCastType = castTypes[0];
         }  
@@ -241,6 +259,8 @@ public class spellManager : MonoBehaviour
             curCastType = castTypes[2];
             noteText.text = "Click again to cast the spell.";
         } 
+        // Destroy(noteInstance);
+        
 
         castPreviewEnabled = true;
         Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
@@ -265,10 +285,12 @@ public class spellManager : MonoBehaviour
 
     public void processPreview()
     {   
+
+        if(castPreviewEnabled == false) return;
         // if(mc.lastSelectedTarget.GetChild(0) == null) return;
-
+        
         if(mc.lastSelectedTarget == null) return;
-
+            // mc.selectedTarget = mc.lastSelectedTarget;
             GameObject currentSelectedCharacter = mc.lastSelectedTarget.GetChild(0).gameObject;
 
             if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback] == null) return;

@@ -170,17 +170,17 @@ PrefabInstance:
     - target: {fileID: 5801963839734848138, guid: 080b3c0984c7ed34cb7c4c4958c88e61,
         type: 3}
       propertyPath: Life
-      value: 5
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5801963839734848138, guid: 080b3c0984c7ed34cb7c4c4958c88e61,
         type: 3}
       propertyPath: baseDamage
-      value: 7
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5801963839734848138, guid: 080b3c0984c7ed34cb7c4c4958c88e61,
         type: 3}
       propertyPath: actionsRemaining
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5801963839734848138, guid: 080b3c0984c7ed34cb7c4c4958c88e61,
         type: 3}

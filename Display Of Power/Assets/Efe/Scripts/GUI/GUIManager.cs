@@ -44,6 +44,7 @@ public class GUIManager : MonoBehaviour
     public GameObject logText;
 
     public GameObject debugTools;
+    public Sprite defaultSlot;
 
 
     
@@ -162,7 +163,8 @@ public class GUIManager : MonoBehaviour
 
 
     void syncSkillBar()
-    {
+    {   
+        
         // Sync skill slots with selected actor's skills
         if(mc.lastSelectedTarget == null) return;
         
@@ -170,9 +172,23 @@ public class GUIManager : MonoBehaviour
         if(mc.lastSelectedTarget.GetChild(0) == null) return;
         
         actorData selectedData = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
+
+        // Dont update the skill bar if enemy is selected
+        if(selectedData.ownerFaction_string == "Enemy") return;
+        
+
         for(int i = 0; i < selectedData.spells.Length; i++)
         {
             skill_slots[i].sprite = selectedData.spells[i].spellIcon;
+        }
+
+        // Reset the skill bar if there is no spell
+        if(selectedData.spells.Length == 0)
+        {
+            for(int o = 0; o < skill_slots.Length; o++)
+            {
+                skill_slots[o].sprite = defaultSlot;
+            }
         }
             
         // Clear the skill slot when nothing is selected
@@ -180,7 +196,7 @@ public class GUIManager : MonoBehaviour
         {
             for(int o = 0; o < skill_slots.Length; o++)
             {
-                skill_slots[o].sprite = null;
+                skill_slots[o].sprite = defaultSlot;
             }
         }
     }
@@ -271,21 +287,35 @@ public class GUIManager : MonoBehaviour
     public void showTooltip(int index)
     {
         if(mc.lastSelectedTarget.GetChild(0) == null) return;
+        
         spellSO curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index];
+
+        if(index > mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length) return;
+
         if(curSpell != null)
         {
             tooltip_skill.SetActive(true);
             tooltipSpawnPosition = Input.mousePosition + offsetTooltip;
             // Debug.Log("Showing tooltip..." + index);
 
+            tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = curSpell.spellDescription;
+           
             tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = curSpell.spellName;
             if(curSpell.SkillTargetHandling == spellSO.targetHandling.area)
             {
                 tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "Area";
             }
-            else
+            else if(curSpell.SkillTargetHandling == spellSO.targetHandling.single)
             {
                 tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "Single";
+            }
+            else if(curSpell.SkillTargetHandling == spellSO.targetHandling.selfaround)
+            {
+                tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "Self-AOE";
+            }
+            else if(curSpell.SkillTargetHandling == spellSO.targetHandling.self)
+            {
+                tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "Self";
             }
             
             // change the damage type depending on type of effect spell has

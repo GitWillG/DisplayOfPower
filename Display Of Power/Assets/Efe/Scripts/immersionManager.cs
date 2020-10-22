@@ -36,8 +36,8 @@ public class immersionManager : MonoBehaviour
     public List<Material> resultMaterials;
     [SerializeField]
     // check if there is any highlight 
-    bool highlighted = false;
-    bool highlighted2 = false;
+    // bool highlighted = false;
+    // bool highlighted2 = false;
     // Point light reference to make the outline pop up more
     public GameObject highlightLight;
     // Check if there is a light already, dont spawn new ones if there is one
@@ -151,6 +151,8 @@ public class immersionManager : MonoBehaviour
     // Called from mouseControls
     public void highlighObject(GameObject target, string objectType)
     {
+        if(target.tag != "NPC") return;
+
         if(target == null) return;
         // Objects with rigs have skinned mesh renderer
         if(objectType == "Character")
@@ -219,6 +221,8 @@ public class immersionManager : MonoBehaviour
 
     public void restoreHighlight(GameObject target, string ObjectType)
     {
+        if(target.tag != "NPC") return;
+
         if(target == null || ObjectType == null) return;
         if(ObjectType == "Character")
         {

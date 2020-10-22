@@ -52,6 +52,7 @@ public class spellSO : ScriptableObject
     [Space(10)]
     [Tooltip("Name of the spell.")]
     public string spellName; // DONE
+    public string spellDescription;
     [Header("Damage/Healing Functionality")]
     [Tooltip("Set enable effects on if you want etc: Fireball to damage or Heal to heal. Off, if you want spells like Teleportation or Sleep.")]
     public bool enableEffects;

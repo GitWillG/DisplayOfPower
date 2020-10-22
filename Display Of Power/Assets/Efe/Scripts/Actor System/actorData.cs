@@ -103,10 +103,10 @@ namespace efe{
                 overheadReference.SetActive(false);
             }
 
-            if(isBoss)
-            {
-                transform.localScale *= 2/1;
-            }
+            // if(isBoss)
+            // {
+            //     // transform.localScale *= 1/2;
+            // }
 
             // Health Bar
             maxLife = Life;
