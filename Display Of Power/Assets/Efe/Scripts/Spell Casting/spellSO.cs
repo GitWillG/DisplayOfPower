@@ -89,10 +89,10 @@ public class spellSO : ScriptableObject
     public bool instant;
     // public int manaCost; // TODO
     [Header("Other Gameplay Functionality")]
-    public float cooldown; // DONE
-    public float castingDuration; // DONE
-    public float delayPostCast; // DONE
-    public float spellMoveSpeed; // DONE
+    public int cooldown; // DONE
+    public int castingDuration; // DONE
+    public int delayPostCast; // DONE
+    public int spellMoveSpeed; // DONE
     public int spellRange;
     [Tooltip("Action point cost after casting a spell.")]
     public int actionNeeded;

@@ -45,6 +45,7 @@ public class GUIManager : MonoBehaviour
 
     public GameObject debugTools;
     public Sprite defaultSlot;
+    public GameObject spellCooldownNote;
 
 
     
@@ -185,19 +186,21 @@ public class GUIManager : MonoBehaviour
         if(selectedData.ownerFaction_string == "Enemy") return;
         
 
+        // Put the spell icons on the bar
         for(int i = 0; i < selectedData.spells.Length; i++)
         {
             skill_slots[i].sprite = selectedData.spells[i].spellIcon;
+            // Sync the cooldown by putting the cooldown image on top of them lol
+            // if(selectedData.cooldownCounters[i] > 0)
+            // {
+            //     GameObject temp = Instantiate(spellCooldownNote, skill_slots[i].transform);
+            //     temp.transform.Find("CooldownNote").transform.Find("CooldownCounter").GetComponent<TextMeshProUGUI>().text = 
+            //     selectedData.cooldownCounters[i].ToString();
+            // }
         }
 
-        // Reset the skill bar if there is no spell
-        if(selectedData.spells.Length == 0)
-        {
-            for(int o = 0; o < skill_slots.Length; o++)
-            {
-                skill_slots[o].sprite = defaultSlot;
-            }
-        }
+        
+
             
 
     }

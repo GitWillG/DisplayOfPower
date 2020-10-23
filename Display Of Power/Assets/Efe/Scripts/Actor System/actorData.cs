@@ -91,10 +91,17 @@ namespace efe{
         public int buffHeld;
         public string buffName;
         public string buffProperty;
+        public List<int> cooldownCounters;
+        
         
         void Start()
         {
             idealAP = actionsRemaining;
+
+            for(int z = 0; z < spells.Length; z++)
+            {
+                cooldownCounters.Add(0);
+            }
 
             enemySideReference = GameObject.FindGameObjectWithTag("EnemySide");
             allySideReference = GameObject.FindGameObjectWithTag("AllySide");

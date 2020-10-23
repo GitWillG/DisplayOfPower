@@ -198,7 +198,11 @@ public class spellManager : MonoBehaviour
     // For spell shortcuts
     public void startSpellPreview(spellSO spellInQuestion)
     {   
-
+        if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().cooldownCounters[curIndexCallback] > 0) 
+        {
+            guim.updateLog("Spell is in cooldown.", Color.yellow);
+            return;
+        }
         if(spellInQuestion.isPassive) return;
 
         GameObject preview;
@@ -254,6 +258,12 @@ public class spellManager : MonoBehaviour
     // For skillbar
     public void startSpellPreview()
     {   
+        if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().cooldownCounters[curIndexCallback] > 0) 
+        {
+            guim.updateLog("Spell is in cooldown.", Color.yellow);
+            return;
+        }
+
         if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
 
         GameObject preview;
@@ -298,8 +308,7 @@ public class spellManager : MonoBehaviour
             mc.lastSelectedTarget.gameObject, 
             mc.legalMove);
 
-        mc.currentMask = 1 << 10
-;
+        mc.currentMask = 1 << 10;
 
 
         castPreviewEnabled = true;
@@ -744,11 +753,13 @@ public class spellManager : MonoBehaviour
                 {
                     // Debug.Log("Cast" + spellData.spellName);
                     guim.updateLog(source.name + " casted a " + spellData.spellName);
+                    sourceActor.cooldownCounters[curIndexCallback] = spellData.cooldown;
                 }
 
             }
 
             cc.panToObject(target);
+            
             
         }
         else if(spellData.actionNeeded > sourceActor.actionsRemaining)
@@ -763,6 +774,27 @@ public class spellManager : MonoBehaviour
         }
 
 
+    }
+
+    public void processCooldowns()
+    {
+        GameObject[] NPCs = GameObject.FindGameObjectsWithTag("NPC");
+        foreach(GameObject temp in NPCs)
+        {
+            actorData actor = temp.GetComponent<actorData>();
+            for(int z = 0; z < actor.cooldownCounters.Count; z++)
+            {
+                if(actor.cooldownCounters[z] > 0)
+                {
+                    actor.cooldownCounters[z] -= 1;
+                }
+                else if(actor.cooldownCounters[z] == 0)
+                {
+                    guim.updateLog("Cooldown refreshed on " + actor.spells[z].spellName + ".");
+                    return;
+                }
+            }
+        }
     }
 
     public void processStatuses()

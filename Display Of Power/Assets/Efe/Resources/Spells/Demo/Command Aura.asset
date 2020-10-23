@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overwriteParticles: {fileID: 0}
   useOverwrite: 0
-  spellID: 1723
+  spellID: 9112
   isPassive: 1
   affectsOnlyAllies: 1
   buffType: 0
   buffProperty: 1
   buffAmount: 5
-  spellName: Command Aura
+  spellName: Command
   spellDescription: A passive aura that grants +%10 damage to allies.
   enableEffects: 0
   effectAmount: 10

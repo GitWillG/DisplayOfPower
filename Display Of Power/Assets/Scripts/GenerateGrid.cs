@@ -649,6 +649,7 @@ public class GenerateGrid : MonoBehaviour
         }
 
         sm.processStatuses();
+        sm.processCooldowns();
 
         guim.updateLog("Turn ended.", Color.green);
         mouseControl.playerTurnGUI.SetActive(true);
