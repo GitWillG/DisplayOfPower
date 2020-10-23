@@ -300,6 +300,7 @@ public class GUIManager : MonoBehaviour
             // Debug.Log("Showing tooltip..." + index);
 
             tooltip_skill.transform.Find("BG").transform.Find("SpellDesc").GetComponent<TextMeshProUGUI>().text = curSpell.spellDescription;
+            tooltip_skill.transform.Find("BG").transform.Find("SpellAP").GetComponent<TextMeshProUGUI>().text = curSpell.actionNeeded.ToString();
            
             tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = curSpell.spellName;
             if(curSpell.SkillTargetHandling == spellSO.targetHandling.area)
