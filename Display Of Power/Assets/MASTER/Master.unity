@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 1563237712}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &2818525
 Transform:
   m_ObjectHideFlags: 19
@@ -6586,7 +6587,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: aed2bca7c4a4b1249b41a8ea09bb7e66, type: 2}
   m_StaticLightingSkyUniqueID: 1
-  m_SkySettings: {fileID: 2017588875}
+  m_SkySettings: {fileID: 2033720404}
   m_SkySettingsFromProfile: {fileID: 8922707403301924864, guid: aed2bca7c4a4b1249b41a8ea09bb7e66,
     type: 2}
 --- !u!4 &1055665389
@@ -14739,7 +14740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 160098, guid: 69b40ef7ee16c834c844b3fa26e0fdda, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 191520, guid: 69b40ef7ee16c834c844b3fa26e0fdda, type: 3}
       propertyPath: m_IsActive
@@ -14807,7 +14808,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69b40ef7ee16c834c844b3fa26e0fdda, type: 3}
---- !u!114 &2017588875
+--- !u!114 &2033720404
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
