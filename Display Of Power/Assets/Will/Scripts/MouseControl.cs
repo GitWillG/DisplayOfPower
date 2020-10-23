@@ -135,8 +135,7 @@ public class MouseControl : MonoBehaviour
         if(!EventSystem.current.IsPointerOverGameObject())
         {
             // Check if player is previewing a skill
-            if(!sm.castPreviewEnabled)
-                {
+
                     if (Input.GetMouseButtonUp(1) && clickedHex == true)
                     {
                         moveRadius();
@@ -168,9 +167,10 @@ public class MouseControl : MonoBehaviour
                             //    GridOb.choosePath(selectedTarget.gameObject, hoveredTarget.gameObject);
                             //}
                         }
-                        //otherwise if you have selected a target, and you click on that object, we will revert it to its original material and reset the clicked Bool
-                        // Deselection
-
+                    //otherwise if you have selected a target, and you click on that object, we will revert it to its original material and reset the clicked Bool
+                    // Deselection
+                    if (!sm.castPreviewEnabled)
+                    {
                         if (selection == selectedTarget && Input.GetMouseButtonUp(0) && clickedHex == true && hoveredTarget == selectedTarget)
                         {
 
@@ -178,20 +178,23 @@ public class MouseControl : MonoBehaviour
                             return;
                         }
                     }
+                    }
 
-                    //  if you click, while hovering a selected hex, and you have not already clicked a hex,
-                    //  change that object to the selected color and Declare that a hex has been clicked
-                    // Selecting
-                    // prefabUnits data = selection.GetComponentInChildren<prefabUnits>();
-
+                //  if you click, while hovering a selected hex, and you have not already clicked a hex,
+                //  change that object to the selected color and Declare that a hex has been clicked
+                // Selecting
+                // prefabUnits data = selection.GetComponentInChildren<prefabUnits>();
+                if (!sm.castPreviewEnabled)
+                {
                     // Moving units here
                     if (Input.GetMouseButtonUp(0) && hoveredTarget != null)
                     {
                         selectHex(hoveredTarget.gameObject);
                         // Debug.Log(4);
                     }
-
                 }
+
+                //}
                 else if (isMoving)
                 {
                     finishMovement();

@@ -417,92 +417,8 @@ public class GenerateGrid : MonoBehaviour
     [ContextMenu("Start Next Turn")]
     public void NextTurn()
     {
-
-        mouseControl.isMove = true;
-        //foreach (GameObject turnorder in turnOrder)
-        //{
-        //    if (turnorder == null)
-        //    {
-        //        turnOrder.Remove(turnorder);
-        //    }
-        //}
-        if (mouseControl.selectedTarget != null && mouseControl.selectedTarget.childCount > 0)
-        {
-            mouseControl.swapRange();
-            mouseControl.removeRangeInd();
-        }
-        //if (k >= turnOrder.Count - 1)
-        //{
-        //    k = 0;
-        //}
-        if (turnOrder[k].GetComponent<actorData>().actionsRemaining == 0)
-        {
-            if (initiatives.Count > 0)
-            {
-                initiativeAligner.transform.GetChild(0).transform.SetAsLastSibling();
-                // foreach(GameObject a in initiatives)
-                // {
-                //     Destroy(a);
-                //     Debug.Log(a + " destroyed.");
-                // }
-                // initiatives.Clear();
-            }
-       
-            turnOrder[k].GetComponent<actorData>().actionsRemaining = turnOrder[k].GetComponent<actorData>().TotalActions;
-            turnOrder[k].GetComponent<actorData>().isTurn = false;
-            turnOrder[k].GetComponent<actorData>().actionsRemaining = 2;
-            if (k < turnOrder.Count -1)
-            {
-                k = k + 1;
-            }
-            else
-            {
-                k = 0;
-            }
-            //print("next turn is" + k);
-
-        }
-        mouseControl.hoveredTarget = turnOrder[k].transform.parent;
-        turnOrder[k].GetComponent<actorData>().isTurn = true;
-        currTurn = turnOrder[k].transform.parent.gameObject;
-        if (turnOrder[k].GetComponent<actorData>().isTurn == true)
-        {
-
-            mouseControl.clickedHex = false;
-            //mouseControl.selectedTarget = turnOrder[k].transform;
-            mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
-            // Debug.Log("test2");
-           
-            // Show whose turn
-            GameObject tempTurn = Instantiate(turnNotification, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
-            tempTurn.transform.parent = guim.battleGUI.transform;
-            if(turnOrder[k].GetComponent<actorData>().ownerFaction_string == "Ally")
-            {
-                tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "Player's Turn";
-            }
-            else
-            {
-                tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "AI's Turn";
-            }
-            Destroy(tempTurn, 4);
-            // Debug.Log("test");
-        }
-
-        cc.panToObject(turnOrder[k]);
-        if (initiatives.Count == 0)
-        {
-            // update initiatve GUI with turn order
-            // Initiative bar
-            for (int z = 0; z < turnOrder.Count; z++)
-            {
-                createInitiativeSprite(turnOrder[z]);
-
-            }
-        }
-
-        sm.processStatuses();
-
-      
+        StartCoroutine(pauseforTurn());
+        
     }
 
     public void createInitiativeSprite(GameObject sourceObject)
@@ -642,6 +558,95 @@ public class GenerateGrid : MonoBehaviour
                 }
                 
             }
+
+    }
+    public IEnumerator pauseforTurn()
+    {
+        yield return new WaitForSeconds(2);
+        mouseControl.isMove = true;
+        //foreach (GameObject turnorder in turnOrder)
+        //{
+        //    if (turnorder == null)
+        //    {
+        //        turnOrder.Remove(turnorder);
+        //    }
+        //}
+        if (mouseControl.selectedTarget != null && mouseControl.selectedTarget.childCount > 0)
+        {
+            mouseControl.swapRange();
+            mouseControl.removeRangeInd();
+        }
+        //if (k >= turnOrder.Count - 1)
+        //{
+        //    k = 0;
+        //}
+        if (turnOrder[k].GetComponent<actorData>().actionsRemaining == 0)
+        {
+            if (initiatives.Count > 0)
+            {
+                initiativeAligner.transform.GetChild(0).transform.SetAsLastSibling();
+                // foreach(GameObject a in initiatives)
+                // {
+                //     Destroy(a);
+                //     Debug.Log(a + " destroyed.");
+                // }
+                // initiatives.Clear();
+            }
+
+            turnOrder[k].GetComponent<actorData>().actionsRemaining = turnOrder[k].GetComponent<actorData>().TotalActions;
+            turnOrder[k].GetComponent<actorData>().isTurn = false;
+            turnOrder[k].GetComponent<actorData>().actionsRemaining = 2;
+            if (k < turnOrder.Count - 1)
+            {
+                k = k + 1;
+            }
+            else
+            {
+                k = 0;
+            }
+            //print("next turn is" + k);
+
+        }
+        mouseControl.hoveredTarget = turnOrder[k].transform.parent;
+        turnOrder[k].GetComponent<actorData>().isTurn = true;
+        currTurn = turnOrder[k].transform.parent.gameObject;
+        if (turnOrder[k].GetComponent<actorData>().isTurn == true)
+        {
+
+            mouseControl.clickedHex = false;
+            //mouseControl.selectedTarget = turnOrder[k].transform;
+            mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
+            // Debug.Log("test2");
+
+            // Show whose turn
+            GameObject tempTurn = Instantiate(turnNotification, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
+            tempTurn.transform.parent = guim.battleGUI.transform;
+            if (turnOrder[k].GetComponent<actorData>().ownerFaction_string == "Ally")
+            {
+                tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "Player's Turn";
+            }
+            else
+            {
+                tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "AI's Turn";
+            }
+            Destroy(tempTurn, 4);
+            // Debug.Log("test");
+        }
+
+        cc.panToObject(turnOrder[k]);
+        if (initiatives.Count == 0)
+        {
+            // update initiatve GUI with turn order
+            // Initiative bar
+            for (int z = 0; z < turnOrder.Count; z++)
+            {
+                createInitiativeSprite(turnOrder[z]);
+
+            }
+        }
+
+        sm.processStatuses();
+
 
     }
 
