@@ -473,10 +473,13 @@ public class GenerateGrid : MonoBehaviour
 
     public void EndTurn()
     {
-        if (turnOrder[k].GetComponent<actorData>().isTurn && turnOrder[k].GetComponent<actorData>().actionsRemaining > 0)
+        if (turnOrder[k] !=null)
         {
-            turnOrder[k].GetComponent<actorData>().actionsRemaining = 0;
-            //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
+            if (turnOrder[k].GetComponent<actorData>().isTurn && turnOrder[k].GetComponent<actorData>().actionsRemaining > 0)
+            {
+                turnOrder[k].GetComponent<actorData>().actionsRemaining = 0;
+                //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
+            }
         }
         guim.updateLog("Turn ended.", Color.green);
         mouseControl.playerTurnGUI.SetActive(true);
