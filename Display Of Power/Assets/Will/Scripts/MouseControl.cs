@@ -35,6 +35,9 @@ public class MouseControl : MonoBehaviour
     public Material legalMove;
     //original hexs material
     public Material defaultMat;
+    public Material attackMat;
+    public Material enemiesMat;
+    public Material selectionMaterial;
     [Space(5)]
     public GenerateGrid GridOb;
     public bool doneMoving;
@@ -280,11 +283,11 @@ public class MouseControl : MonoBehaviour
 
             if (isMove)
             {
-                grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, legalMove);
+                grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
             }
             else
             {
-                grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, legalMove);
+                grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, attackMat);
             }
         }
         //reset and rehighlight appropriate hexes
@@ -325,7 +328,7 @@ public class MouseControl : MonoBehaviour
     public void selectHex(GameObject hexSelected)
     {
         // if(sm.castPreviewEnabled) return;
-
+        
         Transform transformSelected = hexSelected.transform;
         currClickedHex = hexSelected;
         //Debug.Log("test");
@@ -400,11 +403,11 @@ public class MouseControl : MonoBehaviour
                 //run the range detection script
                 if (isMove)
                 {
-                    grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, legalMove);
+                    grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
                 }
                 else
                 {
-                    grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, legalMove);
+                    grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, attackMat);
                 }
             }
             return;
