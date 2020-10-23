@@ -22,6 +22,7 @@ public class spellManager : MonoBehaviour
     immersionManager im;
     GUIManager guim;
     spellSO curSpellPreview;
+    CameraControl cc;
     // Cast type tracking
     string[] castTypes = {"Single", "Area", "Self Around"};
     string curCastType;
@@ -33,6 +34,7 @@ public class spellManager : MonoBehaviour
     public GameObject previewNotficiation;
     GameObject noteInstance;
     GameObject tempStatusParticle;
+    BestClickToMove bctm;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +45,8 @@ public class spellManager : MonoBehaviour
         guim = GetComponent<GUIManager>();
         am = GetComponent<audioManager>();
         im = GetComponent<immersionManager>();
+        cc = Camera.main.GetComponent<CameraControl>();
+        bctm = GameObject.FindGameObjectWithTag("SM").GetComponent<BestClickToMove>();
     }
 
     // Update is called once per frame
@@ -81,17 +85,21 @@ public class spellManager : MonoBehaviour
                                 if(projData.target.GetComponent<actorData>().Life <= 0)
                                 {
                                     projData.target.GetComponent<Animator>().SetTrigger("Die");
+                                    bctm.showDamage(projData.source, projData.target);
                                     mc.killUnit(projData.target);
                                 }
                                 else
                                 {
                                     projData.target.GetComponent<Animator>().SetTrigger("takeHit");
+                                    bctm.showDamage(projData.source, projData.target);
+                                    
                                 }
                             }
                             // Spells like healing...etc
                             else if (projData.referenceSpell.effectType == spellSO.effectTypes.additive)
                             {
                                 projData.target.GetComponent<actorData>().Life += projData.referenceSpell.effectAmount;
+                                bctm.showDamage(projData.source, projData.target);
                                 // Debug.Log("Heal");
                             }
                         }
@@ -494,6 +502,7 @@ public class spellManager : MonoBehaviour
                             {
                                 currentSelectedCharacter.GetComponent<actorData>().actionsRemaining = curSpell.actionNeeded;
                                 castSpell(currentSelectedCharacter, t, curSpell);
+                                bctm.showDamage(currentSelectedCharacter, t);
                             }
                             currentSelectedCharacter.GetComponent<actorData>().actionsRemaining -= curSpell.actionNeeded;
                             guim.updateLog(currentSelectedCharacter.GetComponent<actorData>().actorName + " casted a " + curSpell.spellName);
@@ -704,11 +713,13 @@ public class spellManager : MonoBehaviour
                         if(targetActor.Life <= 0)
                         {
                             targetAnimator.SetTrigger("Die");
+                            bctm.showDamage(source, target);
                             mc.killUnit(target);
                         }
                         else
                         {
                             targetAnimator.SetTrigger("takeHit");
+                            bctm.showDamage(source, target);
                         }
                     }
                     else
@@ -734,16 +745,18 @@ public class spellManager : MonoBehaviour
                 }
 
             }
+
+            cc.panToObject(target);
             
         }
         else if(spellData.actionNeeded > sourceActor.actionsRemaining)
         {
-            guim.updateLog("You don't have enough action points.");
+            guim.updateLog("You don't have enough action points.", Color.red);
             am.playAudio2D("error");
         }
         else
         {
-            guim.updateLog("It is not this character's turn.");
+            guim.updateLog("It is not this character's turn.", Color.red);
             am.playAudio2D("error");
         }
 
@@ -761,6 +774,7 @@ public class spellManager : MonoBehaviour
                 if(actor.statusSpellReference.statusType == spellSO.statusTypes.substractive)
                 {
                     actor.Life -= actor.statusEffect;
+                    
                 }
                 else
                 {

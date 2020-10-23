@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using efe;
+using UnityEngine.UI;
+using TMPro;
 
 public class BestClickToMove : MonoBehaviour
 {
@@ -94,19 +96,8 @@ public class BestClickToMove : MonoBehaviour
             targetHex.transform.GetChild(0).transform.position.y + 2,
             targetHex.transform.GetChild(0).transform.position.z
         );
-        GameObject temp = Instantiate(numberIndicator, indicatorPos, Quaternion.identity);
-        temp = temp.transform.Find("Number").gameObject;
-        int reversed = unit.GetComponent<actorData>().baseDamage * -1;
-        if(unit.GetComponent<actorData>().ownerFaction_string == "Ally")
-        {
-            temp.GetComponent<TextMesh>().color = Color.green;
-        }
-        else
-        {
-            temp.GetComponent<TextMesh>().color = Color.red;
-        }
-        temp.GetComponent<TextMesh>().text = reversed.ToString();
-        Destroy(temp, 4);
+        showDamage(unit, targetHex);
+        
 
         guim.updateLog(unit.GetComponent<actorData>().actorName + " dealt " + unit.GetComponent<actorData>().baseDamage + " to " + targetHex.GetComponentInChildren<actorData>().actorName);
 
@@ -115,6 +106,29 @@ public class BestClickToMove : MonoBehaviour
         targetAnimator.SetTrigger("takeHit");
         sourceAnimator.SetTrigger("basicAttack");
 
+    }
+
+    public void showDamage(GameObject unit, GameObject targetHex)
+    {
+        Vector3 indicatorPos = new Vector3(
+            targetHex.transform.GetChild(0).transform.position.x,
+            targetHex.transform.GetChild(0).transform.position.y + 2,
+            targetHex.transform.GetChild(0).transform.position.z
+        );
+        GameObject temp = Instantiate(numberIndicator, indicatorPos, Quaternion.identity);
+        GameObject temp2 = temp.transform.Find("Number").gameObject;
+        int reversed = unit.GetComponent<actorData>().baseDamage * -1;
+        if(unit.GetComponent<actorData>().ownerFaction_string == "Ally")
+        {
+            temp2.GetComponent<TextMeshProUGUI>().color = Color.green;
+        }
+        else
+        {
+            temp2.GetComponent<TextMeshProUGUI>().color = Color.red;
+        }
+        temp2.GetComponent<TextMeshProUGUI>().text = reversed.ToString();
+        Destroy(temp, 2);
+        Debug.Log(temp + " " + temp2);
     }
 
 }
