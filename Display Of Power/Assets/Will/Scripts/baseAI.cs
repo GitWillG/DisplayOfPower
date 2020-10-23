@@ -29,6 +29,7 @@ public class baseAI : MonoBehaviour
     {
         if (self.isTurn && !self.belongsToPlayer)
         {
+            mouseController.selectionMaterial = mouseController.enemiesMat;
             // Debug.Log(this.name + " says hi to your father");
             int check = Random.Range(0, 2);
             mouseController.playerTurnGUI.SetActive(false);
@@ -64,14 +65,14 @@ public class baseAI : MonoBehaviour
                                 if (gridOb.legalHex[i].transform.GetChild(0).gameObject.GetComponent<actorData>().Life <= 0)
                                 {
                                     mouseController.killUnit(gridOb.legalHex[i].transform.GetChild(0).gameObject);
-                                    
+
 
                                 }
                                 mouseController.moveAttackSwap();
                                 if (self.actionsRemaining == 0)
                                 {
                                     gridOb.EndTurn();
-                                    
+
                                 }
                                 return;
 
@@ -93,8 +94,20 @@ public class baseAI : MonoBehaviour
 
             }
         }
-    }
+        if (self.isTurn && self.belongsToPlayer)
+        {
+            if (mouseController.isMove)
+            {
+                mouseController.selectionMaterial = mouseController.legalMove;
 
+            }
+            else
+            {
+
+                mouseController.selectionMaterial = mouseController.attackMat;
+            }
+        }
+    }
     private void findClosest()
     {
         List<float> distanceCheck = new List<float>();
