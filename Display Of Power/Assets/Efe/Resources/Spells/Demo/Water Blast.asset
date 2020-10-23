@@ -17,6 +17,10 @@ MonoBehaviour:
   useOverwrite: 1
   spellID: 1723
   isPassive: 0
+  affectsOnlyAllies: 0
+  buffType: 0
+  buffProperty: 0
+  buffAmount: 0
   spellName: Water Blast
   spellDescription: Cast a short ranged water attack dealing 30 damage.
   enableEffects: 1

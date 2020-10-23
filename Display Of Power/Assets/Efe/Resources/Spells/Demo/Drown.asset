@@ -17,6 +17,10 @@ MonoBehaviour:
   useOverwrite: 1
   spellID: 1428
   isPassive: 0
+  affectsOnlyAllies: 0
+  buffType: 0
+  buffProperty: 0
+  buffAmount: 0
   spellName: Drown
   spellDescription: 'Traps an enemy with surging waters. This enemy becomes unattackable
     and is stunned throughout the durration of the spell. Each round trapped by Drown

@@ -60,5 +60,15 @@ public class audioManager : MonoBehaviour
     {
         
     }
+
+    public void muteAudio()
+    {
+        AudioListener.volume = 0;
+    }
+
+    public void unMuteAudio()
+    {
+        AudioListener.volume = 1;
+    }
 }
 }

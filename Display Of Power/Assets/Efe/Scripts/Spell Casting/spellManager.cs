@@ -198,6 +198,9 @@ public class spellManager : MonoBehaviour
     // For spell shortcuts
     public void startSpellPreview(spellSO spellInQuestion)
     {   
+
+        if(mc.selectedTarget == null) return;
+        
         if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().cooldownCounters[curIndexCallback] > 0) 
         {
             guim.updateLog("Spell is in cooldown.", Color.yellow);
@@ -258,6 +261,9 @@ public class spellManager : MonoBehaviour
     // For skillbar
     public void startSpellPreview()
     {   
+
+        if(mc.selectedTarget == null) return;
+
         if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().cooldownCounters[curIndexCallback] > 0) 
         {
             guim.updateLog("Spell is in cooldown.", Color.yellow);

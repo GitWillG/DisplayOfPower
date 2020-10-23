@@ -369,14 +369,14 @@ public class MouseControl : MonoBehaviour
                 if(selectedTarget.GetComponentInChildren<actorData>().affectedbyBuff)
                 {
                     buffDescField.text = "This unit is affected by " + selectedTarget.GetComponentInChildren<actorData>().buffName + 
-                    ". This unit gains" + selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " + selectedTarget.GetComponentInChildren<actorData>().buffProperty;
+                    ". This unit gains " + selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " + selectedTarget.GetComponentInChildren<actorData>().buffProperty;
                     buffDescField.color = Color.green;
                 }
 
                 if(selectedTarget.GetComponentInChildren<actorData>().affectedbyDebuff)
                 {
                     buffDescField.text = "This unit is affected by " + selectedTarget.GetComponentInChildren<actorData>().buffName + 
-                    ". This unit suffers" + selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " + selectedTarget.GetComponentInChildren<actorData>().buffProperty;
+                    ". This unit suffers " + selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " + selectedTarget.GetComponentInChildren<actorData>().buffProperty;
                    
                     buffDescField.color = Color.red;
                 }

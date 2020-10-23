@@ -138,28 +138,28 @@ public class GUIManager : MonoBehaviour
 
         // Escape to remove any open GUI first
         // Then open escape menu if there is no GUI open
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            GameObject[] GUIs = GameObject.FindGameObjectsWithTag("GUI");
-            if(GUIs.Length == 0)
-            {
-                // open escape menu
-                openGUI(escapeMenu);
+        // if(Input.GetKeyDown(KeyCode.Escape))
+        // {
+        //     GameObject[] GUIs = GameObject.FindGameObjectsWithTag("GUI");
+        //     if(GUIs.Length == 0)
+        //     {
+        //         // open escape menu
+        //         openGUI(escapeMenu);
                 
-            }
-            else
-            {
-                foreach(GameObject temp in GUIs)
-                {
-                    temp.SetActive(false);
+        //     }
+        //     else
+        //     {
+        //         foreach(GameObject temp in GUIs)
+        //         {
+        //             temp.SetActive(false);
                     
-                    if(Time.timeScale == 0)
-                    {
-                        Time.timeScale = 1;
-                    }
-                }
-            }
-        }
+        //             if(Time.timeScale == 0)
+        //             {
+        //                 Time.timeScale = 1;
+        //             }
+        //         }
+        //     }
+        // }
     }
 
 

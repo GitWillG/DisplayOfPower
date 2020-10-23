@@ -17,6 +17,10 @@ MonoBehaviour:
   useOverwrite: 1
   spellID: 1723
   isPassive: 0
+  affectsOnlyAllies: 0
+  buffType: 0
+  buffProperty: 0
+  buffAmount: 0
   spellName: Arcane Burst
   spellDescription: 'A burst of Arcane radiates from your core, sending out a wave
     in all directions that deals 50 damage to surrounding enemies. '
