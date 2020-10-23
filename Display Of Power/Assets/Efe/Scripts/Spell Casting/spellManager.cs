@@ -188,8 +188,11 @@ public class spellManager : MonoBehaviour
     // For spell shortcuts
     public void startSpellPreview(spellSO spellInQuestion)
     {   
+
+        if(spellInQuestion.isPassive) return;
+
         GameObject preview;
-        noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 3), Quaternion.identity);
+        noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 2 - 200), Quaternion.identity);
         TextMeshProUGUI noteText = noteInstance.transform.Find("BG").transform.Find("Text").GetComponent<TextMeshProUGUI>();
         
         if(spellInQuestion.SkillTargetHandling == spellSO.targetHandling.area)
@@ -220,6 +223,7 @@ public class spellManager : MonoBehaviour
         castPreviewEnabled = true;
         Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
         Debug.Log("Started spell preview. " + spellInQuestion.spellName);
+        Destroy(noteInstance, 3);
         // Remove already existing previews if there is one
         // GameObject[] radiusPreviews = GameObject.FindGameObjectsWithTag("RadiusPreview");
         // if(radiusPreviews != null)
@@ -240,12 +244,14 @@ public class spellManager : MonoBehaviour
     // For skillbar
     public void startSpellPreview()
     {   
+        if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
+        
         GameObject preview;
-        noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 3), Quaternion.identity);
+        noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 2 - 200), Quaternion.identity);
         TextMeshProUGUI noteText = noteInstance.transform.Find("BG").transform.Find("Text").GetComponent<TextMeshProUGUI>();
         
         // Passive spells cannot be casted
-        if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
+        
 
         if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].SkillTargetHandling == spellSO.targetHandling.area)
         {   
@@ -288,6 +294,7 @@ public class spellManager : MonoBehaviour
 
         castPreviewEnabled = true;
         Cursor.SetCursor(guim.cursor_textures[1], Vector2.zero, CursorMode.Auto);
+        Destroy(noteInstance, 3);
         // Debug.Log("Started spell preview.");
         
         // Remove already existing previews if there is one
@@ -309,6 +316,8 @@ public class spellManager : MonoBehaviour
 
     public void processPreview()
     {   
+
+        if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
 
         if(castPreviewEnabled == false) return;
         // if(mc.lastSelectedTarget.GetChild(0) == null) return;
@@ -476,15 +485,22 @@ public class spellManager : MonoBehaviour
                 {
                     if(Input.GetMouseButtonDown(0))
                     {
+                        
                         GameObject[] NPCs = GameObject.FindGameObjectsWithTag("NPC");
                         foreach(GameObject t in NPCs)
                         {
                             actorData tData = t.GetComponent<actorData>();
                             if(tData.ownerFaction_string == "Enemy")
                             {
+                                currentSelectedCharacter.GetComponent<actorData>().actionsRemaining = curSpell.actionNeeded;
                                 castSpell(currentSelectedCharacter, t, curSpell);
                             }
+                            currentSelectedCharacter.GetComponent<actorData>().actionsRemaining -= curSpell.actionNeeded;
+                            guim.updateLog(currentSelectedCharacter.GetComponent<actorData>().actorName + " casted a " + curSpell.spellName);
                         }
+                        castPreviewEnabled = false;
+                        // Debug.Log("Preview finished.");
+                        Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
                         
                     }
                     else if(Input.GetMouseButtonDown(1))
@@ -524,6 +540,13 @@ public class spellManager : MonoBehaviour
         {
             if(sourceActor.isTurn)
             {
+
+                // Reduce action points of the source from action needed of spell
+                sourceActor.actionsRemaining -= spellData.actionNeeded;
+                if(sourceActor.actionsRemaining == 0)
+                {
+                    gg.EndTurn();
+                }
                 // yield return new WaitForSeconds(1);
 
                 // Caster
@@ -566,8 +589,11 @@ public class spellManager : MonoBehaviour
                                 source.transform.position.z
 
                             );
-                            projectile = Instantiate(spellData.overwriteParticles, source.transform.position, Quaternion.identity);
-                            Debug.Log("Overwritten.");
+                            if(spellData.overwriteParticles != null)
+                            {
+                                projectile = Instantiate(spellData.overwriteParticles, source.transform.position, Quaternion.identity);
+                                Debug.Log("Overwritten.");
+                            }
                         }
                         else
                         {
@@ -624,7 +650,7 @@ public class spellManager : MonoBehaviour
                     }
                 }
                 // if not projectile based, it means projectile doesnt have a distance to go but automatically spawn on target
-                else
+                else if(!spellData.isProjectileBased && !spellData.instant)
                 {
                     projectile = Instantiate(spellData.overwriteParticles, target.transform.position, Quaternion.identity);
                     projectileData projData = projectile.AddComponent<projectileData>();
@@ -639,28 +665,76 @@ public class spellManager : MonoBehaviour
                         targetActor.statusEffect = spellData.statusEffectPerTurn;
                         targetActor.statusSpellReference = spellData;
                     }
-                }               
+                }   
+                
+                if(spellData.SkillTargetHandling == spellSO.targetHandling.selfaround)
+                {
+                    if(spellData.effectType == spellSO.effectTypes.substractive)
+                    {
+                        target.GetComponent<actorData>().Life -= spellData.effectAmount;
+                        if(targetActor.Life <= 0)
+                        {
+                            targetAnimator.SetTrigger("Die");
+                            mc.killUnit(target);
+                        }
+                        else
+                        {
+                            targetAnimator.SetTrigger("takeHit");
+                        }
+                    }
+                    else
+                    {
+                        target.GetComponent<actorData>().Life += spellData.effectAmount;
+                    }
+
+                    if(spellData.applyStatus)
+                    {
+                        targetActor.hasStatus = true;
+                        targetActor.statusDuration = spellData.statusDuration;
+                        targetActor.statusEffect = spellData.statusEffectPerTurn;
+                        targetActor.statusSpellReference = spellData;
+                    }
+                    
+                }
+                if(spellData.instant)
+                {
+                    if(spellData.effectType == spellSO.effectTypes.substractive)
+                    {
+                        target.GetComponent<actorData>().Life -= spellData.effectAmount;
+                        if(targetActor.Life <= 0)
+                        {
+                            targetAnimator.SetTrigger("Die");
+                            mc.killUnit(target);
+                        }
+                        else
+                        {
+                            targetAnimator.SetTrigger("takeHit");
+                        }
+                    }
+                    else
+                    {
+                        target.GetComponent<actorData>().Life += spellData.effectAmount;
+                    }
+
+                    if(spellData.applyStatus)
+                    {
+                        targetActor.hasStatus = true;
+                        targetActor.statusDuration = spellData.statusDuration;
+                        targetActor.statusEffect = spellData.statusEffectPerTurn;
+                        targetActor.statusSpellReference = spellData;
+                    }
+
+                    
+                }          
+
+                if(spellData.SkillTargetHandling != spellSO.targetHandling.selfaround)
+                {
+                    // Debug.Log("Cast" + spellData.spellName);
+                    guim.updateLog(source.name + " casted a " + spellData.spellName);
+                }
 
             }
-            else if(spellData.instant)
-            {
-                if(spellData.effectType == spellSO.effectTypes.substractive)
-                {
-                    target.GetComponent<actorData>().Life -= spellData.effectAmount;
-                }
-                else
-                {
-                    target.GetComponent<actorData>().Life += spellData.effectAmount;
-                }
-
-                if(spellData.applyStatus)
-                {
-                    targetActor.hasStatus = true;
-                    targetActor.statusDuration = spellData.statusDuration;
-                    targetActor.statusEffect = spellData.statusEffectPerTurn;
-                    targetActor.statusSpellReference = spellData;
-                }
-            }
+            
         }
         else if(spellData.actionNeeded > sourceActor.actionsRemaining)
         {
@@ -673,15 +747,7 @@ public class spellManager : MonoBehaviour
             am.playAudio2D("error");
         }
 
-        // Reduce action points of the source from action needed of spell
-        sourceActor.actionsRemaining -= spellData.actionNeeded;
-        if(sourceActor.actionsRemaining == 0)
-        {
-            gg.EndTurn();
-        }
 
-        // Debug.Log("Cast" + spellData.spellName);
-        guim.updateLog(source.name + " casted a " + spellData.spellName);
     }
 
     public void processStatuses()
@@ -728,5 +794,10 @@ public class spellManager : MonoBehaviour
                 guim.updateLog(actor.actorName + " gets status effects from " + actor.statusSpellReference.spellName);
             }
         }
+    }
+
+    void processPassives()
+    {
+
     }
 }

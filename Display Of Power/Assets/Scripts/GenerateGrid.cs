@@ -647,6 +647,10 @@ public class GenerateGrid : MonoBehaviour
 
         sm.processStatuses();
 
+        guim.updateLog("Turn ended.", Color.green);
+        mouseControl.playerTurnGUI.SetActive(true);
+        am.playAudio2D("endturn");
+
 
     }
 

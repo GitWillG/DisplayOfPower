@@ -164,9 +164,19 @@ public class GUIManager : MonoBehaviour
 
     void syncSkillBar()
     {   
-        if(mc.isMoving) return;
+        // if(mc.isMoving) return;
         // Sync skill slots with selected actor's skills
-        if(mc.lastSelectedTarget == null) return;
+        // if(mc.lastSelectedTarget == null) return;
+        // Clear the skill slot when nothing is selected
+
+        if(mc.selectedTarget == null)
+        {
+            for(int o = 0; o < skill_slots.Length; o++)
+            {
+                skill_slots[o].sprite = defaultSlot; 
+            }
+            return;
+        }
         
         // Updates the skillbar depending on current selected actor's spells
         if(mc.lastSelectedTarget.GetChild(0) == null) return;
@@ -191,14 +201,7 @@ public class GUIManager : MonoBehaviour
             }
         }
             
-        // Clear the skill slot when nothing is selected
-        if(mc.lastSelectedTarget == null)
-        {
-            for(int o = 0; o < skill_slots.Length; o++)
-            {
-                skill_slots[o].sprite = defaultSlot;
-            }
-        }
+
     }
     public void updateLog(string logContent)
     {

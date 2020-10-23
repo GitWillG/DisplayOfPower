@@ -20,7 +20,7 @@ MonoBehaviour:
   spellDescription: A rush of water flows from Briar, sending out a wave in all directions
     that deals 25 damage to surrounding enemies.
   enableEffects: 1
-  effectAmount: 35
+  effectAmount: 25
   effectType: 1
   applyStatus: 0
   statusType: 0
@@ -35,7 +35,7 @@ MonoBehaviour:
   castingDuration: 1
   delayPostCast: 1
   spellMoveSpeed: 5
-  spellRange: 4
+  spellRange: 6
   actionNeeded: 1
   spellIcon: {fileID: 21300000, guid: 409bd4db26462ff40814815b1395dfe9, type: 3}
   SkillNature: 2
@@ -47,7 +47,7 @@ MonoBehaviour:
   skillAura: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
     type: 3}
   SkillTargetHandling: 3
-  allowedTarget: 0
+  allowedTarget: 1
   SkillCasterAnimation: 1
   playEndAnimation: 0
   SkillEndAnimation: 0

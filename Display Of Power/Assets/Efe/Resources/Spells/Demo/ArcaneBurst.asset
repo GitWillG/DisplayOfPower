@@ -54,10 +54,8 @@ MonoBehaviour:
   SkillEndAnimation: 2
   heightFromGroundLevel: 1
   spawnAmount: 0
-  casterParticle: {fileID: 6043320626916513827, guid: 1d778dff76f8db34c94ea3ff3b49038b,
-    type: 3}
-  targetParticle: {fileID: 6043320626916513827, guid: 1d778dff76f8db34c94ea3ff3b49038b,
-    type: 3}
+  casterParticle: {fileID: 0}
+  targetParticle: {fileID: 0}
   castSFX: {fileID: 0}
   impactSFX: {fileID: 0}
   resizeCasterUponCast: 0

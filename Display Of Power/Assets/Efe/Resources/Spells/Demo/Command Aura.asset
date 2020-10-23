@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a488d22c1496284a8ea28aedee4bed7, type: 3}
   m_Name: Command Aura
   m_EditorClassIdentifier: 
-  overwriteParticles: {fileID: 1867631085539600, guid: 1fd871c93fa27bc469e9dbb7f7d943f0,
-    type: 3}
-  useOverwrite: 1
+  overwriteParticles: {fileID: 0}
+  useOverwrite: 0
   spellID: 1723
-  isPassive: 0
-  spellName: Waterball
+  isPassive: 1
+  spellName: Command Aura
   spellDescription: A passive aura that grants +%10 damage to allies.
   enableEffects: 1
   effectAmount: 10
@@ -35,9 +34,9 @@ MonoBehaviour:
   castingDuration: 1
   delayPostCast: 1
   spellMoveSpeed: 5
-  spellRange: 2
+  spellRange: 10
   actionNeeded: 1
-  spellIcon: {fileID: 21300000, guid: 0e0fcf5253592454498daebc77f755a8, type: 3}
+  spellIcon: {fileID: 21300000, guid: e22b92a503b2aa6478cd780d0cfe43e9, type: 3}
   SkillNature: 2
   shape: 0
   visualizationMethod: 1
