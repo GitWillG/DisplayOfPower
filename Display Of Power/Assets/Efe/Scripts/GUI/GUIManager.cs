@@ -169,15 +169,13 @@ public class GUIManager : MonoBehaviour
         // if(mc.lastSelectedTarget == null) return;
         // Clear the skill slot when nothing is selected
 
-        if(mc.selectedTarget == null)
+
+        // Reset everytime
+        for(int o = 0; o < skill_slots.Length; o++)
         {
-            for(int o = 0; o < skill_slots.Length; o++)
-            {
-                skill_slots[o].sprite = defaultSlot; 
-            }
-            return;
+            skill_slots[o].sprite = defaultSlot; 
         }
-        
+
         // Updates the skillbar depending on current selected actor's spells
         if(mc.lastSelectedTarget.GetChild(0) == null) return;
         

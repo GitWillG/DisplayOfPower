@@ -23,6 +23,7 @@ public class MouseControl : MonoBehaviour
     public TextMeshProUGUI unitBox;
     public TextMeshProUGUI attackBox;
     public TextMeshProUGUI actionsLeft;
+    public TextMeshProUGUI buffDescField;
     [Header("Materials")]
     //Selected hex material
     public Material selectedMat;
@@ -261,6 +262,7 @@ public class MouseControl : MonoBehaviour
         attackBox.text = "";
         unitBox.text = "";
         actionsLeft.text = "";
+        buffDescField.text = "";
         
     }
 
@@ -359,6 +361,22 @@ public class MouseControl : MonoBehaviour
                 attackBox.text = selectedTarget.GetComponentInChildren<actorData>().baseDamage.ToString();
                 unitBox.text = selectedTarget.GetComponentInChildren<actorData>().actorName.ToString();
                 actionsLeft.text = selectedTarget.GetComponentInChildren<actorData>().actionsRemaining.ToString();
+
+                if(selectedTarget.GetComponentInChildren<actorData>().affectedbyBuff)
+                {
+                    buffDescField.text = "This unit is affected by " + selectedTarget.GetComponentInChildren<actorData>().buffName + 
+                    ". This unit gains" + selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " + selectedTarget.GetComponentInChildren<actorData>().buffProperty;
+                    buffDescField.color = Color.green;
+                }
+
+                if(selectedTarget.GetComponentInChildren<actorData>().affectedbyDebuff)
+                {
+                    buffDescField.text = "This unit is affected by " + selectedTarget.GetComponentInChildren<actorData>().buffName + 
+                    ". This unit suffers" + selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " + selectedTarget.GetComponentInChildren<actorData>().buffProperty;
+                   
+                    buffDescField.color = Color.red;
+                }
+
                 selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(true);
                 im.highlighObject(selectedTarget.GetChild(0).gameObject, "Character");
                 GameObject tempCircle = Instantiate(selectionCircle, selectedTarget.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);

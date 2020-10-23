@@ -86,6 +86,11 @@ namespace efe{
         public ParticleSystem projectileParticle;
 
         public int idealAP;
+        public bool affectedbyBuff;
+        public bool affectedbyDebuff;
+        public int buffHeld;
+        public string buffName;
+        public string buffProperty;
         
         void Start()
         {

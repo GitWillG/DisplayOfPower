@@ -44,9 +44,24 @@ public class spellSO : ScriptableObject
     {
         material, color
     }
-
+    public enum buffTypes
+    {
+        buff, debuff
+    }
+    public enum buffProperties
+    {
+        health, damage
+    }
     public int spellID; // DONE
+    
+    [Header("Passive Properties")]
     public bool isPassive;
+    public bool affectsOnlyAllies;
+    public buffTypes buffType;
+    public buffProperties buffProperty;
+    [Tooltip("Buff amount is based on percentage.")]
+    public int buffAmount;
+
 
     [Header("Base Design")]
     [Space(10)]

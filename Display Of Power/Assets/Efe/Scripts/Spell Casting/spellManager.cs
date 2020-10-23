@@ -47,6 +47,8 @@ public class spellManager : MonoBehaviour
         im = GetComponent<immersionManager>();
         cc = Camera.main.GetComponent<CameraControl>();
         bctm = GameObject.FindGameObjectWithTag("SM").GetComponent<BestClickToMove>();
+
+        processPassives();
     }
 
     // Update is called once per frame
@@ -812,7 +814,70 @@ public class spellManager : MonoBehaviour
 
     void processPassives()
     {
+        GameObject[] NS = GameObject.FindGameObjectsWithTag("NPC");
+        foreach(GameObject n in NS)
+        {
+            
+            actorData data = n.GetComponent<actorData>();
 
+            foreach(spellSO s in data.spells)
+            {
+                if(s.isPassive)
+                {
+                    if(s.affectsOnlyAllies)
+                    {
+                        foreach(GameObject e in NS)
+                        {
+                            actorData dataE = e.GetComponent<actorData>();
+                            if(dataE.ownerFaction_string == data.ownerFaction_string)
+                            {
+                                if(s.buffType == spellSO.buffTypes.buff)
+                                {
+                                    if(s.buffProperty == spellSO.buffProperties.damage)
+                                    {
+                                        int result = dataE.baseDamage / s.buffAmount;
+                                        dataE.baseDamage += result;
+                                        dataE.affectedbyBuff = true;
+                                        dataE.buffProperty = "Damage";
+                                        
+                                    }
+                                    if(s.buffProperty == spellSO.buffProperties.health)
+                                    {
+                                        int result = dataE.Life / s.buffAmount;
+                                        dataE.Life += result;
+                                        dataE.affectedbyBuff = true;
+                                        dataE.buffProperty = "Health";
+                                    }
+                                }
+                                if(s.buffType == spellSO.buffTypes.debuff)
+                                {
+                                    if(s.buffProperty == spellSO.buffProperties.damage)
+                                    {
+                                        int result = dataE.baseDamage / s.buffAmount;
+                                        dataE.baseDamage -= result;
+                                        dataE.affectedbyDebuff = true;
+                                        dataE.buffProperty = "Damage";
+                                        
+                                    }
+                                    if(s.buffProperty == spellSO.buffProperties.health)
+                                    {
+                                        int result = dataE.Life / s.buffAmount;
+                                        dataE.Life -= result;
+                                        dataE.affectedbyDebuff = true;
+                                        dataE.buffProperty = "Health";
+                                    }
+                                } 
+                                dataE.buffHeld = s.buffAmount;
+                                dataE.buffName = s.spellName;
+                                
+                            }
+                        }
+                        
+                        
+                    }
+                }
+            }
+        }
     }
 
     public void refreshAP()
