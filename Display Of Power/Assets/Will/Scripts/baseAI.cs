@@ -96,8 +96,16 @@ public class baseAI : MonoBehaviour
         }
         if (self.isTurn && self.belongsToPlayer)
         {
+            if (mouseController.isMove)
+            {
+                mouseController.selectionMaterial = mouseController.legalMove;
 
-            mouseController.selectionMaterial = mouseController.legalMove;
+            }
+            else
+            {
+
+                mouseController.selectionMaterial = mouseController.attackMat;
+            }
         }
     }
     private void findClosest()

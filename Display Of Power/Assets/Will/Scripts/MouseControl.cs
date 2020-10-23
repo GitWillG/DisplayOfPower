@@ -114,8 +114,9 @@ public class MouseControl : MonoBehaviour
                 //if youve clicked a hex we use the selection colors, otherwise we use our default hex colors
                 if(clickedHex == true)
                 {
-                    oldMat = legalMove;
+                    oldMat = selectionMaterial;
                 }
+               
                 else
                 {
                     oldMat = defaultMat;
@@ -283,7 +284,7 @@ public class MouseControl : MonoBehaviour
 
             if (isMove)
             {
-                grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
+                grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, legalMove);
             }
             else
             {
@@ -336,7 +337,7 @@ public class MouseControl : MonoBehaviour
         //Debug.Log(selectedTarget);
         if (hoveredMat == false)
         {
-            selectionRenderer.material = selectedMat;
+            selectionRenderer.material = selectionMaterial;
         }
 
 
@@ -407,7 +408,7 @@ public class MouseControl : MonoBehaviour
                 }
                 else
                 {
-                    grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, attackMat);
+                    grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
                 }
             }
             return;
