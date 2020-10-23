@@ -199,7 +199,7 @@ public class GenerateGrid : MonoBehaviour
                 hexArray[x, z] = hexOb.gameObject;
                 generated_grids.Add(hexOb);
 
-                hexesSpawned++; if (hexesSpawned <= constrainSpawn)
+                hexesSpawned++; if (hexesSpawned <= 300 && hexesSpawned >200)
                 {
                     allySpawnHexes.Add(hexOb);
                 }
@@ -235,7 +235,7 @@ public class GenerateGrid : MonoBehaviour
                 hexOb.name = "Hex " + x + " " + z;
                 hexOb.transform.SetParent(this.gameObject.transform); 
                 
-                if (hexesSpawned < 40)
+                if (hexesSpawned < 160 && hexesSpawned >120)
                 {
                     allySpawnHexes.Add(hexOb);
                 }
