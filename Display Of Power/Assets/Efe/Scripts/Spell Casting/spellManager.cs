@@ -245,7 +245,7 @@ public class spellManager : MonoBehaviour
     public void startSpellPreview()
     {   
         if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
-        
+
         GameObject preview;
         noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 2 - 200), Quaternion.identity);
         TextMeshProUGUI noteText = noteInstance.transform.Find("BG").transform.Find("Text").GetComponent<TextMeshProUGUI>();
@@ -799,5 +799,15 @@ public class spellManager : MonoBehaviour
     void processPassives()
     {
 
+    }
+
+    public void refreshAP()
+    {
+        GameObject[] NS = GameObject.FindGameObjectsWithTag("NPC");
+        foreach(GameObject n in NS)
+        {
+            actorData data = n.GetComponent<actorData>();
+            data.actionsRemaining = data.idealAP;
+        }
     }
 }

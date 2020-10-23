@@ -85,9 +85,12 @@ namespace efe{
         public bool useParticles;
         public ParticleSystem projectileParticle;
 
+        public int idealAP;
         
         void Start()
         {
+            idealAP = actionsRemaining;
+
             enemySideReference = GameObject.FindGameObjectWithTag("EnemySide");
             allySideReference = GameObject.FindGameObjectWithTag("AllySide");
 

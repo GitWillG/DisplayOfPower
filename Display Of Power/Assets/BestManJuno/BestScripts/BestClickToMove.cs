@@ -87,12 +87,15 @@ public class BestClickToMove : MonoBehaviour
         );
         GameObject bloodTemp = Instantiate(feedbackParticle, bloodSpawn, Quaternion.identity);
         Destroy(bloodTemp, 2);
+
+
         Vector3 indicatorPos = new Vector3(
             targetHex.transform.GetChild(0).transform.position.x,
             targetHex.transform.GetChild(0).transform.position.y + 2,
             targetHex.transform.GetChild(0).transform.position.z
         );
         GameObject temp = Instantiate(numberIndicator, indicatorPos, Quaternion.identity);
+        temp = temp.transform.Find("Number").gameObject;
         int reversed = unit.GetComponent<actorData>().baseDamage * -1;
         if(unit.GetComponent<actorData>().ownerFaction_string == "Ally")
         {

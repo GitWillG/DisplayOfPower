@@ -481,7 +481,9 @@ public class GenerateGrid : MonoBehaviour
         guim.updateLog("Turn ended.", Color.green);
         mouseControl.playerTurnGUI.SetActive(true);
         am.playAudio2D("endturn");
+        
         NextTurn();
+        
     }
 
     [ContextMenu("Clear grids")]
@@ -580,7 +582,7 @@ public class GenerateGrid : MonoBehaviour
         //{
         //    k = 0;
         //}
-        if (turnOrder[k].GetComponent<actorData>().actionsRemaining == 0)
+        if (turnOrder[k].GetComponent<actorData>().actionsRemaining <= 0)
         {
             if (initiatives.Count > 0)
             {
@@ -595,7 +597,8 @@ public class GenerateGrid : MonoBehaviour
 
             turnOrder[k].GetComponent<actorData>().actionsRemaining = turnOrder[k].GetComponent<actorData>().TotalActions;
             turnOrder[k].GetComponent<actorData>().isTurn = false;
-            turnOrder[k].GetComponent<actorData>().actionsRemaining = 2;
+            // turnOrder[k].GetComponent<actorData>().actionsRemaining = 2;
+            sm.refreshAP();
             if (k < turnOrder.Count - 1)
             {
                 k = k + 1;
