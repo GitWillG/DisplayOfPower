@@ -578,6 +578,7 @@ public class GenerateGrid : MonoBehaviour
         //}
         if (mouseControl.selectedTarget != null && mouseControl.selectedTarget.childCount > 0)
         {
+           
             mouseControl.swapRange();
             mouseControl.removeRangeInd();
         }
@@ -587,16 +588,17 @@ public class GenerateGrid : MonoBehaviour
         //}
         if (turnOrder[k].GetComponent<actorData>().actionsRemaining <= 0)
         {
-            if (initiatives.Count > 0)
-            {
-                initiativeAligner.transform.GetChild(0).transform.SetAsLastSibling();
-                // foreach(GameObject a in initiatives)
-                // {
-                //     Destroy(a);
-                //     Debug.Log(a + " destroyed.");
-                // }
-                // initiatives.Clear();
-            }
+           
+            //if (initiatives.Count > 0)
+            //{
+            //    initiativeAligner.transform.GetChild(0).transform.SetAsLastSibling();
+            //    // foreach(GameObject a in initiatives)
+            //    // {
+            //    //     Destroy(a);
+            //    //     Debug.Log(a + " destroyed.");
+            //    // }
+            //    // initiatives.Clear();
+            //}
 
             turnOrder[k].GetComponent<actorData>().actionsRemaining = turnOrder[k].GetComponent<actorData>().TotalActions;
             turnOrder[k].GetComponent<actorData>().isTurn = false;
@@ -618,7 +620,14 @@ public class GenerateGrid : MonoBehaviour
         currTurn = turnOrder[k].transform.parent.gameObject;
         if (turnOrder[k].GetComponent<actorData>().isTurn == true)
         {
-
+            if (turnOrder[k].GetComponent<actorData>().belongsToPlayer == true)
+            {
+                mouseControl.selectionMaterial = mouseControl.legalMove;
+            }
+            else
+            {
+                mouseControl.selectionMaterial = mouseControl.enemiesMat;
+            }
             mouseControl.clickedHex = false;
             //mouseControl.selectedTarget = turnOrder[k].transform;
             mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);

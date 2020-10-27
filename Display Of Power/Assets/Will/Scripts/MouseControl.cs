@@ -284,7 +284,7 @@ public class MouseControl : MonoBehaviour
 
             if (isMove)
             {
-                grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, legalMove);
+                grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
             }
             else
             {
