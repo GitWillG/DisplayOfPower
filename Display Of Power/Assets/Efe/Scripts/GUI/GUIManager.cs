@@ -292,11 +292,11 @@ public class GUIManager : MonoBehaviour
     {
         if(mc.lastSelectedTarget.GetChild(0) == null) return;
         
-        spellSO curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index];
+       
 
         if(index > mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length) return;
-
-        if(curSpell != null)
+        spellSO curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index];
+        if (curSpell != null)
         {
             tooltip_skill.SetActive(true);
             tooltipSpawnPosition = Input.mousePosition + offsetTooltip;

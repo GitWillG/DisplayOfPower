@@ -128,12 +128,12 @@ PrefabInstance:
     - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: belongsToPlayer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: MovementRange
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
@@ -146,6 +146,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 1d5aaa1ca31ed364f986658269b0a7e1,
         type: 3}
+    - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
+        type: 3}
+      propertyPath: isPlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4627312191918277055, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: m_IsActive

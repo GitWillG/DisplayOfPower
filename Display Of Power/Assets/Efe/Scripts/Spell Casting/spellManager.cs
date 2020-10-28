@@ -340,9 +340,11 @@ public class spellManager : MonoBehaviour
     }
 
     public void processPreview()
-    {   
-
-        if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
+    {
+        if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length  > 0)
+        {
+            if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
+        }
 
         if(castPreviewEnabled == false) return;
         // if(mc.lastSelectedTarget.GetChild(0) == null) return;
@@ -350,9 +352,11 @@ public class spellManager : MonoBehaviour
         if(mc.lastSelectedTarget == null) return;
             // mc.selectedTarget = mc.lastSelectedTarget;
             GameObject currentSelectedCharacter = mc.lastSelectedTarget.GetChild(0).gameObject;
-
-            if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback] == null) return;
-
+        if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length > 0)
+        {
+            if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback] == null) return;
+        }
+        Debug.Log(curIndexCallback);
             curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback];
             if(castPreviewEnabled)
             {
@@ -379,7 +383,7 @@ public class spellManager : MonoBehaviour
                             }
                             
                             //      
-                            if(Input.GetMouseButtonDown(0))
+                            if(Input.GetMouseButtonDown(0) && gg.legalHex.Contains(hit_preview.transform.gameObject))
                             {
                                 Destroy(temp);
                                 castPreviewEnabled = false;
@@ -425,7 +429,7 @@ public class spellManager : MonoBehaviour
                 }
                 else if(curCastType == "Single")
                 {
-                    if(Input.GetMouseButtonDown(0))
+                    if(Input.GetMouseButtonDown(0) && gg.legalHex.Contains(mc.selectedTarget.gameObject))
                     {
                         castPreviewEnabled = false;
                         // Debug.Log("Preview finished.");
@@ -510,14 +514,28 @@ public class spellManager : MonoBehaviour
                 {
                     if(Input.GetMouseButtonDown(0))
                     {
-                        
+                    List<GameObject> inRangeEnemies = new List<GameObject>();
+                    foreach(GameObject hex in gg.legalHex)
+                    {
+                        if (hex.transform.childCount > 0)
+                        {
+                            if (hex.transform.GetChild(0).GetComponent<actorData>().ownerFaction_string == "Enemy")
+                            {
+                                inRangeEnemies.Add(hex.transform.GetChild(0).gameObject);
+                            }
+                        }
+
+                    }
+
+
                         GameObject[] NPCs = GameObject.FindGameObjectsWithTag("NPC");
-                        foreach(GameObject t in NPCs)
+                        foreach(GameObject t in inRangeEnemies)
                         {
                             actorData tData = t.GetComponent<actorData>();
                             if(tData.ownerFaction_string == "Enemy")
                             {
                                 currentSelectedCharacter.GetComponent<actorData>().actionsRemaining = curSpell.actionNeeded;
+                            
                                 castSpell(currentSelectedCharacter, t, curSpell);
                                 bctm.showDamage(currentSelectedCharacter, t);
                             }
@@ -527,7 +545,7 @@ public class spellManager : MonoBehaviour
                         castPreviewEnabled = false;
                         // Debug.Log("Preview finished.");
                         Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
-                        
+                    inRangeEnemies.Clear();
                     }
                     else if(Input.GetMouseButtonDown(1))
                     {
@@ -697,6 +715,7 @@ public class spellManager : MonoBehaviour
                 {
                     if(spellData.effectType == spellSO.effectTypes.substractive)
                     {
+                        Debug.Log(spellData.effectAmount);
                         target.GetComponent<actorData>().Life -= spellData.effectAmount;
                         if(targetActor.Life <= 0)
                         {

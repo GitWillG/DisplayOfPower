@@ -91,6 +91,7 @@ public class MouseControl : MonoBehaviour
         sm = GameObject.FindGameObjectWithTag("GM").GetComponent<spellManager>();
         guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
         im = GameObject.FindGameObjectWithTag("GM").GetComponent<immersionManager>();
+        selectionMaterial = legalMove;
     }
 
     private void Update()
@@ -386,12 +387,8 @@ public class MouseControl : MonoBehaviour
                 GameObject tempCircle = Instantiate(selectionCircle, selectedTarget.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);
                 tempCircle.transform.parent = selectedTarget.transform.GetChild(0).gameObject.transform;
                 listSelectionCircles.Add(tempCircle);
-
-                if(selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference == null)
-                {
-                    return;
-                }
-                else
+                
+                if(selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference != null)
                 {
                     selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference.GetComponent<Image>().material = initativeMaterialHighlight;
                 }
@@ -404,6 +401,7 @@ public class MouseControl : MonoBehaviour
                 //run the range detection script
                 if (isMove)
                 {
+                    Debug.Log("test");
                     grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
                 }
                 else

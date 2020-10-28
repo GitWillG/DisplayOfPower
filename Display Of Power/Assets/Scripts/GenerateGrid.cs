@@ -97,6 +97,7 @@ public class GenerateGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
+
         cc = Camera.main.GetComponent<CameraControl>();
 
         guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
@@ -582,6 +583,9 @@ public class GenerateGrid : MonoBehaviour
             mouseControl.swapRange();
             mouseControl.removeRangeInd();
         }
+
+
+
         //if (k >= turnOrder.Count - 1)
         //{
         //    k = 0;
