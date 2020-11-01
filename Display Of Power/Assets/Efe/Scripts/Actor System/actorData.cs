@@ -100,6 +100,10 @@ namespace efe{
         public GameObject lookTarget;
 
         CameraControl cc;
+
+        public Animation curAnimation;
+
+        public int dodgeRate;
         
         
         void Start()
@@ -254,7 +258,7 @@ namespace efe{
                     }
                 }
             }
-            //agent.speed = 10;
+            agent.speed = 10;
         }
     }
 }

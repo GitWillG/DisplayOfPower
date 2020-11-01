@@ -95,11 +95,12 @@ public class GenerateGrid : MonoBehaviour
     spellManager sm;
 
     public bool firstTurnPlayed = false;
-    float turnDelaySecond;
+    public float turnDelaySecond;
 
     public GameObject turnRay;
 
     public List<GameObject> ObjectsToDestroyAtEndTurn;
+    bool endTurnCalledFromGUI = false;
 
     // Start is called before the first frame update
     void Start()
@@ -494,6 +495,22 @@ public class GenerateGrid : MonoBehaviour
         
     }
 
+    public void EndTurnFromGUI()
+    {
+        endTurnCalledFromGUI = true;
+        if (turnOrder[k] != null)
+        {
+            if (turnOrder[k].GetComponent<actorData>().isTurn && turnOrder[k].GetComponent<actorData>().actionsRemaining > 0)
+            {
+                turnOrder[k].GetComponent<actorData>().actionsRemaining = 0;
+                //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
+            }
+        }
+        
+        NextTurn();
+
+    }
+
     [ContextMenu("Clear grids")]
     void clearList()
     {   
@@ -582,13 +599,20 @@ public class GenerateGrid : MonoBehaviour
             turnDelaySecond = 0;
             firstTurnPlayed = true;
         }
-        else if(firstTurnPlayed)
+        else
         {
             turnDelaySecond = 2;
         }
 
+        if(endTurnCalledFromGUI)
+        {
+            turnDelaySecond = 0;
+            endTurnCalledFromGUI = false;
+        }
+
         yield return new WaitForSeconds(turnDelaySecond);
-        turnDelaySecond = 2;
+
+    
 
         mouseControl.isMove = true;
         //foreach (GameObject turnorder in turnOrder)
@@ -708,10 +732,11 @@ public class GenerateGrid : MonoBehaviour
 
         Vector3 sP = new Vector3(
                  turnOrder[k].transform.position.x,
-                 turnOrder[k].transform.position.y + 3,
+                 turnOrder[k].transform.position.y + 6,
                  turnOrder[k].transform.position.z
             );
         GameObject T = Instantiate(turnRay, sP, Quaternion.identity);
+        T.transform.parent = turnOrder[k].transform;
         ObjectsToDestroyAtEndTurn.Add(T);
 
         guim.updateLog("Turn ended.", Color.green);

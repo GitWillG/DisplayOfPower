@@ -588,13 +588,6 @@ public class spellManager : MonoBehaviour
             if(sourceActor.isTurn)
             {
 
-                // Reduce action points of the source from action needed of spell
-                sourceActor.actionsRemaining -= spellData.actionNeeded;
-                if(sourceActor.actionsRemaining == 0)
-                {
-                    gg.EndTurn();
-                }
-                // yield return new WaitForSeconds(1);
 
                 // Caster
                 if(spellData.SkillCasterAnimation == spellSO.castAnimationTypes.type_1)
@@ -610,7 +603,17 @@ public class spellManager : MonoBehaviour
                     sourceAnimator.SetTrigger("Cast3");
                 }
 
-                if(spellData.casterParticle != null)
+                // Reduce action points of the source from action needed of spell
+                sourceActor.actionsRemaining -= spellData.actionNeeded;
+                if (sourceActor.actionsRemaining == 0)
+                {
+                    //gg.turnDelaySecond = 3;
+                    gg.EndTurn();
+                }
+                // yield return new WaitForSeconds(1);
+
+
+                if (spellData.casterParticle != null)
                 {
                     // Spawn caster particle on caster
                     GameObject temp = Instantiate(spellData.casterParticle, source.transform.position, Quaternion.identity);
@@ -746,6 +749,7 @@ public class spellManager : MonoBehaviour
                         targetActor.statusDuration = spellData.statusDuration;
                         targetActor.statusEffect = spellData.statusEffectPerTurn;
                         targetActor.statusSpellReference = spellData;
+                        targetAnimator.SetTrigger("takeHit");
                     }
                     
                 }
@@ -777,6 +781,7 @@ public class spellManager : MonoBehaviour
                         targetActor.statusDuration = spellData.statusDuration;
                         targetActor.statusEffect = spellData.statusEffectPerTurn;
                         targetActor.statusSpellReference = spellData;
+                        targetAnimator.SetTrigger("takeHit");
                     }
 
                     
@@ -836,16 +841,19 @@ public class spellManager : MonoBehaviour
         foreach(GameObject temp in NPCs)
         {
             actorData actor = temp.GetComponent<actorData>();
+            Animator animator = temp.GetComponent<Animator>();
             if(actor.hasStatus)
             {
                 if(actor.statusSpellReference.statusType == spellSO.statusTypes.substractive)
                 {
                     actor.Life -= actor.statusEffect;
-                    
+                    animator.SetTrigger("takeHit");
+
                 }
                 else
                 {
                     actor.Life += actor.statusEffect;
+                    animator.SetTrigger("takeHit");
                 }
 
                 if(actor.Life == 0)

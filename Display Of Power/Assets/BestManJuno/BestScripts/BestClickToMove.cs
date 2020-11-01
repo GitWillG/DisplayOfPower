@@ -27,6 +27,7 @@ public class BestClickToMove : MonoBehaviour
     CameraControl cc;
 
     string resultAction;
+    GenerateGrid gg;
 
 
     // Start is called before the first frame update
@@ -34,6 +35,7 @@ public class BestClickToMove : MonoBehaviour
     {
         guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
         cc = Camera.main.GetComponent<CameraControl>();
+        gg = GameObject.FindGameObjectWithTag("GG").GetComponent<GenerateGrid>();
         //agent = GetComponent<NavMeshAgent>();
 
         //surface.BuildNavMesh();
@@ -90,11 +92,24 @@ public class BestClickToMove : MonoBehaviour
     }
     public void ClickAttack(GameObject unit, GameObject targetHex)
     {
+        if(targetHex.transform.GetChild(0).GetComponent<actorData>().ownerFaction_string == unit.GetComponent<actorData>().ownerFaction_string)
+        {
+            guim.updateLog("You cannot attack your ally.");
+            return;
+        }
         // unit = source/dealer
         // targetHex = target/receiver
         //subtract life from targetted unit equal to "damage" of selected unit
         actorData unitData = unit.GetComponent<actorData>();
-        unitData.changeLookTarget(targetHex.transform.GetChild(0).gameObject);
+        
+        GameObject targetUnit = targetHex.transform.GetChild(0).gameObject;
+        actorData targetData = targetUnit.GetComponent<actorData>();
+
+        Animator targetAnimator = targetHex.GetComponentInChildren<Animator>();
+        Animator sourceAnimator = unit.GetComponent<Animator>();
+
+        unitData.changeLookTarget(targetUnit);
+        targetData.changeLookTarget(unit);
 
         targetHex.GetComponentInChildren<actorData>().Life -= unitData.baseDamage;
         // targetHex.GetComponentInChildren<actorData>().statObject.life -= unit.GetComponent<actorData>().baseDamage;
@@ -116,12 +131,16 @@ public class BestClickToMove : MonoBehaviour
         showActionActor(unit);
         
 
-        guim.updateLog(unit.GetComponent<actorData>().actorName + " dealt " + unit.GetComponent<actorData>().baseDamage + " to " + targetHex.GetComponentInChildren<actorData>().actorName);
+        guim.updateLog(unit.GetComponent<actorData>().actorName + " dealt " + unit.GetComponent<actorData>().baseDamage + " to " + 
+            targetHex.GetComponentInChildren<actorData>().actorName);
 
-        Animator targetAnimator = targetHex.GetComponentInChildren<Animator>();
-        Animator sourceAnimator = unit.GetComponent<Animator>();
+
         targetAnimator.SetTrigger("takeHit");
         sourceAnimator.SetTrigger("basicAttack");
+
+        cc.panToObject(unit);
+        cc.panToObjectWithDelay(targetUnit, 1);
+
 
     }
 
@@ -185,6 +204,9 @@ public class BestClickToMove : MonoBehaviour
         temp2.GetComponent<TextMeshProUGUI>().text = resultAction;
 
         Destroy(temp, 2);
+        gg.ObjectsToDestroyAtEndTurn.Add(temp);
+        
+        
         Debug.Log(temp + " " + temp2);
     }
 

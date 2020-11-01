@@ -14818,6 +14818,7 @@ MonoBehaviour:
   initiativeAligner: {fileID: 464422219}
   initiatives: []
   firstTurnPlayed: 0
+  turnDelaySecond: 0
   turnRay: {fileID: 9145199763704094612, guid: bc00125b4c1f3024bbb3f3d9e1a32eb9, type: 3}
   ObjectsToDestroyAtEndTurn: []
 --- !u!4 &1873872310
@@ -15930,7 +15931,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1873872309}
-        m_MethodName: EndTurn
+        m_MethodName: EndTurnFromGUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

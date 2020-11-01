@@ -174,6 +174,12 @@ public class CameraControl : MonoBehaviour
         objectToPan = targetObject;
     }
 
+    public IEnumerator panToObjectWithDelay(GameObject target, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        panToObject(target);
+    }
+
     public void trackObject(GameObject targetObject)
     {
         isTracking = true;

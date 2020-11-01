@@ -29,6 +29,7 @@ TagManager:
   - AllySide
   - EnemySide
   - Terrain
+  - GG
   layers:
   - Default
   - TransparentFX
