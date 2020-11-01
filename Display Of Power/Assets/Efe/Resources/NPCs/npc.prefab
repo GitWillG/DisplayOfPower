@@ -778,7 +778,7 @@ Transform:
   m_GameObject: {fileID: 1863947349140452884}
   m_LocalRotation: {x: 0, y: -0.7892235, z: 0, w: 0.6141061}
   m_LocalPosition: {x: 468.3725, y: 16.136454, z: -645.1511}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 3227493431993336191}
   - {fileID: 495029960869808113}
@@ -853,6 +853,8 @@ MonoBehaviour:
   AttackRange: 0
   TotalActions: 0
   initiativeAvatar: {fileID: 0}
+  isBoss: 0
+  attackType: 0
   click_voice: {fileID: 0}
   move_voice: {fileID: 0}
   takehit_voice: {fileID: 0}
@@ -871,7 +873,27 @@ MonoBehaviour:
   actorType: 0
   spells: []
   cinematicAvatar: {fileID: 0}
+  overheadReference: {fileID: 0}
   healthBar: {fileID: 0}
+  initiativeReference: {fileID: 0}
+  AP_reference: {fileID: 0}
+  curHPtext_reference: {fileID: 0}
+  maxHPtext_reference: {fileID: 0}
+  damageGUI_reference: {fileID: 0}
+  hasStatus: 0
+  statusSpellReference: {fileID: 0}
+  statusDuration: 0
+  statusEffect: 0
+  baseProjectile: {fileID: 0}
+  useParticles: 0
+  projectileParticle: {fileID: 0}
+  idealAP: 0
+  affectedbyBuff: 0
+  affectedbyDebuff: 0
+  buffHeld: 0
+  buffName: 
+  buffProperty: 
+  cooldownCounters: 
 --- !u!195 &919132148619600024
 NavMeshAgent:
   m_ObjectHideFlags: 0

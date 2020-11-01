@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 6366334862553730591}
   - component: {fileID: 1649677462044980311}
   m_Layer: 5
-  m_Name: MaxHP
+  m_Name: curHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -786,7 +786,7 @@ GameObject:
   - component: {fileID: 8528892017441682975}
   - component: {fileID: 7947110331098671874}
   m_Layer: 5
-  m_Name: curHP
+  m_Name: MaxHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -612,12 +612,14 @@ public class spellManager : MonoBehaviour
                     // Spawn caster particle on caster
                     GameObject temp = Instantiate(spellData.casterParticle, source.transform.position, Quaternion.identity);
                     Destroy(temp, 3);
+                    temp.transform.parent = source.transform;
                 }
                 if(spellData.targetParticle != null)
                 {
                     // Spawn target particle on target
                     GameObject temp = Instantiate(spellData.targetParticle, target.transform.position, Quaternion.identity);
                     Destroy(temp, 3);
+                    temp.transform.parent = source.transform;
                 }
 
                 if(spellData.isProjectileBased)
@@ -697,6 +699,7 @@ public class spellManager : MonoBehaviour
                 else if(!spellData.isProjectileBased && !spellData.instant)
                 {
                     projectile = Instantiate(spellData.overwriteParticles, target.transform.position, Quaternion.identity);
+                    projectile.transform.parent = source.transform;
                     projectileData projData = projectile.AddComponent<projectileData>();
                     projData.source = source;
                     projData.target = target;
@@ -709,6 +712,8 @@ public class spellManager : MonoBehaviour
                         targetActor.statusEffect = spellData.statusEffectPerTurn;
                         targetActor.statusSpellReference = spellData;
                     }
+
+                    bctm.showDamage(source, target);
                 }   
                 
                 if(spellData.SkillTargetHandling == spellSO.targetHandling.selfaround)

@@ -15,10 +15,16 @@ public class BestClickToMove : MonoBehaviour
     public Material selectedMaterial;
 
     public Vector3 location;
+    // Just a particle system
     public GameObject feedbackParticle;
+    // A GUI element in "world space" that has a text 
     public GameObject numberIndicator;
-
+    // A GUI element in "world space" that has a text 
+    public GameObject actionIndicator;
+                       
     GUIManager guim;
+
+    string resultAction;
 
 
     // Start is called before the first frame update
@@ -97,6 +103,7 @@ public class BestClickToMove : MonoBehaviour
             targetHex.transform.GetChild(0).transform.position.z
         );
         showDamage(unit, targetHex);
+        //showActionActor(unit);
         
 
         guim.updateLog(unit.GetComponent<actorData>().actorName + " dealt " + unit.GetComponent<actorData>().baseDamage + " to " + targetHex.GetComponentInChildren<actorData>().actorName);
@@ -128,6 +135,37 @@ public class BestClickToMove : MonoBehaviour
         }
         temp2.GetComponent<TextMeshProUGUI>().text = reversed.ToString();
         Destroy(temp, 2);
+        Debug.Log(temp + " " + temp2);
+    }
+
+    public void showActionActor(GameObject unit)
+    {
+        // Spawn position for text GUI
+        Vector3 indicatorPos = new Vector3(
+            unit.transform.position.x,
+            unit.transform.position.y + 4,
+            unit.transform.position.z
+        );
+
+        // Spawn then store
+        GameObject temp = Instantiate(actionIndicator, indicatorPos, Quaternion.identity);
+        // Get the text reference in the child
+        GameObject temp2 = temp.transform.Find("Text").gameObject;
+        // Get the actor data reference present on every actor                                                    
+        actorData data = unit.GetComponent<actorData>();
+
+
+        
+        if (data.ownerFaction_string == "Ally")
+        {
+            temp2.GetComponent<TextMeshProUGUI>().color = Color.green;
+        }
+        else
+        {
+            temp2.GetComponent<TextMeshProUGUI>().color = Color.red;
+        }
+        temp2.GetComponent<TextMeshProUGUI>().text = resultAction;
+        Destroy(temp, 3);
         Debug.Log(temp + " " + temp2);
     }
 

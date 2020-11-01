@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a488d22c1496284a8ea28aedee4bed7, type: 3}
   m_Name: Flood
   m_EditorClassIdentifier: 
-  overwriteParticles: {fileID: 0}
-  useOverwrite: 0
+  overwriteParticles: {fileID: 6043320626916513827, guid: 1d778dff76f8db34c94ea3ff3b49038b,
+    type: 3}
+  useOverwrite: 1
   spellID: 1728
   isPassive: 0
+  affectsOnlyAllies: 0
+  buffType: 0
+  buffProperty: 0
+  buffAmount: 0
   spellName: Flood
   spellDescription: A rush of water flows from Briar, sending out a wave in all directions
     that deals 25 damage to surrounding enemies.

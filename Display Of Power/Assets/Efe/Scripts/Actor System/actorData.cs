@@ -34,6 +34,8 @@ namespace efe{
         public int TotalActions;
         public Sprite initiativeAvatar;
         public bool isBoss;
+        public enum attackTypes { ranged, melee, magic}
+        public attackTypes attackType;
 
         [Header("Audio")]
         public AudioSource click_voice;
@@ -133,18 +135,18 @@ namespace efe{
                 hasQuest = true;
             }
 
-            locationArray = GameObject.FindGameObjectsWithTag("Location");
-            if(actorLocation == locationList.waterCity)
-            {
-                
-            }
-            else if(actorLocation == locationList.Pahro)
-            {
+            //locationArray = GameObject.FindGameObjectsWithTag("Location");
+            //if(actorLocation == locationList.waterCity)
+            //{
 
-            }
+            //}
+            //else if(actorLocation == locationList.Pahro)
+            //{
+
+            //}
             // Debug.Log(this.name + " will spawn in " + actorEntryPoint + " " + actorLocation.locationName);
 
-            if(peaceful)
+            if (peaceful)
             {
                 agent.speed = 1;
             }

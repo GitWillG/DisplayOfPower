@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953beb541740ddc499d005ee80c9ff29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   enabled:
     m_OverrideState: 1
@@ -317,7 +317,7 @@ MonoBehaviour:
     m_Value: 0.41
   compensation:
     m_OverrideState: 1
-    m_Value: 5.48
+    m_Value: 4.02
   limitMin:
     m_OverrideState: 0
     m_Value: -10
@@ -384,7 +384,7 @@ MonoBehaviour:
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.85
+    m_Value: 0.31
     min: 0
     max: 1
   scatter:
@@ -652,7 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf384b154398e341b6b29969c078198, type: 3}
   m_Name: MotionBlur
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   quality:
     m_OverrideState: 1
@@ -709,13 +709,13 @@ MonoBehaviour:
     max: 360
   skyIntensityMode:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   exposure:
     m_OverrideState: 1
-    m_Value: 2.39
+    m_Value: 6.76
   multiplier:
     m_OverrideState: 1
-    m_Value: 15000
+    m_Value: 150000
     min: 0
   upperHemisphereLuxValue:
     m_OverrideState: 0
@@ -726,7 +726,7 @@ MonoBehaviour:
     m_Value: {x: 0.09371709, y: 0.19990116, z: 0.5}
   desiredLuxValue:
     m_OverrideState: 1
-    m_Value: 5000
+    m_Value: 50000
   updateMode:
     m_OverrideState: 0
     m_Value: 0

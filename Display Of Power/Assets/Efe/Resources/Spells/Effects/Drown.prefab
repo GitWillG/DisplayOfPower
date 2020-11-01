@@ -14220,7 +14220,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   GraphTimeMultiplier: 3
   GraphPitchMultiplier: 1
-  IsLoop: 1
+  IsLoop: 0
 --- !u!82 &82370738462356432
 AudioSource:
   m_ObjectHideFlags: 0
