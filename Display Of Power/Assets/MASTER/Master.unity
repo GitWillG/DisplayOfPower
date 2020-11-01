@@ -331,7 +331,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13763871}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: beeb89870aa03f94c8f304866ec5eb2d, type: 2}
   m_CullingMode: 0
@@ -386,14 +386,14 @@ MonoBehaviour:
   m_AreaLightCookie: {fileID: 0}
   m_AreaLightShadowCone: 120
   m_UseScreenSpaceShadows: 0
-  m_InteractsWithSky: 1
-  m_AngularDiameter: 0.24
-  m_FlareSize: 19.08
+  m_InteractsWithSky: 0
+  m_AngularDiameter: 23
+  m_FlareSize: 23.23
   m_FlareTint: {r: 0.6839622, g: 1, b: 0.86261714, a: 1}
-  m_FlareFalloff: 4
+  m_FlareFalloff: 3.86
   m_SurfaceTexture: {fileID: 0}
-  m_SurfaceTint: {r: 0.73634493, g: 0.63529414, b: 0.98039216, a: 1}
-  m_Distance: 1.500007e+11
+  m_SurfaceTint: {r: 1, g: 1, b: 1, a: 1}
+  m_Distance: 111111110
   m_UseRayTracedShadows: 0
   m_NumRayTracingSamples: 4
   m_FilterTracedShadow: 1
@@ -506,14 +506,14 @@ Light:
   m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 2
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_AreaSize: {x: 0.5, y: 0.5}
+  m_BounceIntensity: 0
   m_ColorTemperature: 12648
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 4.2033e-41, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
-  m_ShadowAngle: 0.24
+  m_ShadowAngle: 23
 --- !u!1 &50816958
 GameObject:
   m_ObjectHideFlags: 0
