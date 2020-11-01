@@ -1334,7 +1334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0333c7a5291eec48bf2d4812adf62d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trackTarget: {fileID: 0}
 --- !u!114 &209344190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5276,7 +5275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0333c7a5291eec48bf2d4812adf62d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trackTarget: {fileID: 0}
 --- !u!81 &848060316
 AudioListener:
   m_ObjectHideFlags: 0
@@ -14819,6 +14817,9 @@ MonoBehaviour:
     type: 3}
   initiativeAligner: {fileID: 464422219}
   initiatives: []
+  firstTurnPlayed: 0
+  turnRay: {fileID: 9145199763704094612, guid: bc00125b4c1f3024bbb3f3d9e1a32eb9, type: 3}
+  ObjectsToDestroyAtEndTurn: []
 --- !u!4 &1873872310
 Transform:
   m_ObjectHideFlags: 0

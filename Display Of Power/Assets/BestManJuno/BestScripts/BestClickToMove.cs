@@ -24,6 +24,7 @@ public class BestClickToMove : MonoBehaviour
     public GameObject actionIndicator;
                        
     GUIManager guim;
+    CameraControl cc;
 
     string resultAction;
 
@@ -32,6 +33,7 @@ public class BestClickToMove : MonoBehaviour
     void Start()
     {
         guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
+        cc = Camera.main.GetComponent<CameraControl>();
         //agent = GetComponent<NavMeshAgent>();
 
         //surface.BuildNavMesh();
@@ -68,6 +70,7 @@ public class BestClickToMove : MonoBehaviour
         agent.destination = new Vector3(targetHex.transform.position.x, unit.transform.position.y, targetHex.transform.position.z);
 
         unit.transform.SetParent(targetHex.transform);
+        cc.trackObject(unit);
 
 
         //unitCol = unit.GetComponent<Renderer>();
@@ -170,7 +173,6 @@ public class BestClickToMove : MonoBehaviour
             return;
         }
 
-        
         if (data.ownerFaction_string == "Ally")
         {
             temp2.GetComponent<TextMeshProUGUI>().color = Color.green;
@@ -182,7 +184,7 @@ public class BestClickToMove : MonoBehaviour
 
         temp2.GetComponent<TextMeshProUGUI>().text = resultAction;
 
-        Destroy(temp, 3);
+        Destroy(temp, 2);
         Debug.Log(temp + " " + temp2);
     }
 

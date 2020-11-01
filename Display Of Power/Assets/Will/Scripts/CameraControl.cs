@@ -15,7 +15,7 @@ public class CameraControl : MonoBehaviour
     GameObject objectToPan;
     bool isPanning = false;
     bool isTracking = false;
-    public GameObject _trackTarget;
+    //public GameObject _trackTarget;
     Vector3 panPosition;
     Transform rightAnchor;
     Transform forwardAnchor;
@@ -25,7 +25,7 @@ public class CameraControl : MonoBehaviour
     // public GameObject anchor;
     // Vector3 cameraRight = anchor.transform.right;
     // Vector3 cameraForward = anchor.transform.forward;
-    
+
     void Start()
     {
         //Get the scenes main camera
@@ -39,23 +39,19 @@ public class CameraControl : MonoBehaviour
         forwardAnchor = transform.Find("W");
         backAnchor = transform.Find("S");
         leftAnchor = transform.Find("A");
-        
+
     }
-    
-    public void panToObject(GameObject targetObject)
-    {
-        isPanning = true;
-        objectToPan = targetObject;
-    }
+
+
 
     // Update is called once per frame
     void Update()
-    {   
-    
+    {
+
         // WASD Camera steer
         //WASD allows a player to pan the camera
         //movement speed set to 20 at run time
-        if(!isPanning)
+        if (!isPanning || !isTracking)
         {
             // float moveAmount = 20f;
             // if ((Input.GetKey(KeyCode.W)))
@@ -140,7 +136,8 @@ public class CameraControl : MonoBehaviour
             m_Camera.fieldOfView = currentFOV;
         }
         // Panning is true
-        else if(isPanning)
+        
+        if(isPanning)
         {
 
             panPosition = new Vector3
@@ -156,7 +153,8 @@ public class CameraControl : MonoBehaviour
                    StartCoroutine("resetPan", 1/4);
                 }
         }
-        else if(isTracking)
+        
+        if(isTracking)
         {
             panPosition = new Vector3
             (
@@ -170,12 +168,22 @@ public class CameraControl : MonoBehaviour
 
     }
 
-    public void trackObject()
+    public void panToObject(GameObject targetObject)
     {
+        isPanning = true;
+        objectToPan = targetObject;
+    }
+
+    public void trackObject(GameObject targetObject)
+    {
+        isTracking = true;
+        objectToPan = targetObject;
 
     }
     public void finishTracking()
     {
+        isTracking = false;
+        objectToPan = null;
 
     }
 
@@ -188,6 +196,7 @@ public class CameraControl : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         isPanning = false;
-        
+        objectToPan = null;
+
     }
 }

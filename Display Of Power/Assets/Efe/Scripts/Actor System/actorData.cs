@@ -88,14 +88,18 @@ namespace efe{
         public ParticleSystem projectileParticle;
 
         public int idealAP;
+        [Header("Buff Information")]
         public bool affectedbyBuff;
         public bool affectedbyDebuff;
         public int buffHeld;
         public string buffName;
         public string buffProperty;
+        [Header("Cooldown Information")]
         public List<int> cooldownCounters;
 
         public GameObject lookTarget;
+
+        CameraControl cc;
         
         
         void Start()
@@ -116,8 +120,9 @@ namespace efe{
             rig = GetComponent<rigHumanoid>();
             animator = GetComponent<Animator>();
             mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
-            
-            if(overheadReference != null)
+            cc = Camera.main.GetComponent<CameraControl>();
+
+            if (overheadReference != null)
             {
                 overheadReference.SetActive(false);
             }
@@ -242,10 +247,14 @@ namespace efe{
                         animator.SetFloat("Speed", agent.velocity.magnitude);
                         mc.isMoving = false;
                         Debug.Log("Actor finished moving.");
+                        cc.finishTracking();
+                        return;
+
+                        
                     }
                 }
             }
-            agent.speed = 10;
+            //agent.speed = 10;
         }
     }
 }

@@ -95,7 +95,11 @@ public class GenerateGrid : MonoBehaviour
     spellManager sm;
 
     public bool firstTurnPlayed = false;
-    int turnDelaySecond;
+    float turnDelaySecond;
+
+    public GameObject turnRay;
+
+    public List<GameObject> ObjectsToDestroyAtEndTurn;
 
     // Start is called before the first frame update
     void Start()
@@ -485,11 +489,7 @@ public class GenerateGrid : MonoBehaviour
                 //mouseControl.selectHex(turnOrder[k].transform.parent.gameObject);
             }
         }
-        guim.updateLog("Turn ended.", Color.green);
-        mouseControl.playerTurnGUI.SetActive(true);
-        am.playAudio2D("endturn");
-        Time.timeScale = 1;
-        
+
         NextTurn();
         
     }
@@ -570,19 +570,26 @@ public class GenerateGrid : MonoBehaviour
             }
 
     }
+
+    /// <summary>
+    /// This coroutine is called everytime turn ends.
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator pauseforTurn()
     {
         if(!firstTurnPlayed)
         {
             turnDelaySecond = 0;
-        }
-        else
-        {
             firstTurnPlayed = true;
+        }
+        else if(firstTurnPlayed)
+        {
             turnDelaySecond = 2;
         }
 
         yield return new WaitForSeconds(turnDelaySecond);
+        turnDelaySecond = 2;
+
         mouseControl.isMove = true;
         //foreach (GameObject turnorder in turnOrder)
         //{
@@ -668,6 +675,9 @@ public class GenerateGrid : MonoBehaviour
         }
 
         cc.panToObject(turnOrder[k]);
+
+       
+
         if (initiatives.Count == 0)
         {
             // update initiatve GUI with turn order
@@ -686,6 +696,28 @@ public class GenerateGrid : MonoBehaviour
         mouseControl.playerTurnGUI.SetActive(true);
         am.playAudio2D("endturn");
 
+        if(ObjectsToDestroyAtEndTurn.Count > 0)
+        { 
+            foreach (GameObject T2 in ObjectsToDestroyAtEndTurn)
+            {
+                Destroy(T2);
+            }
+
+            ObjectsToDestroyAtEndTurn.Clear();
+        }
+
+        Vector3 sP = new Vector3(
+                 turnOrder[k].transform.position.x,
+                 turnOrder[k].transform.position.y + 3,
+                 turnOrder[k].transform.position.z
+            );
+        GameObject T = Instantiate(turnRay, sP, Quaternion.identity);
+        ObjectsToDestroyAtEndTurn.Add(T);
+
+        guim.updateLog("Turn ended.", Color.green);
+        mouseControl.playerTurnGUI.SetActive(true);
+        am.playAudio2D("endturn");
+        Time.timeScale = 1;
 
     }
 
