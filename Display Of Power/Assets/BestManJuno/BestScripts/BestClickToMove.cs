@@ -119,7 +119,7 @@ public class BestClickToMove : MonoBehaviour
     {
         Vector3 indicatorPos = new Vector3(
             targetHex.transform.GetChild(0).transform.position.x,
-            targetHex.transform.GetChild(0).transform.position.y + 4,
+            targetHex.transform.GetChild(0).transform.position.y + 3,
             targetHex.transform.GetChild(0).transform.position.z
         );
         GameObject temp = Instantiate(numberIndicator, indicatorPos, Quaternion.identity);
@@ -135,7 +135,7 @@ public class BestClickToMove : MonoBehaviour
         }
         temp2.GetComponent<TextMeshProUGUI>().text = reversed.ToString();
         Destroy(temp, 2);
-        Debug.Log(temp + " " + temp2);
+        //Debug.Log(temp + " " + temp2);
     }
 
     public void showActionActor(GameObject unit)

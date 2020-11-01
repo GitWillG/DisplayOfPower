@@ -239,7 +239,7 @@ public class immersionManager : MonoBehaviour
             renderer.materials = resultMaterials.ToArray();
             // resultMaterials.Clear();
             // resultMaterials.Add(oldMaterial);
-            Debug.Log(target.name + " restored.");
+            //Debug.Log(target.name + " restored.");
         }
     }
 }

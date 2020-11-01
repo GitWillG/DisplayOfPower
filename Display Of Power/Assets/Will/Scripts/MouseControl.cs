@@ -401,7 +401,7 @@ public class MouseControl : MonoBehaviour
                 //run the range detection script
                 if (isMove)
                 {
-                    Debug.Log("test");
+                    //Debug.Log("test");
                     grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
                 }
                 else
