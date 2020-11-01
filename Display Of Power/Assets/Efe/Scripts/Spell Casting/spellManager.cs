@@ -140,8 +140,12 @@ public class spellManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This script governs the shortcut functionality to cast spells.
+    /// </summary>
     void spellShortcuts()
     {
+        
             if(mc.lastSelectedTarget == null) return;
             if(mc.isMoving) return;
 
@@ -356,7 +360,7 @@ public class spellManager : MonoBehaviour
         {
             if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback] == null) return;
         }
-        Debug.Log(curIndexCallback);
+            Debug.Log(curIndexCallback);
             curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback];
             if(castPreviewEnabled)
             {
@@ -500,35 +504,33 @@ public class spellManager : MonoBehaviour
                         Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
                         guim.updateLog("Preview cancelled.");
                                 
-                                if(noteInstance != null)
-                                {
-                                    Destroy(noteInstance);
-                                }
+                            if(noteInstance != null)
+                            {
+                                Destroy(noteInstance);
+                            }
 
-                    mc.removeRangeInd();
-                    mc.selectedTarget = mc.lastSelectedTarget;
-                    mc.moveRadius();
-                }
+                        mc.removeRangeInd();
+                        mc.selectedTarget = mc.lastSelectedTarget;
+                        mc.moveRadius();
+                    }
                 }
                 else if(curCastType == "Self Around")
                 {
                     if(Input.GetMouseButtonDown(0))
                     {
-                    List<GameObject> inRangeEnemies = new List<GameObject>();
-                    foreach(GameObject hex in gg.legalHex)
-                    {
-                        if (hex.transform.childCount > 0)
+                        List<GameObject> inRangeEnemies = new List<GameObject>();
+                        foreach(GameObject hex in gg.legalHex)
                         {
-                            if (hex.transform.GetChild(0).GetComponent<actorData>().ownerFaction_string == "Enemy")
+                            if (hex.transform.childCount > 0)
                             {
-                                inRangeEnemies.Add(hex.transform.GetChild(0).gameObject);
+                                if (hex.transform.GetChild(0).GetComponent<actorData>().ownerFaction_string == "Enemy")
+                                {
+                                    inRangeEnemies.Add(hex.transform.GetChild(0).gameObject);
+                                }
                             }
+
                         }
-
-                    }
-
-
-                        GameObject[] NPCs = GameObject.FindGameObjectsWithTag("NPC");
+                        //GameObject[] NPCs = GameObject.FindGameObjectsWithTag("NPC");
                         foreach(GameObject t in inRangeEnemies)
                         {
                             actorData tData = t.GetComponent<actorData>();
@@ -542,10 +544,11 @@ public class spellManager : MonoBehaviour
                             currentSelectedCharacter.GetComponent<actorData>().actionsRemaining -= curSpell.actionNeeded;
                             guim.updateLog(currentSelectedCharacter.GetComponent<actorData>().actorName + " casted a " + curSpell.spellName);
                         }
+
                         castPreviewEnabled = false;
                         // Debug.Log("Preview finished.");
                         Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
-                    inRangeEnemies.Clear();
+                        inRangeEnemies.Clear();
                     }
                     else if(Input.GetMouseButtonDown(1))
                     {

@@ -94,6 +94,9 @@ public class GenerateGrid : MonoBehaviour
     audioManager am;
     spellManager sm;
 
+    public bool firstTurnPlayed = false;
+    int turnDelaySecond;
+
     // Start is called before the first frame update
     void Start()
     {   
@@ -485,6 +488,7 @@ public class GenerateGrid : MonoBehaviour
         guim.updateLog("Turn ended.", Color.green);
         mouseControl.playerTurnGUI.SetActive(true);
         am.playAudio2D("endturn");
+        Time.timeScale = 1;
         
         NextTurn();
         
@@ -568,7 +572,17 @@ public class GenerateGrid : MonoBehaviour
     }
     public IEnumerator pauseforTurn()
     {
-        yield return new WaitForSeconds(2);
+        if(!firstTurnPlayed)
+        {
+            turnDelaySecond = 0;
+        }
+        else
+        {
+            firstTurnPlayed = true;
+            turnDelaySecond = 2;
+        }
+
+        yield return new WaitForSeconds(turnDelaySecond);
         mouseControl.isMove = true;
         //foreach (GameObject turnorder in turnOrder)
         //{
@@ -638,7 +652,8 @@ public class GenerateGrid : MonoBehaviour
             // Debug.Log("test2");
 
             // Show whose turn
-            GameObject tempTurn = Instantiate(turnNotification, new Vector2(Screen.width / 2, Screen.height / 2), Quaternion.identity);
+            GameObject tempTurn = Instantiate(turnNotification, new Vector2(Screen.width / 2, Screen.height / 4), Quaternion.identity);
+            tempTurn.transform.localScale /= 2;
             tempTurn.transform.parent = guim.battleGUI.transform;
             if (turnOrder[k].GetComponent<actorData>().ownerFaction_string == "Ally")
             {
@@ -648,7 +663,7 @@ public class GenerateGrid : MonoBehaviour
             {
                 tempTurn.transform.Find("Image").transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "AI's Turn";
             }
-            Destroy(tempTurn, 4);
+            Destroy(tempTurn, 2);
             // Debug.Log("test");
         }
 

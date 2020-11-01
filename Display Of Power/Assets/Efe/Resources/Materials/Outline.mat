@@ -9,10 +9,10 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Outline
   m_Shader: {fileID: 4800000, guid: 1c260ef265033994bbd68c176b1798e9, type: 3}
-  m_ShaderKeywords: _BASECOLOR_COLOR _FRESNEL _UVSET_UV0
+  m_ShaderKeywords: _BASECOLOR_COLOR _FRESNEL _UVSET_UV0 _ZWRITE_ON
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -31,6 +31,6 @@ Material:
     - _Threshold: 0.5
     - _UVSet: 0
     - _ZTest: 2
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

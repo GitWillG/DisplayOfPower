@@ -14,6 +14,8 @@ public class CameraControl : MonoBehaviour
     private float zoomSpeed = 3f;
     GameObject objectToPan;
     bool isPanning = false;
+    bool isTracking = false;
+    public GameObject _trackTarget;
     Vector3 panPosition;
     Transform rightAnchor;
     Transform forwardAnchor;
@@ -147,17 +149,35 @@ public class CameraControl : MonoBehaviour
                 cameraFollow.y,
                 objectToPan.transform.position.z - 5
             );
-            cameraFollow = Vector3.MoveTowards(cameraFollow, panPosition, 1);
+            cameraFollow = Vector3.MoveTowards(cameraFollow, panPosition, Mathf.Infinity);
             
                 if(Vector3.Distance(cameraFollow, panPosition) <= 3)
                 {
                    StartCoroutine("resetPan", 1/4);
                 }
         }
+        else if(isTracking)
+        {
+            panPosition = new Vector3
+            (
+                objectToPan.transform.position.x - 5,
+                cameraFollow.y,
+                objectToPan.transform.position.z - 5
+            );
+            cameraFollow = Vector3.MoveTowards(cameraFollow, panPosition, Mathf.Infinity);
+        }
 
 
     }
 
+    public void trackObject()
+    {
+
+    }
+    public void finishTracking()
+    {
+
+    }
 
     void rotateCamera()
     {

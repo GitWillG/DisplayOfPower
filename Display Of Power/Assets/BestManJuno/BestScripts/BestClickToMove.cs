@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using efe;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.UnityLinker;
 
 public class BestClickToMove : MonoBehaviour
 {
@@ -61,10 +62,13 @@ public class BestClickToMove : MonoBehaviour
         // unit.GetComponent<NavMeshAgent>().enabled = true;
 
         agent = unit.GetComponent<NavMeshAgent>();
+        actorData data = unit.GetComponent<actorData>();
+        data.changeLookTarget(targetHex);
 
         agent.destination = new Vector3(targetHex.transform.position.x, unit.transform.position.y, targetHex.transform.position.z);
 
         unit.transform.SetParent(targetHex.transform);
+
 
         //unitCol = unit.GetComponent<Renderer>();
 
@@ -86,7 +90,10 @@ public class BestClickToMove : MonoBehaviour
         // unit = source/dealer
         // targetHex = target/receiver
         //subtract life from targetted unit equal to "damage" of selected unit
-        targetHex.GetComponentInChildren<actorData>().Life -= unit.GetComponent<actorData>().baseDamage;
+        actorData unitData = unit.GetComponent<actorData>();
+        unitData.changeLookTarget(targetHex.transform.GetChild(0).gameObject);
+
+        targetHex.GetComponentInChildren<actorData>().Life -= unitData.baseDamage;
         // targetHex.GetComponentInChildren<actorData>().statObject.life -= unit.GetComponent<actorData>().baseDamage;
         Vector3 bloodSpawn = new Vector3(
             targetHex.transform.GetChild(0).transform.position.x,
@@ -103,7 +110,7 @@ public class BestClickToMove : MonoBehaviour
             targetHex.transform.GetChild(0).transform.position.z
         );
         showDamage(unit, targetHex);
-        //showActionActor(unit);
+        showActionActor(unit);
         
 
         guim.updateLog(unit.GetComponent<actorData>().actorName + " dealt " + unit.GetComponent<actorData>().baseDamage + " to " + targetHex.GetComponentInChildren<actorData>().actorName);
@@ -119,7 +126,7 @@ public class BestClickToMove : MonoBehaviour
     {
         Vector3 indicatorPos = new Vector3(
             targetHex.transform.GetChild(0).transform.position.x,
-            targetHex.transform.GetChild(0).transform.position.y + 3,
+            targetHex.transform.GetChild(0).transform.position.y + 1,
             targetHex.transform.GetChild(0).transform.position.z
         );
         GameObject temp = Instantiate(numberIndicator, indicatorPos, Quaternion.identity);
@@ -154,6 +161,14 @@ public class BestClickToMove : MonoBehaviour
         // Get the actor data reference present on every actor                                                    
         actorData data = unit.GetComponent<actorData>();
 
+        if(data.attackType == actorData.attackTypes.ranged)
+        {
+            resultAction = "Shooting";
+        }
+        else
+        {
+            return;
+        }
 
         
         if (data.ownerFaction_string == "Ally")
@@ -164,7 +179,9 @@ public class BestClickToMove : MonoBehaviour
         {
             temp2.GetComponent<TextMeshProUGUI>().color = Color.red;
         }
+
         temp2.GetComponent<TextMeshProUGUI>().text = resultAction;
+
         Destroy(temp, 3);
         Debug.Log(temp + " " + temp2);
     }

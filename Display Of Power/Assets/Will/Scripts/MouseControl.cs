@@ -324,6 +324,9 @@ public class MouseControl : MonoBehaviour
             removeRangeInd();
             isMoving = false;
             GridOb.currTurn = GridOb.turnOrder[GridOb.k].transform.parent.gameObject;
+
+            actorData data = lastSelectedTarget.GetChild(0).GetComponent<actorData>();
+            data.resetLookTarget();
         }
     }
 

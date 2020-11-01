@@ -62,7 +62,7 @@ namespace efe{
         NavMeshAgent agent;
         Animator animator;
         immersionManager im;
-        GameObject gm;
+        gameManager gm;
         rigHumanoid rig;
         public spellSO[] spells;
         public Sprite cinematicAvatar;
@@ -94,6 +94,8 @@ namespace efe{
         public string buffName;
         public string buffProperty;
         public List<int> cooldownCounters;
+
+        public GameObject lookTarget;
         
         
         void Start()
@@ -109,7 +111,7 @@ namespace efe{
             allySideReference = GameObject.FindGameObjectWithTag("AllySide");
 
             agent = GetComponent<NavMeshAgent>();
-            gm = GameObject.FindGameObjectWithTag("GM");
+            gm = GameObject.FindGameObjectWithTag("GM").GetComponent<gameManager>();
             im = gm.GetComponent<immersionManager>();
             rig = GetComponent<rigHumanoid>();
             animator = GetComponent<Animator>();
@@ -150,20 +152,37 @@ namespace efe{
             {
                 agent.speed = 1;
             }
-        }
+
+            resetLookTarget();
+        
+    }
 
         public void Update()
         {
             processAiMovement();
             updateHealthBar();
+                                                         
+            
+        }
+ 
+        
+            
+        public void changeLookTarget(GameObject _target)
+        {
+            lookTarget = _target;
+            this.transform.LookAt(lookTarget.transform);
+        }
 
-            if(ownerFaction_string == "Enemy")
+        public void resetLookTarget()
+        {
+            if (ownerFaction_string == "Enemy")
             {
-                this.transform.LookAt(allySideReference.transform);
+                changeLookTarget(allySideReference);
+
             }
             else
             {
-                this.transform.LookAt(enemySideReference.transform);
+                changeLookTarget(enemySideReference);
             }
         }
 
@@ -206,6 +225,7 @@ namespace efe{
             {
                 if(!isPlayer)
                 {
+                    // Agent is moving
                     if(agent.remainingDistance > agent.stoppingDistance)
                     {
                         // blend trees sync with navmesh
@@ -213,12 +233,15 @@ namespace efe{
                         // Blend tree uses it to determine thresholds to determine which animation should play
                         // Aka - 0.5 speed = walk, 1 = run, 0 = idle
                         animator.SetFloat("Speed", agent.velocity.magnitude);
+                        mc.isMoving = true;
                     }     
                     else
                     {
                         // still blend as it will send 0 for magnitude anyhow
                         // else represents that agent reached its target vector
                         animator.SetFloat("Speed", agent.velocity.magnitude);
+                        mc.isMoving = false;
+                        Debug.Log("Actor finished moving.");
                     }
                 }
             }
