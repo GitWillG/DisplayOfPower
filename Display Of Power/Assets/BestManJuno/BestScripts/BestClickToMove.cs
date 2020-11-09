@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using efe;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.UnityLinker;
+//using UnityEditor.UnityLinker;
 
 public class BestClickToMove : MonoBehaviour
 {
