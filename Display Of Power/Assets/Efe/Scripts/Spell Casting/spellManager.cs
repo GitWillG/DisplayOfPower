@@ -87,13 +87,13 @@ public class spellManager : MonoBehaviour
                                 if(projData.target.GetComponent<actorData>().Life <= 0)
                                 {
                                     projData.target.GetComponent<Animator>().SetTrigger("Die");
-                                    bctm.showDamage(projData.source, projData.target);
+                                    //bctm.showDamage(projData.source, projData.target);
                                     mc.killUnit(projData.target);
                                 }
                                 else
                                 {
                                     projData.target.GetComponent<Animator>().SetTrigger("takeHit");
-                                    bctm.showDamage(projData.source, projData.target);
+                                    //bctm.showDamage(projData.source, projData.target);
                                     
                                 }
                             }
@@ -101,7 +101,7 @@ public class spellManager : MonoBehaviour
                             else if (projData.referenceSpell.effectType == spellSO.effectTypes.additive)
                             {
                                 projData.target.GetComponent<actorData>().Life += projData.referenceSpell.effectAmount;
-                                bctm.showDamage(projData.source, projData.target);
+                                //bctm.showDamage(projData.source, projData.target);
                                 // Debug.Log("Heal");
                             }
                         }
@@ -539,7 +539,7 @@ public class spellManager : MonoBehaviour
                                 currentSelectedCharacter.GetComponent<actorData>().actionsRemaining = curSpell.actionNeeded;
                             
                                 castSpell(currentSelectedCharacter, t, curSpell);
-                                bctm.showDamage(currentSelectedCharacter, t);
+                                //bctm.showDamage(currentSelectedCharacter, t);
                             }
                             currentSelectedCharacter.GetComponent<actorData>().actionsRemaining -= curSpell.actionNeeded;
                             guim.updateLog(currentSelectedCharacter.GetComponent<actorData>().actorName + " casted a " + curSpell.spellName);
@@ -719,7 +719,7 @@ public class spellManager : MonoBehaviour
                         targetActor.statusSpellReference = spellData;
                     }
 
-                    bctm.showDamage(source, target);
+                    //bctm.showDamage(source, target);
                 }   
                 
                 if(spellData.SkillTargetHandling == spellSO.targetHandling.selfaround)
@@ -761,13 +761,13 @@ public class spellManager : MonoBehaviour
                         if(targetActor.Life <= 0)
                         {
                             targetAnimator.SetTrigger("Die");
-                            bctm.showDamage(source, target);
+                            //bctm.showDamage(source, target);
                             mc.killUnit(target);
                         }
                         else
                         {
                             targetAnimator.SetTrigger("takeHit");
-                            bctm.showDamage(source, target);
+                            //bctm.showDamage(source, target);
                         }
                     }
                     else

@@ -151,7 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 1563237712}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Entries: []
 --- !u!4 &2818525
 Transform:
   m_ObjectHideFlags: 19
@@ -11960,7 +11959,7 @@ GameObject:
   - component: {fileID: 1873872311}
   m_Layer: 0
   m_Name: grid
-  m_TagString: Untagged
+  m_TagString: GG
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

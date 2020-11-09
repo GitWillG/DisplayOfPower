@@ -127,8 +127,9 @@ public class BestClickToMove : MonoBehaviour
             targetHex.transform.GetChild(0).transform.position.y + 2,
             targetHex.transform.GetChild(0).transform.position.z
         );
+        
         showDamage(unit, targetHex);
-        showActionActor(unit);
+        //showActionActor(unit);
         
 
         guim.updateLog(unit.GetComponent<actorData>().actorName + " dealt " + unit.GetComponent<actorData>().baseDamage + " to " + 
