@@ -709,7 +709,7 @@ GameObject:
   - component: {fileID: 90673194}
   - component: {fileID: 90673193}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: IntroText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -727,7 +727,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 425873876}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3032,8 +3032,8 @@ RectTransform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 1216735048}
-  - {fileID: 2145944167}
   - {fileID: 90673192}
+  - {fileID: 2145944167}
   - {fileID: 1537437308}
   m_Father: {fileID: 1923768320}
   m_RootOrder: 0
@@ -8098,7 +8098,7 @@ GameObject:
   - component: {fileID: 1216735050}
   - component: {fileID: 1216735049}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Controls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8154,14 +8154,17 @@ MonoBehaviour:
 
     CTRL - Show/hide grid
 
+    Left/Right Arrow keys - Rotate
+    camera
+
     1-8 - Use skill
 
-    WSAD - Move
-    camera
+    WSAD - Move camera
 
     CTRL+ D - Debug tools
 
-    ESC - Pause menu'
+    ESC
+    - Pause menu'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8230,12 +8233,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1216735049}
-    characterCount: 178
+    characterCount: 216
     spriteCount: 0
-    spaceCount: 33
-    wordCount: 35
+    spaceCount: 39
+    wordCount: 42
     linkCount: 0
-    lineCount: 10
+    lineCount: 11
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -16073,7 +16076,7 @@ GameObject:
   - component: {fileID: 2145944169}
   - component: {fileID: 2145944168}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16093,7 +16096,7 @@ RectTransform:
   - {fileID: 960383353}
   - {fileID: 333540695}
   m_Father: {fileID: 425873876}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
