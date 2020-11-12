@@ -721,7 +721,9 @@ public class GenerateGrid : MonoBehaviour
 
         guim.updateLog("Turn ended.", Color.green);
         mouseControl.playerTurnGUI.SetActive(true);
-        am.playAudio2D("endturn");
+
+
+        //am.playAudio2D("endturn");
 
         if(ObjectsToDestroyAtEndTurn.Count > 0)
         { 

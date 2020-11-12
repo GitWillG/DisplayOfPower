@@ -64,7 +64,7 @@ public class GUIManager : MonoBehaviour
 
         // battleGUI.SetActive(false);
         offsetTooltip.x = 115;
-        offsetTooltip.y = 215;
+        offsetTooltip.y = 615;
 
 
         
