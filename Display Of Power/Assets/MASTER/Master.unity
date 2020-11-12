@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 1563237712}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &2818525
 Transform:
   m_ObjectHideFlags: 19
@@ -1333,6 +1334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0333c7a5291eec48bf2d4812adf62d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 30
 --- !u!114 &209344190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5274,6 +5276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0333c7a5291eec48bf2d4812adf62d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 10
 --- !u!81 &848060316
 AudioListener:
   m_ObjectHideFlags: 0

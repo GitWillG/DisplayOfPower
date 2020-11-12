@@ -27,9 +27,10 @@ public class CameraControl : MonoBehaviour
     Transform backAnchor;
     Transform leftAnchor;
 
+
     // Camera rotation speed
     [Range(0, 100)]
-    public float rotationSpeed = 30;
+    public float rotationSpeed = 60;
 
     void Start()
     {

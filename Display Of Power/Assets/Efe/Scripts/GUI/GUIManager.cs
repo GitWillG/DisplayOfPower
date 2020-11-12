@@ -84,7 +84,7 @@ public class GUIManager : MonoBehaviour
         {
             tooltip_skill.transform.position = Input.mousePosition + offsetTooltip;
             float distance = Vector2.Distance(tooltip_skill.transform.position, tooltipSpawnPosition);
-            if(distance > 25)
+            if(distance > 50)
             {
                 hideTooltip();
             }
@@ -104,7 +104,7 @@ public class GUIManager : MonoBehaviour
             }
         }
 
-        
+
         // if(Input.GetKeyDown(KeyCode.Q))
         // {
         //     openGUI(questLog_GUI);
@@ -138,28 +138,28 @@ public class GUIManager : MonoBehaviour
 
         // Escape to remove any open GUI first
         // Then open escape menu if there is no GUI open
-        // if(Input.GetKeyDown(KeyCode.Escape))
-        // {
-        //     GameObject[] GUIs = GameObject.FindGameObjectsWithTag("GUI");
-        //     if(GUIs.Length == 0)
-        //     {
-        //         // open escape menu
-        //         openGUI(escapeMenu);
-                
-        //     }
-        //     else
-        //     {
-        //         foreach(GameObject temp in GUIs)
-        //         {
-        //             temp.SetActive(false);
-                    
-        //             if(Time.timeScale == 0)
-        //             {
-        //                 Time.timeScale = 1;
-        //             }
-        //         }
-        //     }
-        // }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameObject[] GUIs = GameObject.FindGameObjectsWithTag("GUI");
+            if (GUIs.Length == 0)
+            {
+                // open escape menu
+                openGUI(escapeMenu);
+
+            }
+            else
+            {
+                foreach (GameObject temp in GUIs)
+                {
+                    temp.SetActive(false);
+
+                    if (Time.timeScale == 0)
+                    {
+                        Time.timeScale = 1;
+                    }
+                }
+            }
+        }
     }
 
 
@@ -273,6 +273,11 @@ public class GUIManager : MonoBehaviour
         Time.timeScale = 1;
         // gm_ref.changeState("Level");
         // Debug.Log(GUI.name + " closed.");
+    }
+
+    public void closeGUInoTime(GameObject GUI)
+    {
+        Destroy(GUI);
     }
 
     // used for fast forwarding buttons

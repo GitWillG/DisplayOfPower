@@ -161,6 +161,15 @@ namespace efe{
             // Debug.Log(GUI.name + " closed.");
         }
 
+        public void closeGUInoTime(GameObject GUI)
+        {
+            Destroy(GUI);
+            // Update the list in game manager
+            gm.openGUIs.Remove(GUI);
+            // gm_ref.changeState("Level");
+            // Debug.Log(GUI.name + " closed.");
+        }
+
 
         public void linkGUItoScript(GameObject btnContainer)
         {
