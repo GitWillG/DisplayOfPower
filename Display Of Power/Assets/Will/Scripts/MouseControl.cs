@@ -344,7 +344,6 @@ public class MouseControl : MonoBehaviour
             selectionRenderer.material = selectionMaterial;
         }
 
-
         if (clickedHex == false)
         {
             
@@ -396,7 +395,6 @@ public class MouseControl : MonoBehaviour
                     selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference.GetComponent<Image>().material = initativeMaterialHighlight;
                 }
                 
-
                 //swap the mask to our legal hex layer for raycasting
                 currentMask = 1 << 10;
                 //swap to the appropriate range
@@ -416,7 +414,6 @@ public class MouseControl : MonoBehaviour
         }
         else if (clickedHex == true)
         {
-   
             //movement
             GameObject currentChar = selectedTarget.transform.GetChild(0).gameObject;
 
@@ -433,11 +430,7 @@ public class MouseControl : MonoBehaviour
                 //grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);   
             }
 
-         
-
             //attack
-
-
             else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && currentChar.GetComponent<actorData>().actionsRemaining > 0 && currentChar.GetComponent<actorData>().isTurn)
             {
                 this.gameObject.GetComponent<BestClickToMove>().ClickAttack(selectedTarget.GetChild(0).gameObject, transformSelected.gameObject);
@@ -455,6 +448,68 @@ public class MouseControl : MonoBehaviour
                 return;
             }
         }
+
+
+    }
+
+    public void selectHexFromGUI(GameObject hexSelected)
+    {
+
+         Transform transformSelected = hexSelected.transform;
+         currClickedHex = hexSelected;
+         //save the hovered target as a selected one
+         selectedTarget = transformSelected;
+         clickedHex = true;
+         lifeBox.text = selectedTarget.GetComponentInChildren<actorData>().Life.ToString();
+         attackBox.text = selectedTarget.GetComponentInChildren<actorData>().baseDamage.ToString();
+         unitBox.text = selectedTarget.GetComponentInChildren<actorData>().actorName.ToString();
+         actionsLeft.text = selectedTarget.GetComponentInChildren<actorData>().actionsRemaining.ToString();
+
+         if (selectedTarget.GetComponentInChildren<actorData>().affectedbyBuff)
+         {
+             buffDescField.text = "This unit is affected by " + selectedTarget.GetComponentInChildren<actorData>().buffName +
+             ". This unit gains " + selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " + selectedTarget.GetComponentInChildren<actorData>().buffProperty;
+             buffDescField.color = Color.green;
+         }
+
+         if (selectedTarget.GetComponentInChildren<actorData>().affectedbyDebuff)
+         {
+             buffDescField.text = "This unit is affected by " + selectedTarget.GetComponentInChildren<actorData>().buffName +
+             ". This unit suffers " + selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " + selectedTarget.GetComponentInChildren<actorData>().buffProperty;
+
+             buffDescField.color = Color.red;
+         }
+
+         selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(true);
+         im.highlighObject(selectedTarget.GetChild(0).gameObject, "Character");
+         GameObject tempCircle = Instantiate(selectionCircle, selectedTarget.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);
+         tempCircle.transform.parent = selectedTarget.transform.GetChild(0).gameObject.transform;
+         listSelectionCircles.Add(tempCircle);
+
+         if (selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference != null)
+         {
+             selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference.GetComponent<Image>().material = initativeMaterialHighlight;
+         }
+
+
+         //swap the mask to our legal hex layer for raycasting
+         currentMask = 1 << 10;
+         //swap to the appropriate range
+         swapRange();
+         //run the range detection script
+         if (isMove)
+         {
+             //Debug.Log("test");
+             grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
+         }
+         else
+         {
+             grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
+         }
+
+        removeRangeInd();
+        isMoving = false;
+
 
 
     }
