@@ -108,16 +108,21 @@ namespace efe{
         
         void Start()
         {
+
+            // Always store the ideal ap this actor has, also can be used for maxAP this actor can havea.
             idealAP = actionsRemaining;
 
+            // Cooldown counters for skills, matched with spells this actor has
             for(int z = 0; z < spells.Length; z++)
             {
                 cooldownCounters.Add(0);
             }
 
+            // Empty object references for where actors should look at by default
             enemySideReference = GameObject.FindGameObjectWithTag("EnemySide");
             allySideReference = GameObject.FindGameObjectWithTag("AllySide");
 
+            #region Reference Grabbing
             agent = GetComponent<NavMeshAgent>();
             gm = GameObject.FindGameObjectWithTag("GM").GetComponent<gameManager>();
             im = gm.GetComponent<immersionManager>();
@@ -125,12 +130,15 @@ namespace efe{
             animator = GetComponent<Animator>();
             mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
             cc = Camera.main.GetComponent<CameraControl>();
+            #endregion
 
-            if (overheadReference != null)
-            {
-                overheadReference.SetActive(false);
-            }
+            //// If there is a overheadreference, hide it by default
+            //if (overheadReference != null)
+            //{
+            //    overheadReference.SetActive(false);
+            //}
 
+            // Research - scale actors who are tagged as boss to make them look bigger than other actors.
             // if(isBoss)
             // {
             //     // transform.localScale *= 1/2;
@@ -146,6 +154,8 @@ namespace efe{
                 hasQuest = true;
             }
 
+
+            #region TODO
             //locationArray = GameObject.FindGameObjectsWithTag("Location");
             //if(actorLocation == locationList.waterCity)
             //{
@@ -156,7 +166,9 @@ namespace efe{
 
             //}
             // Debug.Log(this.name + " will spawn in " + actorEntryPoint + " " + actorLocation.locationName);
+            #endregion
 
+            // For Debugging
             if (peaceful)
             {
                 agent.speed = 1;
@@ -169,19 +181,24 @@ namespace efe{
         public void Update()
         {
             processAiMovement();
-            updateHealthBar();
-                                                         
+            updateHealthBar();                                      
             
         }
  
         
-            
+        /// <summary>
+        /// This script designates a new gameobject for this actor to look to.
+        /// </summary>
+        /// <param name="_target"></param>        
         public void changeLookTarget(GameObject _target)
         {
             lookTarget = _target;
             this.transform.LookAt(lookTarget.transform);
         }
 
+        /// <summary>
+        /// This script resets where actor is looking. Called when actor is done moving.
+        /// </summary>
         public void resetLookTarget()
         {
             if (ownerFaction_string == "Enemy")
@@ -195,6 +212,9 @@ namespace efe{
             }
         }
 
+        /// <summary>
+        /// This script syncs HP and AP variables of actordata with overhead bars.
+        /// </summary>
         void updateHealthBar()
         {
             
@@ -220,6 +240,9 @@ namespace efe{
             
         }
 
+        /// <summary>
+        /// This is an editor script that just updates the inspector with actorData.
+        /// </summary>
         [ContextMenu("Sync Editor")]
         public void syncEditor()
         {
@@ -228,6 +251,9 @@ namespace efe{
         }
 
 
+        /// <summary>
+        /// This script syncs animations with moveSpeed of the actor, also calls the necessary scripts when actor is done moving.
+        /// </summary>
         public void processAiMovement()
         {
             if(agent.isOnNavMesh)
@@ -250,7 +276,7 @@ namespace efe{
                         // else represents that agent reached its target vector
                         animator.SetFloat("Speed", agent.velocity.magnitude);
                         mc.isMoving = false;
-                        Debug.Log("Actor finished moving.");
+                        //Debug.Log("Actor finished moving.");
                         cc.finishTracking();
                         return;
 

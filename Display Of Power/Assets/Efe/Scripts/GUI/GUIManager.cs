@@ -177,8 +177,10 @@ public class GUIManager : MonoBehaviour
             skill_slots[o].sprite = defaultSlot; 
         }
 
+
         // Updates the skillbar depending on current selected actor's spells
-        if(mc.lastSelectedTarget.GetChild(0) == null) return;
+        if (mc.lastSelectedTarget == null) return;
+        if (mc.lastSelectedTarget.GetChild(0) == null) return;
         
         actorData selectedData = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
 

@@ -15,16 +15,21 @@ public class CameraControl : MonoBehaviour
     GameObject objectToPan;
     bool isPanning = false;
     bool isTracking = false;
-    //public GameObject _trackTarget;
+
+    // Position to which camera will pan to
     Vector3 panPosition;
+
+    // References to camera movement objects
+    // They are parented
+    // Local position references instead of world positions
     Transform rightAnchor;
     Transform forwardAnchor;
     Transform backAnchor;
     Transform leftAnchor;
-    // float camMoveSpeed = 3;
-    // public GameObject anchor;
-    // Vector3 cameraRight = anchor.transform.right;
-    // Vector3 cameraForward = anchor.transform.forward;
+
+    // Camera rotation speed
+    [Range(0, 100)]
+    public float rotationSpeed = 30;
 
     void Start()
     {
@@ -35,6 +40,7 @@ public class CameraControl : MonoBehaviour
         //set the current FOV to the camera's default FOV
         currentFOV = m_Camera.fieldOfView;
 
+        // Fill the variables with references under camera's parents
         rightAnchor = transform.Find("D");
         forwardAnchor = transform.Find("W");
         backAnchor = transform.Find("S");
@@ -48,31 +54,12 @@ public class CameraControl : MonoBehaviour
     void Update()
     {
 
-        // WASD Camera steer
-        //WASD allows a player to pan the camera
-        //movement speed set to 20 at run time
+        rotateCamera();
+
+        //  WASD Camera steer
         if (!isPanning || !isTracking)
         {
-            // float moveAmount = 20f;
-            // if ((Input.GetKey(KeyCode.W)))
-            // {
-            //     // anchor.transform.position += cameraRight * Time.deltaTime;
-            //     cameraFollow.z += moveAmount * Time.deltaTime;
-            // }
-            // if ((Input.GetKey(KeyCode.S)))
-            // {
-            //     cameraFollow.z -= moveAmount * Time.deltaTime;
-            // }
-            // if ((Input.GetKey(KeyCode.A)))
-            // {
-            //     cameraFollow.x -= moveAmount * Time.deltaTime;
-            // }
-            // // left control is for debug tools
-            // if (!Input.GetKey(KeyCode.LeftControl) && (Input.GetKey(KeyCode.D)))
-            // {
-            //     cameraFollow.x += moveAmount * Time.deltaTime;
-            // }
-
+   
             if ((Input.GetKey(KeyCode.W)))
             {
                 // anchor.transform.position += cameraRight * Time.deltaTime;
@@ -92,6 +79,12 @@ public class CameraControl : MonoBehaviour
             {
                 cameraFollow = Vector3.MoveTowards(cameraFollow, rightAnchor.position, 1);
             }
+
+            m_Camera.transform.position = cameraFollow;
+
+
+            // TODO - Prevent steering when mouse is outside the game screen in unity editor
+            #region Edge steering
             // Edge steering
 
             //Touching an edge of the screen will also pan the camera in that direction
@@ -115,10 +108,14 @@ public class CameraControl : MonoBehaviour
             //         cameraFollow.z -= moveAmount * Time.deltaTime;
             //     }
             //     //Once we have moved the camera target to the appropriate position we move the actual camera there
-                
-            // }
-            m_Camera.transform.position = cameraFollow;
 
+            // }
+            #endregion
+
+
+            // Uses camera's Field of view to simulate zoom
+            // TODO - Use actual transforms, as FOV distorts the view
+            #region Scroll Wheel Zoom
             // Scroll wheel zoom
 
             //get the Scroll wheel input
@@ -134,11 +131,14 @@ public class CameraControl : MonoBehaviour
             currentFOV = Mathf.Clamp(currentFOV, 20, 80);
             //move the camera in the clamped limits
             m_Camera.fieldOfView = currentFOV;
+            #endregion
         }
-        // Panning is true
+
         
-        if(isPanning)
+        // PANNING LOGIC
+        if (isPanning)
         {
+            if (panPosition == null) return;
 
             panPosition = new Vector3
             (
@@ -154,6 +154,7 @@ public class CameraControl : MonoBehaviour
                 }
         }
         
+        // TRACKING LOGIC
         if(isTracking)
         {
             panPosition = new Vector3
@@ -168,6 +169,10 @@ public class CameraControl : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Updates the object reference for camera to pan. Actual panning logic is in cameraControl's update. This just changes the target reference.
+    /// </summary>
+    /// <param name="targetObject"></param>
     public void panToObject(GameObject targetObject)
     {
         isPanning = true;
@@ -180,12 +185,20 @@ public class CameraControl : MonoBehaviour
         panToObject(target);
     }
 
+    /// <summary>
+    /// Updates the object reference for camera to track. Actual tracking logic is in cameraControl's update. This just changes the target reference.
+    /// </summary>
+    /// <param name="targetObject"></param>
     public void trackObject(GameObject targetObject)
     {
         isTracking = true;
         objectToPan = targetObject;
 
     }
+
+    /// <summary>
+    /// Nullifies the target reference for camera and stops camera tracking.
+    /// </summary>
     public void finishTracking()
     {
         isTracking = false;
@@ -193,11 +206,32 @@ public class CameraControl : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Rotates the camera to right (right arrow key) or to left (left arrow key)
+    /// </summary>
     void rotateCamera()
     {
-        
+        Vector3 rotation = transform.eulerAngles;
+
+        if(Input.GetKey("right"))
+        { 
+            rotation.y += rotationSpeed * Time.deltaTime;
+            Debug.Log("Right arrow key");
+        }
+        if(Input.GetKey("left"))
+        {
+            rotation.y -= rotationSpeed * Time.deltaTime;
+            Debug.Log("Left arrow key");
+        }
+        transform.eulerAngles = rotation;
     }
 
+
+    /// <summary>
+    /// Nullifies the panning target after the time specified.
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
     IEnumerator resetPan(float time)
     {
         yield return new WaitForSeconds(time);

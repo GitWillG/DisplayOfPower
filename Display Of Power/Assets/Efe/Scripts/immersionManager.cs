@@ -147,8 +147,14 @@ public class immersionManager : MonoBehaviour
         }
     }
 
-    // Script responsible switching between an object's original materials and an edge outline material once hovered
-    // Called from mouseControls
+    /// <summary>
+    //  Script responsible switching between an object's original materials and an edge outline material once hovered. Used for highlihting meshes dynamically.
+    //  Called from mouseControls.
+    //  It uses skinnedmeshrenderers for rigged objects, renderer material for static objects.
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="objectType"></param>
+
     public void highlighObject(GameObject target, string objectType)
     {
         if(target.tag != "NPC") return;
@@ -219,6 +225,12 @@ public class immersionManager : MonoBehaviour
         
     }
 
+
+    /// <summary>
+    /// Removes the highlights from the meshes in affect.
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="ObjectType"></param>
     public void restoreHighlight(GameObject target, string ObjectType)
     {
         if(target.tag != "NPC") return;

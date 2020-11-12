@@ -239,7 +239,7 @@ public class MouseControl : MonoBehaviour
         grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
         grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
         //null the selected hex
-        selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(false);
+        //selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(false);
         
         im.restoreHighlight(selectedTarget.GetChild(0).gameObject, "Character");
 
@@ -384,8 +384,11 @@ public class MouseControl : MonoBehaviour
                     buffDescField.color = Color.red;
                 }
 
-                selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(true);
+                //selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(true);
+
+                
                 im.highlighObject(selectedTarget.GetChild(0).gameObject, "Character");
+
                 GameObject tempCircle = Instantiate(selectionCircle, selectedTarget.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);
                 tempCircle.transform.parent = selectedTarget.transform.GetChild(0).gameObject.transform;
                 listSelectionCircles.Add(tempCircle);
@@ -480,7 +483,8 @@ public class MouseControl : MonoBehaviour
              buffDescField.color = Color.red;
          }
 
-         selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(true);
+         //selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(true);
+
          im.highlighObject(selectedTarget.GetChild(0).gameObject, "Character");
          GameObject tempCircle = Instantiate(selectionCircle, selectedTarget.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);
          tempCircle.transform.parent = selectedTarget.transform.GetChild(0).gameObject.transform;

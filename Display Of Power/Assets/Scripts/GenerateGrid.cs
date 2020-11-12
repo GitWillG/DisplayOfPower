@@ -142,7 +142,7 @@ public class GenerateGrid : MonoBehaviour
     private void Update()
     {   
 
-        showGrid();
+        ShowGrid();
         // if(Input.GetKeyDown(KeyCode.B))
         // {
         //     addPropsRandomly(blockade);
@@ -537,14 +537,17 @@ public class GenerateGrid : MonoBehaviour
     }
 
 
-    public void showGrid()
+    /// <summary>
+    /// Shows/hides grids in the game with LEFT-CTRL. Disables/enables renderers.
+    /// </summary>
+    public void ShowGrid()
     {
         if(Input.GetKeyDown(KeyCode.LeftControl))
         {
             if(!gridHidden)
             {
                 gridHidden = true;
-                Debug.Log("Grid is hidden");
+                //Debug.Log("Grid is hidden");
                 foreach(GameObject temp in generated_grids)
                 {
                     temp.GetComponent<Renderer>().enabled = false;
@@ -553,7 +556,7 @@ public class GenerateGrid : MonoBehaviour
             else
             {
                 gridHidden = false;
-                Debug.Log("Grid is not hidden");
+                //Debug.Log("Grid is not hidden");
                 foreach(GameObject temp in generated_grids)
                 {
                     temp.GetComponent<Renderer>().enabled = true;
@@ -730,14 +733,16 @@ public class GenerateGrid : MonoBehaviour
             ObjectsToDestroyAtEndTurn.Clear();
         }
 
-        Vector3 sP = new Vector3(
-                 turnOrder[k].transform.position.x,
-                 turnOrder[k].transform.position.y + 6,
-                 turnOrder[k].transform.position.z
-            );
-        GameObject T = Instantiate(turnRay, sP, Quaternion.identity);
-        T.transform.parent = turnOrder[k].transform;
-        ObjectsToDestroyAtEndTurn.Add(T);
+
+        // Adds light bulb to indicate which actor has the current turn
+        //Vector3 sP = new Vector3(
+        //         turnOrder[k].transform.position.x,
+        //         turnOrder[k].transform.position.y + 6,
+        //         turnOrder[k].transform.position.z
+        //    );
+        //GameObject T = Instantiate(turnRay, sP, Quaternion.identity);
+        //T.transform.parent = turnOrder[k].transform;
+        //ObjectsToDestroyAtEndTurn.Add(T);
 
         guim.updateLog("Turn ended.", Color.green);
         mouseControl.playerTurnGUI.SetActive(true);
