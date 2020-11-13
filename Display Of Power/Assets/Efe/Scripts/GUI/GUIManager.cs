@@ -47,6 +47,8 @@ public class GUIManager : MonoBehaviour
     public Sprite defaultSlot;
     public GameObject spellCooldownNote;
 
+    public Image[] stanceIcons;
+
 
     
     // Start is called before the first frame update
@@ -206,6 +208,14 @@ public class GUIManager : MonoBehaviour
             
 
     }
+
+    public void resetSkillBar()
+    {
+        foreach(Image t in skill_slots)
+        {
+            t.sprite = defaultSlot;
+        }
+    }
     public void updateLog(string logContent)
     {
         GameObject tempLog = Instantiate(logText, logAligner.transform);
@@ -311,7 +321,9 @@ public class GUIManager : MonoBehaviour
 
             tooltip_skill.transform.Find("BG").transform.Find("SpellDesc").GetComponent<TextMeshProUGUI>().text = curSpell.spellDescription;
             tooltip_skill.transform.Find("BG").transform.Find("SpellAP").GetComponent<TextMeshProUGUI>().text = curSpell.actionNeeded.ToString();
-           
+            tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "Type";
+            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "Action Points";
+
             tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = curSpell.spellName;
             if(curSpell.SkillTargetHandling == spellSO.targetHandling.area)
             {
@@ -352,6 +364,37 @@ public class GUIManager : MonoBehaviour
         }
         
     
+    }
+
+    public void showTooltipStances(int index)
+    {
+
+        tooltip_skill.SetActive(true);
+        tooltipSpawnPosition = Input.mousePosition + offsetTooltip;
+        if (index == 0)
+        { 
+            tooltip_skill.transform.Find("BG").transform.Find("SpellDesc").GetComponent<TextMeshProUGUI>().text = "Use to attack enemies.";
+            tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "Attack";
+            tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("SpellAP").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("Damage").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("DamageResult").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "";
+        }
+        else if(index == 1)
+        {
+            tooltip_skill.transform.Find("BG").transform.Find("SpellDesc").GetComponent<TextMeshProUGUI>().text = "This stance makes the actor switch to a defensive stance. While in this stance, you take %50 less damage but deal %25 less damage as well.";
+            tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "Defend";
+            tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("SpellAP").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("Damage").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("DamageResult").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "";
+        }
+
+
     }
 
     public void hideTooltip()

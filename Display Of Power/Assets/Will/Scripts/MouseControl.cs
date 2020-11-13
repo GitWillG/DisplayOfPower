@@ -78,6 +78,7 @@ public class MouseControl : MonoBehaviour
     public GameObject selectionCircle;
     immersionManager im;
     public Material initativeMaterialHighlight;
+    public Image curSelectedSprite;
 
     private void Start()
     {
@@ -268,7 +269,18 @@ public class MouseControl : MonoBehaviour
         unitBox.text = "";
         actionsLeft.text = "";
         buffDescField.text = "";
-        
+
+        curSelectedSprite.sprite = null;
+        lastSelectedTarget = null;
+
+        foreach(Image t in guim.stanceIcons)
+        {
+            t.color = Color.gray;
+        }
+
+
+
+
     }
 
     [ContextMenu("switch between attack or move")]
@@ -371,16 +383,18 @@ public class MouseControl : MonoBehaviour
 
                 if(selectedTarget.GetComponentInChildren<actorData>().affectedbyBuff)
                 {
-                    buffDescField.text = "This unit is affected by " + selectedTarget.GetComponentInChildren<actorData>().buffName + 
-                    ". This unit gains " + selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " + selectedTarget.GetComponentInChildren<actorData>().buffProperty;
-                    buffDescField.color = Color.green;
+                    buffDescField.text =
+                selectedTarget.GetComponentInChildren<actorData>().buffName + " " +
+                selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " +
+                selectedTarget.GetComponentInChildren<actorData>().buffProperty; buffDescField.color = Color.green;
                 }
 
                 if(selectedTarget.GetComponentInChildren<actorData>().affectedbyDebuff)
                 {
-                    buffDescField.text = "This unit is affected by " + selectedTarget.GetComponentInChildren<actorData>().buffName + 
-                    ". This unit suffers " + selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " + selectedTarget.GetComponentInChildren<actorData>().buffProperty;
-                   
+                    buffDescField.text =
+                selectedTarget.GetComponentInChildren<actorData>().buffName + " " +
+                selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " +
+                selectedTarget.GetComponentInChildren<actorData>().buffProperty;
                     buffDescField.color = Color.red;
                 }
 
@@ -397,7 +411,12 @@ public class MouseControl : MonoBehaviour
                 {
                     selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference.GetComponent<Image>().material = initativeMaterialHighlight;
                 }
-                
+
+                curSelectedSprite.sprite = selectedTarget.GetComponentInChildren<actorData>().initiativeAvatar;
+                foreach (Image t in guim.stanceIcons)
+                {
+                    t.color = Color.white;
+                }
                 //swap the mask to our legal hex layer for raycasting
                 currentMask = 1 << 10;
                 //swap to the appropriate range
@@ -470,17 +489,20 @@ public class MouseControl : MonoBehaviour
 
          if (selectedTarget.GetComponentInChildren<actorData>().affectedbyBuff)
          {
-             buffDescField.text = "This unit is affected by " + selectedTarget.GetComponentInChildren<actorData>().buffName +
-             ". This unit gains " + selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " + selectedTarget.GetComponentInChildren<actorData>().buffProperty;
+             buffDescField.text = 
+                selectedTarget.GetComponentInChildren<actorData>().buffName + " " +
+                selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " +
+                selectedTarget.GetComponentInChildren<actorData>().buffProperty;
              buffDescField.color = Color.green;
          }
 
          if (selectedTarget.GetComponentInChildren<actorData>().affectedbyDebuff)
          {
-             buffDescField.text = "This unit is affected by " + selectedTarget.GetComponentInChildren<actorData>().buffName +
-             ". This unit suffers " + selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " + selectedTarget.GetComponentInChildren<actorData>().buffProperty;
-
-             buffDescField.color = Color.red;
+            buffDescField.text =
+               selectedTarget.GetComponentInChildren<actorData>().buffName + " " +
+               selectedTarget.GetComponentInChildren<actorData>().buffHeld + " " +
+               selectedTarget.GetComponentInChildren<actorData>().buffProperty;
+            buffDescField.color = Color.red;
          }
 
          //selectedTarget.GetComponentInChildren<actorData>().overheadReference.SetActive(true);
