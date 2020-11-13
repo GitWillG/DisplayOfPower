@@ -67,7 +67,7 @@ public class BestClickToMove : MonoBehaviour
 
         agent = unit.GetComponent<NavMeshAgent>();
         actorData data = unit.GetComponent<actorData>();
-        data.changeLookTarget(targetHex);
+        //data.changeLookTarget(targetHex);
 
         agent.destination = new Vector3(targetHex.transform.position.x, unit.transform.position.y, targetHex.transform.position.z);
 

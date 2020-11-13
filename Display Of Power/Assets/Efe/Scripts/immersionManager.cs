@@ -30,7 +30,7 @@ public class immersionManager : MonoBehaviour
     public Material selectedMaterialVFX;
     [SerializeField]
     // old material of selected object stored here
-    Material oldMaterial;
+    //Material oldMaterial;
     // replace skinned mesh materials of object selected with this list to array
     // which is dynamically adjusted on highlightObject script
     public List<Material> resultMaterials;
@@ -168,12 +168,12 @@ public class immersionManager : MonoBehaviour
             GameObject body = target.transform.Find("Body").gameObject;
             if(body == null) return;
             // Save the old material
-            oldMaterial = body.GetComponent<Renderer>().material;
+            target.GetComponent<actorData>().oldMaterial = body.GetComponent<Renderer>().material;
             // Access to skinned mesh component
             SkinnedMeshRenderer renderer = body.GetComponent<SkinnedMeshRenderer>();
             resultMaterials.Clear();
             // Add the original material of the body to list of materials mesh will have in the end
-            resultMaterials.Add(oldMaterial);
+            resultMaterials.Add(target.GetComponent<actorData>().oldMaterial);
             // Add outline material as 2nd
             resultMaterials.Add(selectedMaterialVFX);
             // Replace materials array with new one
@@ -188,7 +188,7 @@ public class immersionManager : MonoBehaviour
         else if(objectType == "Prop")
         {
             // store prop material
-            oldMaterial = target.GetComponent<Renderer>().material;
+            target.GetComponent<actorData>().oldMaterial = target.GetComponent<Renderer>().material;
             // change prop material to outline material
             target.GetComponent<Renderer>().material = selectedMaterialVFX;
             // Add outlnieobject script for more control
@@ -244,7 +244,7 @@ public class immersionManager : MonoBehaviour
             // Save the old material
             resultMaterials.Clear();
             // Add the original material of the body to list of materials mesh will have in the end
-            resultMaterials.Add(oldMaterial);
+            resultMaterials.Add(target.GetComponent<actorData>().oldMaterial);
             // Replace materials array with new one
             // Before replacement, there is only oldMaterial
             // After replacement, there is oldmaterial + outlinematerial

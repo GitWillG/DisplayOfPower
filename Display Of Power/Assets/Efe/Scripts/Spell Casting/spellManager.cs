@@ -348,11 +348,8 @@ public class spellManager : MonoBehaviour
 
         if (mc.lastSelectedTarget == null) return;
         if (mc.lastSelectedTarget.GetChild(0) == null) return;
-
-        if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length  > 0)
-        {
-            if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
-        }
+        if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
+        if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length == 0) return;
 
         if(castPreviewEnabled == false) return;
         // if(mc.lastSelectedTarget.GetChild(0) == null) return;
@@ -532,6 +529,21 @@ public class spellManager : MonoBehaviour
                                     inRangeEnemies.Add(hex.transform.GetChild(0).gameObject);
                                 }
                             }
+                            else
+                            {
+                                castPreviewEnabled = false;
+                                // Debug.Log("Preview cancelled.");
+                                Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
+                                guim.updateLog("There is no NPC in range.");
+
+                                if (noteInstance != null)
+                                {
+                                    Destroy(noteInstance);
+                                }
+                                mc.removeRangeInd();
+                                mc.selectedTarget = mc.lastSelectedTarget;
+                                mc.moveRadius();
+                            }
 
                         }
                         //GameObject[] NPCs = GameObject.FindGameObjectsWithTag("NPC");
@@ -564,11 +576,11 @@ public class spellManager : MonoBehaviour
                                 if(noteInstance != null)
                                 {
                                     Destroy(noteInstance);
+                                }
+                        mc.removeRangeInd();
+                        mc.selectedTarget = mc.lastSelectedTarget;
+                        mc.moveRadius();
                     }
-                    mc.removeRangeInd();
-                    mc.selectedTarget = mc.lastSelectedTarget;
-                    mc.moveRadius();
-                }
                 }
             }
         

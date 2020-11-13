@@ -119,7 +119,7 @@ namespace DigitalRuby.RainMaker
                 audioSourceWind.Stop();
             }
 
-            audioSourceWind.Update();
+            //audioSourceWind.Update();
         }
 
         private void CheckForRainChange()

@@ -271,7 +271,7 @@ public class MouseControl : MonoBehaviour
         buffDescField.text = "";
 
         curSelectedSprite.sprite = null;
-        lastSelectedTarget = null;
+        //lastSelectedTarget = null;
 
         foreach(Image t in guim.stanceIcons)
         {

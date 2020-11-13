@@ -139,7 +139,7 @@ public class CameraControl : MonoBehaviour
         // PANNING LOGIC
         if (isPanning)
         {
-            if (panPosition == null) return;
+            if (objectToPan == null) return;
 
             panPosition = new Vector3
             (
