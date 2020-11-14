@@ -27,6 +27,19 @@ public class baseAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        ///test functionality
+        ///also testing in kill unit and movement script
+        if (this.transform.parent.gameObject.layer != 10)
+        {
+            this.transform.parent.gameObject.layer = 10;
+        }
+
+
+
+
+
+
         if (self.isTurn && !self.belongsToPlayer)
         {
 
@@ -40,10 +53,6 @@ public class baseAI : MonoBehaviour
                 Debug.Log(check);
                 check = 1;
             }
-            //if(check == 2)
-            //{
-            //    gridOb.EndTurn();
-            //}
             else
             {
                 if (mouseController.doneMoving)
@@ -72,7 +81,7 @@ public class baseAI : MonoBehaviour
 
 
                                 }
-                                mouseController.moveAttackSwap();
+                                mouseController.moveRadius();
                                 if (self.actionsRemaining == 0)
                                 {
                                     gridOb.EndTurn();

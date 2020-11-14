@@ -446,19 +446,6 @@ public class GenerateGrid : MonoBehaviour
         temp.GetComponent<temp_initiativeDataHolder>().referenceObject = sourceObject;
         temp.name = data.actorName;
 
-        // if(data.isTurn)
-        // {
-        //     temp.transform.SetAsFirstSibling();
-        //     // temp.transform.localScale = new Vector2(2,2);
-        // }
-        // else
-        // {
-        //     temp.transform.localScale = new Vector2(1, 1);
-        //     // temp.transform.SetAsLastSibling();
-        // }
-
-
-        // Debug.Log("Created sprite.");
     }
 
     public void choosePath(GameObject start, GameObject end)
@@ -600,12 +587,12 @@ public class GenerateGrid : MonoBehaviour
     {
         if(!firstTurnPlayed)
         {
-            turnDelaySecond = 0;
+            turnDelaySecond = 1;
             firstTurnPlayed = true;
         }
         else
         {
-            turnDelaySecond = 2;
+            turnDelaySecond = 0.1f;
         }
 
         if(endTurnCalledFromGUI)
@@ -619,13 +606,6 @@ public class GenerateGrid : MonoBehaviour
     
 
         mouseControl.isMove = true;
-        //foreach (GameObject turnorder in turnOrder)
-        //{
-        //    if (turnorder == null)
-        //    {
-        //        turnOrder.Remove(turnorder);
-        //    }
-        //}
         if (mouseControl.selectedTarget != null)
         {
            
@@ -642,17 +622,6 @@ public class GenerateGrid : MonoBehaviour
         if (turnOrder[k].GetComponent<actorData>().actionsRemaining <= 0)
         {
            
-            //if (initiatives.Count > 0)
-            //{
-            //    initiativeAligner.transform.GetChild(0).transform.SetAsLastSibling();
-            //    // foreach(GameObject a in initiatives)
-            //    // {
-            //    //     Destroy(a);
-            //    //     Debug.Log(a + " destroyed.");
-            //    // }
-            //    // initiatives.Clear();
-            //}
-
             turnOrder[k].GetComponent<actorData>().actionsRemaining = turnOrder[k].GetComponent<actorData>().TotalActions;
             turnOrder[k].GetComponent<actorData>().isTurn = false;
             // turnOrder[k].GetComponent<actorData>().actionsRemaining = 2;
