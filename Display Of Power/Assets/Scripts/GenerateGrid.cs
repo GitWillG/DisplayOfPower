@@ -426,6 +426,7 @@ public class GenerateGrid : MonoBehaviour
     [ContextMenu("Start Next Turn")]
     public void NextTurn()
     {
+        //removeMoveCheck(mouseControl.defaultMat);
         StartCoroutine(pauseforTurn());
         
     }
@@ -625,10 +626,10 @@ public class GenerateGrid : MonoBehaviour
         //        turnOrder.Remove(turnorder);
         //    }
         //}
-        if (mouseControl.selectedTarget != null && mouseControl.selectedTarget.childCount > 0)
+        if (mouseControl.selectedTarget != null)
         {
            
-            mouseControl.swapRange();
+            //mouseControl.swapRange();
             mouseControl.removeRangeInd();
         }
 

@@ -177,16 +177,22 @@ public class GUIManager : MonoBehaviour
         for(int o = 0; o < skill_slots.Length; o++)
         {
             skill_slots[o].sprite = defaultSlot;
-            if(!mc.selectedTarget.transform.GetChild(0).GetComponent<actorData>().isTurn)
+            if (mc.selectedTarget != null)
             {
-                skill_slots[0].color = Color.gray;
+                if (!mc.selectedTarget.transform.GetChild(0).GetComponent<actorData>().isTurn)
+                {
+                    skill_slots[0].color = Color.gray;
+                }
+
             }
+         
         }
 
 
         // Updates the skillbar depending on current selected actor's spells
         if (mc.selectedTarget == null) return;
         if (mc.lastSelectedTarget == null) return;
+        if (mc.lastSelectedTarget.childCount == 0) return;
         if (mc.lastSelectedTarget.GetChild(0) == null) return;
         
         actorData selectedData = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();

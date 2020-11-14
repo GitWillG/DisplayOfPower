@@ -347,9 +347,10 @@ public class spellManager : MonoBehaviour
     {
 
         if (mc.lastSelectedTarget == null) return;
+        if (mc.lastSelectedTarget.childCount == 0) return;
         if (mc.lastSelectedTarget.GetChild(0) == null) return;
-        if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
         if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length == 0) return;
+        if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
 
         if(castPreviewEnabled == false) return;
         // if(mc.lastSelectedTarget.GetChild(0) == null) return;

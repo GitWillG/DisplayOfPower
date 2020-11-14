@@ -29,6 +29,7 @@ public class baseAI : MonoBehaviour
     {
         if (self.isTurn && !self.belongsToPlayer)
         {
+
             mouseController.selectionMaterial = mouseController.enemiesMat;
             // Debug.Log(this.name + " says hi to your father");
             int check = Random.Range(0, 2);
@@ -36,6 +37,8 @@ public class baseAI : MonoBehaviour
             if (check == 0 || target == null)
             {
                 findClosest();
+                Debug.Log(check);
+                check = 1;
             }
             //if(check == 2)
             //{

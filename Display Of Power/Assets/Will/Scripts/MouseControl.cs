@@ -12,18 +12,21 @@ using UnityEngine.UI;
 
 public class MouseControl : MonoBehaviour
 {
-    //
-    /// <summary>
-    /// NEED TO REHASH RIGHT CLICK TO ENABLE MOVEMENT RADIUS
-    /// </summary>
+
+    #region Inspector assigned Variables
     public EventSystem ev_system;
     public GameObject basicAttackButton;
+    #region GUI
     [Header("GUI")]
     public TextMeshProUGUI lifeBox;
     public TextMeshProUGUI unitBox;
     public TextMeshProUGUI attackBox;
     public TextMeshProUGUI actionsLeft;
     public TextMeshProUGUI buffDescField;
+    public GameObject playerTurnGUI;
+    public GameObject tutorial;
+    #endregion
+    #region Materials
     [Header("Materials")]
     //Selected hex material
     public Material selectedMat;
@@ -38,12 +41,20 @@ public class MouseControl : MonoBehaviour
     public Material attackMat;
     public Material enemiesMat;
     public Material selectionMaterial;
+    public Material currTurnMat;
+    #endregion
     [Space(5)]
+    #region Managers
     public GenerateGrid GridOb;
-    public bool doneMoving;
     public GameObject selectionManager;
     public GameObject currClickedHex;
-
+    immersionManager im;
+    //The renderer of any given selection
+    Renderer selectionRenderer;
+    spellManager sm;
+    GUIManager guim;
+    #endregion
+    #region Grid Variables
     //detection range for movement/attacks
     public int detectRange;
     //this is our grid, we need access to it to swap grid colors
@@ -52,13 +63,14 @@ public class MouseControl : MonoBehaviour
     public int currentMask =  1 << 8; 
     //Are we checking for movement radius? if not we are checking for attack radius
     public bool isMove = true;
-
-    public bool isMoving = false;
+    public bool isMoving;
+    public bool doneMoving;
+    #endregion
 
     //Temporary, we need access to the prefab we are using for unit testing
     public GameObject unitPrefab;
 
-
+    #region Memory Variables
     //the transform of a selected hexes
     public Transform selectedTarget;
     public Transform lastSelectedTarget;
@@ -66,86 +78,115 @@ public class MouseControl : MonoBehaviour
     public Transform hoveredTarget;
     //have you selected a hex for the purpose of checking the appropriate radius of its child?
     public bool clickedHex;
-    //The renderer of any given selection
-    Renderer selectionRenderer;
-    spellManager sm;
-    GUIManager guim;
-    public GameObject playerTurnGUI;
-    public GameObject tutorial;
+    #endregion
+
+    #region Efe rename this i dunno what it's for
     public List<GameObject> listSelectionCircles;
     public List<GameObject> listRays;
     public GameObject rayParticle;
     public GameObject selectionCircle;
-    immersionManager im;
     public Material initativeMaterialHighlight;
     public Image curSelectedSprite;
+    #endregion
+    #endregion
 
+
+    
+    #region Runtime Functionality
     private void Start()
     {
+        //nothing is moving
+        isMoving = false;
+        doneMoving = true;
+
         ev_system = EventSystem.current;
         //nothing is selected at the start
         clickedHex = false;
-        doneMoving = true;
-    
+        selectionMaterial = legalMove;
+
         tutorial.SetActive(true);
         
+        //get managers
         sm = GameObject.FindGameObjectWithTag("GM").GetComponent<spellManager>();
         guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
         im = GameObject.FindGameObjectWithTag("GM").GetComponent<immersionManager>();
+
         selectionMaterial = legalMove;
     }
 
     private void Update()
     {
-        if(GridOb.currTurn != null)
-        {
-            GridOb.currTurn.GetComponent<Renderer>().material = hoveredMat;
 
-        }
 
         if(selectedTarget != null)
         {
             lastSelectedTarget = selectedTarget;
         }
 
-        if (isMoving == false) 
-        { 
+        if (GridOb.path.Count > 0)
+        {
+            if (isMoving == true)
+            {
+
+                newEndMove();
+            }
+            else
+            {
+                runMovement();
+            }
+        }
+            else
+        {        //colour the selected unit's hex
+            if (GridOb.currTurn != null)
+            {
+                GridOb.currTurn.GetComponent<Renderer>().material = currTurnMat;
+
+                curSelectedSprite.sprite = GridOb.currTurn.GetComponentInChildren<actorData>().initiativeAvatar;
+            }
             //whenever there is no hovered target or cicked hex reset the last selected hex to its original material
             if (hoveredTarget != null)
-            {
-                //if youve clicked a hex we use the selection colors, otherwise we use our default hex colors
-                if(clickedHex == true)
                 {
-                    oldMat = selectionMaterial;
+                    //if youve clicked a hex we use the selection colors, otherwise we use our default hex colors
+                    if (clickedHex == true)
+                    {
+                        oldMat = selectionMaterial;
+                    }
+
+                    else
+                    {
+                        oldMat = defaultMat;
+                    }
+
+                    //get the rennderer of the last hovered targed
+                    selectionRenderer = hoveredTarget.GetComponent<Renderer>();
+                    //reset it
+                    selectionRenderer.material = oldMat;
+                    //null the old target
+                    hoveredTarget = null;
                 }
-               
-                else
+
+                //after you've reset the hexes to their original color, if a hex is selected keep it colored as such
+                if (selectedTarget != null)
                 {
-                    oldMat = defaultMat;
+                    selectedTarget.gameObject.GetComponent<Renderer>().material = selectedMat;
                 }
 
-                //get the rennderer of the last hovered targed
-                selectionRenderer = hoveredTarget.GetComponent<Renderer>();
-                //reset it
-                selectionRenderer.material = oldMat;
-                //null the old target
-                hoveredTarget = null;
-            }
-
-            //after you've reset the hexes to their original color, if a hex is selected keep it colored as such
-            if (selectedTarget != null)
-            {
-                selectedTarget.gameObject.GetComponent<Renderer>().material = selectedMat;
-            }
-
-        // checks if mouse is not hovering GUI
-        if(!EventSystem.current.IsPointerOverGameObject())
-        {
-            // Check if player is previewing a skill
+                // checks if mouse is not hovering GUI
+                if (!EventSystem.current.IsPointerOverGameObject())
+                {
+                    // Check if player is previewing a skill
 
                     if (Input.GetMouseButtonUp(1) && clickedHex == true)
                     {
+                    if (!isMove)
+                    {
+                        selectionMaterial = legalMove;
                         moveRadius();
+                    }
+                    else if (selectedTarget != null)
+                    {
+                        removeRangeInd();
+                    }
                     }
                     //Ray cast from the mouse to find objects
                     var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -156,14 +197,14 @@ public class MouseControl : MonoBehaviour
                         // Debug.Log(1);
                         //save the selection and get its renderer
                         var selection = hit.transform;
-                        
+
                         selectionRenderer = selection.GetComponent<Renderer>();
-                    
+
                         //if we have not clicked a hex and the hovered object has a renderer we change the material to a hovered material, and declare it our selected target
                         // Hovering
                         if (selectionRenderer != null)
                         {
-                            
+
                             oldMat = selectionRenderer.material;
                             selectionRenderer.material = hoveredMat;
                             hoveredTarget = selection;
@@ -174,43 +215,40 @@ public class MouseControl : MonoBehaviour
                             //    GridOb.choosePath(selectedTarget.gameObject, hoveredTarget.gameObject);
                             //}
                         }
-                    //otherwise if you have selected a target, and you click on that object, we will revert it to its original material and reset the clicked Bool
-                    // Deselection
-                    if (!sm.castPreviewEnabled)
-                    {
-                        if (selection == selectedTarget && Input.GetMouseButtonUp(0) && clickedHex == true && hoveredTarget == selectedTarget)
+                        //otherwise if you have selected a target, and you click on that object, we will revert it to its original material and reset the clicked Bool
+                        // Deselection
+                        if (!sm.castPreviewEnabled)
                         {
+                            if (selection == selectedTarget && Input.GetMouseButtonUp(0) && clickedHex == true && hoveredTarget == selectedTarget)
+                            {
 
-                            removeRangeInd();
-                            return;
+                                removeRangeInd();
+                                return;
+                            }
                         }
                     }
-                    }
 
-                //  if you click, while hovering a selected hex, and you have not already clicked a hex,
-                //  change that object to the selected color and Declare that a hex has been clicked
-                // Selecting
-                // prefabUnits data = selection.GetComponentInChildren<prefabUnits>();
-                if (!sm.castPreviewEnabled)
-                {
-                    // Moving units here
-                    if (Input.GetMouseButtonUp(0) && hoveredTarget != null)
+                    //  if you click, while hovering a selected hex, and you have not already clicked a hex,
+                    //  change that object to the selected color and Declare that a hex has been clicked
+                    // Selecting
+                    // prefabUnits data = selection.GetComponentInChildren<prefabUnits>();
+                    if (!sm.castPreviewEnabled)
                     {
-                        selectHex(hoveredTarget.gameObject);
-                        // Debug.Log(4);
+                        // Moving units here
+                        if (Input.GetMouseButtonUp(0) && hoveredTarget != null)
+                        {
+                            selectHex(hoveredTarget.gameObject);
+                            // Debug.Log(4);
+                        }
                     }
-                }
 
-                //}
-                else if (isMoving)
-                {
-                    finishMovement();
-                    // Debug.Log(5);
                 }
-            }
+            //}
         }
     }
+    #endregion
 
+    #region Change Selection Display
     //Switch the selected range to the appropriate range
     public void swapRange()
     {
@@ -270,7 +308,7 @@ public class MouseControl : MonoBehaviour
         actionsLeft.text = "";
         buffDescField.text = "";
 
-        curSelectedSprite.sprite = null;
+        //curSelectedSprite.sprite = null;
         //lastSelectedTarget = null;
 
         foreach(Image t in guim.stanceIcons)
@@ -282,7 +320,6 @@ public class MouseControl : MonoBehaviour
 
 
     }
-
     [ContextMenu("switch between attack or move")]
     public void moveAttackSwap()
     {
@@ -304,44 +341,17 @@ public class MouseControl : MonoBehaviour
                 grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, attackMat);
             }
         }
-        //reset and rehighlight appropriate hexes
     }
-
-
-    public void finishMovement()
+    public void moveRadius()
     {
-        if (lastSelectedTarget.GetChild(0).transform.position.x >= lastSelectedTarget.transform.position.x - 0.2 && lastSelectedTarget.GetChild(0).transform.position.x <= lastSelectedTarget.transform.position.x + 0.2 && lastSelectedTarget.GetChild(0).transform.position.z >= lastSelectedTarget.transform.position.z - 0.2 && lastSelectedTarget.GetChild(0).transform.position.z <= lastSelectedTarget.transform.position.z + 0.2)
-        {
-            // selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = false;
-            lastSelectedTarget.GetChild(0).transform.position = new Vector3(
-                lastSelectedTarget.transform.position.x, 
-                lastSelectedTarget.transform.position.y, 
-                lastSelectedTarget.transform.position.z);
-
-
-
-            grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
-            grid.GetComponent<GenerateGrid>().removeMoveCheck(defaultMat);
-            ////reset the selected hex
-            //selectionRenderer.material = oldMat;
-            ////nothing is selected anymore
-            //clickedHex = false;
-            ////revert all the highlighted hexes to their original colors
-            //grid.GetComponent<GenerateGrid>().removeCheck(defaultMat);
-            ////null the selected hex
-            //selectedTarget = null;
-            ////go back to raycasting on our default hex layer
-            //currentMask = 1 << 8;
-            swapRange();
-            removeRangeInd();
-            isMoving = false;
-            GridOb.currTurn = GridOb.turnOrder[GridOb.k].transform.parent.gameObject;
-
-            actorData data = lastSelectedTarget.GetChild(0).GetComponent<actorData>();
-            data.resetLookTarget();
-        }
+        isMove = true;
+        removeRangeInd();
+        selectHex(currClickedHex);
+        basicAttackButton.SetActive(true);
     }
+    #endregion
 
+    #region Unit Selection
     public void selectHex(GameObject hexSelected)
     {
         // if(sm.castPreviewEnabled) return;
@@ -441,12 +451,12 @@ public class MouseControl : MonoBehaviour
 
             if (transformSelected != null && Input.GetMouseButtonUp(0) && isMove && transformSelected.childCount <= 0 && currentChar.GetComponent<actorData>().actionsRemaining >0 && currentChar.GetComponent<actorData>().isTurn)
             {
-                if (selectedTarget != null )
-                {
-                    GridOb.choosePath(selectedTarget.gameObject, hoveredTarget.gameObject);
+                //if (selectedTarget != null )
+                //{
+                //    GridOb.choosePath(selectedTarget.gameObject, hoveredTarget.gameObject);
 
-                }
-                runMovement();
+                //}
+                runMovement(selectedTarget.gameObject, hoveredTarget.gameObject);
                 selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().actionsRemaining -= 1;
                 return;
                 //grid.GetComponent<GenerateGrid>().checkLegality(detectRange, selectedTarget.gameObject, legalMove);   
@@ -534,79 +544,118 @@ public class MouseControl : MonoBehaviour
          }
 
         removeRangeInd();
-        isMoving = false;
+        //isMoving = false;
 
 
 
     }
+    #endregion
+
+    #region Unit Actions
     public void killUnit(GameObject deadUnit)
     {
+        //1.Remove dead unit from all lists it is a part of 
         GridOb.allyList.Remove(deadUnit);
         GridOb.enemyList.Remove(deadUnit);
         GridOb.turnOrder.Remove(deadUnit);
-        
+
+        //2. then destroy its place in the initiative
         Destroy(deadUnit.GetComponent<actorData>().initiativeReference);
 
+        //3. then destroy the object
         guim.updateLog(deadUnit.name + " died.");
         Destroy(deadUnit, 3);
 
 
     }
 
+
+    //method for if you have a path already
     public void runMovement()
     {
-        StartCoroutine(movementRoutine());
+       //StartCoroutine(movementRoutine());
+        newMovement();
     }
+
+    //overload to include generating a path
     public void runMovement(GameObject start, GameObject end)
     {
+        //1. Generate a path to follow
         GridOb.choosePath(start, end);
-        StartCoroutine(movementRoutine());
+
+        //2. Follow path
+        //StartCoroutine(movementRoutine());
+        newMovement();
     }
 
-    IEnumerator movementRoutine()
+
+    public void newMovement()
     {
+        doneMoving = false;
         GameObject unit = selectedTarget.GetChild(0).gameObject;
-        for (int i = 1; i < GridOb.path.Count; i++)
+        GridOb.currTurn.GetComponent<Renderer>().material = defaultMat;
+        if (GridOb.path.Count > 0)
         {
-            // selectedTarget.GetChild(0).GetComponent<NavMeshAgent>().enabled = true;
+            //while moving we disable all other player functionality
             isMoving = true;
-            this.gameObject.GetComponent<BestClickToMove>().ClickMove(selectedTarget.GetChild(0).gameObject, GridOb.path[i]);
-            selectedTarget = GridOb.path[i].transform;
-            yield return new WaitForSeconds(0.9f);
-            if (isMoving == true)
-            {
-                finishMovement();
 
-            }
+            //1.a) move the unit to the new hex
+            this.gameObject.GetComponent<BestClickToMove>().ClickMove(unit, GridOb.path[0]);
 
-            if (i + 1 < GridOb.path.Count)
-            {
-                selectedTarget = GridOb.path[i].transform;
-            }
+            //1.b) since we are controlling units based on their parent hex, we need to select the new hex.
+            selectedTarget = GridOb.path[0].transform;
 
         }
-        doneMoving = true;
-        if (unit.GetComponent<actorData>().actionsRemaining == 0)
-        {
-            GridOb.EndTurn();
-            playerTurnGUI.SetActive(true);
-        }
-        else
-        {
-            GridOb.NextTurn();
-        }
-
     }
-    public void moveRadius()
+
+    public void newEndMove()
     {
-        isMove = true;
-        removeRangeInd();
-        selectHex(currClickedHex);
-        basicAttackButton.SetActive(true);
-        //Debug.Log(isMove);
-        //attackBox
-        //detectRange = currClickedHex.transform.GetChild(0).GetComponent<actorData>().MovementRange;
-        //swapRange();
+
+        if (Vector3.Distance(lastSelectedTarget.GetChild(0).transform.position, GridOb.path[0].transform.position) <= 0.2f)
+        {
+            //1. null velocity
+            lastSelectedTarget.GetChild(0).GetComponent<NavMeshAgent>().velocity = new Vector3(0, 0, 0);
+
+
+            //2. set unit position to new hex position
+            lastSelectedTarget.GetChild(0).transform.position = new Vector3(
+                GridOb.path[0].transform.position.x,
+                GridOb.path[0].transform.position.y,
+                GridOb.path[0].transform.position.z);
+
+            //3. remove range indicators
+            if (selectedTarget != null)
+            {
+                removeRangeInd();
+            }
+
+            //4. unit has reached first waypoint and stopped moving; remove this waypoint from the path
+            selectedTarget = GridOb.path[0].transform;
+            GridOb.path.RemoveAt(0);
+            isMoving = false;
+
+
+            //once your path is empty:
+            if (GridOb.path.Count <=0)
+            {
+                GridOb.currTurn = selectedTarget.gameObject;
+                //1. reset unit orientation
+                actorData data = lastSelectedTarget.GetChild(0).GetComponent<actorData>();
+                data.resetLookTarget();
+                #region for AI
+                //2. let the ai know it's done its entire movement
+                doneMoving = true;
+                #endregion
+                //3. go to next turn
+                GridOb.NextTurn();
+                moveRadius();
+                removeRangeInd();
+            }
+
+
+           
+        }
     }
+#endregion
 }
 

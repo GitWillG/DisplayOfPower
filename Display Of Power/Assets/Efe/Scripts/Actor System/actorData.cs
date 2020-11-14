@@ -280,14 +280,14 @@ namespace efe{
                         // Blend tree uses it to determine thresholds to determine which animation should play
                         // Aka - 0.5 speed = walk, 1 = run, 0 = idle
                         animator.SetFloat("Speed", agent.velocity.magnitude);
-                        mc.isMoving = true;
+                        //mc.isMoving = true;
                     }     
                     else
                     {
                         // still blend as it will send 0 for magnitude anyhow
                         // else represents that agent reached its target vector
                         animator.SetFloat("Speed", agent.velocity.magnitude);
-                        mc.isMoving = false;
+                        //mc.isMoving = false;
                         //Debug.Log("Actor finished moving.");
                         cc.finishTracking();
                         return;

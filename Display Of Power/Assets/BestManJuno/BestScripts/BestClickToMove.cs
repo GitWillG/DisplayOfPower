@@ -49,25 +49,16 @@ public class BestClickToMove : MonoBehaviour
 
     public void ClickMove(GameObject unit, GameObject targetHex)
     {
-        ////If Left click detected
-        //if (Input.GetMouseButtonUp(0))
-        //{
-        //    //creating raycast to detect where mouse is clicked
-        //    RaycastHit hit;
 
-        //    //creates a raycast from the camera to the location of the mouse
-        //    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-        //    {
-        //        //destination on the nav mesh is the location of where the raycast hit
-        //        agent.destination = hit.point;
-        //    }
-
-        //}
-        // unit.GetComponent<NavMeshAgent>().enabled = true;
 
         agent = unit.GetComponent<NavMeshAgent>();
         actorData data = unit.GetComponent<actorData>();
         //data.changeLookTarget(targetHex);
+
+        //agent.updateRotation = false;
+        //Vector3 relativePos = (targetHex.transform.position - unit.transform.position).normalized;
+        //Quaternion newRotate = Quaternion.LookRotation(relativePos);
+        //agent.transform.rotation = newRotate;
 
         agent.destination = new Vector3(targetHex.transform.position.x, unit.transform.position.y, targetHex.transform.position.z);
 
@@ -75,21 +66,13 @@ public class BestClickToMove : MonoBehaviour
         cc.trackObject(unit);
 
 
-        //unitCol = unit.GetComponent<Renderer>();
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    if (unitCol.material == selectedMaterial)
-        //    {
-        //        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //        RaycastHit hit;
-        //        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 8))
-        //        {
-
-        //        }
-        //    }
-        //}
+       
     }
+
+
+
+
+
     public void ClickAttack(GameObject unit, GameObject targetHex)
     {
         if(targetHex.transform.GetChild(0).GetComponent<actorData>().ownerFaction_string == unit.GetComponent<actorData>().ownerFaction_string)
