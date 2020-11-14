@@ -462,7 +462,7 @@ public class MouseControl : MonoBehaviour
             }
 
             //attack
-            else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && currentChar.GetComponent<actorData>().actionsRemaining > 0 && currentChar.GetComponent<actorData>().isTurn && GridOb.legalHex.Contains(transformSelected.gameObject) && transformSelected.GetComponentInChildren<actorData>().ownerFaction_string != "Ally")
+            else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && currentChar.GetComponent<actorData>().actionsRemaining > 0 && currentChar.GetComponent<actorData>().isTurn && GridOb.legalHex.Contains(transformSelected.gameObject) && !transformSelected.GetComponentInChildren<actorData>().belongsToPlayer)
             {
                 this.gameObject.GetComponent<BestClickToMove>().ClickAttack(selectedTarget.GetChild(0).gameObject, transformSelected.gameObject);
                 selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().actionsRemaining -= 1;
@@ -476,6 +476,15 @@ public class MouseControl : MonoBehaviour
                     playerTurnGUI.SetActive(true);
                 }
 
+                return;
+            }
+            else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && !GridOb.legalHex.Contains(transformSelected.gameObject))
+            {
+                isMove = true;
+                selectionMaterial = legalMove;
+                removeRangeInd();
+                selectedTarget = transformSelected;
+                selectHex(selectedTarget.gameObject);
                 return;
             }
         }
