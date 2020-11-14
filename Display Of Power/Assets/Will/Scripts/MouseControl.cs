@@ -149,23 +149,7 @@ public class MouseControl : MonoBehaviour
             //whenever there is no hovered target or cicked hex reset the last selected hex to its original material
             if (hoveredTarget != null)
             {
-                //if youve clicked a hex we use the selection colors, otherwise we use our default hex colors
-                //if (clickedHex == true)
-                //{
-                //    if (hoveredTarget.childCount > 0 && isMove)
-                //    {
-                //        oldMat = defaultMat;
-                //    }
-                //    else
-                //    {
-                //        oldMat = selectionMaterial;
-                //    }
-                //}
 
-                //else
-                //{
-                //    oldMat = defaultMat;
-                //}
 
                 //get the rennderer of the last hovered targed
                 selectionRenderer = hoveredTarget.GetComponent<Renderer>();
@@ -487,8 +471,10 @@ public class MouseControl : MonoBehaviour
                 selectHex(selectedTarget.gameObject);
                 return;
             }
+
             else if(!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && GridOb.legalHex.Contains(transformSelected.gameObject) && transformSelected.GetComponentInChildren<actorData>().belongsToPlayer)
             {
+                //Efe make this go into the player log please
                 Debug.Log("That is an ally, friendly fire is bad :( ");
 
             }
