@@ -487,6 +487,11 @@ public class MouseControl : MonoBehaviour
                 selectHex(selectedTarget.gameObject);
                 return;
             }
+            else if(!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && GridOb.legalHex.Contains(transformSelected.gameObject) && transformSelected.GetComponentInChildren<actorData>().belongsToPlayer)
+            {
+                Debug.Log("That is an ally, friendly fire is bad :( ");
+
+            }
         }
 
 

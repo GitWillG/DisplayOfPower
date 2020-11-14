@@ -50,7 +50,6 @@ public class baseAI : MonoBehaviour
             if (check == 0 || target == null)
             {
                 findClosest();
-                Debug.Log(check);
                 check = 1;
             }
             else
