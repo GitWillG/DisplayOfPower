@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 466.91733, g: 951.06903, b: 2162.353, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7683,6 +7683,8 @@ MonoBehaviour:
   attackBox: {fileID: 8057695389413260840}
   actionsLeft: {fileID: 1662280499}
   buffDescField: {fileID: 1511530516}
+  playerTurnGUI: {fileID: 1309553811}
+  tutorial: {fileID: 1923768316}
   selectedMat: {fileID: 2100000, guid: dc453b132f1c3fd44b29e409d8cafd9b, type: 2}
   hoveredMat: {fileID: 2100000, guid: abc86729fcf076747aef70030ea1c618, type: 2}
   oldMat: {fileID: 2100000, guid: 7f9902465802c194289e4ce09270a08d, type: 2}
@@ -7691,8 +7693,8 @@ MonoBehaviour:
   attackMat: {fileID: 2100000, guid: 841054a8294e9e54db7e6ced5699d4c7, type: 2}
   enemiesMat: {fileID: 2100000, guid: 7b1671a4dc1980f4a81b11b70ca7983c, type: 2}
   selectionMaterial: {fileID: 0}
+  currTurnMat: {fileID: 2100000, guid: 771e00ae2e87b0145be55a35c5bfb850, type: 2}
   GridOb: {fileID: 1873872309}
-  doneMoving: 0
   selectionManager: {fileID: 932975308}
   currClickedHex: {fileID: 0}
   detectRange: 5
@@ -7700,14 +7702,13 @@ MonoBehaviour:
   currentMask: 256
   isMove: 1
   isMoving: 0
+  doneMoving: 0
   unitPrefab: {fileID: 1863947349140452884, guid: 786bb629964b051418ae471652568f3c,
     type: 3}
   selectedTarget: {fileID: 0}
   lastSelectedTarget: {fileID: 0}
   hoveredTarget: {fileID: 0}
   clickedHex: 0
-  playerTurnGUI: {fileID: 1309553811}
-  tutorial: {fileID: 1923768316}
   listSelectionCircles: []
   listRays: []
   rayParticle: {fileID: 9145199763704094612, guid: bc00125b4c1f3024bbb3f3d9e1a32eb9,
@@ -25438,7 +25439,6 @@ MonoBehaviour:
   Y_base_label_pos: 0
   labelsActive: []
   selectedMaterialVFX: {fileID: 2100000, guid: 6251338d2d57920418f9da18133e1c31, type: 2}
-  oldMaterial: {fileID: 0}
   resultMaterials: []
   highlightLight: {fileID: 3955958458980718063, guid: 58b84bcabc2adf84d9199bb074689070,
     type: 3}
