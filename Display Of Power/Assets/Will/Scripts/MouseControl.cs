@@ -486,11 +486,16 @@ public class MouseControl : MonoBehaviour
 
     public void selectHexFromGUI(GameObject hexSelected)
     {
+        if (selectedTarget != null)
+        {
+            removeRangeInd();
+        }
 
          Transform transformSelected = hexSelected.transform;
          currClickedHex = hexSelected;
+        selectedTarget = transformSelected;
+        selectHex(transformSelected.gameObject);
          //save the hovered target as a selected one
-         selectedTarget = transformSelected;
          clickedHex = true;
          lifeBox.text = selectedTarget.GetComponentInChildren<actorData>().Life.ToString();
          attackBox.text = selectedTarget.GetComponentInChildren<actorData>().baseDamage.ToString();
@@ -528,23 +533,23 @@ public class MouseControl : MonoBehaviour
          }
 
 
-         //swap the mask to our legal hex layer for raycasting
-         currentMask = 1 << 10;
-         //swap to the appropriate range
-         swapRange();
-         //run the range detection script
-         if (isMove)
-         {
-             //Debug.Log("test");
-             grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
-         }
-         else
-         {
-             grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
-         }
+        // //swap the mask to our legal hex layer for raycasting
+        // currentMask = 1 << 10;
+        // //swap to the appropriate range
+        // swapRange();
+        // //run the range detection script
+        // if (isMove)
+        // {
+        //     //Debug.Log("test");
+        //     grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
+        // }
+        // else
+        // {
+        //     grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
+        // }
 
-        removeRangeInd();
-        //isMoving = false;
+        //removeRangeInd();
+        ////isMoving = false;
 
 
 
