@@ -51,7 +51,8 @@ public class baseAI : MonoBehaviour
 
                     if (self.actionsRemaining > 0)
                     {
-
+                        mouseController.selectedTarget = this.transform.parent;
+                        mouseController.moveRadius();
                         mouseController.moveAttackSwap();
                         for (int i = 0; i < gridOb.legalHex.Count; i++)
                         {
@@ -83,7 +84,7 @@ public class baseAI : MonoBehaviour
 
 
                         }
-                        mouseController.moveAttackSwap();
+                        mouseController.moveRadius();
 
                         mouseController.selectHex(this.transform.parent.gameObject);
                         mouseController.doneMoving = false;

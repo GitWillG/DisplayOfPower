@@ -141,7 +141,6 @@ public class MouseControl : MonoBehaviour
             {
                 GridOb.currTurn.GetComponent<Renderer>().material = currTurnMat;
 
-                curSelectedSprite.sprite = GridOb.currTurn.GetComponentInChildren<actorData>().initiativeAvatar;
             }
             //whenever there is no hovered target or cicked hex reset the last selected hex to its original material
             if (hoveredTarget != null)
@@ -345,6 +344,7 @@ public class MouseControl : MonoBehaviour
     public void moveRadius()
     {
         isMove = true;
+        selectedTarget = GridOb.currTurn.transform;
         removeRangeInd();
         selectHex(currClickedHex);
         basicAttackButton.SetActive(true);
@@ -531,28 +531,6 @@ public class MouseControl : MonoBehaviour
          {
              selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference.GetComponent<Image>().material = initativeMaterialHighlight;
          }
-
-
-        // //swap the mask to our legal hex layer for raycasting
-        // currentMask = 1 << 10;
-        // //swap to the appropriate range
-        // swapRange();
-        // //run the range detection script
-        // if (isMove)
-        // {
-        //     //Debug.Log("test");
-        //     grid.GetComponent<GenerateGrid>().checkMoveLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
-        // }
-        // else
-        // {
-        //     grid.GetComponent<GenerateGrid>().checkAttackLegality(detectRange, selectedTarget.gameObject, selectionMaterial);
-        // }
-
-        //removeRangeInd();
-        ////isMoving = false;
-
-
-
     }
     #endregion
 
@@ -638,23 +616,25 @@ public class MouseControl : MonoBehaviour
             selectedTarget = GridOb.path[0].transform;
             GridOb.path.RemoveAt(0);
             isMoving = false;
+            currClickedHex = selectedTarget.gameObject;
 
 
             //once your path is empty:
             if (GridOb.path.Count <=0)
             {
                 GridOb.currTurn = selectedTarget.gameObject;
+                GridOb.currTurn.GetComponent<Renderer>().material = defaultMat;
                 //1. reset unit orientation
                 actorData data = lastSelectedTarget.GetChild(0).GetComponent<actorData>();
                 data.resetLookTarget();
+                moveRadius();
+                removeRangeInd();
                 #region for AI
                 //2. let the ai know it's done its entire movement
                 doneMoving = true;
                 #endregion
                 //3. go to next turn
                 GridOb.NextTurn();
-                moveRadius();
-                removeRangeInd();
             }
 
 
