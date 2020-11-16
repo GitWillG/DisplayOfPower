@@ -23616,7 +23616,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2136311793}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5587864126467476129}
+        m_MethodName: changeActorStance
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2136311793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30167,7 +30178,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 1407.05, y: 218}
-  m_SizeDelta: {x: 105.79779, y: 30}
+  m_SizeDelta: {x: 101.78, y: 30}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &8370967707543194532
 MonoBehaviour:

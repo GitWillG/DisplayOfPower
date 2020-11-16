@@ -29,6 +29,8 @@ public class BestClickToMove : MonoBehaviour
     string resultAction;
     GenerateGrid gg;
 
+    int resultDamage;
+
 
     // Start is called before the first frame update
     void Start()
@@ -75,14 +77,18 @@ public class BestClickToMove : MonoBehaviour
 
     public void ClickAttack(GameObject unit, GameObject targetHex)
     {
+
+        // Disable friendly fire
         if(targetHex.transform.GetChild(0).GetComponent<actorData>().ownerFaction_string == unit.GetComponent<actorData>().ownerFaction_string)
         {
             guim.updateLog("You cannot attack your ally.");
             return;
         }
+
         // unit = source/dealer
         // targetHex = target/receiver
         //subtract life from targetted unit equal to "damage" of selected unit
+        // Grab the references
         actorData unitData = unit.GetComponent<actorData>();
         
         GameObject targetUnit = targetHex.transform.GetChild(0).gameObject;
@@ -91,10 +97,26 @@ public class BestClickToMove : MonoBehaviour
         Animator targetAnimator = targetHex.GetComponentInChildren<Animator>();
         Animator sourceAnimator = unit.GetComponent<Animator>();
 
-        unitData.changeLookTarget(targetUnit);
-        targetData.changeLookTarget(unit);
 
-        targetHex.GetComponentInChildren<actorData>().Life -= unitData.baseDamage;
+        // Calculate the result damage
+        resultDamage += unitData.baseDamage;
+        resultDamage -= targetData.baseArmor;
+
+        if(targetData.curStance == actorData.stances.defensive)
+        {
+            resultDamage /= 2;
+        }
+
+        //unitData.changeLookTarget(targetUnit);
+        //targetData.changeLookTarget(unit);
+
+        // APPLY THE RESULTING DAMAGE
+        targetHex.GetComponentInChildren<actorData>().Life -= resultDamage;
+
+        // Show the result damage as feedback
+        showDamage(unit, targetHex);
+
+        // Spawn blood particles
         // targetHex.GetComponentInChildren<actorData>().statObject.life -= unit.GetComponent<actorData>().baseDamage;
         Vector3 bloodSpawn = new Vector3(
             targetHex.transform.GetChild(0).transform.position.x,
@@ -105,25 +127,25 @@ public class BestClickToMove : MonoBehaviour
         Destroy(bloodTemp, 2);
 
 
-        Vector3 indicatorPos = new Vector3(
-            targetHex.transform.GetChild(0).transform.position.x,
-            targetHex.transform.GetChild(0).transform.position.y + 2,
-            targetHex.transform.GetChild(0).transform.position.z
-        );
-        
-        showDamage(unit, targetHex);
+        //Vector3 indicatorPos = new Vector3(
+        //    targetHex.transform.GetChild(0).transform.position.x,
+        //    targetHex.transform.GetChild(0).transform.position.y + 2,
+        //    targetHex.transform.GetChild(0).transform.position.z
+        //);
         //showActionActor(unit);
         
 
+        // Update the log
         guim.updateLog(unit.GetComponent<actorData>().actorName + " dealt " + unit.GetComponent<actorData>().baseDamage + " to " + 
             targetHex.GetComponentInChildren<actorData>().actorName);
 
-
+        // Play the animations
         targetAnimator.SetTrigger("takeHit");
         sourceAnimator.SetTrigger("basicAttack");
 
-        cc.panToObject(unit);
-        cc.panToObjectWithDelay(targetUnit, 1);
+        // Pan to camera to target
+        cc.panToObject(targetUnit);
+        //cc.panToObjectWithDelay(targetUnit, 1);
 
 
     }
@@ -137,7 +159,9 @@ public class BestClickToMove : MonoBehaviour
         );
         GameObject temp = Instantiate(numberIndicator, indicatorPos, Quaternion.identity);
         GameObject temp2 = temp.transform.Find("Number").gameObject;
-        int reversed = unit.GetComponent<actorData>().baseDamage * -1;
+
+        int reversed = resultDamage * -1;
+
         if(unit.GetComponent<actorData>().ownerFaction_string == "Ally")
         {
             temp2.GetComponent<TextMeshProUGUI>().color = Color.green;

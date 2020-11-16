@@ -26,12 +26,12 @@ MonoBehaviour:
     and is stunned throughout the durration of the spell. Each round trapped by Drown
     causes 15 damage to the target. '
   enableEffects: 1
-  effectAmount: 1
+  effectAmount: 2
   effectType: 1
   applyStatus: 1
   statusType: 1
   statusDuration: 2
-  statusEffectPerTurn: 1
+  statusEffectPerTurn: 5
   statusParticle: {fileID: 0}
   overwriteStatusVisual: 1
   statusOverwriteParticle: {fileID: 1272224181608010, guid: ba32d6ffbec06034697cddca0390ce64,

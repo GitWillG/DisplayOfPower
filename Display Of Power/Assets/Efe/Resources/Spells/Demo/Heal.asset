@@ -16,10 +16,14 @@ MonoBehaviour:
   useOverwrite: 0
   spellID: 1728
   isPassive: 0
+  affectsOnlyAllies: 0
+  buffType: 0
+  buffProperty: 0
+  buffAmount: 0
   spellName: Heal
   spellDescription: Instantly heals an ally.
   enableEffects: 1
-  effectAmount: 5
+  effectAmount: 25
   effectType: 0
   applyStatus: 0
   statusType: 0

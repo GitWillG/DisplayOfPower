@@ -15,7 +15,7 @@ public class MouseControl : MonoBehaviour
 
     #region Inspector assigned Variables
     public EventSystem ev_system;
-    public GameObject basicAttackButton;
+    //public GameObject basicAttackButton;
     #region GUI
     [Header("GUI")]
     public TextMeshProUGUI lifeBox;
@@ -341,7 +341,7 @@ public class MouseControl : MonoBehaviour
         }
         removeRangeInd();
         selectHex(currClickedHex);
-        basicAttackButton.SetActive(true);
+        //basicAttackButton.SetActive(true);
     }
     #endregion
 

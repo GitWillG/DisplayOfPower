@@ -978,5 +978,28 @@ public class spellManager : MonoBehaviour
             actorData data = n.GetComponent<actorData>();
             data.actionsRemaining = data.idealAP;
         }
+    }  
+
+    public void changeActorStance()
+    {
+
+        if (mc.lastSelectedTarget == null) return;
+        if (mc.lastSelectedTarget.GetChild(0) == null) return;
+        
+
+        actorData data = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
+
+        if (!data.isTurn) return;
+
+        if (data.curStance == actorData.stances.defensive)
+        {
+            data.curStance = actorData.stances.none;
+            guim.updateLog(data.actorName + " has no stance.");
+        }
+        else
+        {
+            data.curStance = actorData.stances.defensive;
+            guim.updateLog(data.actorName + " is in defensive stance.");
+        }
     }
 }

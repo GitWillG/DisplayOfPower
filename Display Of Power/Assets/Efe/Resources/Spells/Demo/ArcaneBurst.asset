@@ -25,7 +25,7 @@ MonoBehaviour:
   spellDescription: 'A burst of Arcane radiates from your core, sending out a wave
     in all directions that deals 50 damage to surrounding enemies. '
   enableEffects: 1
-  effectAmount: 10
+  effectAmount: 50
   effectType: 1
   applyStatus: 0
   statusType: 0

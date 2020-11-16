@@ -24,7 +24,7 @@ MonoBehaviour:
   spellName: Water Blast
   spellDescription: Cast a short ranged water attack dealing 30 damage.
   enableEffects: 1
-  effectAmount: 10
+  effectAmount: 30
   effectType: 1
   applyStatus: 0
   statusType: 0

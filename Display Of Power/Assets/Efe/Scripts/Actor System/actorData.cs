@@ -12,20 +12,35 @@ namespace efe{
     {
         [Header("Base stats")]
         public string actorName;
+
+        [Range(0, 1000)]
         public int Life;
+
+        [Range(0, 100)]
         public int baseDamage;
 
-        public enum damageType { pierce, slash}
+        [Range(0, 20)]
+        public int baseArmor;
+
+        [Range(0, 50)]
+        public int MovementRange;
+
+        [Range(0, 50)]
+        public int AttackRange;
+
+        [Range(0, 5)]
+        public int actionsRemaining;
+
+        public enum damageType { pierce, slash }
         public damageType curType;
+
+        public enum armorTypes { pierce, slash}
+        public armorTypes curArmorType;
 
         public Material oldMaterial;
 
-        public int baseArmor;
-
         int maxLife;
-        public int MovementRange;
-        public int AttackRange;
-        public int actionsRemaining;
+
 
         //public int actorGold;
         //public int actorXP;
@@ -33,15 +48,17 @@ namespace efe{
         //public int actionPoint;
         public string ownerFaction_string;
         
-        public int maxActionPoint;
+        //public int maxActionPoint;
         
         public itemSO[] relic;
-        public bool randomizeName;
+
+        //public bool randomizeName;
         public bool isPlayer;
-        public factionSO ownerFaction;
-        public dialogSO defaultDialog;
         public bool belongsToPlayer;
         public bool isTurn;
+        public factionSO ownerFaction;
+        //public dialogSO defaultDialog;
+
 
         public int TotalActions;
         public Sprite initiativeAvatar;
@@ -115,7 +132,11 @@ namespace efe{
 
         public Animation curAnimation;
 
+        [Range(0, 100)]
         public int dodgeRate;
+
+        public enum stances { none, defensive}
+        public stances curStance;
         
         
         void Start()
