@@ -279,6 +279,15 @@ public class spellManager : MonoBehaviour
 
         if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
 
+        if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().actionsRemaining <
+            mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].actionNeeded
+            )
+        {
+            guim.updateLog("You don't have enough action points.", Color.red);
+            return;
+        }
+        
+
         GameObject preview;
         noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 2 - 200), Quaternion.identity);
         TextMeshProUGUI noteText = noteInstance.transform.Find("BG").transform.Find("Text").GetComponent<TextMeshProUGUI>();
@@ -489,6 +498,16 @@ public class spellManager : MonoBehaviour
                                     }
                                 }
                             }
+                            else if(currentSelectedCharacter.GetComponent<actorData>().actionsRemaining < curSpell.actionNeeded)
+                            {
+                                guim.updateLog("You don't have enough action points.");
+                                am.playAudio2D("error");
+
+                                if (noteInstance != null)
+                                {
+                                    Destroy(noteInstance);
+                                }
+                            }
                             else
                             {
                                 guim.updateLog("There is no NPC here.");
@@ -526,7 +545,7 @@ public class spellManager : MonoBehaviour
                         List<GameObject> inRangeEnemies = new List<GameObject>();
                         foreach(GameObject hex in gg.legalHex)
                         {
-                            if (hex.transform.childCount > 0)
+                        if (hex.transform.childCount != 0)
                             {
                                 if (hex.transform.GetChild(0).GetComponent<actorData>().ownerFaction_string == "Enemy")
                                 {
@@ -538,8 +557,8 @@ public class spellManager : MonoBehaviour
                                 castPreviewEnabled = false;
                                 // Debug.Log("Preview cancelled.");
                                 Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
-                                guim.updateLog("There is no NPC in range.");
-
+                                guim.updateLog("There is no enemy in range.");
+                                
                                 if (noteInstance != null)
                                 {
                                     Destroy(noteInstance);
@@ -556,11 +575,11 @@ public class spellManager : MonoBehaviour
                             actorData tData = t.GetComponent<actorData>();
                             if(tData.ownerFaction_string == "Enemy")
                             {
-                                currentSelectedCharacter.GetComponent<actorData>().actionsRemaining = curSpell.actionNeeded;
+                                //currentSelectedCharacter.GetComponent<actorData>().actionsRemaining = curSpell.actionNeeded;
                             
                                 castSpell(currentSelectedCharacter, t, curSpell);
                                 showSpellDamage(currentSelectedCharacter, t, curSpell);
-                        }
+                            }   
                             currentSelectedCharacter.GetComponent<actorData>().actionsRemaining -= curSpell.actionNeeded;
                             guim.updateLog(currentSelectedCharacter.GetComponent<actorData>().actorName + " casted a " + curSpell.spellName);
                         }

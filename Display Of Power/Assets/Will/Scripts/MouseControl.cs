@@ -119,6 +119,7 @@ public class MouseControl : MonoBehaviour
     private void Update()
     {
 
+        if (sm.castPreviewEnabled == true) return;
         //keep a memory of the last hex selected
         if(selectedTarget != null)
         {
@@ -350,7 +351,7 @@ public class MouseControl : MonoBehaviour
     #region Unit Selection
     public void selectHex(GameObject hexSelected)
     {
-        // if(sm.castPreviewEnabled) return;
+        //if(sm.castPreviewEnabled == true) return;
         
         Transform transformSelected = hexSelected.transform;
         currClickedHex = hexSelected;
@@ -637,7 +638,7 @@ public class MouseControl : MonoBehaviour
                 data.resetLookTarget();
                 moveRadius();
                 removeRangeInd();
-                cc.panToObject(lastSelectedTarget.GetChild(0).gameObject);
+                //cc.panToObject(lastSelectedTarget.GetChild(0).gameObject);
                 
                 #region for AI
                 //2. let the ai know it's done its entire movement

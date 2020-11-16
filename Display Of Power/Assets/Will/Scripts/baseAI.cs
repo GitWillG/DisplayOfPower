@@ -36,10 +36,6 @@ public class baseAI : MonoBehaviour
         }
 
 
-
-
-
-
         if (self.isTurn && !self.belongsToPlayer)
         {
 
@@ -101,6 +97,10 @@ public class baseAI : MonoBehaviour
                         closeDistance();
 
 
+                    }
+                    else if (self.actionsRemaining == 0)
+                    {
+                        gridOb.EndTurn();
                     }
                 }
 
