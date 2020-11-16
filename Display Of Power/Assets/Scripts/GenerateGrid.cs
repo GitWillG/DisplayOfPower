@@ -588,6 +588,7 @@ public class GenerateGrid : MonoBehaviour
         if(!firstTurnPlayed)
         {
             turnDelaySecond = 1;
+            //Debug.Log("First turn");
             firstTurnPlayed = true;
         }
         else

@@ -177,14 +177,6 @@ public class GUIManager : MonoBehaviour
         for(int o = 0; o < skill_slots.Length; o++)
         {
             skill_slots[o].sprite = defaultSlot;
-            if (mc.selectedTarget != null)
-            {
-                if (!mc.selectedTarget.transform.GetChild(0).GetComponent<actorData>().isTurn)
-                {
-                    skill_slots[0].color = Color.gray;
-                }
-
-            }
          
         }
 
@@ -204,7 +196,19 @@ public class GUIManager : MonoBehaviour
         // Put the spell icons on the bar
         for(int i = 0; i < selectedData.spells.Length; i++)
         {
+
             skill_slots[i].sprite = selectedData.spells[i].spellIcon;
+            if (!mc.selectedTarget.transform.GetChild(0).GetComponent<actorData>().isTurn)
+            {
+                skill_slots[i].color = Color.gray;
+                
+            }
+            else if(mc.selectedTarget.transform.GetChild(0).GetComponent<actorData>().isTurn)
+            {
+                skill_slots[i].color = Color.white;
+                
+            }
+
             // Sync the cooldown by putting the cooldown image on top of them lol
             // if(selectedData.cooldownCounters[i] > 0)
             // {
@@ -319,10 +323,8 @@ public class GUIManager : MonoBehaviour
     public void showTooltip(int index)
     {
         if(mc.lastSelectedTarget.GetChild(0) == null) return;
-        
-       
-
         if(index > mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length) return;
+
         spellSO curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index];
         if (curSpell != null)
         {
@@ -383,27 +385,51 @@ public class GUIManager : MonoBehaviour
         tooltip_skill.SetActive(true);
         tooltipSpawnPosition = Input.mousePosition + offsetTooltip;
         if (index == 0)
-        { 
-            tooltip_skill.transform.Find("BG").transform.Find("SpellDesc").GetComponent<TextMeshProUGUI>().text = "Use to attack enemies.";
-            tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "Attack";
-            tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = "";
+        {
+            
+                
+            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "Use to attack enemies.";
+            tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = "Attack";
+            tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("SpellAP").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("Damage").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("DamageResult").GetComponent<TextMeshProUGUI>().text = "";
-            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("SpellDesc").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("-").GetComponent<TextMeshProUGUI>().text = "";
         }
         else if(index == 1)
         {
-            tooltip_skill.transform.Find("BG").transform.Find("SpellDesc").GetComponent<TextMeshProUGUI>().text = "This stance makes the actor switch to a defensive stance. While in this stance, you take %50 less damage but deal %25 less damage as well.";
-            tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "Defend";
-            tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "This stance makes the actor switch to a defensive stance. While in this stance, you take %50 less damage but deal %25 less damage as well.";
+            tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = "Defend";
+            tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("SpellAP").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("Damage").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("DamageResult").GetComponent<TextMeshProUGUI>().text = "";
-            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("SpellDesc").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("-").GetComponent<TextMeshProUGUI>().text = "";
         }
+
+
+    }
+
+    public void showRelicTooltip()
+    {
+
+        tooltip_skill.SetActive(true);
+        tooltipSpawnPosition = Input.mousePosition + offsetTooltip;
+ 
+        tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "Use to attack enemies.";
+        tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = "Attack";
+        tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "";
+        tooltip_skill.transform.Find("BG").transform.Find("SpellAP").GetComponent<TextMeshProUGUI>().text = "";
+        tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "";
+        tooltip_skill.transform.Find("BG").transform.Find("Damage").GetComponent<TextMeshProUGUI>().text = "";
+        tooltip_skill.transform.Find("BG").transform.Find("DamageResult").GetComponent<TextMeshProUGUI>().text = "";
+        tooltip_skill.transform.Find("BG").transform.Find("SpellDesc").GetComponent<TextMeshProUGUI>().text = "";
+        tooltip_skill.transform.Find("BG").transform.Find("-").GetComponent<TextMeshProUGUI>().text = "";
+
 
 
     }
