@@ -36,6 +36,9 @@ public class spellManager : MonoBehaviour
     GameObject tempStatusParticle;
     BestClickToMove bctm;
 
+    int resultSpellDamage;
+    
+
     // Start is called before the first frame update
     void Start()
     {   
@@ -87,21 +90,21 @@ public class spellManager : MonoBehaviour
                                 if(projData.target.GetComponent<actorData>().Life <= 0)
                                 {
                                     projData.target.GetComponent<Animator>().SetTrigger("Die");
-                                    //bctm.showDamage(projData.source, projData.target);
+                                    showSpellDamage(projData.source, projData.target, projData.referenceSpell);
                                     mc.killUnit(projData.target);
                                 }
                                 else
                                 {
                                     projData.target.GetComponent<Animator>().SetTrigger("takeHit");
-                                    //bctm.showDamage(projData.source, projData.target);
-                                    
+                                    showSpellDamage(projData.source, projData.target, projData.referenceSpell);
+
                                 }
                             }
                             // Spells like healing...etc
                             else if (projData.referenceSpell.effectType == spellSO.effectTypes.additive)
                             {
                                 projData.target.GetComponent<actorData>().Life += projData.referenceSpell.effectAmount;
-                                //bctm.showDamage(projData.source, projData.target);
+                                showSpellDamage(projData.source, projData.target, projData.referenceSpell);
                                 // Debug.Log("Heal");
                             }
                         }
@@ -556,8 +559,8 @@ public class spellManager : MonoBehaviour
                                 currentSelectedCharacter.GetComponent<actorData>().actionsRemaining = curSpell.actionNeeded;
                             
                                 castSpell(currentSelectedCharacter, t, curSpell);
-                                //bctm.showDamage(currentSelectedCharacter, t);
-                            }
+                                showSpellDamage(currentSelectedCharacter, t, curSpell);
+                        }
                             currentSelectedCharacter.GetComponent<actorData>().actionsRemaining -= curSpell.actionNeeded;
                             guim.updateLog(currentSelectedCharacter.GetComponent<actorData>().actorName + " casted a " + curSpell.spellName);
                         }
@@ -734,6 +737,7 @@ public class spellManager : MonoBehaviour
                         targetActor.statusDuration = spellData.statusDuration;
                         targetActor.statusEffect = spellData.statusEffectPerTurn;
                         targetActor.statusSpellReference = spellData;
+                        targetActor.statuses.Add(spellData);
                     }
 
                     //bctm.showDamage(source, target);
@@ -754,10 +758,13 @@ public class spellManager : MonoBehaviour
                         {
                             targetAnimator.SetTrigger("takeHit");
                         }
+
+                        showSpellDamage(source, target, spellData);
                     }
                     else
                     {
                         target.GetComponent<actorData>().Life += spellData.effectAmount;
+                        showSpellDamage(source, target, spellData);
                     }
 
                     if(spellData.applyStatus)
@@ -767,6 +774,7 @@ public class spellManager : MonoBehaviour
                         targetActor.statusEffect = spellData.statusEffectPerTurn;
                         targetActor.statusSpellReference = spellData;
                         targetAnimator.SetTrigger("takeHit");
+                        targetActor.statuses.Add(spellData);
                     }
                     
                 }
@@ -778,18 +786,19 @@ public class spellManager : MonoBehaviour
                         if(targetActor.Life <= 0)
                         {
                             targetAnimator.SetTrigger("Die");
-                            //bctm.showDamage(source, target);
+                            showSpellDamage(source, target, spellData);
                             mc.killUnit(target);
                         }
                         else
                         {
                             targetAnimator.SetTrigger("takeHit");
-                            //bctm.showDamage(source, target);
+                            showSpellDamage(source, target, spellData);
                         }
                     }
                     else
                     {
                         target.GetComponent<actorData>().Life += spellData.effectAmount;
+                        showSpellDamage(source, target, spellData);
                     }
 
                     if(spellData.applyStatus)
@@ -798,6 +807,7 @@ public class spellManager : MonoBehaviour
                         targetActor.statusDuration = spellData.statusDuration;
                         targetActor.statusEffect = spellData.statusEffectPerTurn;
                         targetActor.statusSpellReference = spellData;
+                        targetActor.statuses.Add(spellData);
                         targetAnimator.SetTrigger("takeHit");
                     }
 
@@ -829,6 +839,36 @@ public class spellManager : MonoBehaviour
         }
 
 
+    }
+
+    public void showSpellDamage(GameObject unit, GameObject target, spellSO reference)
+    {
+        Vector3 indicatorPos = new Vector3(
+            target.transform.position.x,
+            target.transform.position.y + 1,
+            target.transform.position.z
+        );
+        GameObject temp = Instantiate(bctm.numberIndicator, indicatorPos, Quaternion.identity);
+        GameObject temp2 = temp.transform.Find("Number").gameObject;
+
+        resultSpellDamage = reference.effectAmount;
+
+        if (reference.effectType == spellSO.effectTypes.substractive)
+        {
+            resultSpellDamage = resultSpellDamage * -1;
+        }
+
+        if (unit.GetComponent<actorData>().ownerFaction_string == "Ally")
+        {
+            temp2.GetComponent<TextMeshProUGUI>().color = Color.green;
+        }
+        else
+        {
+            temp2.GetComponent<TextMeshProUGUI>().color = Color.red;
+        }
+        temp2.GetComponent<TextMeshProUGUI>().text = resultSpellDamage.ToString();
+        Destroy(temp, 2);
+        //Debug.Log(temp + " " + temp2);
     }
 
     public void processCooldowns()
@@ -864,6 +904,7 @@ public class spellManager : MonoBehaviour
                 if(actor.statusSpellReference.statusType == spellSO.statusTypes.substractive)
                 {
                     actor.Life -= actor.statusEffect;
+                    guim.updateLog(actor.actorName + " suffers from " + actor.statusSpellReference.spellName);
                     animator.SetTrigger("takeHit");
 
                 }
@@ -875,6 +916,7 @@ public class spellManager : MonoBehaviour
 
                 if(actor.Life == 0)
                 {
+                    guim.updateLog(actor.actorName + " died from " + actor.statusSpellReference.spellName);
                     mc.killUnit(temp);
                 }
 

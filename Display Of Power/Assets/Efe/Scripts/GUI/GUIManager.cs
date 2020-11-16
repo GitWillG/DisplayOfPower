@@ -49,8 +49,12 @@ public class GUIManager : MonoBehaviour
 
     public Image[] stanceIcons;
 
+    public GameObject statusAligner;
+    public GameObject statusSprite;
+    public List<GameObject> tempStatusSprites;
 
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,6 +85,8 @@ public class GUIManager : MonoBehaviour
     void Update()
     {
         syncSkillBar();
+        syncStatusBar();
+
         // If distance of mouse and latest interacted skill icon is more than 25, hide tooltip
         if(tooltip_skill != null)
         {
@@ -164,6 +170,34 @@ public class GUIManager : MonoBehaviour
         }
     }
 
+
+    void syncStatusBar()
+    {
+        // Updates the skillbar depending on current selected actor's spells
+        if (mc.selectedTarget == null) return;
+        if (mc.lastSelectedTarget == null) return;
+        if (mc.lastSelectedTarget.childCount == 0) return;
+        if (mc.lastSelectedTarget.GetChild(0) == null) return;
+
+        actorData data = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
+
+
+        // Reset
+        foreach(GameObject N in tempStatusSprites)
+        {
+            Destroy(N);
+        }
+
+        if (data.statuses.Count == 0) return;
+        // Add
+        for (int z = 0; z < data.statuses.Count; z++)
+        {
+            GameObject S = Instantiate(statusSprite, statusAligner.transform.position, Quaternion.identity);
+            S.transform.parent = statusAligner.transform;
+            S.GetComponent<Image>().sprite = data.statuses[z].spellIcon;
+            tempStatusSprites.Add(S);
+        }
+    }
 
     void syncSkillBar()
     {   

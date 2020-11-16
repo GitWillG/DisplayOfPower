@@ -99,12 +99,12 @@ public class BestClickToMove : MonoBehaviour
 
 
         // Calculate the result damage
-        resultDamage += unitData.baseDamage;
+        resultDamage = unitData.baseDamage;
         resultDamage -= targetData.baseArmor;
 
         if(targetData.curStance == actorData.stances.defensive)
         {
-            resultDamage /= 2;
+            resultDamage = resultDamage / 2;
         }
 
         //unitData.changeLookTarget(targetUnit);

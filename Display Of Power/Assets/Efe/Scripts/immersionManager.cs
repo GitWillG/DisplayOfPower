@@ -206,20 +206,20 @@ public class immersionManager : MonoBehaviour
         // Debug.Log(target.name);
 
         // Instantiate the light in approximately in the center of body - its not dynamic yet
-        if(storedLight == null)
-        {
-            storedLight = Instantiate(highlightLight, 
-            new Vector3
-            (target.transform.position.x, 
-            target.transform.position.y + 5, 
-            target.transform.position.z), 
-            Quaternion.identity);
-        }
-        // if there is already a light in scene, just move it
-        else
-        {
-            storedLight.transform.position = target.transform.position;
-        }
+        //if(storedLight == null)
+        //{
+        //    storedLight = Instantiate(highlightLight, 
+        //    new Vector3
+        //    (target.transform.position.x, 
+        //    target.transform.position.y + 5, 
+        //    target.transform.position.z), 
+        //    Quaternion.identity);
+        //}
+        //// if there is already a light in scene, just move it
+        //else
+        //{
+        //    storedLight.transform.position = target.transform.position;
+        //}
 
         // TODO - multiple selections support
         

@@ -137,6 +137,8 @@ namespace efe{
 
         public enum stances { none, defensive}
         public stances curStance;
+
+        public List<spellSO> statuses;
         
         
         void Start()

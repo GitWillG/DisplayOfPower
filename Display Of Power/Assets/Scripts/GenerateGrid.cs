@@ -593,7 +593,7 @@ public class GenerateGrid : MonoBehaviour
         }
         else
         {
-            turnDelaySecond = 0.1f;
+            turnDelaySecond = 0.6f;
         }
 
         if(endTurnCalledFromGUI)

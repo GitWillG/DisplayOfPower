@@ -90,6 +90,7 @@ public class MouseControl : MonoBehaviour
     #endregion
     #endregion
 
+    CameraControl cc;
 
     
     #region Runtime Functionality
@@ -110,6 +111,7 @@ public class MouseControl : MonoBehaviour
         sm = GameObject.FindGameObjectWithTag("GM").GetComponent<spellManager>();
         guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
         im = GameObject.FindGameObjectWithTag("GM").GetComponent<immersionManager>();
+        cc = Camera.main.GetComponent<CameraControl>();
 
         selectionMaterial = legalMove;
     }
@@ -635,6 +637,8 @@ public class MouseControl : MonoBehaviour
                 data.resetLookTarget();
                 moveRadius();
                 removeRangeInd();
+                cc.panToObject(lastSelectedTarget.GetChild(0).gameObject);
+                
                 #region for AI
                 //2. let the ai know it's done its entire movement
                 doneMoving = true;

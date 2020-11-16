@@ -69,11 +69,13 @@ public class spellSO : ScriptableObject
     public string spellName; // DONE
     [TextArea(15, 20)]
     public string spellDescription;
+
     [Header("Damage/Healing Functionality")]
     [Tooltip("Set enable effects on if you want etc: Fireball to damage or Heal to heal. Off, if you want spells like Teleportation or Sleep.")]
     public bool enableEffects;
     public int effectAmount; // damage for fireball, heal amount for heal
     public effectTypes effectType;
+
     [Header("Status Properties")]
     public bool applyStatus;
     public statusTypes statusType;
@@ -82,6 +84,7 @@ public class spellSO : ScriptableObject
     public ParticleSystem statusParticle;
     public bool overwriteStatusVisual;
     public GameObject statusOverwriteParticle;
+        
     [Header("Substractive Spell Properties")]
     public bool isProjectileBased;
     
