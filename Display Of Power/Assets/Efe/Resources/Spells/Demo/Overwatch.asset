@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a488d22c1496284a8ea28aedee4bed7, type: 3}
+  m_Name: Overwatch
+  m_EditorClassIdentifier: 
+  overwriteParticles: {fileID: 0}
+  useOverwrite: 0
+  spellID: 0
+  isPassive: 0
+  affectsOnlyAllies: 0
+  buffType: 0
+  buffProperty: 0
+  buffAmount: 0
+  spellName: 
+  spellDescription: 
+  enableEffects: 0
+  effectAmount: 0
+  effectType: 0
+  applyStatus: 0
+  statusType: 0
+  statusDuration: 0
+  statusEffectPerTurn: 0
+  statusParticle: {fileID: 0}
+  overwriteStatusVisual: 0
+  statusOverwriteParticle: {fileID: 0}
+  isProjectileBased: 0
+  instant: 0
+  cooldown: 0
+  castingDuration: 0
+  delayPostCast: 0
+  spellMoveSpeed: 0
+  spellRange: 0
+  actionNeeded: 0
+  spellIcon: {fileID: 0}
+  SkillNature: 0
+  shape: 0
+  visualizationMethod: 0
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  baseMaterial: {fileID: 0}
+  sizeMultiplier: 0
+  skillAura: {fileID: 0}
+  SkillTargetHandling: 0
+  allowedTarget: 0
+  SkillCasterAnimation: 0
+  playEndAnimation: 0
+  SkillEndAnimation: 0
+  heightFromGroundLevel: 0
+  spawnAmount: 0
+  casterParticle: {fileID: 0}
+  targetParticle: {fileID: 0}
+  castSFX: {fileID: 0}
+  impactSFX: {fileID: 0}
+  resizeCasterUponCast: 0
+  resizeCasterUponEnd: 0
+  resizeAmount: 0

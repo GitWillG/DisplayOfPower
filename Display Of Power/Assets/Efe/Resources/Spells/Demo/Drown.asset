@@ -31,19 +31,23 @@ MonoBehaviour:
   applyStatus: 1
   statusType: 1
   statusDuration: 2
-  statusEffectPerTurn: 5
+  statusEffectPerTurn: 10
   statusParticle: {fileID: 0}
   overwriteStatusVisual: 1
   statusOverwriteParticle: {fileID: 1272224181608010, guid: ba32d6ffbec06034697cddca0390ce64,
     type: 3}
+  enabled: 0
+  overwatchRadius: 0
+  enabled_stun: 0
+  stunDuration: 0
   isProjectileBased: 0
   instant: 0
-  cooldown: 1
+  cooldown: 3
   castingDuration: 1
   delayPostCast: 1
   spellMoveSpeed: 5
-  spellRange: 0
-  actionNeeded: 2
+  spellRange: 5
+  actionNeeded: 1
   spellIcon: {fileID: 21300000, guid: d18221e7d5238e640a9f3a0304a6774a, type: 3}
   SkillNature: 2
   shape: 0

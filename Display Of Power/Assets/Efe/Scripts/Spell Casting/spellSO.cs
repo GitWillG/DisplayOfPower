@@ -84,7 +84,14 @@ public class spellSO : ScriptableObject
     public ParticleSystem statusParticle;
     public bool overwriteStatusVisual;
     public GameObject statusOverwriteParticle;
-        
+    public string statusName;
+    public Sprite statusIcon;
+
+    [Header("Stun")]
+    public bool enabled_stun;
+    public int stunDuration;
+
+
     [Header("Substractive Spell Properties")]
     public bool isProjectileBased;
     

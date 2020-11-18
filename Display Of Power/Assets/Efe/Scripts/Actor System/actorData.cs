@@ -139,6 +139,11 @@ namespace efe{
         public stances curStance;
 
         public List<spellSO> statuses;
+
+        public bool isStunned;
+
+        public bool isOverwatchEnabled = false;
+        public int overwatchDamage;
         
         
         void Start()

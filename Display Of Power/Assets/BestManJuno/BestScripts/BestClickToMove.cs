@@ -104,7 +104,8 @@ public class BestClickToMove : MonoBehaviour
 
         if(targetData.curStance == actorData.stances.defensive)
         {
-            resultDamage = resultDamage / 2;
+            resultDamage /= 2;
+            guim.updateLog(targetData.actorName + " soaked half the damage.");
         }
 
         //unitData.changeLookTarget(targetUnit);
@@ -154,7 +155,7 @@ public class BestClickToMove : MonoBehaviour
     {
         Vector3 indicatorPos = new Vector3(
             targetHex.transform.GetChild(0).transform.position.x,
-            targetHex.transform.GetChild(0).transform.position.y + 1,
+            targetHex.transform.GetChild(0).transform.position.y + 5,
             targetHex.transform.GetChild(0).transform.position.z
         );
         GameObject temp = Instantiate(numberIndicator, indicatorPos, Quaternion.identity);
@@ -171,7 +172,7 @@ public class BestClickToMove : MonoBehaviour
             temp2.GetComponent<TextMeshProUGUI>().color = Color.red;
         }
         temp2.GetComponent<TextMeshProUGUI>().text = reversed.ToString();
-        Destroy(temp, 2);
+        Destroy(temp, 4);
         //Debug.Log(temp + " " + temp2);
     }
 

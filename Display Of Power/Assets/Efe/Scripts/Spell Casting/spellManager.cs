@@ -206,6 +206,8 @@ public class spellManager : MonoBehaviour
     public void startSpellPreview(spellSO spellInQuestion)
     {   
 
+
+        // Return if there is no selection
         if(mc.selectedTarget == null) return;
         
         if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().cooldownCounters[curIndexCallback] > 0) 
@@ -213,6 +215,8 @@ public class spellManager : MonoBehaviour
             guim.updateLog("Spell is in cooldown.", Color.yellow);
             return;
         }
+
+        // Return if skill is passive, since passives are not usable
         if(spellInQuestion.isPassive) return;
 
         GameObject preview;
@@ -374,7 +378,7 @@ public class spellManager : MonoBehaviour
         {
             if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback] == null) return;
         }
-            Debug.Log(curIndexCallback);
+            //Debug.Log(curIndexCallback);
             curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback];
             if(castPreviewEnabled)
             {
@@ -396,7 +400,7 @@ public class spellManager : MonoBehaviour
                                         hit_preview.point.y,
                                         hit_preview.point.z
                                     );
-                                    Debug.Log(hit_preview.transform.gameObject.name);
+                                    //Debug.Log(hit_preview.transform.gameObject.name);
                                 }
                             }
                             
@@ -545,7 +549,7 @@ public class spellManager : MonoBehaviour
                         List<GameObject> inRangeEnemies = new List<GameObject>();
                         foreach(GameObject hex in gg.legalHex)
                         {
-                        if (hex.transform.childCount != 0)
+                        if (hex.transform.childCount > 0)
                             {
                                 if (hex.transform.GetChild(0).GetComponent<actorData>().ownerFaction_string == "Enemy")
                                 {
@@ -766,7 +770,7 @@ public class spellManager : MonoBehaviour
                 {
                     if(spellData.effectType == spellSO.effectTypes.substractive)
                     {
-                        Debug.Log(spellData.effectAmount);
+                        //Debug.Log(spellData.effectAmount);
                         target.GetComponent<actorData>().Life -= spellData.effectAmount;
                         if(targetActor.Life <= 0)
                         {
@@ -1047,20 +1051,47 @@ public class spellManager : MonoBehaviour
         if (mc.lastSelectedTarget == null) return;
         if (mc.lastSelectedTarget.GetChild(0) == null) return;
         
-
         actorData data = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
 
         if (!data.isTurn) return;
+        if (data.actionsRemaining == 0) return;
 
         if (data.curStance == actorData.stances.defensive)
         {
             data.curStance = actorData.stances.none;
-            guim.updateLog(data.actorName + " has no stance.");
+            guim.updateLog(data.actorName + " has no stance.", Color.blue);
+            
         }
         else
         {
             data.curStance = actorData.stances.defensive;
-            guim.updateLog(data.actorName + " is in defensive stance.");
+            guim.updateLog(data.actorName + " is in defensive stance.", Color.blue);
+            data.actionsRemaining--;
         }
+    }
+
+    public void activateOverwatch()
+    {
+        if (mc.lastSelectedTarget == null) return;
+        if (mc.lastSelectedTarget.GetChild(0) == null) return;
+
+        actorData data = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
+
+        if (!data.isTurn) return;
+        if (data.actionsRemaining == 0) return;
+
+        if (data.isOverwatchEnabled)
+        {
+            data.isOverwatchEnabled = false;
+            guim.updateLog(data.actorName + " is on watch.");
+
+        }
+        else
+        {
+            guim.updateLog(data.actorName + " is not on watch.");
+            data.isOverwatchEnabled = true;
+        }
+
+        
     }
 }

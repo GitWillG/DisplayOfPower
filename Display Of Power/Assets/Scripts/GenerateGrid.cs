@@ -690,7 +690,7 @@ public class GenerateGrid : MonoBehaviour
         sm.processStatuses();
         sm.processCooldowns();
 
-        guim.updateLog("Turn ended.", Color.green);
+        //guim.updateLog("Turn ended.", Color.green);
         mouseControl.playerTurnGUI.SetActive(true);
 
 
@@ -717,7 +717,7 @@ public class GenerateGrid : MonoBehaviour
         //T.transform.parent = turnOrder[k].transform;
         //ObjectsToDestroyAtEndTurn.Add(T);
 
-        guim.updateLog("Turn ended.", Color.green);
+        //guim.updateLog("Turn ended.", Color.green);
         mouseControl.playerTurnGUI.SetActive(true);
         am.playAudio2D("endturn");
         //Time.timeScale = 1;

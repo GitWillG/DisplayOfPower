@@ -434,8 +434,20 @@ public class GUIManager : MonoBehaviour
         }
         else if(index == 1)
         {
-            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "This stance makes the actor switch to a defensive stance. While in this stance, you take %50 less damage but deal %25 less damage as well.";
+            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "This stance makes the actor switch to a defensive stance. While in this stance, you take %50 less damage.";
             tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = "Defend";
+            tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("SpellAP").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("Damage").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("DamageResult").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("SpellDesc").GetComponent<TextMeshProUGUI>().text = "";
+            tooltip_skill.transform.Find("BG").transform.Find("-").GetComponent<TextMeshProUGUI>().text = "";
+        }
+        else if (index == 2)
+        {
+            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "Watch over a targetted zone of the battlefield. When enemies enter the targetted zone, they will be attacked by a strengthened auto attack dealing 30 damage";
+            tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = "Offense";
             tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("SpellAP").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("TypeResult").GetComponent<TextMeshProUGUI>().text = "";
@@ -447,6 +459,8 @@ public class GUIManager : MonoBehaviour
 
 
     }
+
+
 
     public void showRelicTooltip()
     {

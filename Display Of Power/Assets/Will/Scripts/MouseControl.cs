@@ -119,7 +119,7 @@ public class MouseControl : MonoBehaviour
     private void Update()
     {
 
-        if (sm.castPreviewEnabled == true) return;
+        //if (sm.castPreviewEnabled == true) return;
         //keep a memory of the last hex selected
         if(selectedTarget != null)
         {
@@ -351,8 +351,8 @@ public class MouseControl : MonoBehaviour
     #region Unit Selection
     public void selectHex(GameObject hexSelected)
     {
-        //if(sm.castPreviewEnabled == true) return;
-        
+        if (sm.castPreviewEnabled == true) return;
+
         Transform transformSelected = hexSelected.transform;
         currClickedHex = hexSelected;
         if (hoveredMat == false)

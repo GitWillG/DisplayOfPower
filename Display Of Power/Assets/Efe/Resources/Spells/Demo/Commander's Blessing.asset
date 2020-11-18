@@ -10,35 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a488d22c1496284a8ea28aedee4bed7, type: 3}
-  m_Name: Heal
+  m_Name: Commander's Blessing
   m_EditorClassIdentifier: 
-  overwriteParticles: {fileID: 1220922769117174, guid: 45ed8865d496c0f4db8c6eb65c917131,
-    type: 3}
-  useOverwrite: 1
+  overwriteParticles: {fileID: 0}
+  useOverwrite: 0
   spellID: 1728
   isPassive: 0
   affectsOnlyAllies: 0
   buffType: 0
   buffProperty: 0
   buffAmount: 0
-  spellName: Heal
-  spellDescription: Instantly heal 1 allied unit 20 health.
-  enableEffects: 1
-  effectAmount: 20
+  spellName: Commander's Blessing
+  spellDescription: Heal any allies 10 health per round for 3 rounds.
+  enableEffects: 0
+  effectAmount: 0
   effectType: 0
-  applyStatus: 0
+  applyStatus: 1
   statusType: 0
-  statusDuration: 0
-  statusEffectPerTurn: 0
+  statusDuration: 3
+  statusEffectPerTurn: 10
   statusParticle: {fileID: 0}
   overwriteStatusVisual: 0
   statusOverwriteParticle: {fileID: 0}
-  statusName: 
-  statusIcon: {fileID: 0}
-  enabled: 0
-  overwatchRadius: 0
-  enabled_stun: 0
-  stunDuration: 0
   isProjectileBased: 0
   instant: 1
   cooldown: 1
@@ -55,7 +48,7 @@ MonoBehaviour:
   baseMaterial: {fileID: 0}
   sizeMultiplier: 1
   skillAura: {fileID: 0}
-  SkillTargetHandling: 1
+  SkillTargetHandling: 3
   allowedTarget: 0
   SkillCasterAnimation: 1
   playEndAnimation: 0
