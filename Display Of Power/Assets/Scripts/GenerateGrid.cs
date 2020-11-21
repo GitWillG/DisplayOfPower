@@ -93,6 +93,7 @@ public class GenerateGrid : MonoBehaviour
     CameraControl cc;
     audioManager am;
     spellManager sm;
+    MouseControl mc;
 
     public bool firstTurnPlayed = false;
     public float turnDelaySecond;
@@ -108,6 +109,7 @@ public class GenerateGrid : MonoBehaviour
 
         cc = Camera.main.GetComponent<CameraControl>();
 
+        mc = GameObject.FindGameObjectWithTag("SM").GetComponent<MouseControl>();
         guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
         am = GameObject.FindGameObjectWithTag("GM").GetComponent<audioManager>();
         sm = GameObject.FindGameObjectWithTag("GM").GetComponent<spellManager>();
@@ -206,40 +208,40 @@ public class GenerateGrid : MonoBehaviour
         }
     }
 
-    //public void gridGeneration(int gWidth, int gDepth)
-    //{
-    //    hexesSpawned = 0;
-    //    Width = gWidth;
-    //    Depth = gDepth;
-    //    //2 Dimension grid
-    //    for (int x = 0; x < Width; x++)
-    //    {
-    //        for (int z = 0; z < Depth; z++)
-    //        {
-    //            //change the default x positioning to fit the dimensions of the hex
-    //            float xPos = x * hexWidth;
+    public void gridGeneration(int gWidth, int gDepth)
+    {
+        hexesSpawned = 0;
+        Width = gWidth;
+        Depth = gDepth;
+        //2 Dimension grid
+        for (int x = 0; x < Width; x++)
+        {
+            for (int z = 0; z < Depth; z++)
+            {
+                //change the default x positioning to fit the dimensions of the hex
+                float xPos = x * hexWidth;
 
-    //            //every odd row we offset the x position
-    //            if (z % 2 == 1)
-    //            {
-    //                xPos += xOffset;
-    //            }
-    //            //make a hex at the location and name it with its 2D dimensions
-    //            GameObject hexOb = (GameObject)Instantiate(hexPrefab, new Vector3(xPos, 0, z * zOffset), Quaternion.Euler(0, 90, 0));
-    //            hexOb.name = "Hex " + x + " " + z;
-    //            hexOb.transform.SetParent(this.gameObject.transform); 
-                
-    //            if (hexesSpawned < 160 && hexesSpawned >120)
-    //            {
-    //                allySpawnHexes.Add(hexOb);
-    //            }
-    //            else if (hexesSpawned > ((gWidth * gDepth) - constrainSpawn))
-    //            {
-    //                enemySpawnHexes.Add(hexOb);
-    //            }
-    //        }
-    //    }
-    //}
+                //every odd row we offset the x position
+                if (z % 2 == 1)
+                {
+                    xPos += xOffset;
+                }
+                //make a hex at the location and name it with its 2D dimensions
+                GameObject hexOb = (GameObject)Instantiate(hexPrefab, new Vector3(xPos, 0, z * zOffset), Quaternion.Euler(0, 90, 0));
+                hexOb.name = "Hex " + x + " " + z;
+                hexOb.transform.SetParent(this.gameObject.transform);
+
+                if (hexesSpawned < 160 && hexesSpawned > 120)
+                {
+                    allySpawnHexes.Add(hexOb);
+                }
+                else if (hexesSpawned > ((gWidth * gDepth) - constrainSpawn))
+                {
+                    enemySpawnHexes.Add(hexOb);
+                }
+            }
+        }
+    }
 
     //[ContextMenu("CheckRadius")]
     //This is takes a point and Checks each surrounding hex to see if a unit is on them, each hex that does not have a unit, and hasn't already been checked is added to a list
@@ -355,57 +357,57 @@ public class GenerateGrid : MonoBehaviour
 
     }
 
-    ////Function to randomize turn order
-    ////TESTING MEASURE FOR PROTOTYPE
-    //public List<GameObject> RandomizeList(List<GameObject> inputList)
-    //{
-    //    int rand = 0;
-    //    List<GameObject> returnList = new List<GameObject>();
-    //    //while the first list has contents it runs this code
-    //    while (inputList.Count > 0)
-    //    {
-    //        //Randomly take contents from first list then adds to second list 
-    //        //also removes from first list to meet while loop conditions
-    //        rand = UnityEngine.Random.Range(0, inputList.Count);
-    //        returnList.Add(inputList[rand]);
-    //        inputList.Remove(inputList[rand]);
-    //    }
-    //    return returnList;
-    //}
+    //Function to randomize turn order
+    //TESTING MEASURE FOR PROTOTYPE
+    public List<GameObject> RandomizeList(List<GameObject> inputList)
+    {
+        int rand = 0;
+        List<GameObject> returnList = new List<GameObject>();
+        //while the first list has contents it runs this code
+        while (inputList.Count > 0)
+        {
+            //Randomly take contents from first list then adds to second list 
+            //also removes from first list to meet while loop conditions
+            rand = UnityEngine.Random.Range(0, inputList.Count);
+            returnList.Add(inputList[rand]);
+            inputList.Remove(inputList[rand]);
+        }
+        return returnList;
+    }
 
-    //[ContextMenu("Create Turn Order")]
-    //public void CreateTurnOrder()
-    //{
-    //    ///Array of all hexes in game exists in EnemySpawn.cs
-    //    ///run through the existing array of hexes and 
-    //    ///adds all game object that are children to the 
-    //    ///list units on field
-    //    for (int i = 0; i < enemySpawn.hex.Length; i++)
-    //    {
-            
-    //        if (enemySpawn.hex[i].transform.childCount > 0)
-    //        {
-    //            unitsOnField.Add(enemySpawn.hex[i].transform.GetChild(0).gameObject);
-    //        }     
-    //    }
+    [ContextMenu("Create Turn Order")]
+    public void CreateTurnOrder()
+    {
+        ///Array of all hexes in game exists in EnemySpawn.cs
+        ///run through the existing array of hexes and 
+        ///adds all game object that are children to the 
+        ///list units on field
+        for (int i = 0; i < enemySpawn.hex.Length; i++)
+        {
 
-    //    //print all units on field
-    //    for (int i = 0; i < unitsOnField.Count; i++)
-    //    {
-    //        //Debug.Log(unitsOnField[i]);
-    //    }
+            if (enemySpawn.hex[i].transform.childCount > 0)
+            {
+                unitsOnField.Add(enemySpawn.hex[i].transform.GetChild(0).gameObject);
+            }
+        }
 
-    //    //using previous function to randomize list
-    //    turnOrder = RandomizeList(unitsOnField);
+        //print all units on field
+        for (int i = 0; i < unitsOnField.Count; i++)
+        {
+            //Debug.Log(unitsOnField[i]);
+        }
 
-    //    //print the turn order
-    //    for(int i = 0; i < turnOrder.Count; i++)
-    //    {
-    //        //Debug.Log("Turn order: " + (i+1) + " " + turnOrder[i]);
-    //    }
-    //}
+        //using previous function to randomize list
+        turnOrder = RandomizeList(unitsOnField);
 
-    
+        //print the turn order
+        for (int i = 0; i < turnOrder.Count; i++)
+        {
+            //Debug.Log("Turn order: " + (i+1) + " " + turnOrder[i]);
+        }
+    }
+
+
 
 
     [ContextMenu("Start Next Turn")]
@@ -608,7 +610,7 @@ public class GenerateGrid : MonoBehaviour
 
         yield return new WaitForSeconds(turnDelaySecond);
 
-    
+        mc.doneMoving = true;
 
         mouseControl.isMove = true;
         if (mouseControl.selectedTarget != null)
@@ -629,17 +631,26 @@ public class GenerateGrid : MonoBehaviour
            
             turnOrder[k].GetComponent<actorData>().actionsRemaining = turnOrder[k].GetComponent<actorData>().TotalActions;
             turnOrder[k].GetComponent<actorData>().isTurn = false;
-            // turnOrder[k].GetComponent<actorData>().actionsRemaining = 2;
-            sm.refreshAP();
-            if (k < turnOrder.Count - 1)
+
+            // Dynamically refreshes AP the new actor to his ideal AP
+            sm.refreshAP(turnOrder[k]);
+
+            if (k < turnOrder.Count)
             {
-                k = k + 1;
+                k++;
+                
             }
             else
             {
                 k = 0;
             }
             //print("next turn is" + k);
+
+            // Fallback
+            if (k > turnOrder.Count)
+            {
+                k = 0;
+            }
 
         }
         mouseControl.hoveredTarget = turnOrder[k].transform.parent;
@@ -651,10 +662,12 @@ public class GenerateGrid : MonoBehaviour
             if (turnOrder[k].GetComponent<actorData>().belongsToPlayer == true)
             {
                 mouseControl.selectionMaterial = mouseControl.legalMove;
+                mc.playerTurnGUI.SetActive(true);
             }
             else
             {
                 mouseControl.selectionMaterial = mouseControl.enemiesMat;
+                mc.playerTurnGUI.SetActive(false);
             }
 
             mouseControl.clickedHex = false;
@@ -703,7 +716,7 @@ public class GenerateGrid : MonoBehaviour
         //guim.updateLog("Turn ended.", Color.green);
 
         // Show the GUI everytime a turn starts.
-        //mouseControl.playerTurnGUI.SetActive(true);
+        mouseControl.playerTurnGUI.SetActive(true);
 
 
         //am.playAudio2D("endturn");
@@ -732,7 +745,7 @@ public class GenerateGrid : MonoBehaviour
         //ObjectsToDestroyAtEndTurn.Add(T);
 
         //guim.updateLog("Turn ended.", Color.green);
-        //mouseControl.playerTurnGUI.SetActive(true);
+        mouseControl.playerTurnGUI.SetActive(true);
         //am.playAudio2D("endturn");
         //Time.timeScale = 1;
 

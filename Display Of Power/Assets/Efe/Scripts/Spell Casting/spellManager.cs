@@ -907,10 +907,13 @@ public class spellManager : MonoBehaviour
                 if(actor.cooldownCounters[z] > 0)
                 {
                     actor.cooldownCounters[z] -= 1;
+                    if(actor.cooldownCounters[z] == 0)
+                    {
+                        guim.updateLog("Cooldown refreshed on " + actor.spells[z].spellName + ".");
+                    }
                 }
-                else if(actor.cooldownCounters[z] == 0)
+                else
                 {
-                    guim.updateLog("Cooldown refreshed on " + actor.spells[z].spellName + ".");
                     return;
                 }
             }
@@ -972,13 +975,18 @@ public class spellManager : MonoBehaviour
     void processPassives()
     {
         GameObject[] NS = GameObject.FindGameObjectsWithTag("NPC");
+
+        if (NS.Length == 0) return;
+
         foreach(GameObject n in NS)
         {
-            
             actorData data = n.GetComponent<actorData>();
+            if (data.spells.Length == 0) return;
 
             foreach(spellSO s in data.spells)
             {
+                if (!s.isPassive) return;
+
                 if(s.isPassive)
                 {
                     if(s.affectsOnlyAllies)
@@ -1037,16 +1045,21 @@ public class spellManager : MonoBehaviour
         }
     }
 
-    public void refreshAP()
+    /// <summary>
+    /// This script is called from every end turn, to replenish an actor's AP to his ideal AP.
+    /// </summary>
+    /// <param name="source"></param>
+    public void refreshAP(GameObject source)
     {
-        GameObject[] NS = GameObject.FindGameObjectsWithTag("NPC");
-        foreach(GameObject n in NS)
-        {
-            actorData data = n.GetComponent<actorData>();
+
+            actorData data = source.GetComponent<actorData>();
             data.actionsRemaining = data.idealAP;
-        }
+
     }  
 
+    /// <summary>
+    /// This script is called from stance buttons, to switch between defensive and none.
+    /// </summary>
     public void changeActorStance()
     {
 
@@ -1072,6 +1085,9 @@ public class spellManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This script switches the currently selected actor's overwatch on/off.
+    /// </summary>
     public void activateOverwatch()
     {
         if (mc.lastSelectedTarget == null) return;

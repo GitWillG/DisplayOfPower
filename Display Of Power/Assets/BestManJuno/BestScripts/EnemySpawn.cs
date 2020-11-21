@@ -163,16 +163,7 @@ public class EnemySpawn : MonoBehaviour
             // teamFeedbackObjects[0].transform.parent = newEnemy.transform;
         }
 
-        GameObject temp = Instantiate(healthBar, 
-        new Vector3(newEnemy.transform.position.x, newEnemy.transform.position.y + 3, newEnemy.transform.position.z),
-         Quaternion.identity);
-        temp.transform.SetParent(newEnemy.transform);
-        newEnemy.GetComponent<actorData>().healthBar = temp.transform.Find("Slider").gameObject.GetComponent<Slider>();
-        newEnemy.GetComponent<actorData>().AP_reference = temp.transform.Find("ActionPointIndicator").transform.Find("AP").gameObject;
-        newEnemy.GetComponent<actorData>().damageGUI_reference = temp.transform.Find("AttackBG").transform.Find("Attack").gameObject;
-        newEnemy.GetComponent<actorData>().curHPtext_reference = temp.transform.Find("curHP").gameObject;
-        newEnemy.GetComponent<actorData>().maxHPtext_reference = temp.transform.Find("MaxHP").gameObject;
-        newEnemy.GetComponent<actorData>().overheadReference = temp;
+
     }
 
     //public void SpawnSpecificLocation(int numOfUnits, GameObject unitToSpawn, List<GameObject> spawnGrid)

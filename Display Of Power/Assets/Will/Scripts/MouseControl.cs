@@ -494,7 +494,7 @@ public class MouseControl : MonoBehaviour
                 if (selectedTarget.GetComponentInChildren<actorData>().actionsRemaining == 0)
                 {
                     GridOb.EndTurn();
-                    //playerTurnGUI.SetActive(true);
+                    playerTurnGUI.SetActive(true);
                 }
 
                 return;
@@ -688,7 +688,7 @@ public class MouseControl : MonoBehaviour
                 doneMoving = true;
                 #endregion
                 //3. go to next turn
-                GridOb.NextTurn();
+                GridOb.EndTurn();
             }
 
 

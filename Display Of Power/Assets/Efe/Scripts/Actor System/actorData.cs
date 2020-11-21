@@ -93,6 +93,7 @@ namespace efe{
         immersionManager im;
         gameManager gm;
         rigHumanoid rig;
+        EnemySpawn es;
         public spellSO[] spells;
         public Sprite cinematicAvatar;
 
@@ -148,6 +149,24 @@ namespace efe{
         
         void Start()
         {
+            es = GameObject.FindGameObjectWithTag("GG").GetComponent<EnemySpawn>();
+
+            // Overhead bars
+            GameObject temp = Instantiate(es.healthBar,
+            new Vector3
+            (transform.position.x, 
+            transform.position.y + 3,
+            transform.position.z),
+             Quaternion.identity);
+
+            temp.transform.SetParent(transform);
+            
+            healthBar = temp.transform.Find("Slider").gameObject.GetComponent<Slider>();
+            AP_reference = temp.transform.Find("ActionPointIndicator").transform.Find("AP").gameObject;
+            damageGUI_reference = temp.transform.Find("AttackBG").transform.Find("Attack").gameObject;
+            curHPtext_reference = temp.transform.Find("curHP").gameObject;
+            maxHPtext_reference = temp.transform.Find("MaxHP").gameObject;
+            overheadReference = temp;
 
             // Always store the ideal ap this actor has, also can be used for maxAP this actor can havea.
             idealAP = actionsRemaining;

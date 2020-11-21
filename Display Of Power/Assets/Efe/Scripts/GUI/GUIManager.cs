@@ -224,13 +224,13 @@ public class GUIManager : MonoBehaviour
         actorData selectedData = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
 
         // Dont update the skill bar if enemy is selected
-        if(selectedData.ownerFaction_string == "Enemy") return;
-        
+        if (selectedData.ownerFaction_string == "Enemy") return;
 
+        if (selectedData.spells.Length == 0) return;
         // Put the spell icons on the bar
-        for(int i = 0; i < selectedData.spells.Length; i++)
+        for (int i = 0; i < selectedData.spells.Length; i++)
         {
-
+            
             skill_slots[i].sprite = selectedData.spells[i].spellIcon;
             if (!mc.selectedTarget.transform.GetChild(0).GetComponent<actorData>().isTurn)
             {

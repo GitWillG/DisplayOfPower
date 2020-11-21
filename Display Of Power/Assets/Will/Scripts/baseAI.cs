@@ -42,7 +42,7 @@ public class baseAI : MonoBehaviour
             mouseController.selectionMaterial = mouseController.enemiesMat;
             // Debug.Log(this.name + " says hi to your father");
             int check = Random.Range(0, 2);
-            //mouseController.playerTurnGUI.SetActive(false);
+            mouseController.playerTurnGUI.SetActive(false);
             if (check == 0 || target == null)
             {
                 findClosest();
