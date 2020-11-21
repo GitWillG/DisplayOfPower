@@ -150,7 +150,7 @@ public class MouseControl : MonoBehaviour
 
             }
             //whenever there is no hovered target or cicked hex reset the last selected hex to its original material
-            if (hoveredTarget != null)
+            if (hoveredTarget != null && !clickedHex)
             {
 
 
@@ -162,15 +162,25 @@ public class MouseControl : MonoBehaviour
                 hoveredTarget = null;
 
             }
+            else if (hoveredTarget !=null)
+            {                
+                //get the rennderer of the last hovered targed
+                selectionRenderer = hoveredTarget.GetComponent<Renderer>();
+                //reset it
+                selectionRenderer.material = oldMat;
+                //null the old target
+                hoveredTarget = null;
 
-                //after you've reset the hexes to their original color, if a hex is selected keep it colored as such
-                if (selectedTarget != null)
-                {
-                    selectedTarget.gameObject.GetComponent<Renderer>().material = selectedMat;
-                }
+            }
 
-                // checks if mouse is not hovering GUI
-                if (!EventSystem.current.IsPointerOverGameObject())
+            //after you've reset the hexes to their original color, if a hex is selected keep it colored as such
+            if (selectedTarget != null)
+            {
+                selectedTarget.gameObject.GetComponent<Renderer>().material = selectedMat;
+            }
+
+            // checks if mouse is not hovering GUI
+            if (!EventSystem.current.IsPointerOverGameObject())
                 {
                     // Check if player is previewing a skill
 
@@ -226,11 +236,16 @@ public class MouseControl : MonoBehaviour
                     if (!sm.castPreviewEnabled)
                     {
                         // Moving units here
-                        if (Input.GetMouseButtonUp(0) && hoveredTarget != null)
+                        if (Input.GetMouseButtonUp(0) && hoveredTarget != null && clickedHex == false)
                         {
-                            selectHex(hoveredTarget.gameObject);
-                            // Debug.Log(4);
+                        isMove = true;
+                        selectionMaterial = legalMove;
+                        selectHex(hoveredTarget.gameObject);
                         }
+                    else if (Input.GetMouseButtonUp(0) && hoveredTarget != null && clickedHex == true)
+                    {
+                        selectHex(hoveredTarget.gameObject);
+                    }
                     }
 
                 }
@@ -288,7 +303,7 @@ public class MouseControl : MonoBehaviour
     {
         selectionRenderer = selectedTarget.GetComponent<Renderer>();    
         //reset the selected hex
-        selectionRenderer.material = oldMat;
+        selectionRenderer.material = defaultMat;
         //nothing is selected anymore
         clickedHex = false;
         //revert all the highlighted hexes to their original colors
@@ -446,6 +461,7 @@ public class MouseControl : MonoBehaviour
                 currentMask = 1 << 10;
                 //swap to the appropriate range
                 swapRange();
+                //moveRadius();
                 //run the range detection script
                 if (isMove)
                 {
@@ -485,6 +501,7 @@ public class MouseControl : MonoBehaviour
             //attack
             else if (!isMove && transformSelected != null && Input.GetMouseButtonUp(0) && transformSelected.childCount > 0 && currentChar.GetComponent<actorData>().actionsRemaining > 0 && currentChar.GetComponent<actorData>().isTurn && GridOb.legalHex.Contains(transformSelected.gameObject) && !transformSelected.GetComponentInChildren<actorData>().belongsToPlayer)
             {
+                Debug.Log("attacking");
                 this.gameObject.GetComponent<BestClickToMove>().ClickAttack(selectedTarget.GetChild(0).gameObject, transformSelected.gameObject);
                 selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().actionsRemaining -= 1;
                 if (transformSelected.GetChild(0).gameObject.GetComponent<actorData>().Life <= 0)
@@ -688,11 +705,8 @@ public class MouseControl : MonoBehaviour
                 doneMoving = true;
                 #endregion
                 //3. go to next turn
-                GridOb.EndTurn();
+                GridOb.NextTurn();
             }
-
-
-           
         }
     }
 #endregion

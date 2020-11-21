@@ -100,8 +100,10 @@ public class baseAI : MonoBehaviour
                     }
                     else if (self.actionsRemaining == 0)
                     {
+                        self.isTurn = false;
                         gridOb.EndTurn();
                     }
+                    
                 }
 
             }

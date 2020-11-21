@@ -553,7 +553,7 @@ public class GenerateGrid : MonoBehaviour
     /// <summary>
     /// This script spawns random destructible props around the grid.
     /// </summary>
-    /// <param name="targetObject"></param>
+    /// <paramname="targetObject"></param>
     //public void addPropsRandomly(GameObject targetObject)
     //{
     //        for(int b = 0; b < 5; b++)
@@ -609,9 +609,7 @@ public class GenerateGrid : MonoBehaviour
         }
 
         yield return new WaitForSeconds(turnDelaySecond);
-
         mc.doneMoving = true;
-
         mouseControl.isMove = true;
         if (mouseControl.selectedTarget != null)
         {
@@ -622,10 +620,7 @@ public class GenerateGrid : MonoBehaviour
 
 
 
-        //if (k >= turnOrder.Count - 1)
-        //{
-        //    k = 0;
-        //}
+
         if (turnOrder[k].GetComponent<actorData>().actionsRemaining <= 0)
         {
            
@@ -635,7 +630,7 @@ public class GenerateGrid : MonoBehaviour
             // Dynamically refreshes AP the new actor to his ideal AP
             sm.refreshAP(turnOrder[k]);
 
-            if (k < turnOrder.Count)
+            if (k < turnOrder.Count -1)
             {
                 k++;
                 
@@ -644,10 +639,9 @@ public class GenerateGrid : MonoBehaviour
             {
                 k = 0;
             }
-            //print("next turn is" + k);
 
             // Fallback
-            if (k > turnOrder.Count)
+            if (k > turnOrder.Count-1)
             {
                 k = 0;
             }
