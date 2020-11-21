@@ -148,13 +148,12 @@ public class immersionManager : MonoBehaviour
     }
 
     /// <summary>
-    //  Script responsible switching between an object's original materials and an edge outline material once hovered. Used for highlihting meshes dynamically.
-    //  Called from mouseControls.
-    //  It uses skinnedmeshrenderers for rigged objects, renderer material for static objects.
+    ///  Script responsible switching between an object's original materials and an edge outline material once hovered. Used for highlihting meshes dynamically.
+    ///  Called from mouseControls.
+    ///  It uses skinnedmeshrenderers for rigged objects, renderer material for static objects.
     /// </summary>
     /// <param name="target"></param>
     /// <param name="objectType"></param>
-
     public void highlighObject(GameObject target, string objectType)
     {
         if(target.tag != "NPC") return;

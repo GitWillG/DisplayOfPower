@@ -280,6 +280,10 @@ public class MouseControl : MonoBehaviour
         }
     }
     #endregion
+
+    /// <summary>
+    /// This script is called when an unit deselection occurs.
+    /// </summary>
     public void removeRangeInd()
     {
         selectionRenderer = selectedTarget.GetComponent<Renderer>();    
@@ -332,9 +336,10 @@ public class MouseControl : MonoBehaviour
 
 
     }
-   
-    //switches to the movement radius of the currently selected unit 
-    //or the unit whose turn it is if none are selected
+
+    /// <summary>
+    /// This script switches to the movement radius of the currently selected unit or the unit whose turn it is if none are selected.
+    /// </summary>
     public void moveRadius()
     {
         isMove = true;
@@ -348,18 +353,31 @@ public class MouseControl : MonoBehaviour
     }
     #endregion
 
+    /// <summary>
+    /// This script selects a hex, and the unit as its child.
+    /// </summary>
+    /// <param name="hexSelected"></param>
     #region Unit Selection
     public void selectHex(GameObject hexSelected)
     {
+
+        // Prevent selection if a spell is about to be cast
         if (sm.castPreviewEnabled == true) return;
 
+        // Store transform universally
         Transform transformSelected = hexSelected.transform;
+
+        // Store hex universally
         currClickedHex = hexSelected;
+
+
+        // Switch to selection material
         if (hoveredMat == false)
         {
             selectionRenderer.material = selectionMaterial;
         }
 
+        // 
         if (clickedHex == false)
         {
             
@@ -368,11 +386,19 @@ public class MouseControl : MonoBehaviour
                 //save the hovered target as a selected one
                 selectedTarget = transformSelected;
                 clickedHex = true;
+
+                // Update the stats panel
+                #region Updating stats panel
+                // Show life
                 lifeBox.text = selectedTarget.GetComponentInChildren<actorData>().Life.ToString();
+                // Show attack
                 attackBox.text = selectedTarget.GetComponentInChildren<actorData>().baseDamage.ToString();
+                // Show name
                 unitBox.text = selectedTarget.GetComponentInChildren<actorData>().actorName.ToString();
+                // Show action points
                 actionsLeft.text = selectedTarget.GetComponentInChildren<actorData>().actionsRemaining.ToString();
 
+                // Show buff
                 if(selectedTarget.GetComponentInChildren<actorData>().affectedbyBuff)
                 {
                     buffDescField.text =
@@ -381,6 +407,7 @@ public class MouseControl : MonoBehaviour
                 selectedTarget.GetComponentInChildren<actorData>().buffProperty; buffDescField.color = Color.green;
                 }
 
+                // Show debuff
                 if(selectedTarget.GetComponentInChildren<actorData>().affectedbyDebuff)
                 {
                     buffDescField.text =
@@ -390,20 +417,27 @@ public class MouseControl : MonoBehaviour
                     buffDescField.color = Color.red;
                 }
 
+                // Update the avatar in stats panel
+                curSelectedSprite.sprite = selectedTarget.GetComponentInChildren<actorData>().initiativeAvatar;
+                #endregion
 
-                
+                // Highlight the character on this hex
                 im.highlighObject(selectedTarget.GetChild(0).gameObject, "Character");
 
+                // Spawn the selection circle for feedback
                 GameObject tempCircle = Instantiate(selectionCircle, selectedTarget.transform.GetChild(0).gameObject.transform.position, Quaternion.identity);
+                // To follow the actor around
                 tempCircle.transform.parent = selectedTarget.transform.GetChild(0).gameObject.transform;
+                // To be used for multi-selection for future
                 listSelectionCircles.Add(tempCircle);
                 
+                // Highlight the selecter actor's corresponding initiative image
                 if(selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference != null)
                 {
                     selectedTarget.GetChild(0).gameObject.GetComponent<actorData>().initiativeReference.GetComponent<Image>().material = initativeMaterialHighlight;
                 }
 
-                curSelectedSprite.sprite = selectedTarget.GetComponentInChildren<actorData>().initiativeAvatar;
+                // Enable stances
                 foreach (Image t in guim.stanceIcons)
                 {
                     t.color = Color.white;
@@ -460,7 +494,7 @@ public class MouseControl : MonoBehaviour
                 if (selectedTarget.GetComponentInChildren<actorData>().actionsRemaining == 0)
                 {
                     GridOb.EndTurn();
-                    playerTurnGUI.SetActive(true);
+                    //playerTurnGUI.SetActive(true);
                 }
 
                 return;
@@ -486,6 +520,10 @@ public class MouseControl : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// This script is the exact copy of selectHex, with a few adjustments. It is called from when an initiative sprite is clicked.
+    /// </summary>
+    /// <param name="hexSelected"></param>
     public void selectHexFromGUI(GameObject hexSelected)
     {
         if (selectedTarget != null)
@@ -536,6 +574,11 @@ public class MouseControl : MonoBehaviour
     }
     #endregion
 
+
+    /// <summary>
+    /// This script is called to kill an actor.
+    /// </summary>
+    /// <param name="deadUnit"></param>
     #region Unit Actions
     public void killUnit(GameObject deadUnit)
     {

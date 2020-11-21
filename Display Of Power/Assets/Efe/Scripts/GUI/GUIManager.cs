@@ -422,7 +422,7 @@ public class GUIManager : MonoBehaviour
         {
             
                 
-            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "Use to attack enemies.";
+            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "Switch between movement and attacking mode.";
             tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = "Attack";
             tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("SpellAP").GetComponent<TextMeshProUGUI>().text = "";
@@ -434,7 +434,8 @@ public class GUIManager : MonoBehaviour
         }
         else if(index == 1)
         {
-            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "This stance makes the actor switch to a defensive stance. While in this stance, you take %50 less damage.";
+            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "Consumes 1 action point. " +
+                "This stance makes the actor switch to a defensive stance. While in this stance, you take %50 less damage.";
             tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = "Defend";
             tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("SpellAP").GetComponent<TextMeshProUGUI>().text = "";

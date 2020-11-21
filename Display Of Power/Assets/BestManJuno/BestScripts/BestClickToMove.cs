@@ -145,7 +145,7 @@ public class BestClickToMove : MonoBehaviour
         sourceAnimator.SetTrigger("basicAttack");
 
         // Pan to camera to target
-        cc.panToObject(targetUnit);
+        //cc.panToObject(targetUnit);
         //cc.panToObjectWithDelay(targetUnit, 1);
 
 

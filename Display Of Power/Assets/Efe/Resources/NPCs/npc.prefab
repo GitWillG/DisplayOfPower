@@ -834,23 +834,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actorName: NPC
   Life: 0
-  actorGold: 0
-  actorXP: 0
-  actorXPRequired: 0
-  actionPoint: 0
-  ownerFaction_string: 
-  actionsRemaining: 0
-  maxActionPoint: 0
   baseDamage: 0
-  relic: []
-  randomizeName: 0
-  isPlayer: 0
-  ownerFaction: {fileID: 0}
-  defaultDialog: {fileID: 0}
-  belongsToPlayer: 0
-  isTurn: 0
+  baseArmor: 0
   MovementRange: 0
   AttackRange: 0
+  actionsRemaining: 0
+  curType: 0
+  curArmorType: 0
+  oldMaterial: {fileID: 0}
+  ownerFaction_string: 
+  relic: []
+  isPlayer: 0
+  belongsToPlayer: 0
+  isTurn: 0
+  ownerFaction: {fileID: 0}
   TotalActions: 0
   initiativeAvatar: {fileID: 0}
   isBoss: 0
@@ -894,6 +891,14 @@ MonoBehaviour:
   buffName: 
   buffProperty: 
   cooldownCounters: 
+  lookTarget: {fileID: 0}
+  curAnimation: {fileID: 0}
+  dodgeRate: 0
+  curStance: 0
+  statuses: []
+  isStunned: 0
+  isOverwatchEnabled: 0
+  overwatchDamage: 0
 --- !u!195 &919132148619600024
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1053,7 +1058,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5153475846166429160
 Transform:
   m_ObjectHideFlags: 0
@@ -5265,7 +5270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6583218468793616041
 Transform:
   m_ObjectHideFlags: 0

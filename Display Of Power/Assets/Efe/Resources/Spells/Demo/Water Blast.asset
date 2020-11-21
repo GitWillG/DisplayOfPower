@@ -33,6 +33,10 @@ MonoBehaviour:
   statusParticle: {fileID: 0}
   overwriteStatusVisual: 0
   statusOverwriteParticle: {fileID: 0}
+  statusName: 
+  statusIcon: {fileID: 0}
+  enabled_stun: 0
+  stunDuration: 0
   isProjectileBased: 1
   instant: 0
   cooldown: 1
@@ -48,8 +52,7 @@ MonoBehaviour:
   baseColor: {r: 0.9944883, g: 1, b: 0.10849059, a: 0}
   baseMaterial: {fileID: 0}
   sizeMultiplier: 1
-  skillAura: {fileID: 300974991071755964, guid: e72659e96fd144649b17d3a107cdcdf8,
-    type: 3}
+  skillAura: {fileID: 0}
   SkillTargetHandling: 1
   allowedTarget: 1
   SkillCasterAnimation: 0

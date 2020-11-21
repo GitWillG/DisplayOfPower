@@ -5,34 +5,29 @@
  using efe;
  using TMPro;
 
- namespace efe{
- 
- /// <summary>
- /// This script calculate the current fps and show it to a text ui.
- /// </summary>
- public class framerateCounter : MonoBehaviour
- {
-     public string formatedString = "";
-     public TextMeshProUGUI txtFps;
- 
-     public float updateRateSeconds = 4.0F;
- 
-     int frameCount = 0;
-     float dt = 0.0F;
-     float fps = 0.0F;
- 
-     void Update()
-     {
-         frameCount++;
-         dt += Time.unscaledDeltaTime;
-         if (dt > 1.0 / updateRateSeconds)
-         {
-             fps = frameCount / dt;
-             frameCount = 0;
-             dt -= 1.0F / updateRateSeconds;
-         }
-         
-         txtFps.text = formatedString.Replace("{value}", System.Math.Round(fps, 1).ToString("0.0"));
-     }
- }
- }
+namespace efe
+{
+
+    /// <summary>
+    /// This script calculate the current fps and show it to a text ui.
+    /// </summary>
+    public class framerateCounter : MonoBehaviour
+    {
+        public TextMeshProUGUI txtFps;
+
+        private float _hudRefreshRate = 2;
+
+        private float _timer;
+
+        private void Update()
+        {
+            if (Time.unscaledTime > _timer)
+            {
+                int fps = (int)(1f / Time.unscaledDeltaTime);
+                txtFps.text = "FPS: " + fps;
+                fps += 10;
+                _timer = Time.unscaledTime + _hudRefreshRate;
+            }
+        }
+    }
+}

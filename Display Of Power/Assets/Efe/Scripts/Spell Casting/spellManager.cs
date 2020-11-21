@@ -549,11 +549,13 @@ public class spellManager : MonoBehaviour
                         List<GameObject> inRangeEnemies = new List<GameObject>();
                         foreach(GameObject hex in gg.legalHex)
                         {
-                        if (hex.transform.childCount > 0)
+                            Debug.Log(hex.name);
+                            if (hex.transform.childCount > 0)
                             {
                                 if (hex.transform.GetChild(0).GetComponent<actorData>().ownerFaction_string == "Enemy")
                                 {
                                     inRangeEnemies.Add(hex.transform.GetChild(0).gameObject);
+
                                 }
                             }
                             else

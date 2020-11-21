@@ -234,8 +234,7 @@ PrefabInstance:
         type: 3}
       propertyPath: spells.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 75a8619d489c199458182542c84c0a87,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: actorName
