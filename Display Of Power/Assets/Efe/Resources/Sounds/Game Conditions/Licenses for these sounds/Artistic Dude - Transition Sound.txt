@@ -1,0 +1,8 @@
+Sound used
+
+By: artisticdude
+Swing.wav
+Retrived from: https://opengameart.org/content/rpg-sound-pack
+License: Public Domain CC0
+
+Joses Edited File: SwitchTurn_Transition1.mp3
