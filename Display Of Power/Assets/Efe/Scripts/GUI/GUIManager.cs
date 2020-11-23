@@ -53,6 +53,8 @@ public class GUIManager : MonoBehaviour
     public GameObject statusSprite;
     public List<GameObject> tempStatusSprites;
 
+    public List<GameObject> overheadBars;
+    public bool hideOverhead = true;
 
 
     // Start is called before the first frame update
@@ -112,6 +114,26 @@ public class GUIManager : MonoBehaviour
             }
         }
 
+        if(Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            if(hideOverhead)
+            {
+                hideOverhead = false;
+                foreach(GameObject N in overheadBars)
+                {
+                    N.SetActive(false);
+                }
+            }
+            else
+            {
+                hideOverhead = true;
+                foreach (GameObject N in overheadBars)
+                {
+                    N.SetActive(true);
+                }
+            }
+        }
+
 
         // if(Input.GetKeyDown(KeyCode.Q))
         // {
@@ -144,8 +166,8 @@ public class GUIManager : MonoBehaviour
         // }
 
 
-        // Escape to remove any open GUI first
-        // Then open escape menu if there is no GUI open
+        //  Escape to remove any open GUI first
+        //  Then open escape menu if there is no GUI open
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GameObject[] GUIs = GameObject.FindGameObjectsWithTag("GUI");
@@ -356,8 +378,9 @@ public class GUIManager : MonoBehaviour
 
     public void showTooltip(int index)
     {
-        if(mc.lastSelectedTarget.GetChild(0) == null) return;
-        if(index > mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length) return;
+        if (mc.lastSelectedTarget.GetChild(0) == null) return;
+        if (index > mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length) return;
+        if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index] == null) return;
 
         spellSO curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index];
         if (curSpell != null)
@@ -422,7 +445,9 @@ public class GUIManager : MonoBehaviour
         {
             
                 
-            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "Switch between movement and attacking mode.";
+            tooltip_skill.transform.Find("BG").transform.Find("ActionPoints").GetComponent<TextMeshProUGUI>().text = "Switch between movement and attacking mode. " +
+                "   " +
+                "Damage: " + mc.selectedTarget.GetChild(0).GetComponent<actorData>().baseDamage;
             tooltip_skill.transform.Find("BG").transform.Find("SpellName").GetComponent<TextMeshProUGUI>().text = "Attack";
             tooltip_skill.transform.Find("BG").transform.Find("Type").GetComponent<TextMeshProUGUI>().text = "";
             tooltip_skill.transform.Find("BG").transform.Find("SpellAP").GetComponent<TextMeshProUGUI>().text = "";

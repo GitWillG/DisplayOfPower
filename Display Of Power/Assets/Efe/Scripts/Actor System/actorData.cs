@@ -101,9 +101,10 @@ namespace efe{
         public Slider healthBar;
         public GameObject initiativeReference;
         public GameObject AP_reference;
-        public GameObject curHPtext_reference;
-        public GameObject maxHPtext_reference;
-        public GameObject damageGUI_reference;
+        //public GameObject curHPtext_reference;
+        //public GameObject maxHPtext_reference;
+        //public GameObject damageGUI_reference;
+        public GameObject sliderFill;
         MouseControl mc;
         GameObject enemySideReference;
         GameObject allySideReference;
@@ -145,28 +146,38 @@ namespace efe{
 
         public bool isOverwatchEnabled = false;
         public int overwatchDamage;
-        
+
+        GUIManager guim;
         
         void Start()
         {
             es = GameObject.FindGameObjectWithTag("GG").GetComponent<EnemySpawn>();
+            guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
 
             // Overhead bars
             GameObject temp = Instantiate(es.healthBar,
             new Vector3
-            (transform.position.x, 
+            (transform.position.x - 1, 
             transform.position.y + 3,
             transform.position.z),
              Quaternion.identity);
 
             temp.transform.SetParent(transform);
+            guim.overheadBars.Add(temp);
             
             healthBar = temp.transform.Find("Slider").gameObject.GetComponent<Slider>();
             AP_reference = temp.transform.Find("ActionPointIndicator").transform.Find("AP").gameObject;
-            damageGUI_reference = temp.transform.Find("AttackBG").transform.Find("Attack").gameObject;
-            curHPtext_reference = temp.transform.Find("curHP").gameObject;
-            maxHPtext_reference = temp.transform.Find("MaxHP").gameObject;
+
+            //damageGUI_reference = temp.transform.Find("AttackBG").transform.Find("Attack").gameObject;
+            //curHPtext_reference = temp.transform.Find("curHP").gameObject;
+            //maxHPtext_reference = temp.transform.Find("MaxHP").gameObject;
             overheadReference = temp;
+            sliderFill = temp.transform.Find("Slider").transform.Find("Fill Area").transform.Find("Fill").gameObject;
+
+            if(ownerFaction_string == "Ally")
+            {
+                sliderFill.GetComponent<Image>().color = Color.green;
+            }
 
             // Always store the ideal ap this actor has, also can be used for maxAP this actor can havea.
             idealAP = actionsRemaining;
@@ -206,6 +217,7 @@ namespace efe{
             // Health Bar
             maxLife = Life;
 
+            // Freeroam stuff
             if(actorQuests.Count > 0)
             {
                 GameObject mark = Instantiate(im.questAvailableMark, rig.overhead_reference.transform.position, Quaternion.identity);
@@ -227,13 +239,18 @@ namespace efe{
             // Debug.Log(this.name + " will spawn in " + actorEntryPoint + " " + actorLocation.locationName);
             #endregion
 
+
+            // Freeroam stuff
             // For Debugging
             if (peaceful)
             {
                 agent.speed = 1;
             }
 
+            // Make sure actors face the proper sides at the start
             resetLookTarget();
+
+            //im.highlighObject(this.gameObject, "Character");
         
     }
 
@@ -291,9 +308,9 @@ namespace efe{
                 healthBar.maxValue = maxLife;
                 healthBar.value = Life;
                 AP_reference.GetComponent<TextMeshProUGUI>().text = actionsRemaining.ToString();
-                damageGUI_reference.GetComponent<TextMeshProUGUI>().text = baseDamage.ToString();
-                curHPtext_reference.GetComponent<TextMeshProUGUI>().text = Life.ToString();
-                maxHPtext_reference.GetComponent<TextMeshProUGUI>().text = maxLife.ToString();
+                //damageGUI_reference.GetComponent<TextMeshProUGUI>().text = baseDamage.ToString();
+                //curHPtext_reference.GetComponent<TextMeshProUGUI>().text = Life.ToString();
+                //maxHPtext_reference.GetComponent<TextMeshProUGUI>().text = maxLife.ToString();
 
             }
             

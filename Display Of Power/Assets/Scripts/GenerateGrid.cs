@@ -103,6 +103,11 @@ public class GenerateGrid : MonoBehaviour
     public List<GameObject> ObjectsToDestroyAtEndTurn;
     bool endTurnCalledFromGUI = false;
 
+
+    // Tutorials
+    public bool showInitiativeTutorial = false;
+    public GameObject initiativeTutorial;
+
     // Start is called before the first frame update
     void Start()
     {   
@@ -437,6 +442,8 @@ public class GenerateGrid : MonoBehaviour
         temp.GetComponent<temp_initiativeDataHolder>().referenceObject = sourceObject;
         temp.name = data.actorName;
 
+
+
     }
 
     public void choosePath(GameObject start, GameObject end)
@@ -604,7 +611,7 @@ public class GenerateGrid : MonoBehaviour
         // No delay if player ends the turn from button
         if(endTurnCalledFromGUI)
         {
-            turnDelaySecond = 0;
+            turnDelaySecond = 1/2;
             endTurnCalledFromGUI = false;
         }
 
@@ -696,7 +703,13 @@ public class GenerateGrid : MonoBehaviour
             for (int z = 0; z < turnOrder.Count; z++)
             {
                 createInitiativeSprite(turnOrder[z]);
+            }
 
+            if(showInitiativeTutorial == false)
+            {
+                initiativeTutorial.SetActive(true);
+                showInitiativeTutorial = true;
+                Destroy(initiativeTutorial, 7);
             }
         }
 

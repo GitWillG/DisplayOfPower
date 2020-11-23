@@ -65,7 +65,7 @@ public class BestClickToMove : MonoBehaviour
         agent.destination = new Vector3(targetHex.transform.position.x, unit.transform.position.y, targetHex.transform.position.z);
 
         unit.transform.SetParent(targetHex.transform);
-        cc.trackObject(unit);
+        //cc.trackObject(unit);
 
 
        
@@ -108,8 +108,8 @@ public class BestClickToMove : MonoBehaviour
             guim.updateLog(targetData.actorName + " soaked half the damage.");
         }
 
-        //unitData.changeLookTarget(targetUnit);
-        //targetData.changeLookTarget(unit);
+        unitData.changeLookTarget(targetUnit);
+        targetData.changeLookTarget(unit);
 
         // APPLY THE RESULTING DAMAGE
         targetHex.GetComponentInChildren<actorData>().Life -= resultDamage;

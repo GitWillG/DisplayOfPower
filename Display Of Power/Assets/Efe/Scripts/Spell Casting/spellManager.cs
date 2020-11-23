@@ -269,6 +269,14 @@ public class spellManager : MonoBehaviour
         // }
     }
 
+    public void showNote(string targetString)
+    {
+        noteInstance = Instantiate(previewNotficiation, new Vector2(Screen.width / 2, Screen.height / 2 - 200), Quaternion.identity);
+        TextMeshProUGUI noteText = noteInstance.transform.Find("BG").transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        noteText.text = targetString;
+        Destroy(noteInstance, 3);
+    }
+
     // For skillbar
     public void startSpellPreview()
     {   
@@ -278,6 +286,7 @@ public class spellManager : MonoBehaviour
         if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().cooldownCounters[curIndexCallback] > 0) 
         {
             guim.updateLog("Spell is in cooldown.", Color.yellow);
+            showNote("Spell is in cooldown.");
             return;
         }
 
@@ -1069,7 +1078,11 @@ public class spellManager : MonoBehaviour
         actorData data = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
 
         if (!data.isTurn) return;
-        if (data.actionsRemaining == 0) return;
+        if (data.actionsRemaining == 0)
+        {
+            gg.NextTurn();
+            return;
+        }
 
         if (data.curStance == actorData.stances.defensive)
         {
@@ -1082,6 +1095,8 @@ public class spellManager : MonoBehaviour
             data.curStance = actorData.stances.defensive;
             guim.updateLog(data.actorName + " is in defensive stance.", Color.blue);
             data.actionsRemaining--;
+
+
         }
     }
 

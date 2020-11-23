@@ -23,6 +23,8 @@ public class MouseControl : MonoBehaviour
     public TextMeshProUGUI attackBox;
     public TextMeshProUGUI actionsLeft;
     public TextMeshProUGUI buffDescField;
+    public TextMeshProUGUI armorBox;
+
     public GameObject playerTurnGUI;
     public GameObject tutorial;
     #endregion
@@ -91,8 +93,9 @@ public class MouseControl : MonoBehaviour
     #endregion
 
     CameraControl cc;
-
     
+
+
     #region Runtime Functionality
     private void Start()
     {
@@ -129,6 +132,9 @@ public class MouseControl : MonoBehaviour
         //as long as we haven't reached the end of the path, and stopped moving keep following the path
         if (GridOb.path.Count > 0)
         {
+
+            //if (sm.castPreviewEnabled == true) return;
+
             if (isMoving == true)
             {
 
@@ -340,6 +346,7 @@ public class MouseControl : MonoBehaviour
         unitBox.text = "";
         actionsLeft.text = "";
         buffDescField.text = "";
+        armorBox.text = "";
 
         //curSelectedSprite.sprite = null;
         //lastSelectedTarget = null;
@@ -376,8 +383,7 @@ public class MouseControl : MonoBehaviour
     public void selectHex(GameObject hexSelected)
     {
 
-        // Prevent selection if a spell is about to be cast
-        if (sm.castPreviewEnabled == true) return;
+      
 
         // Store transform universally
         Transform transformSelected = hexSelected.transform;
@@ -410,6 +416,8 @@ public class MouseControl : MonoBehaviour
                 attackBox.text = selectedTarget.GetComponentInChildren<actorData>().baseDamage.ToString();
                 // Show name
                 unitBox.text = selectedTarget.GetComponentInChildren<actorData>().actorName.ToString();
+                //Show armor
+                armorBox.text = selectedTarget.GetComponentInChildren<actorData>().baseArmor.ToString();
                 // Show action points
                 actionsLeft.text = selectedTarget.GetComponentInChildren<actorData>().actionsRemaining.ToString();
 

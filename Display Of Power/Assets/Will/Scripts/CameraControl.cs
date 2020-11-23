@@ -158,6 +158,7 @@ public class CameraControl : MonoBehaviour
         // TRACKING LOGIC
         if(isTracking)
         {
+
             panPosition = new Vector3
             (
                 objectToPan.transform.position.x - 5,
@@ -214,12 +215,12 @@ public class CameraControl : MonoBehaviour
     {
         Vector3 rotation = transform.eulerAngles;
 
-        if(Input.GetKey("right"))
+        if(Input.GetKey(KeyCode.E))
         { 
             rotation.y += rotationSpeed * Time.deltaTime;
             Debug.Log("Right arrow key");
         }
-        if(Input.GetKey("left"))
+        if(Input.GetKey(KeyCode.Q))
         {
             rotation.y -= rotationSpeed * Time.deltaTime;
             Debug.Log("Left arrow key");

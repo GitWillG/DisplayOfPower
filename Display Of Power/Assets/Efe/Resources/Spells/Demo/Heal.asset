@@ -35,8 +35,6 @@ MonoBehaviour:
   statusOverwriteParticle: {fileID: 0}
   statusName: 
   statusIcon: {fileID: 0}
-  enabled: 0
-  overwatchRadius: 0
   enabled_stun: 0
   stunDuration: 0
   isProjectileBased: 0
@@ -62,9 +60,9 @@ MonoBehaviour:
   SkillEndAnimation: 0
   heightFromGroundLevel: 1
   spawnAmount: 0
-  casterParticle: {fileID: 6590081616588900095, guid: d7f61d113496a784fb31fc9e6173b084,
+  casterParticle: {fileID: 1220922769117174, guid: 45ed8865d496c0f4db8c6eb65c917131,
     type: 3}
-  targetParticle: {fileID: 6698205156691766322, guid: fe55eeb1e5055dc44b882ecb0b5bcdad,
+  targetParticle: {fileID: 1220922769117174, guid: 45ed8865d496c0f4db8c6eb65c917131,
     type: 3}
   castSFX: {fileID: 0}
   impactSFX: {fileID: 0}
