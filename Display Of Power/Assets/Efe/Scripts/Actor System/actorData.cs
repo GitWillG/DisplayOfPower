@@ -67,12 +67,12 @@ namespace efe{
         public attackTypes attackType;
 
         [Header("Audio")]
-        public AudioSource click_voice;
-        public AudioSource move_voice;
-        public AudioSource takehit_voice;
-        public AudioSource death_voice;
-        public AudioSource order_attack_voice;
-        public AudioSource attack_voice;
+        public AudioClip click_voice;
+        public AudioClip move_voice;
+        public AudioClip takehit_voice;
+        public AudioClip death_voice;
+        public AudioClip order_attack_voice;
+        public AudioClip attack_voice;
 
         [Header("Quests")]
         public List<questItem> actorQuests;

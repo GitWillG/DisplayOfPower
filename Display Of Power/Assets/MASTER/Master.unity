@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 1563237712}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &2818525
 Transform:
   m_ObjectHideFlags: 19
@@ -30825,6 +30826,8 @@ MonoBehaviour:
   tempStatusSprites: []
   overheadBars: []
   hideOverhead: 0
+  cooldownGUI: {fileID: 4892931696725999753, guid: e7010573279372a45b008307b094ff88,
+    type: 3}
 --- !u!114 &5587864126467476140
 MonoBehaviour:
   m_ObjectHideFlags: 0

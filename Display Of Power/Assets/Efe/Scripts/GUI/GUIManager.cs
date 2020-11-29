@@ -57,6 +57,7 @@ public class GUIManager : MonoBehaviour
     public bool hideOverhead = true;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -265,6 +266,16 @@ public class GUIManager : MonoBehaviour
                 
             }
 
+            //if(selectedData.cooldownCounters[i] > 0)
+            //{
+            //    temp = Instantiate(cooldownGUI, skill_slots[i].transform.position, Quaternion.identity);
+            //    cooldownGUIs.Add(temp);
+            //}
+            //else if (selectedData.cooldownCounters[i] == 0)
+            //{
+            //    cooldownGUIs.Remove(temp);
+            //}
+
             // Sync the cooldown by putting the cooldown image on top of them lol
             // if(selectedData.cooldownCounters[i] > 0)
             // {
@@ -273,10 +284,6 @@ public class GUIManager : MonoBehaviour
             //     selectedData.cooldownCounters[i].ToString();
             // }
         }
-
-        
-
-            
 
     }
 

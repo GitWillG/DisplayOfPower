@@ -93,6 +93,7 @@ public class MouseControl : MonoBehaviour
     #endregion
 
     CameraControl cc;
+    audioManager am;
     
 
 
@@ -115,6 +116,7 @@ public class MouseControl : MonoBehaviour
         guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
         im = GameObject.FindGameObjectWithTag("GM").GetComponent<immersionManager>();
         cc = Camera.main.GetComponent<CameraControl>();
+        am = GameObject.FindGameObjectWithTag("GM").GetComponent<audioManager>();
 
         selectionMaterial = legalMove;
     }
@@ -405,6 +407,14 @@ public class MouseControl : MonoBehaviour
                 //save the hovered target as a selected one
                 selectedTarget = transformSelected;
                 clickedHex = true;
+
+                actorData data = selectedTarget.GetComponentInChildren<actorData>();
+
+                if(data.click_voice != null)
+                { 
+                    am.playAudio2D(data.click_voice);
+                }
+
 
                 // Update the stats panel
                 #region Updating stats panel

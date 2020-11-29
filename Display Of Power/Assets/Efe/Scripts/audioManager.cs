@@ -56,7 +56,14 @@ public class audioManager : MonoBehaviour
         // Debug.Log(result.name + " played.");
     }
 
-    public void playAudio3d()
+    public void playAudio2D(AudioClip targetClip)
+    {
+
+        source.PlayOneShot(targetClip);
+        // Debug.Log(result.name + " played.");
+    }
+
+        public void playAudio3d()
     {
         
     }
