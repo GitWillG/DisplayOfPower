@@ -468,7 +468,16 @@ public class GenerateGrid : MonoBehaviour
 
     public void EndTurn()
     {
-        if (turnOrder[k] !=null)
+
+        // Fix for turnOrders to take deaths into account
+        if (k > turnOrder.Count -1)
+        {
+            //k = 0;
+            NextTurn();
+            return;
+        }
+
+        if (turnOrder[k] != null)
         {
             if (turnOrder[k].GetComponent<actorData>().isTurn && turnOrder[k].GetComponent<actorData>().actionsRemaining > 0)
             {
@@ -488,6 +497,9 @@ public class GenerateGrid : MonoBehaviour
     public void EndTurnFromGUI()
     {
         endTurnCalledFromGUI = true;
+
+        mc.isMoving = false;
+
         if (turnOrder[k] != null)
         {
             if (turnOrder[k].GetComponent<actorData>().isTurn && turnOrder[k].GetComponent<actorData>().actionsRemaining > 0)
@@ -616,19 +628,30 @@ public class GenerateGrid : MonoBehaviour
         }
 
         yield return new WaitForSeconds(turnDelaySecond);
+
         mc.doneMoving = true;
         mouseControl.isMove = true;
+        mc.isMoving = false;
+
         if (mouseControl.selectedTarget != null)
         {
            
             //mouseControl.swapRange();
             mouseControl.removeRangeInd();
         }
-
-
-
-
-        if (turnOrder[k].GetComponent<actorData>().actionsRemaining <= 0)
+        
+        if(k > turnOrder.Count -1)
+        {
+            if (k < turnOrder.Count - 1)
+            {
+                k++;
+            }
+            else
+            {
+                k = 0;
+            }
+        }
+        else if (turnOrder[k].GetComponent<actorData>().actionsRemaining <= 0)
         {
            
             turnOrder[k].GetComponent<actorData>().actionsRemaining = turnOrder[k].GetComponent<actorData>().TotalActions;
@@ -640,20 +663,15 @@ public class GenerateGrid : MonoBehaviour
             if (k < turnOrder.Count -1)
             {
                 k++;
-                
             }
             else
             {
                 k = 0;
             }
 
-            // Fallback
-            if (k > turnOrder.Count-1)
-            {
-                k = 0;
-            }
 
         }
+        
         mouseControl.hoveredTarget = turnOrder[k].transform.parent;
         turnOrder[k].GetComponent<actorData>().isTurn = true;
         currTurn = turnOrder[k].transform.parent.gameObject;

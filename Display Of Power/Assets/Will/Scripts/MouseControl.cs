@@ -383,8 +383,6 @@ public class MouseControl : MonoBehaviour
     public void selectHex(GameObject hexSelected)
     {
 
-      
-
         // Store transform universally
         Transform transformSelected = hexSelected.transform;
 
@@ -696,6 +694,7 @@ public class MouseControl : MonoBehaviour
             currClickedHex = selectedTarget.gameObject;
 
 
+
             //once your path is empty:
             if (GridOb.path.Count <=0)
             {
@@ -711,6 +710,7 @@ public class MouseControl : MonoBehaviour
                 #region for AI
                 //2. let the ai know it's done its entire movement
                 doneMoving = true;
+                isMoving = false;
                 #endregion
                 //3. go to next turn
                 GridOb.NextTurn();

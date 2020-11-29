@@ -378,9 +378,13 @@ public class GUIManager : MonoBehaviour
 
     public void showTooltip(int index)
     {
+        if (mc.lastSelectedTarget.childCount == 0) return;
         if (mc.lastSelectedTarget.GetChild(0) == null) return;
+        if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length == 0) return;
         if (index > mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length) return;
-        if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index] == null) return;
+        //if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index] == null) return;
+
+        
 
         spellSO curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index];
         if (curSpell != null)

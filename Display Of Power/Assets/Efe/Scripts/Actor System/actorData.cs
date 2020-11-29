@@ -270,6 +270,7 @@ namespace efe{
         {
             lookTarget = _target;
             this.transform.LookAt(lookTarget.transform);
+            
         }
 
         /// <summary>

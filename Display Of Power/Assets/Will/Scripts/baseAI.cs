@@ -13,6 +13,7 @@ public class baseAI : MonoBehaviour
     public actorData self;
     public GameObject hexTarget;
     GUIManager guim;
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +80,7 @@ public class baseAI : MonoBehaviour
                                 mouseController.moveRadius();
                                 if (self.actionsRemaining == 0)
                                 {
+                                    mouseController.isMoving = false;
                                     gridOb.EndTurn();
 
                                 }
@@ -101,6 +103,7 @@ public class baseAI : MonoBehaviour
                     else if (self.actionsRemaining == 0)
                     {
                         self.isTurn = false;
+                        mouseController.isMoving = false;
                         gridOb.EndTurn();
                     }
                     
