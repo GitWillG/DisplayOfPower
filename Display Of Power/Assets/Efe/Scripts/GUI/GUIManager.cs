@@ -56,6 +56,13 @@ public class GUIManager : MonoBehaviour
     public List<GameObject> overheadBars;
     public bool hideOverhead = true;
 
+    public Slider bottomHealthBar;
+    public TextMeshProUGUI curHP;
+    public TextMeshProUGUI maxHP;
+    public TextMeshProUGUI slash;
+
+    Color originalColor;
+
 
 
     // Start is called before the first frame update
@@ -75,8 +82,10 @@ public class GUIManager : MonoBehaviour
         offsetTooltip.x = 115;
         offsetTooltip.y = 615;
 
+        originalColor = bottomHealthBar.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color;
 
-        
+
+
 
     }   
 
@@ -85,13 +94,48 @@ public class GUIManager : MonoBehaviour
     //     GUI.Box(new Rect(0, 0, Screen.width / 8, Screen.height / 4), "This is a box");
     // }
 
+
+    public void syncBottomHP()
+    {
+
+        if (mc.lastSelectedTarget == null) return;
+
+        if (mc.lastSelectedTarget.childCount > 0)
+        {
+            actorData data = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
+            bottomHealthBar.value = data.Life;
+            bottomHealthBar.maxValue = data.maxLife;
+            curHP.text = data.Life.ToString();
+            maxHP.text = data.maxLife.ToString();
+            slash.text = "/";
+            bottomHealthBar.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = originalColor;
+
+            if(data.ownerFaction_string == "Ally")
+            {
+                bottomHealthBar.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = Color.blue;
+            }
+        }
+        else
+        {
+            bottomHealthBar.value = 0;
+            bottomHealthBar.maxValue = 0;
+            curHP.text = "";
+            maxHP.text = "";
+            slash.text = "";
+
+            bottomHealthBar.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = Color.gray;
+        }
+    }
+
     void Update()
     {
         syncSkillBar();
         syncStatusBar();
+        syncBottomHP();
+                                                                     
 
         // If distance of mouse and latest interacted skill icon is more than 25, hide tooltip
-        if(tooltip_skill != null)
+        if (tooltip_skill != null)
         {
             tooltip_skill.transform.position = Input.mousePosition + offsetTooltip;
             float distance = Vector2.Distance(tooltip_skill.transform.position, tooltipSpawnPosition);

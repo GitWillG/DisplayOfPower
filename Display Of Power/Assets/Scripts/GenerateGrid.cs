@@ -606,18 +606,13 @@ public class GenerateGrid : MonoBehaviour
     public IEnumerator pauseforTurn()
     {
 
+        turnDelaySecond = 1;
         // Make the first turn delay a bit for feedback
-        if(!firstTurnPlayed)
+        if (!firstTurnPlayed)
         {
             turnDelaySecond = 1;
             //Debug.Log("First turn");
             firstTurnPlayed = true;
-        }
-
-        // Usual timing
-        else
-        {
-            turnDelaySecond = 1;
         }
 
         // No delay if player ends the turn from button

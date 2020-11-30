@@ -108,8 +108,8 @@ public class BestClickToMove : MonoBehaviour
             guim.updateLog(targetData.actorName + " soaked half the damage.");
         }
 
-        unitData.changeLookTarget(targetUnit);
-        targetData.changeLookTarget(unit);
+        //unitData.changeLookTarget(targetUnit);
+        //targetData.changeLookTarget(unit);
 
         // APPLY THE RESULTING DAMAGE
         targetHex.GetComponentInChildren<actorData>().Life -= resultDamage;
@@ -137,7 +137,7 @@ public class BestClickToMove : MonoBehaviour
         
 
         // Update the log
-        guim.updateLog(unit.GetComponent<actorData>().actorName + " dealt " + unit.GetComponent<actorData>().baseDamage + " to " + 
+        guim.updateLog(unit.GetComponent<actorData>().actorName + " dealt " + unit.GetComponent<actorData>().baseDamage + " damage to " + 
             targetHex.GetComponentInChildren<actorData>().actorName);
 
         // Play the animations

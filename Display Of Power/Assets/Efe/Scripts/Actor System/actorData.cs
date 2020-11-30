@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using TMPro;
 using efe;
+using ShatterToolkit;
 
 // needs to be called "using efe;"
 namespace efe{
@@ -39,7 +40,7 @@ namespace efe{
 
         public Material oldMaterial;
 
-        int maxLife;
+        public int maxLife;
 
 
         //public int actorGold;
@@ -148,9 +149,14 @@ namespace efe{
         public int overwatchDamage;
 
         GUIManager guim;
+
+        public Image shieldImage;
         
         void Start()
         {
+
+            
+
             es = GameObject.FindGameObjectWithTag("GG").GetComponent<EnemySpawn>();
             guim = GameObject.FindGameObjectWithTag("GM").GetComponent<GUIManager>();
 
@@ -161,6 +167,11 @@ namespace efe{
             transform.position.y + 3,
             transform.position.z),
              Quaternion.identity);
+
+
+            shieldImage = temp.transform.Find("ShieldImage").GetComponent<Image>();
+            shieldImage.color = new Color(255, 255, 255, 0);
+            
 
             temp.transform.SetParent(transform);
             guim.overheadBars.Add(temp);
@@ -176,7 +187,7 @@ namespace efe{
 
             if(ownerFaction_string == "Ally")
             {
-                sliderFill.GetComponent<Image>().color = Color.green;
+                sliderFill.GetComponent<Image>().color = Color.blue;
             }
 
             // Always store the ideal ap this actor has, also can be used for maxAP this actor can havea.

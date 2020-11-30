@@ -87,6 +87,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 44c37ea8fe0c8ac49adce91e2bf637c0, type: 2}
+    - target: {fileID: 7633654929485179258, guid: d6f36e53684689849aa5b6ab64f71a90,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6f36e53684689849aa5b6ab64f71a90, type: 3}
 --- !u!1001 &8835282569193675164
@@ -96,6 +101,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1207662291, guid: 786bb629964b051418ae471652568f3c, type: 3}
+      propertyPath: m_Size.y
+      value: 1.8972032
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207662291, guid: 786bb629964b051418ae471652568f3c, type: 3}
+      propertyPath: m_Center.y
+      value: 0.854947
+      objectReference: {fileID: 0}
     - target: {fileID: 1339190394708847790, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -192,7 +205,7 @@ PrefabInstance:
     - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
         type: 3}
       propertyPath: actorName
-      value: Water City Commander
+      value: City Commander
       objectReference: {fileID: 0}
     - target: {fileID: 3805228078017992854, guid: 786bb629964b051418ae471652568f3c,
         type: 3}

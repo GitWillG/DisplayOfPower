@@ -37,6 +37,9 @@ public class spellManager : MonoBehaviour
     BestClickToMove bctm;
 
     int resultSpellDamage;
+
+    public Sprite shieldOn;
+    public Sprite shieldOff;
     
 
     // Start is called before the first frame update
@@ -286,11 +289,13 @@ public class spellManager : MonoBehaviour
         if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().cooldownCounters[curIndexCallback] > 0) 
         {
             guim.updateLog("Spell is in cooldown.", Color.yellow);
-            showNote("Spell is in cooldown.");
+            int indication = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().cooldownCounters[curIndexCallback];
+            showNote("Spell is in cooldown. " + indication + " turns left.");
             return;
         }
 
         if(mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].isPassive) return;
+        if(!mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().isTurn) return;
 
         if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().actionsRemaining <
             mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[curIndexCallback].actionNeeded
@@ -671,14 +676,14 @@ public class spellManager : MonoBehaviour
                 {
                     // Spawn caster particle on caster
                     GameObject temp = Instantiate(spellData.casterParticle, source.transform.position, Quaternion.identity);
-                    Destroy(temp, 3);
+                    Destroy(temp, 6);
                     temp.transform.parent = source.transform;
                 }
                 if(spellData.targetParticle != null)
                 {
                     // Spawn target particle on target
                     GameObject temp = Instantiate(spellData.targetParticle, target.transform.position, Quaternion.identity);
-                    Destroy(temp, 3);
+                    Destroy(temp, 6);
                     temp.transform.parent = source.transform;
                 }
 
@@ -1078,23 +1083,27 @@ public class spellManager : MonoBehaviour
         actorData data = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>();
 
         if (!data.isTurn) return;
-        if (data.actionsRemaining == 0)
-        {
-            gg.NextTurn();
-            return;
-        }
 
         if (data.curStance == actorData.stances.defensive)
         {
             data.curStance = actorData.stances.none;
-            guim.updateLog(data.actorName + " has no stance.", Color.blue);
-            
+            guim.updateLog(data.actorName + " has no stance.", Color.yellow);
+            data.shieldImage.color = new Color(255, 255, 255, 255);
+            data.shieldImage.sprite = shieldOff;
+
         }
         else
         {
             data.curStance = actorData.stances.defensive;
-            guim.updateLog(data.actorName + " is in defensive stance.", Color.blue);
+            guim.updateLog(data.actorName + " is in defensive stance.", Color.yellow);
             data.actionsRemaining--;
+            data.shieldImage.color = new Color(255, 255, 255, 255);
+            data.shieldImage.sprite = shieldOn;
+            if (data.actionsRemaining == 0)
+            {
+                gg.NextTurn();
+                return;
+            }
 
 
         }

@@ -76,6 +76,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1572226217045130392, guid: 080b3c0984c7ed34cb7c4c4958c88e61,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.037214156
+      objectReference: {fileID: 0}
+    - target: {fileID: -1572226217045130392, guid: 080b3c0984c7ed34cb7c4c4958c88e61,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.0027367864
+      objectReference: {fileID: 0}
+    - target: {fileID: -1572226217045130392, guid: 080b3c0984c7ed34cb7c4c4958c88e61,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.0008711338
+      objectReference: {fileID: 0}
     - target: {fileID: 113796, guid: 080b3c0984c7ed34cb7c4c4958c88e61, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -337,6 +352,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.0710179
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633654929485179258, guid: d6f36e53684689849aa5b6ab64f71a90,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6f36e53684689849aa5b6ab64f71a90, type: 3}
