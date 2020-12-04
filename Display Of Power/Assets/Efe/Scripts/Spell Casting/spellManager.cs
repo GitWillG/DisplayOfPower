@@ -473,7 +473,7 @@ public class spellManager : MonoBehaviour
                         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                         RaycastHit hit;
                         if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 10))
-                        {if (hit.transform.childCount == 0)
+                        {if (hit.transform.childCount != 0)
                         {
                             if (hit.transform.GetChild(0).gameObject.tag == "NPC")
                             {
