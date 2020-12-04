@@ -421,19 +421,19 @@ public class spellManager : MonoBehaviour
                             //      
                             if(Input.GetMouseButtonDown(0) && gg.legalHex.Contains(hit_preview.transform.gameObject))
                             {
-                                Destroy(temp);
-                                castPreviewEnabled = false;
-                                Debug.Log("Preview finished.");
-                                Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
                                 
 
                                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                                 RaycastHit hit;
-                                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-                                {
-                                    // if(hit.transform.gameObject.tag == "NPC")
-                                    // {
-                                        castSpell(currentSelectedCharacter, hit.transform.gameObject, curSpell);
+                                if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1<<10))
+                            {
+                                castPreviewEnabled = false;
+                                Destroy(temp);
+                                Debug.Log("Preview finished.");
+                                Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
+                                // if(hit.transform.gameObject.tag == "NPC")
+                                // {
+                                castSpell(currentSelectedCharacter, hit.transform.GetChild(0).gameObject, curSpell);
                                         // mc.isMoving = false;
                                     // }
                                     // else
@@ -465,24 +465,24 @@ public class spellManager : MonoBehaviour
                 }
                 else if(curCastType == "Single")
                 {
-                    if(Input.GetMouseButtonDown(0) && gg.legalHex.Contains(mc.selectedTarget.gameObject))
+                    if(Input.GetMouseButtonDown(0) /*&& gg.legalHex.Contains(mc.selectedTarget.gameObject)*/)
                     {
-                        castPreviewEnabled = false;
                         // Debug.Log("Preview finished.");
                         Cursor.SetCursor(guim.cursor_textures[0], Vector2.zero, CursorMode.Auto);
                         //      
                         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                         RaycastHit hit;
-                        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 10))
                         {
-                            if(hit.transform.gameObject.tag == "NPC")
+                            if(hit.transform.GetChild(0).gameObject.tag == "NPC")
                             {
-                                actorData data = hit.transform.gameObject.GetComponent<actorData>();
+                            castPreviewEnabled = false;
+                            actorData data = hit.transform.GetChild(0).gameObject.GetComponent<actorData>();
                                 if(curSpell.effectType == spellSO.effectTypes.substractive)
                                 {
                                     if(data.ownerFaction_string == "Enemy")
                                     {
-                                        castSpell(currentSelectedCharacter, hit.transform.gameObject, curSpell);
+                                        castSpell(currentSelectedCharacter, hit.transform.GetChild(0).gameObject, curSpell);
                                         // mc.isMoving = false;
                                     }
                                     else
@@ -500,7 +500,7 @@ public class spellManager : MonoBehaviour
                                 {
                                     if(data.ownerFaction_string == "Ally")
                                     {
-                                        castSpell(currentSelectedCharacter, hit.transform.gameObject, curSpell);
+                                        castSpell(currentSelectedCharacter, hit.transform.GetChild(0).gameObject, curSpell);
                                         // mc.isMoving = false;
                                     }
                                     else

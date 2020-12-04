@@ -250,13 +250,14 @@ public class MouseControl : MonoBehaviour
                         selectionMaterial = legalMove;
                         selectHex(hoveredTarget.gameObject);
                         }
-                    else if (Input.GetMouseButtonUp(0) && hoveredTarget != null && clickedHex == true)
-                    {
+                        else if (Input.GetMouseButtonUp(0) && hoveredTarget != null && clickedHex == true)
+                        {
                         selectHex(hoveredTarget.gameObject);
+                        }
                     }
-                    }
+                       
 
-                }
+            }
             //}
         }
     }
