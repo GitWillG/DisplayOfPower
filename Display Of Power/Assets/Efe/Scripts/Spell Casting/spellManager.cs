@@ -426,7 +426,7 @@ public class spellManager : MonoBehaviour
                                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                                 RaycastHit hit;
                                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1<<10))
-                            {
+                                {
                                 castPreviewEnabled = false;
                                 Destroy(temp);
                                 Debug.Log("Preview finished.");
@@ -473,14 +473,15 @@ public class spellManager : MonoBehaviour
                         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                         RaycastHit hit;
                         if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << 10))
+                        {if (hit.transform.childCount == 0)
                         {
-                            if(hit.transform.GetChild(0).gameObject.tag == "NPC")
+                            if (hit.transform.GetChild(0).gameObject.tag == "NPC")
                             {
-                            castPreviewEnabled = false;
-                            actorData data = hit.transform.GetChild(0).gameObject.GetComponent<actorData>();
-                                if(curSpell.effectType == spellSO.effectTypes.substractive)
+                                castPreviewEnabled = false;
+                                actorData data = hit.transform.GetChild(0).gameObject.GetComponent<actorData>();
+                                if (curSpell.effectType == spellSO.effectTypes.substractive)
                                 {
-                                    if(data.ownerFaction_string == "Enemy")
+                                    if (data.ownerFaction_string == "Enemy")
                                     {
                                         castSpell(currentSelectedCharacter, hit.transform.GetChild(0).gameObject, curSpell);
                                         // mc.isMoving = false;
@@ -489,16 +490,16 @@ public class spellManager : MonoBehaviour
                                     {
                                         guim.updateLog("You cannot target an ally.");
                                         am.playAudio2D("error");
-                                                                                
-                                        if(noteInstance != null)
+
+                                        if (noteInstance != null)
                                         {
                                             Destroy(noteInstance);
                                         }
                                     }
                                 }
-                                else if(curSpell.effectType == spellSO.effectTypes.additive)
+                                else if (curSpell.effectType == spellSO.effectTypes.additive)
                                 {
-                                    if(data.ownerFaction_string == "Ally")
+                                    if (data.ownerFaction_string == "Ally")
                                     {
                                         castSpell(currentSelectedCharacter, hit.transform.GetChild(0).gameObject, curSpell);
                                         // mc.isMoving = false;
@@ -507,8 +508,8 @@ public class spellManager : MonoBehaviour
                                     {
                                         guim.updateLog("You cannot target an enemy.");
                                         am.playAudio2D("error");
-                                                                                
-                                        if(noteInstance != null)
+
+                                        if (noteInstance != null)
                                         {
                                             Destroy(noteInstance);
                                         }
@@ -516,7 +517,7 @@ public class spellManager : MonoBehaviour
                                     }
                                 }
                             }
-                            else if(currentSelectedCharacter.GetComponent<actorData>().actionsRemaining < curSpell.actionNeeded)
+                            else if (currentSelectedCharacter.GetComponent<actorData>().actionsRemaining < curSpell.actionNeeded)
                             {
                                 guim.updateLog("You don't have enough action points.");
                                 am.playAudio2D("error");
@@ -526,17 +527,18 @@ public class spellManager : MonoBehaviour
                                     Destroy(noteInstance);
                                 }
                             }
-                            else
+                        }
+                        else
+                        {
+                            guim.updateLog("There is no NPC here.");
+                            // Debug.Log("There is no NPCs here.");
+                            am.playAudio2D("error");
+
+                            if (noteInstance != null)
                             {
-                                guim.updateLog("There is no NPC here.");
-                                // Debug.Log("There is no NPCs here.");
-                                am.playAudio2D("error");
-                                        
-                                        if(noteInstance != null)
-                                        {
-                                            Destroy(noteInstance);
-                                        }
+                                Destroy(noteInstance);
                             }
+                        }
                         }
                     }
                     else if(Input.GetMouseButtonDown(1))
