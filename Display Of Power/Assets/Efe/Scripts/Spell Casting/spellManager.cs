@@ -667,11 +667,11 @@ public class spellManager : MonoBehaviour
 
                 // Reduce action points of the source from action needed of spell
                 sourceActor.actionsRemaining -= spellData.actionNeeded;
-                if (sourceActor.actionsRemaining == 0)
-                {
+                //if (sourceActor.actionsRemaining == 0)
+                //{
                     //gg.turnDelaySecond = 3;
-                    gg.EndTurn();
-                }
+                    
+                //}
                 // yield return new WaitForSeconds(1);
 
 
@@ -866,8 +866,9 @@ public class spellManager : MonoBehaviour
             }
 
             cc.panToObject(target);
-            
-            
+            gg.EndTurn();
+
+
         }
         else if(spellData.actionNeeded > sourceActor.actionsRemaining)
         {

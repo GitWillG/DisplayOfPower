@@ -435,8 +435,6 @@ public class GUIManager : MonoBehaviour
         if (index > mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells.Length) return;
         //if (mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index] == null) return;
 
-        
-
         spellSO curSpell = mc.lastSelectedTarget.GetChild(0).GetComponent<actorData>().spells[index];
         if (curSpell != null)
         {
