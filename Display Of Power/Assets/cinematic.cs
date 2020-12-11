@@ -4,6 +4,7 @@ using System.Globalization;
 using UnityEngine;
 using UnityEngine.AI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class cinematic : MonoBehaviour
 {
@@ -15,8 +16,8 @@ public class cinematic : MonoBehaviour
     public TextMeshProUGUI speaker;
     public TextMeshProUGUI dialog;
 
-    public GameObject test;
-    public GameObject test2;
+    //public GameObject test;
+    //public GameObject test2;
 
     public GameObject hill;
 
@@ -50,8 +51,8 @@ public class cinematic : MonoBehaviour
                 cams[0].SetActive(false);
                 cams[1].SetActive(true);
 
-                speaker.GetComponent<TextMeshProUGUI>().text = "Waterbug";
-                dialog.GetComponent<TextMeshProUGUI>().text = "We need to find Juno.";
+                speaker.GetComponent<TextMeshProUGUI>().text = "Aelee";
+                dialog.GetComponent<TextMeshProUGUI>().text = "Commander, we are too close to their camps.";
 
 
                 checkPointStatus = 1;
@@ -67,66 +68,86 @@ public class cinematic : MonoBehaviour
                 cams[1].SetActive(false);
                 cams[2].SetActive(true);
 
-                speaker.GetComponent<TextMeshProUGUI>().text = "Waterbug";
-                dialog.GetComponent<TextMeshProUGUI>().text = "And get his pants.";
+                speaker.GetComponent<TextMeshProUGUI>().text = "Gallion";
+                dialog.GetComponent<TextMeshProUGUI>().text = "Keep moving, we have to get through their territory.";
 
 
                 checkPointStatus = 2;
-                Debug.Log("reacj");
             }
         }
 
         float distance2 = Vector3.Distance(actors[0].transform.position, checkpoints[2].transform.position);
         if (checkPointStatus == 2)
         {
-            if (distance2 < 7)
+            if (distance2 < 12)
             {
                 cams[2].SetActive(false);
                 cams[3].SetActive(true);
 
-                speaker.GetComponent<TextMeshProUGUI>().text = "Waterbug";
-                dialog.GetComponent<TextMeshProUGUI>().text = "He must pay for not eating us.";
-
+                speaker.GetComponent<TextMeshProUGUI>().text = "";
+                dialog.GetComponent<TextMeshProUGUI>().text = "";
 
                 checkPointStatus = 3;
-                Debug.Log("reacj");
             }
         }
 
         float distance3 = Vector3.Distance(actors[0].transform.position, checkpoints[3].transform.position);
         if (checkPointStatus == 3)
         {
-            if (distance3 < 7)
+            if (distance3 < 14)
             {
                 cams[3].SetActive(false);
                 cams[4].SetActive(true);
 
-                speaker.GetComponent<TextMeshProUGUI>().text = "Waterbug";
-                dialog.GetComponent<TextMeshProUGUI>().text = "We are juicy.";
-
-
                 checkPointStatus = 4;
-                Debug.Log("reacj");
+
             }
         }
 
-        if (reached == true) return;
-
-        foreach(GameObject n in actors)
+        float distance4 = Vector3.Distance(actors[0].transform.position, checkpoints[4].transform.position);
+        if (checkPointStatus == 4)
         {
-            float distance = Vector3.Distance(n.transform.position, hill.transform.position);
-            if(distance < 1)
+            if (distance4 < 10)
             {
-                n.GetComponent<Animator>().SetFloat("Speed", 0);
+                cams[4].SetActive(false);
+                cams[5].SetActive(true);
 
-                num++;
-                if(num == actors.Length)
-                { 
-                    reached = true;
-                }
+                speaker.GetComponent<TextMeshProUGUI>().text = "Silvrene";
+                dialog.GetComponent<TextMeshProUGUI>().text = "Well, if it looks like we’ll have to go through this group.";
+
+                checkPointStatus = 5;
+  
             }
         }
 
+        float distancehill = Vector3.Distance(actors[0].transform.position, hill.transform.position);
+        if (checkPointStatus == 5)
+        {
+            if (distancehill < 7)
+            {                   
+                cams[5].SetActive(false);
+                cams[6].SetActive(true);
 
+                speaker.GetComponent<TextMeshProUGUI>().text = "Briar";
+                dialog.GetComponent<TextMeshProUGUI>().text = "Ready yourselves.";
+
+                checkPointStatus = 6;
+
+                foreach (GameObject n in actors)
+                {
+                    n.GetComponent<Animator>().SetFloat("Speed", 0);
+
+                }
+
+                StartCoroutine("StartBattle");
+            }
+        }
+
+    }
+
+    IEnumerator StartBattle()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene("Master");
     }
 }
